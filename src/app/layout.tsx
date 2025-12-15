@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Artag | Software and App Development in Pereira",
   // Alternates for SEO
   alternates: {
-    canonical: "https://www.artag.com.co",
+    canonical: "https://www.artagdev.com.co",
   },
   // Optimized description (150-160 characters)
   description:
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en", // Keep as is if your primary audience is Spanish-speaking
-    url: "https://www.artag.com.co",
+    url: "https://www.artagdev.com.co",
     title: "Artag | Digital Solutions in Pereira",
     description:
       "Software development, mobile applications, and digital design in Pereira. Innovation and technology for your business.",
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     ],
   },
   // Contact information and branding
-  authors: [{ name: "Artag", url: "https://www.artag.com.co" }],
+  authors: [{ name: "Artag", url: "https://www.artagdev.com.co" }],
   generator: "Next.js",
   applicationName: "Artag",
   referrer: "origin-when-cross-origin",
