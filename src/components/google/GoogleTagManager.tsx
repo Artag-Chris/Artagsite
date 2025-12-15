@@ -2,8 +2,8 @@
 import Script from 'next/script';
 
 const GTM_ID = 
-//'GTM-MS75C74W';
-'GTM-M8X3ZG97'
+'GTM-MS75C74W';
+//'GTM-M8X3ZG97'
 const GA_ID = 'G-0EXYJWHP88';
 
 
