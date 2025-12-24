@@ -249,7 +249,7 @@ export const GeometricBackground = () => {
                     repeatType: "reverse",
                     delay: 8,
                 }}
-            />s
+            />
         </div>
     )
 }
