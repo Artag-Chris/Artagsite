@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import TypingAnimation from "../animations/typingAnimation"
 import RandomLoader from "../loading/random-loader"
 import CTAButton from "../compontents/CTABottom"
+import TechCube3D from "../animations/tech-cube-3d"
 import { Sparkles } from "lucide-react"
 
 function Hero() {
@@ -180,26 +181,36 @@ function Hero() {
 
       {/* Hero Section Content */}
       <section className="container mx-auto px-4 h-full flex items-center relative z-20">
-        <div className="max-w-3xl">
-          <Badge className="mb-4 bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20 transition-colors">
-            <TypingAnimation
-              phrases={["Fullstack Developer", "UI/UX Designer", "Problem Solver"]}
-              typeSpeed={80}
-              eraseSpeed={40}
-              delayBetweenPhrases={1500}
-              loop={true}
-            />
-          </Badge>
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 text-white">
-            Where Innovation Clicks: <span className="text-emerald-500">Experiences </span> Designed to Captivate
-          </h1>
-          <p className="text-zinc-200 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl">
-            I transform visions into beating-heart realities: crafting emotion-driven web experiences, AI-powered
-            applications, and seamless APIs that make your digital dreams breathe.
-          </p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full items-center">
+          {/* Left Content */}
+          <div className="max-w-2xl">
+            <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 transition-colors border border-cyan-500/30">
+              <TypingAnimation
+                phrases={["Fullstack Developer", "UI/UX Designer", "Problem Solver"]}
+                typeSpeed={80}
+                eraseSpeed={40}
+                delayBetweenPhrases={1500}
+                loop={true}
+              />
+            </Badge>
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 text-white">
+              Where Innovation Clicks: <span className="text-cyan-400">Experiences </span> Designed to Captivate
+            </h1>
+            <p className="text-zinc-200 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl">
+              I transform visions into beating-heart realities: crafting emotion-driven web experiences, AI-powered
+              applications, and seamless APIs that make your digital dreams breathe.
+            </p>
 
-          <div className="flex flex-col sm:flex-row gap-4">
-            <CTAButton text={"Contac me"} icon={<Sparkles />} />
+            <div className="flex flex-col sm:flex-row gap-4">
+              <CTAButton text={"Contac me"} icon={<Sparkles />} />
+            </div>
+          </div>
+
+          {/* Right 3D Element - Hidden on mobile */}
+          <div className="hidden lg:flex items-center justify-center h-96">
+            <div className="w-full h-full rounded-lg overflow-hidden border border-cyan-500/20 shadow-2xl shadow-cyan-500/10 bg-black/20 backdrop-blur-sm">
+              <TechCube3D />
+            </div>
           </div>
         </div>
       </section>
