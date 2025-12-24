@@ -85,21 +85,26 @@ function Hero() {
     }
   }, [isMounted])
 
-  // Handle city loader visibility
+  // Handle city loader visibility with minimum display time
   useEffect(() => {
     if (!isMounted) return
 
     let timer: NodeJS.Timeout
+    const MIN_LOADER_TIME = 2500 // Minimum time to show loader (ms)
+    const loaderStartTime = Date.now()
+
+    const hideLoader = () => {
+      setShowCityLoader(false)
+    }
 
     if (videoLoaded) {
-      timer = setTimeout(() => {
-        setShowCityLoader(false)
-      }, 500)
+      // Calculate remaining time to meet minimum display time
+      const elapsedTime = Date.now() - loaderStartTime
+      const remainingTime = Math.max(0, MIN_LOADER_TIME - elapsedTime)
+      timer = setTimeout(hideLoader, remainingTime)
     } else {
       // Fallback: hide loader after maximum time even if video hasn't loaded
-      timer = setTimeout(() => {
-        setShowCityLoader(false)
-      }, 4000) // Maximum 4 seconds
+      timer = setTimeout(hideLoader, 4000) // Maximum 4 seconds
     }
 
     return () => {
