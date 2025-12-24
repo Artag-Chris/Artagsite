@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import TypingAnimation from "../animations/typingAnimation"
-import CityLoader from "../loading/city-loader"
+import RandomLoader from "../loading/random-loader"
 import CTAButton from "../compontents/CTABottom"
 import { Sparkles } from "lucide-react"
 
@@ -114,7 +114,7 @@ function Hero() {
     <div className="relative overflow-hidden h-screen w-full">
       {/* City Loader Overlay */}
       {showCityLoader && (
-        <CityLoader
+        <RandomLoader
           onLoadingComplete={() => {
             // This callback is called when the loader animation completes
             // But we control the actual hiding via the useEffect above
