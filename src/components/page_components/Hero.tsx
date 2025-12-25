@@ -8,7 +8,6 @@ import RandomLoader from "../loading/random-loader"
 import CTAButton from "../compontents/CTABottom"
 
 import { Sparkles } from "lucide-react"
-import GLTFViewer from "../animations/3d/gltf-viewer"
 
 function Hero() {
   const videoContainerRef = useRef<HTMLDivElement>(null)
@@ -18,10 +17,13 @@ function Hero() {
   const [showCityLoader, setShowCityLoader] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
+  const loaderStartTimeRef = useRef<number | null>(null)
+  const hasHiddenLoaderRef = useRef(false)
 
   // Handle mobile detection after component mounts to avoid hydration issues
   useEffect(() => {
     setIsMounted(true)
+    loaderStartTimeRef.current = Date.now()
 
     const checkMobile = () => {
       const mobile = window.innerWidth <= 768
@@ -66,8 +68,6 @@ function Hero() {
       const handleError = () => {
         console.warn("Video failed to load, using fallback image")
         setVideoLoaded(false)
-        // Hide loader even if video fails
-        setTimeout(() => setShowCityLoader(false), 1000)
       }
 
       video.addEventListener("canplay", handleCanPlay)
@@ -87,30 +87,36 @@ function Hero() {
     }
   }, [isMounted])
 
-  // Handle city loader visibility with minimum display time
+  // Handle loader visibility with minimum display time - single effect
   useEffect(() => {
-    if (!isMounted) return
+    if (!isMounted || hasHiddenLoaderRef.current) return
 
-    let timer: NodeJS.Timeout
     const MIN_LOADER_TIME = 2500 // Minimum time to show loader (ms)
-    const loaderStartTime = Date.now()
+    const MAX_LOADER_TIME = 4000 // Maximum time to show loader (ms)
 
     const hideLoader = () => {
-      setShowCityLoader(false)
+      if (!hasHiddenLoaderRef.current) {
+        hasHiddenLoaderRef.current = true
+        setShowCityLoader(false)
+      }
     }
 
-    if (videoLoaded) {
-      // Calculate remaining time to meet minimum display time
-      const elapsedTime = Date.now() - loaderStartTime
-      const remainingTime = Math.max(0, MIN_LOADER_TIME - elapsedTime)
-      timer = setTimeout(hideLoader, remainingTime)
-    } else {
-      // Fallback: hide loader after maximum time even if video hasn't loaded
-      timer = setTimeout(hideLoader, 4000) // Maximum 4 seconds
-    }
+    // Set timer for minimum display time
+    const minTimer = setTimeout(() => {
+      // After minimum time, check if video is loaded
+      if (videoLoaded) {
+        hideLoader()
+      }
+    }, MIN_LOADER_TIME)
+
+    // Set timer for maximum display time (fallback)
+    const maxTimer = setTimeout(() => {
+      hideLoader()
+    }, MAX_LOADER_TIME)
 
     return () => {
-      if (timer) clearTimeout(timer)
+      clearTimeout(minTimer)
+      clearTimeout(maxTimer)
     }
   }, [isMounted, videoLoaded])
 
@@ -166,10 +172,7 @@ function Hero() {
             priority
             className="object-cover"
             onLoad={() => {
-              // Ensure loader hides when fallback image loads
-              if (!videoLoaded) {
-                setTimeout(() => setShowCityLoader(false), 500)
-              }
+              // Image loaded, but don't hide loader yet - let the effect handle it
             }}
           />
         </div>
