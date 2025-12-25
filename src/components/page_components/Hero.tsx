@@ -6,8 +6,9 @@ import { Badge } from "@/components/ui/badge"
 import TypingAnimation from "../animations/typingAnimation"
 import RandomLoader from "../loading/random-loader"
 import CTAButton from "../compontents/CTABottom"
-import TechCube3D from "../animations/tech-cube-3d"
+
 import { Sparkles } from "lucide-react"
+import GLTFViewer from "../animations/3d/gltf-viewer"
 
 function Hero() {
   const videoContainerRef = useRef<HTMLDivElement>(null)
@@ -177,6 +178,9 @@ function Hero() {
         <div
           className={`absolute inset-0 z-10 transition-all duration-500 ${isMobile ? "bg-black/70" : "bg-black/50"}`}
         />
+
+        {/* Smooth fade-out gradient at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent via-black/30 to-black z-15 pointer-events-none" />
       </div>
 
       {/* Hero Section Content */}
@@ -184,7 +188,7 @@ function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full items-center">
           {/* Left Content */}
           <div className="max-w-2xl">
-            <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 transition-colors border border-cyan-500/30">
+            <Badge className="mb-4 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 transition-colors border border-amber-500/30">
               <TypingAnimation
                 phrases={["Fullstack Developer", "UI/UX Designer", "Problem Solver"]}
                 typeSpeed={80}
@@ -194,7 +198,7 @@ function Hero() {
               />
             </Badge>
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 text-white">
-              Where Innovation Clicks: <span className="text-cyan-400">Experiences </span> Designed to Captivate
+              Where Innovation Clicks: <span className="text-amber-400">Experiences </span> Designed to Captivate
             </h1>
             <p className="text-zinc-200 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl">
               I transform visions into beating-heart realities: crafting emotion-driven web experiences, AI-powered
@@ -207,11 +211,11 @@ function Hero() {
           </div>
 
           {/* Right 3D Element - Hidden on mobile */}
-          <div className="hidden lg:flex items-center justify-center h-96">
-            <div className="w-full h-full rounded-lg overflow-hidden border border-cyan-500/20 shadow-2xl shadow-cyan-500/10 bg-black/20 backdrop-blur-sm">
-              <TechCube3D />
+          {/* <div className="hidden lg:flex items-center justify-center h-96 w-full">
+            <div className="w-full h-full flex items-center justify-center">
+              <GLTFViewer modelPath="/procedural-animated-energy-beam-material.glb" autoRotate />
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
     </div>

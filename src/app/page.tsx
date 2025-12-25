@@ -12,6 +12,10 @@ export default function Home() {
       <HeaderMain />
       <main className="w-full max-w-[100vw]">
         <Hero />
+        
+        {/* Smooth transition gradient */}
+        <div className="relative h-32 bg-gradient-to-b from-black/50 via-black/30 to-transparent pointer-events-none" />
+        
         <div className="max-w-7xl mx-auto px-3 sm:px-4">
           <Skills />
           <Proyects />
