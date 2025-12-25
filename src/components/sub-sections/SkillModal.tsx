@@ -48,8 +48,12 @@ export function SkillModal({ skill, isOpen, onClose }: SkillModalProps) {
 
               {/* Close Button */}
               <button
-                onClick={onClose}
-                className="absolute top-4 right-4 z-10 p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-700 transition-colors duration-200"
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onClose()
+                }}
+                className="absolute top-4 right-4 z-10 p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-700 transition-colors duration-200 cursor-pointer"
               >
                 <X className="h-5 w-5 text-zinc-300" />
               </button>
