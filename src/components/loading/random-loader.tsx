@@ -1,6 +1,6 @@
 "use client"
 
-import { lazy, Suspense, useMemo, useState, useEffect, useRef } from "react"
+import { lazy, Suspense, useMemo, useState, useEffect, useRef, useCallback } from "react"
 
 // Lazy load all loaders for code splitting
 const CityLoader = lazy(() => import("./city-loader"))
@@ -16,6 +16,7 @@ interface RandomLoaderProps {
 export default function RandomLoader({ onLoadingComplete, minDisplayTime = 2500 }: RandomLoaderProps) {
   const [isVisible, setIsVisible] = useState(true)
   const loaderStartTimeRef = useRef(Date.now())
+  const hasCompletedRef = useRef(false)
 
   // Select a random loader once on mount
   const SelectedLoader = useMemo(() => {
@@ -23,23 +24,26 @@ export default function RandomLoader({ onLoadingComplete, minDisplayTime = 2500 
     return loaders[Math.floor(Math.random() * loaders.length)]
   }, [])
 
-  // Enforce minimum display time
+  // Memoize the callback to prevent dependency changes
+  const handleLoadingComplete = useCallback(() => {
+    if (hasCompletedRef.current) return
+
+    hasCompletedRef.current = true
+    const elapsedTime = Date.now() - loaderStartTimeRef.current
+    const remainingTime = Math.max(0, minDisplayTime - elapsedTime)
+
+    setTimeout(() => {
+      setIsVisible(false)
+      onLoadingComplete?.()
+    }, remainingTime)
+  }, [minDisplayTime, onLoadingComplete])
+
+  // Enforce minimum display time - only run once on mount
   useEffect(() => {
-    const handleLoadingComplete = () => {
-      const elapsedTime = Date.now() - loaderStartTimeRef.current
-      const remainingTime = Math.max(0, minDisplayTime - elapsedTime)
-
-      setTimeout(() => {
-        setIsVisible(false)
-        onLoadingComplete?.()
-      }, remainingTime)
-    }
-
-    // If loader completes before min time, wait
     const timer = setTimeout(handleLoadingComplete, minDisplayTime)
 
     return () => clearTimeout(timer)
-  }, [minDisplayTime, onLoadingComplete])
+  }, []) // Empty dependency array - only run on mount
 
   if (!isVisible) return null
 
