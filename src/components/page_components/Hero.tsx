@@ -206,7 +206,7 @@ function Hero() {
             <p className="text-zinc-200 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl">
               I transform visions into beating-heart realities: crafting emotion-driven web experiences, AI-powered
               applications, and seamless APIs that make your digital dreams breathe.
-            </p>
+            </p> 
 
             <div className="flex flex-col sm:flex-row gap-4">
               <CTAButton text={"Contac me"} icon={<Sparkles />} />
