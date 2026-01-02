@@ -1,0 +1,235 @@
+/**
+ * N8n Chat Custom Styling
+ * Personaliza los colores y estilos del chat de n8n
+ */
+
+/* Variables de color - Cambia estos valores para personalizar */
+:root {
+  /* Colores principales */
+  --n8n-chat-primary: #6366f1; /* Indigo */
+  --n8n-chat-primary-dark: #4f46e5; /* Indigo oscuro */
+  --n8n-chat-primary-light: #818cf8; /* Indigo claro */
+  
+  /* Colores secundarios */
+  --n8n-chat-secondary: #a855f7; /* Violet/Morado */
+  --n8n-chat-secondary-dark: #9333ea; /* Morado oscuro */
+  
+  /* Colores de fondo */
+  --n8n-chat-bg: #18181b; /* Zinc-900 */
+  --n8n-chat-bg-light: #27272a; /* Zinc-800 */
+  --n8n-chat-bg-lighter: #3f3f46; /* Zinc-700 */
+  
+  /* Colores de texto */
+  --n8n-chat-text: #fafafa; /* Zinc-50 */
+  --n8n-chat-text-secondary: #d4d4d8; /* Zinc-300 */
+  
+  /* Bordes */
+  --n8n-chat-border: #3f3f46; /* Zinc-700 */
+}
+
+/* Botón flotante del chat */
+.n8n-chat-button {
+  background: linear-gradient(135deg, var(--n8n-chat-secondary) 0%, var(--n8n-chat-secondary-dark) 100%) !important;
+  border: none !important;
+  box-shadow: 0 8px 16px rgba(168, 85, 247, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.n8n-chat-button:hover {
+  box-shadow: 0 12px 24px rgba(168, 85, 247, 0.4) !important;
+  transform: scale(1.05) !important;
+}
+
+.n8n-chat-button:active {
+  transform: scale(0.95) !important;
+}
+
+/* Contenedor del chat */
+.n8n-chat-window {
+  background-color: var(--n8n-chat-bg) !important;
+  border: 1px solid var(--n8n-chat-border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Header del chat */
+.n8n-chat-header {
+  background: linear-gradient(135deg, var(--n8n-chat-primary) 0%, var(--n8n-chat-secondary) 100%) !important;
+  border-bottom: 1px solid var(--n8n-chat-border) !important;
+  padding: 16px !important;
+}
+
+.n8n-chat-header-title {
+  color: var(--n8n-chat-text) !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+}
+
+.n8n-chat-header-subtitle {
+  color: var(--n8n-chat-text-secondary) !important;
+  font-size: 12px !important;
+  opacity: 0.9 !important;
+}
+
+/* Área de mensajes */
+.n8n-chat-messages {
+  background-color: var(--n8n-chat-bg) !important;
+  padding: 16px !important;
+}
+
+/* Mensaje del usuario */
+.n8n-chat-message-user {
+  background: linear-gradient(135deg, var(--n8n-chat-primary) 0%, var(--n8n-chat-primary-dark) 100%) !important;
+  color: var(--n8n-chat-text) !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  margin-bottom: 8px !important;
+  box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2) !important;
+}
+
+/* Mensaje del bot */
+.n8n-chat-message-bot {
+  background-color: var(--n8n-chat-bg-light) !important;
+  color: var(--n8n-chat-text) !important;
+  border: 1px solid var(--n8n-chat-border) !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  margin-bottom: 8px !important;
+}
+
+/* Input del chat */
+.n8n-chat-input {
+  background-color: var(--n8n-chat-bg-light) !important;
+  border: 1px solid var(--n8n-chat-border) !important;
+  border-radius: 8px !important;
+  color: var(--n8n-chat-text) !important;
+  padding: 12px 16px !important;
+  font-size: 14px !important;
+}
+
+.n8n-chat-input::placeholder {
+  color: var(--n8n-chat-text-secondary) !important;
+  opacity: 0.6 !important;
+}
+
+.n8n-chat-input:focus {
+  outline: none !important;
+  border-color: var(--n8n-chat-primary) !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}
+
+/* Botón de envío */
+.n8n-chat-send-button {
+  background: linear-gradient(135deg, var(--n8n-chat-primary) 0%, var(--n8n-chat-secondary) 100%) !important;
+  border: none !important;
+  color: var(--n8n-chat-text) !important;
+  border-radius: 8px !important;
+  padding: 8px 16px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  font-weight: 500 !important;
+}
+
+.n8n-chat-send-button:hover {
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+  transform: translateY(-2px) !important;
+}
+
+.n8n-chat-send-button:active {
+  transform: translateY(0) !important;
+}
+
+/* Pantalla de bienvenida */
+.n8n-chat-welcome-screen {
+  background-color: var(--n8n-chat-bg) !important;
+  padding: 24px !important;
+}
+
+.n8n-chat-welcome-title {
+  color: var(--n8n-chat-text) !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+}
+
+.n8n-chat-welcome-subtitle {
+  color: var(--n8n-chat-text-secondary) !important;
+  font-size: 14px !important;
+  margin-bottom: 16px !important;
+}
+
+/* Botones de acción */
+.n8n-chat-action-button {
+  background-color: var(--n8n-chat-bg-light) !important;
+  border: 1px solid var(--n8n-chat-border) !important;
+  color: var(--n8n-chat-text) !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  margin-bottom: 8px !important;
+}
+
+.n8n-chat-action-button:hover {
+  background: linear-gradient(135deg, var(--n8n-chat-primary) 0%, var(--n8n-chat-secondary) 100%) !important;
+  border-color: var(--n8n-chat-primary) !important;
+  color: var(--n8n-chat-text) !important;
+}
+
+/* Indicador de escritura */
+.n8n-chat-typing-indicator {
+  color: var(--n8n-chat-text-secondary) !important;
+}
+
+.n8n-chat-typing-dot {
+  background-color: var(--n8n-chat-primary) !important;
+}
+
+/* Scrollbar personalizado */
+.n8n-chat-messages::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+.n8n-chat-messages::-webkit-scrollbar-track {
+  background: var(--n8n-chat-bg) !important;
+}
+
+.n8n-chat-messages::-webkit-scrollbar-thumb {
+  background: var(--n8n-chat-border) !important;
+  border-radius: 3px !important;
+}
+
+.n8n-chat-messages::-webkit-scrollbar-thumb:hover {
+  background: var(--n8n-chat-primary) !important;
+}
+
+/* Animaciones suaves */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.n8n-chat-message {
+  animation: slideIn 0.3s ease !important;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .n8n-chat-window {
+    border-radius: 8px !important;
+  }
+
+  .n8n-chat-header {
+    padding: 12px !important;
+  }
+
+  .n8n-chat-messages {
+    padding: 12px !important;
+  }
+}

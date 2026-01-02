@@ -1,4 +1,6 @@
 import './globals.css'
+import '@/styles/n8n-chat-custom.css'
+import '@n8n/chat/style.css'
 import { Inter } from 'next/font/google'
 import type { Metadata } from 'next'
 import { GoogleTagManager } from '@/components/google/GoogleTagManager'
