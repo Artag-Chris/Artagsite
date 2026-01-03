@@ -24,7 +24,7 @@ export default function Home() {
           <About />
         </div>
         <Contact />
-         {/* <N8nChat {...N8N_CHAT_CONFIG} /> */}
+         <N8nChat {...N8N_CHAT_CONFIG} />
       </main>
       <FooterMain />
     </div>

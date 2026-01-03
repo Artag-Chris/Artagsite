@@ -7,7 +7,7 @@
 
 export const N8N_CHAT_CONFIG = {
   // Required: Your n8n webhook URL
-  webhookUrl: process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || "",
+  webhookUrl: process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || "https://n8n.artagdev.com.co/webhook/48210b65-68d1-4619-9d20-2a093348c133/chat",
 
   // Optional: Chat display mode
   mode: "window" as const,
@@ -19,10 +19,10 @@ export const N8N_CHAT_CONFIG = {
   enableStreaming: false,
 
   // Optional: Initial messages displayed in the chat
-  initialMessages: [
-    "¡Hola! 👋",
-    "Soy Nathan, tu asistente de IA. ¿Cómo puedo ayudarte hoy?",
-  ],
+initialMessages: [
+  "Hello! I'm Braska, your AI agent. 👋",
+  "I can answer questions about ArtagDev and Christian. What would you like to know? 🤔",
+],
 
   // Optional: Key for chat input in the workflow
   chatInputKey: "chatInput",
@@ -37,21 +37,21 @@ export const N8N_CHAT_CONFIG = {
   metadata: {},
 
   // Optional: Internationalization configuration
-  i18nConfig: {
-    title: "¡Hola! 👋",
-    subtitle: "Estamos aquí para ayudarte 24/7",
-    footer: "",
-    getStarted: "Nueva Conversación",
-    inputPlaceholder: "Escribe tu pregunta...",
-  },
+i18nConfig: {
+  title: "Hi there! 👋",
+  subtitle: "I'm Braska, available to help you anytime",
+  footer: "",
+  getStarted: "New Chat",
+  inputPlaceholder: "What's your question?",
+},
 
   // Optional: Custom CSS variables for styling
   customCSSVariables: {
-    primaryColor: "#6366f1", // Indigo
-    primaryDark: "#4f46e5", // Indigo oscuro
-    primaryLight: "#818cf8", // Indigo claro
-    secondaryColor: "#a855f7", // Morado
-    secondaryDark: "#9333ea", // Morado oscuro
+    primaryColor: "#a855f7", // Morado - para el botón flotante
+    primaryDark: "#9333ea",
+    primaryLight: "#c084fc",
+    secondaryColor: "#6366f1", // Indigo
+    secondaryDark: "#4f46e5",
     bgColor: "#18181b", // Zinc-900
     bgLight: "#27272a", // Zinc-800
     bgLighter: "#3f3f46", // Zinc-700

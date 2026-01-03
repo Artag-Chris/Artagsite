@@ -1,210 +1,251 @@
 /**
- * N8n Chat Custom Styling
- * Personaliza los colores y estilos del chat de n8n
+ * N8n Chat Custom Styling - Artag Theme
+ * Modern dark theme with indigo/violet colors
  */
 
-/* Variables de color - Cambia estos valores para personalizar */
 :root {
-  /* Colores principales */
-  --n8n-chat-primary: #6366f1; /* Indigo */
-  --n8n-chat-primary-dark: #4f46e5; /* Indigo oscuro */
-  --n8n-chat-primary-light: #818cf8; /* Indigo claro */
+  /* Colors - Artag Theme */
+  --chat--color-primary: #a855f7; /* Violet/Morado - Botón flotante */
+  --chat--color-primary-shade-50: #9333ea; /* Morado oscuro */
+  --chat--color-primary-shade-100: #7c3aed; /* Morado más oscuro */
+  --chat--color-secondary: #6366f1; /* Indigo - Mensajes usuario */
+  --chat--color-secondary-shade-50: #4f46e5; /* Indigo oscuro */
+  --chat--color-white: #ffffff;
+  --chat--color-light: #27272a; /* Zinc-800 - Fondo claro */
+  --chat--color-light-shade-50: #3f3f46; /* Zinc-700 */
+  --chat--color-light-shade-100: #52525b; /* Zinc-600 */
+  --chat--color-medium: #71717a; /* Zinc-500 */
+  --chat--color-dark: #18181b; /* Zinc-900 - Fondo oscuro */
+  --chat--color-disabled: #52525b;
+  --chat--color-typing: #a1a1aa; /* Zinc-400 */
   
-  /* Colores secundarios */
-  --n8n-chat-secondary: #a855f7; /* Violet/Morado */
-  --n8n-chat-secondary-dark: #9333ea; /* Morado oscuro */
+  /* Base Layout */
+  --chat--spacing: 1rem;
+  --chat--border-radius: 0.75rem; /* Más redondeado */
+  --chat--transition-duration: 0.2s;
+  --chat--font-family: (-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif);
   
-  /* Colores de fondo */
-  --n8n-chat-bg: #18181b; /* Zinc-900 */
-  --n8n-chat-bg-light: #27272a; /* Zinc-800 */
-  --n8n-chat-bg-lighter: #3f3f46; /* Zinc-700 */
+  /* Window Dimensions */
+  --chat--window--width: 420px;
+  --chat--window--height: 650px;
+  --chat--window--bottom: 1.5rem;
+  --chat--window--right: 1.5rem;
+  --chat--window--z-index: 9999;
+  --chat--window--border: 1px solid var(--chat--color-light-shade-50);
+  --chat--window--border-radius: 1rem;
+  --chat--window--margin-bottom: var(--chat--spacing);
   
-  /* Colores de texto */
-  --n8n-chat-text: #fafafa; /* Zinc-50 */
-  --n8n-chat-text-secondary: #d4d4d8; /* Zinc-300 */
+  /* Header Styles */
+  --chat--header-height: auto;
+  --chat--header--padding: 1.5rem;
+  --chat--header--background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  --chat--header--color: var(--chat--color-white);
+  --chat--header--border-top: none;
+  --chat--header--border-bottom: none;
+  --chat--header--border-left: none;
+  --chat--header--border-right: none;
+  --chat--heading--font-size: 1.25rem;
+  --chat--subtitle--font-size: 0.875rem;
+  --chat--subtitle--line-height: 1.6;
   
-  /* Bordes */
-  --n8n-chat-border: #3f3f46; /* Zinc-700 */
+  /* Message Styles */
+  --chat--message--font-size: 0.95rem;
+  --chat--message--padding: 0.875rem 1rem;
+  --chat--message--border-radius: 0.75rem;
+  --chat--message-line-height: 1.5;
+  --chat--message--margin-bottom: 0.75rem;
+  --chat--message--bot--background: var(--chat--color-light);
+  --chat--message--bot--color: var(--chat--color-white);
+  --chat--message--bot--border: 1px solid var(--chat--color-light-shade-50);
+  --chat--message--user--background: var(--chat--color-secondary);
+  --chat--message--user--color: var(--chat--color-white);
+  --chat--message--user--border: none;
+  --chat--message--pre--background: rgba(0, 0, 0, 0.2);
+  --chat--messages-list--padding: 1rem;
+  
+  /* Toggle Button */
+  --chat--toggle--size: 64px;
+  --chat--toggle--width: var(--chat--toggle--size);
+  --chat--toggle--height: var(--chat--toggle--size);
+  --chat--toggle--border-radius: 50%;
+  --chat--toggle--background: var(--chat--color-primary);
+  --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
+  --chat--toggle--active--background: var(--chat--color-primary-shade-100);
+  --chat--toggle--color: var(--chat--color-white);
+  
+  /* Input Area */
+  --chat--textarea--height: 50px;
+  --chat--textarea--max-height: 30rem;
+  --chat--input--font-size: 0.95rem;
+  --chat--input--border: 0;
+  --chat--input--border-radius: 0.5rem;
+  --chat--input--padding: 0.875rem;
+  --chat--input--background: var(--chat--color-light);
+  --chat--input--text-color: var(--chat--color-white);
+  --chat--input--line-height: 1.5;
+  --chat--input--placeholder--font-size: var(--chat--input--font-size);
+  --chat--input--border-active: 0;
+  --chat--input--left--panel--width: 2rem;
+  
+  /* Button Styles */
+  --chat--button--color: var(--chat--color-white);
+  --chat--button--background: var(--chat--color-primary);
+  --chat--button--padding: 0.625rem 1rem;
+  --chat--button--border-radius: 0.5rem;
+  --chat--button--hover--color: var(--chat--color-white);
+  --chat--button--hover--background: var(--chat--color-primary-shade-50);
+  --chat--close--button--color-hover: var(--chat--color-primary);
+  
+  /* Send and File Buttons */
+  --chat--input--send--button--background: transparent;
+  --chat--input--send--button--color: var(--chat--color-primary);
+  --chat--input--send--button--background-hover: rgba(168, 85, 247, 0.1);
+  --chat--input--send--button--color-hover: var(--chat--color-primary-shade-50);
+  --chat--input--file--button--background: transparent;
+  --chat--input--file--button--color: var(--chat--color-secondary);
+  --chat--input--file--button--background-hover: rgba(99, 102, 241, 0.1);
+  --chat--input--file--button--color-hover: var(--chat--color-secondary-shade-50);
+  --chat--files-spacing: 0.25rem;
+  
+  /* Body and Footer */
+  --chat--body--background: var(--chat--color-dark);
+  --chat--footer--background: var(--chat--color-dark);
+  --chat--footer--color: var(--chat--color-white);
 }
 
-/* Botón flotante del chat */
+/* Botón flotante del chat - Moderno con sombra */
 .n8n-chat-button {
-  background: linear-gradient(135deg, var(--n8n-chat-secondary) 0%, var(--n8n-chat-secondary-dark) 100%) !important;
-  border: none !important;
-  box-shadow: 0 8px 16px rgba(168, 85, 247, 0.3) !important;
-  transition: all 0.3s ease !important;
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .n8n-chat-button:hover {
-  box-shadow: 0 12px 24px rgba(168, 85, 247, 0.4) !important;
-  transform: scale(1.05) !important;
+  box-shadow: 0 15px 40px rgba(168, 85, 247, 0.4) !important;
+  transform: translateY(-4px) !important;
 }
 
 .n8n-chat-button:active {
-  transform: scale(0.95) !important;
+  transform: translateY(-2px) !important;
 }
 
-/* Contenedor del chat */
+/* Contenedor del chat - Moderno */
 .n8n-chat-window {
-  background-color: var(--n8n-chat-bg) !important;
-  border: 1px solid var(--n8n-chat-border) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(10px) !important;
 }
 
-/* Header del chat */
+/* Header del chat - Gradiente moderno */
 .n8n-chat-header {
-  background: linear-gradient(135deg, var(--n8n-chat-primary) 0%, var(--n8n-chat-secondary) 100%) !important;
-  border-bottom: 1px solid var(--n8n-chat-border) !important;
-  padding: 16px !important;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2) !important;
 }
 
 .n8n-chat-header-title {
-  color: var(--n8n-chat-text) !important;
-  font-weight: 600 !important;
-  font-size: 16px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.5px !important;
 }
 
 .n8n-chat-header-subtitle {
-  color: var(--n8n-chat-text-secondary) !important;
-  font-size: 12px !important;
-  opacity: 0.9 !important;
+  opacity: 0.85 !important;
 }
 
 /* Área de mensajes */
 .n8n-chat-messages {
-  background-color: var(--n8n-chat-bg) !important;
-  padding: 16px !important;
+  background: linear-gradient(180deg, #18181b 0%, #1a1a1f 100%) !important;
 }
 
-/* Mensaje del usuario */
+/* Mensaje del usuario - Gradiente indigo */
 .n8n-chat-message-user {
-  background: linear-gradient(135deg, var(--n8n-chat-primary) 0%, var(--n8n-chat-primary-dark) 100%) !important;
-  color: var(--n8n-chat-text) !important;
-  border-radius: 12px !important;
-  padding: 12px 16px !important;
-  margin-bottom: 8px !important;
-  box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2) !important;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%) !important;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25) !important;
 }
 
-/* Mensaje del bot */
+/* Mensaje del bot - Moderno */
 .n8n-chat-message-bot {
-  background-color: var(--n8n-chat-bg-light) !important;
-  color: var(--n8n-chat-text) !important;
-  border: 1px solid var(--n8n-chat-border) !important;
-  border-radius: 12px !important;
-  padding: 12px 16px !important;
-  margin-bottom: 8px !important;
+  background: rgba(39, 39, 42, 0.8) !important;
+  backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(63, 63, 70, 0.5) !important;
 }
 
-/* Input del chat */
+/* Input del chat - Moderno */
 .n8n-chat-input {
-  background-color: var(--n8n-chat-bg-light) !important;
-  border: 1px solid var(--n8n-chat-border) !important;
-  border-radius: 8px !important;
-  color: var(--n8n-chat-text) !important;
-  padding: 12px 16px !important;
-  font-size: 14px !important;
+  background: rgba(39, 39, 42, 0.6) !important;
+  border: 1px solid rgba(99, 102, 241, 0.2) !important;
+  transition: all 0.3s ease !important;
 }
 
 .n8n-chat-input::placeholder {
-  color: var(--n8n-chat-text-secondary) !important;
-  opacity: 0.6 !important;
+  color: rgba(161, 161, 170, 0.6) !important;
 }
 
 .n8n-chat-input:focus {
-  outline: none !important;
-  border-color: var(--n8n-chat-primary) !important;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+  background: rgba(39, 39, 42, 0.9) !important;
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
 }
 
-/* Botón de envío */
+/* Botón de envío - Moderno */
 .n8n-chat-send-button {
-  background: linear-gradient(135deg, var(--n8n-chat-primary) 0%, var(--n8n-chat-secondary) 100%) !important;
-  border: none !important;
-  color: var(--n8n-chat-text) !important;
-  border-radius: 8px !important;
-  padding: 8px 16px !important;
-  cursor: pointer !important;
+  background: transparent !important;
+  color: #a855f7 !important;
   transition: all 0.3s ease !important;
-  font-weight: 500 !important;
 }
 
 .n8n-chat-send-button:hover {
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
-  transform: translateY(-2px) !important;
-}
-
-.n8n-chat-send-button:active {
-  transform: translateY(0) !important;
+  background: rgba(168, 85, 247, 0.1) !important;
+  color: #9333ea !important;
 }
 
 /* Pantalla de bienvenida */
 .n8n-chat-welcome-screen {
-  background-color: var(--n8n-chat-bg) !important;
-  padding: 24px !important;
+  background: linear-gradient(180deg, #18181b 0%, #1a1a1f 100%) !important;
 }
 
 .n8n-chat-welcome-title {
-  color: var(--n8n-chat-text) !important;
-  font-size: 20px !important;
-  font-weight: 600 !important;
-  margin-bottom: 8px !important;
-}
-
-.n8n-chat-welcome-subtitle {
-  color: var(--n8n-chat-text-secondary) !important;
-  font-size: 14px !important;
-  margin-bottom: 16px !important;
+  font-weight: 700 !important;
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
 }
 
 /* Botones de acción */
 .n8n-chat-action-button {
-  background-color: var(--n8n-chat-bg-light) !important;
-  border: 1px solid var(--n8n-chat-border) !important;
-  color: var(--n8n-chat-text) !important;
-  border-radius: 8px !important;
-  padding: 12px 16px !important;
-  cursor: pointer !important;
+  background: rgba(39, 39, 42, 0.6) !important;
+  border: 1px solid rgba(99, 102, 241, 0.2) !important;
   transition: all 0.3s ease !important;
-  margin-bottom: 8px !important;
 }
 
 .n8n-chat-action-button:hover {
-  background: linear-gradient(135deg, var(--n8n-chat-primary) 0%, var(--n8n-chat-secondary) 100%) !important;
-  border-color: var(--n8n-chat-primary) !important;
-  color: var(--n8n-chat-text) !important;
+  background: rgba(99, 102, 241, 0.1) !important;
+  border-color: #6366f1 !important;
+  color: #818cf8 !important;
 }
 
 /* Indicador de escritura */
-.n8n-chat-typing-indicator {
-  color: var(--n8n-chat-text-secondary) !important;
-}
-
 .n8n-chat-typing-dot {
-  background-color: var(--n8n-chat-primary) !important;
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
 }
 
 /* Scrollbar personalizado */
 .n8n-chat-messages::-webkit-scrollbar {
-  width: 6px !important;
+  width: 8px !important;
 }
 
 .n8n-chat-messages::-webkit-scrollbar-track {
-  background: var(--n8n-chat-bg) !important;
+  background: transparent !important;
 }
 
 .n8n-chat-messages::-webkit-scrollbar-thumb {
-  background: var(--n8n-chat-border) !important;
-  border-radius: 3px !important;
+  background: rgba(99, 102, 241, 0.3) !important;
+  border-radius: 4px !important;
 }
 
 .n8n-chat-messages::-webkit-scrollbar-thumb:hover {
-  background: var(--n8n-chat-primary) !important;
+  background: rgba(99, 102, 241, 0.5) !important;
 }
 
 /* Animaciones suaves */
-@keyframes slideIn {
+@keyframes slideInUp {
   from {
     opacity: 0;
     transform: translateY(10px);
@@ -216,20 +257,16 @@
 }
 
 .n8n-chat-message {
-  animation: slideIn 0.3s ease !important;
+  animation: slideInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 /* Responsive */
 @media (max-width: 640px) {
-  .n8n-chat-window {
-    border-radius: 8px !important;
-  }
-
-  .n8n-chat-header {
-    padding: 12px !important;
-  }
-
-  .n8n-chat-messages {
-    padding: 12px !important;
+  :root {
+    --chat--window--width: 100vw !important;
+    --chat--window--height: 100vh !important;
+    --chat--window--bottom: 0 !important;
+    --chat--window--right: 0 !important;
+    --chat--window--border-radius: 0 !important;
   }
 }

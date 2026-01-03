@@ -23,7 +23,7 @@ export function N8nChatPurple() {
         subtitle: "Estamos aquí para ayudarte",
         inputPlaceholder: "Escribe tu pregunta...",
       }}
-      customCSSVariables={{
+      customCSSVariables={{ 
         primaryColor: "#a855f7", // Morado
         primaryDark: "#9333ea", // Morado oscuro
         primaryLight: "#d8b4fe", // Morado claro

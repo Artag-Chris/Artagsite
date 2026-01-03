@@ -89,6 +89,10 @@ export default function N8nChat({
           chatSessionKey,
           loadPreviousSession,
           metadata,
+          theme: {
+            primaryColor: customCSSVariables.primaryColor || "#6366f1",
+            secondaryColor: customCSSVariables.secondaryColor || "#a855f7",
+          },
           i18n: {
             en: {
               title: i18nConfig.title || "Hi there! 👋",
