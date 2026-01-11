@@ -49,7 +49,7 @@ export function YouTubeThumbnail({ videoId, alt, onClick, isHovered }: YouTubeTh
         />
       ) : (
         <div className="absolute inset-0 bg-zinc-800 flex items-center justify-center">
-          <Loader2 className="h-8 w-8 text-emerald-500 animate-spin" />
+          <Loader2 className="h-8 w-8 text-indigo-500 animate-spin" />
         </div>
       )}
 
@@ -62,7 +62,7 @@ export function YouTubeThumbnail({ videoId, alt, onClick, isHovered }: YouTubeTh
       {/* Play button overlay */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div
-          className={`p-3 rounded-full bg-emerald-500/80 text-white transform transition-all duration-300 ${
+          className={`p-3 rounded-full bg-indigo-500/80 text-white transform transition-all duration-300 ${
             isHovered ? "scale-110" : "scale-100"
           }`}
         >

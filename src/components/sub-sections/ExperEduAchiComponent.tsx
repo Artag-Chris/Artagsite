@@ -20,7 +20,7 @@ function ExperEduAchiComponent({
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center px-2 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors relative whitespace-nowrap ${
                 activeTab === tab.id
-                  ? "text-emerald-500"
+                  ? "text-indigo-500"
                   : "text-zinc-400 hover:text-zinc-200"
               }`}
             >
@@ -28,7 +28,7 @@ function ExperEduAchiComponent({
               {tab.label}
               {activeTab === tab.id && (
                 <motion.div
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-500"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-500"
                   layoutId="activeTab"
                   transition={{ duration: 0.3 }}
                 />

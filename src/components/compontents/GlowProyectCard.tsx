@@ -63,7 +63,7 @@ const GlowProjectCard: React.FC<GlowProjectCardProps> = ({ project, onHover, isH
         onMouseEnter={() => onHover(true)}
         onMouseLeave={() => onHover(false)}
         className={`relative card card-border timeline-card rounded-xl mb-5 break-inside-avoid-column overflow-hidden ${
-          isHovered ? "shadow-lg shadow-emerald-500/20" : ""
+          isHovered ? "shadow-lg shadow-indigo-500/20" : ""
         }`}
       >
         {/* Efecto de brillo */}
@@ -72,7 +72,7 @@ const GlowProjectCard: React.FC<GlowProjectCardProps> = ({ project, onHover, isH
         {/* Contenido del proyecto */}
         <div
           className={`bg-zinc-900 border-zinc-800 overflow-hidden transition-all duration-300 h-full ${
-            isHovered ? "border-emerald-500" : "hover:border-emerald-500"
+            isHovered ? "border-indigo-500" : "hover:border-indigo-500"
           }`}
         >
           {/* YouTube thumbnail con botón de reproducción */}
@@ -96,7 +96,7 @@ const GlowProjectCard: React.FC<GlowProjectCardProps> = ({ project, onHover, isH
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-emerald-500 hover:text-emerald-400 flex items-center gap-1 text-sm"
+                className="text-indigo-500 hover:text-indigo-400 flex items-center gap-1 text-sm"
               >
                 View Project <ExternalLink className="h-3 w-3" />
               </a>
@@ -104,7 +104,7 @@ const GlowProjectCard: React.FC<GlowProjectCardProps> = ({ project, onHover, isH
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-emerald-500 hover:text-emerald-400 flex items-center gap-1 text-sm"
+                className="text-indigo-500 hover:text-indigo-400 flex items-center gap-1 text-sm"
               >
                 Source Code <Github className="h-3 w-3" />
               </a>

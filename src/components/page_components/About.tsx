@@ -46,8 +46,8 @@ function About() {
         className="bg-zinc-900 py-12 sm:py-20 relative overflow-hidden"
       >
         {/* Background elements */}
-        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-emerald-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-emerald-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-indigo-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-indigo-500/5 rounded-full blur-3xl"></div>
 
         <div className="max-w-7xl mx-auto px-3 sm:px-4 w-full">
           <div className="flex flex-col md:flex-row gap-6 sm:gap-12 items-center">
@@ -61,7 +61,7 @@ function About() {
                 className="w-full"
               >
                 <h2 className="text-2xl sm:text-3xl font-bold mb-2 w-full text-left">
-                  About <span className="text-emerald-500">Me</span>
+                  About <span className="text-indigo-500">Me</span>
                 </h2>
 
                 {/* Animated skills display */}
@@ -72,7 +72,7 @@ function About() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.5 }}
-                    className="text-emerald-400 font-medium"
+                    className="text-indigo-400 font-medium"
                   >
                     {skills[currentSkill]}
                   </motion.p>
@@ -97,7 +97,7 @@ function About() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3, delay: 0.1 * index }}
-                        className={`inline-flex items-center justify-center w-10 h-10 rounded-full bg-zinc-800 border border-zinc-700 ${social.color} transition-all duration-300 hover:border-zinc-500 hover:shadow-lg hover:shadow-emerald-500/10`}
+                        className={`inline-flex items-center justify-center w-10 h-10 rounded-full bg-zinc-800 border border-zinc-700 ${social.color} transition-all duration-300 hover:border-zinc-500 hover:shadow-lg hover:shadow-indigo-500/10`}
                         aria-label={social.name}
                       >
                         <Icon className="h-5 w-5" />
@@ -114,24 +114,10 @@ function About() {
 
                 {/* Action Buttons */}
                 <div className="flex flex-wrap gap-3 sm:gap-4 mb-6 sm:mb-8">
-                  <Button
-                    className="bg-emerald-500 hover:bg-emerald-600 text-white relative overflow-hidden group text-sm sm:text-base"
-                    onClick={handleResumeDownload}
-                  >
-                    <span className="relative z-10 flex items-center">
-                      <FileText className="mr-1 sm:mr-2 h-4 w-4" /> Download CV
-                    </span>
-                    <span className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                  </Button>
-                  <Button
-                    //  variant="outline"
-                    className="border-zinc-700 hover:border-emerald-500 hover:bg-zinc-800 text-white"
-                  >
-                    <ExternalLink className="mr-2 h-4 w-4" /> View Portfolio
-                  </Button>
+                
+                <MoreAboutmeButton />
                 </div>
 
-                <MoreAboutmeButton />
               </motion.div>
             </div>
           </div>

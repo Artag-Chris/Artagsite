@@ -154,7 +154,7 @@ export default function CurrentStudiesPage() {
               <div className="text-sm text-zinc-400">Active Studies</div>
             </div>
             <div className="study-stat text-center">
-              <div className="text-3xl font-bold text-green-400">{completedStudies}</div>
+              <div className="text-3xl font-bold text-indigo-400">{completedStudies}</div>
               <div className="text-sm text-zinc-400">Completed</div>
             </div>
           </div>

@@ -112,10 +112,10 @@ export default function TypingAnimation({
 
   return (
     <motion.div className={`inline-block ${className}`} initial={{ opacity: 1 }} animate={controls}>
-      <span className="text-emerald-500">{displayedText}</span>
+      <span className="text-indigo-500">{displayedText}</span>
       {cursor && (isTyping || isErasing) && (
         <motion.span
-          className="text-emerald-500"
+          className="text-indigo-500"
           initial={{ opacity: 1 }}
           animate={{ opacity: 0 }}
           transition={{ duration: 0.5, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}

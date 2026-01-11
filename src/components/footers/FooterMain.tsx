@@ -33,7 +33,7 @@ function Footer() {
           {/* Column 1: Logo & About */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center">
                 <span className="text-white font-bold text-xl">AD</span>
               </div>
               <h3 className="text-xl font-bold text-white">Artag Dev</h3>
@@ -67,16 +67,16 @@ function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-4 relative inline-block">
               Quick Links
-              <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-emerald-500"></span>
+              <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-indigo-500"></span>
             </h3>
             <ul className="space-y-2">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-zinc-400 hover:text-emerald-400 transition-colors duration-300 flex items-center group"
+                    className="text-zinc-400 hover:text-indigo-400 transition-colors duration-300 flex items-center group"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-zinc-700 group-hover:bg-emerald-500 mr-2 transition-colors"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-zinc-700 group-hover:bg-indigo-500 mr-2 transition-colors"></span>
                     {link.name}
                   </Link>
                 </li>
@@ -88,16 +88,16 @@ function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-4 relative inline-block">
               Services
-              <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-emerald-500"></span>
+              <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-indigo-500"></span>
             </h3>
             <ul className="space-y-2">
               {services.map((service) => (
                 <li key={service}>
                   <Link
                     href="#contact"
-                    className="text-zinc-400 hover:text-emerald-400 transition-colors duration-300 flex items-center group"
+                    className="text-zinc-400 hover:text-indigo-400 transition-colors duration-300 flex items-center group"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-zinc-700 group-hover:bg-emerald-500 mr-2 transition-colors"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-zinc-700 group-hover:bg-indigo-500 mr-2 transition-colors"></span>
                     {service}
                   </Link>
                 </li>
@@ -109,7 +109,7 @@ function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-4 relative inline-block">
               Newsletter
-              <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-emerald-500"></span>
+              <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-indigo-500"></span>
             </h3>
             <p className="text-zinc-400 text-sm mb-4">
               Subscribe to receive updates on new projects and tech articles.
@@ -124,12 +124,12 @@ function Footer() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 pr-10 focus:border-emerald-500"
+                    className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 pr-10 focus:border-indigo-500"
                   />
                   <Button
                     type="submit"
                     size="sm"
-                    className="absolute right-1 top-1 h-8 bg-emerald-500 hover:bg-emerald-600 text-white"
+                    className="absolute right-1 top-1 h-8 bg-indigo-500 hover:bg-indigo-600 text-white"
                   >
                     <ArrowRight className="h-4 w-4" />
                   </Button>
@@ -137,7 +137,7 @@ function Footer() {
                 <p className="text-zinc-500 text-xs">I respect your privacy. Unsubscribe at any time.</p>
               </form>
             ) : (
-              <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-md p-3 text-emerald-400 text-sm">
+              <div className="bg-indigo-500/10 border border-indigo-500/20 rounded-md p-3 text-indigo-400 text-sm">
                 Thanks for subscribing!
               </div>
             )}
@@ -161,7 +161,7 @@ function Footer() {
               </Link>
               <span className="text-zinc-700">•</span>
               <div className="text-zinc-500 text-sm flex items-center">
-                hecho con <Heart className="h-3 w-3 text-emerald-500 mx-1" /> en Pereira
+                hecho con <Heart className="h-3 w-3 text-indigo-500 mx-1" /> en Pereira
               </div>
             </div>
           </div>

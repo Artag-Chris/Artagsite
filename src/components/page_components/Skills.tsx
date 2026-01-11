@@ -31,7 +31,7 @@ function Skills() {
           {/* Header Section */}
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-              Tools of the <span className='text-emerald-500'>Trade</span>
+              Tools of the <span className='text-indigo-500'>Trade</span>
             </h2>
             <p className="text-zinc-300 text-base sm:text-lg max-w-3xl leading-relaxed">
               Every day, I leverage these powerful technologies and platforms to craft seamless digital experiences. 

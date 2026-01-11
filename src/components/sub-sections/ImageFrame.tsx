@@ -15,7 +15,7 @@ function ImageFrame({ setIsHovered, isHovered }: { setIsHovered: any; isHovered:
         >
           {/* Animated glow effect */}
           <motion.div
-            className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-500 to-blue-500 blur-lg opacity-50"
+            className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-blue-500 blur-lg opacity-50"
             animate={{
               scale: [1, 1.05, 1],
               opacity: [0.5, 0.6, 0.5],
@@ -62,7 +62,7 @@ function ImageFrame({ setIsHovered, isHovered }: { setIsHovered: any; isHovered:
 
           {/* Floating particles */}
           <motion.div
-            className="absolute w-2 h-2 rounded-full bg-emerald-400"
+            className="absolute w-2 h-2 rounded-full bg-indigo-400"
             style={{ top: "10%", right: "5%" }}
             animate={{
               y: [0, -15, 0],

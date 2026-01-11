@@ -50,7 +50,7 @@ export const skillsData = [
     description:
       "A JavaScript runtime built on Chrome's V8 JavaScript engine for building scalable network applications.",
     icon: SiNodedotjs,
-    color: "text-green-400",
+    color: "text-indigo-400",
   },
   {
     name: "Express",
@@ -64,7 +64,7 @@ export const skillsData = [
     level: "",
     description: "A NoSQL database that uses JSON-like documents with optional schemas for storing data.",
     icon: SiMongodb,
-    color: "text-green-500",
+    color: "text-indigo-500",
   },
   {
     name: "PostgreSQL",

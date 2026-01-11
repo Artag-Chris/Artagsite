@@ -152,7 +152,7 @@ export const GameCard = ({ game, index }: { game: Game; index: number }) => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "completed":
-        return "bg-green-500/20 text-green-300 border-green-500/30";
+        return "bg-indigo-500/20 text-indigo-300 border-indigo-500/30";
       case "playing":
         return "bg-pink-500/20 text-pink-300 border-pink-500/30";
       case "favorite":

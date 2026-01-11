@@ -40,7 +40,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "First Steps in Programming",
     description:
       "Discovered my passion for coding through a web development course. Built my first HTML and CSS website, sparking a lifelong journey into the world of programming.",
-    icon: <Code className="h-6 w-6 text-emerald-500" />,
+    icon: <Code className="h-6 w-6 text-indigo-500" />,
     imageUrl: "/placeholder.svg?height=400&width=600",
     imageAlt: "First coding experience",
     category: "education",
@@ -53,7 +53,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "Computer Science Degree",
     description:
       "Enrolled in a Computer Science program where I built a strong foundation in algorithms, data structures, and software engineering principles. Participated in coding competitions and hackathons.",
-    icon: <GraduationCap className="h-6 w-6 text-emerald-500" />,
+    icon: <GraduationCap className="h-6 w-6 text-indigo-500" />,
     imageUrl: "/placeholder.svg?height=400&width=600",
     imageAlt: "University graduation",
     category: "education",
@@ -66,7 +66,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "First Professional Role",
     description:
       "Joined a startup as a junior developer where I worked on real-world projects. Learned to collaborate with a team and deliver under tight deadlines. Developed skills in React and Node.js.",
-    icon: <Briefcase className="h-6 w-6 text-emerald-500" />,
+    icon: <Briefcase className="h-6 w-6 text-indigo-500" />,
     imageUrl: "/placeholder.svg?height=400&width=600",
     imageAlt: "First job experience",
     category: "work",
@@ -79,7 +79,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "Major Project Launch",
     description:
       "Led the development of a critical e-commerce platform that significantly increased company revenue. Implemented modern architecture patterns and optimized for performance and scalability.",
-    icon: <Rocket className="h-6 w-6 text-emerald-500" />,
+    icon: <Rocket className="h-6 w-6 text-indigo-500" />,
     imageUrl: "/placeholder.svg?height=400&width=600",
     imageAlt: "Project launch celebration",
     category: "project",
@@ -92,7 +92,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "Overcoming Challenges",
     description:
       "Navigated through the pandemic by adapting to remote work and leading digital transformation initiatives. Learned new technologies and methodologies to stay relevant in a changing landscape.",
-    icon: <Lightbulb className="h-6 w-6 text-emerald-500" />,
+    icon: <Lightbulb className="h-6 w-6 text-indigo-500" />,
     imageUrl: "/placeholder.svg?height=400&width=600",
     imageAlt: "Remote work setup",
     category: "achievement",
@@ -105,7 +105,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "Industry Recognition",
     description:
       "Received an industry award for innovative solutions in web development. Published technical articles and spoke at conferences, establishing myself as a thought leader in the development community.",
-    icon: <Award className="h-6 w-6 text-emerald-500" />,
+    icon: <Award className="h-6 w-6 text-indigo-500" />,
     imageUrl: "/placeholder.svg?height=400&width=600",
     imageAlt: "Award ceremony",
     category: "achievement",
@@ -118,7 +118,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "Current Journey",
     description:
       "Currently focused on exploring emerging technologies like AI and blockchain while mentoring the next generation of developers. Building a personal brand and contributing to open-source projects.",
-    icon: <Heart className="h-6 w-6 text-emerald-500" />,
+    icon: <Heart className="h-6 w-6 text-indigo-500" />,
     imageUrl: "/placeholder.svg?height=400&width=600",
     imageAlt: "Current workspace",
     category: "work",
@@ -140,7 +140,7 @@ const HorizontalTimelineEvent = ({
   return (
     <div className="inline-block min-w-[350px] md:min-w-[500px] px-6 relative" ref={ref}>
       {/* Timeline line */}
-      <div className="absolute top-1/2 transform -translate-y-1/2 left-0 right-0 h-1 bg-emerald-500/80"></div>
+      <div className="absolute top-1/2 transform -translate-y-1/2 left-0 right-0 h-1 bg-indigo-500/80"></div>
 
       {/* Year marker */}
       <motion.div
@@ -149,10 +149,10 @@ const HorizontalTimelineEvent = ({
         animate={isInView ? { opacity: 1, scale: 1 } : {}}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <div className="w-12 h-12 rounded-full bg-zinc-800 border-2 border-emerald-500 flex items-center justify-center">
-          <Calendar className="h-5 w-5 text-emerald-500" />
+        <div className="w-12 h-12 rounded-full bg-zinc-800 border-2 border-indigo-500 flex items-center justify-center">
+          <Calendar className="h-5 w-5 text-indigo-500" />
         </div>
-        <span className="mt-1 text-emerald-500 font-bold">{event.year}</span>
+        <span className="mt-1 text-indigo-500 font-bold">{event.year}</span>
       </motion.div>
 
       {/* Content container with conditional ordering */}
@@ -166,7 +166,7 @@ const HorizontalTimelineEvent = ({
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
                 {event.icon}
               </div>
               <h3 className="text-xl font-bold text-white">{event.title}</h3>
@@ -181,7 +181,7 @@ const HorizontalTimelineEvent = ({
                     ? "bg-purple-500/20 text-purple-300"
                     : event.category === "project"
                       ? "bg-amber-500/20 text-amber-300"
-                      : "bg-emerald-500/20 text-emerald-300"
+                      : "bg-indigo-500/20 text-indigo-300"
               }`}
             >
               {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
@@ -195,7 +195,7 @@ const HorizontalTimelineEvent = ({
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 to-transparent z-10 rounded-xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent z-10 rounded-xl"></div>
             <Image src={event.imageUrl || "/placeholder.svg"} alt={event.imageAlt} fill className="object-cover" />
           </motion.div>
         </div>
@@ -213,7 +213,7 @@ const VerticalTimelineEvent = ({ event, index, isLast }: { event: TimelineEvent;
   return (
     <div className="mb-24 last:mb-0 relative" ref={ref}>
       {/* Timeline line */}
-      <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-emerald-500/80"></div>
+      <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-indigo-500/80"></div>
 
       {/* Year marker */}
       <motion.div
@@ -222,10 +222,10 @@ const VerticalTimelineEvent = ({ event, index, isLast }: { event: TimelineEvent;
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <div className="w-12 h-12 rounded-full bg-zinc-800 border-2 border-emerald-500 flex items-center justify-center">
-          <Calendar className="h-5 w-5 text-emerald-500" />
+        <div className="w-12 h-12 rounded-full bg-zinc-800 border-2 border-indigo-500 flex items-center justify-center">
+          <Calendar className="h-5 w-5 text-indigo-500" />
         </div>
-        <span className="mt-1 text-emerald-500 font-bold">{event.year}</span>
+        <span className="mt-1 text-indigo-500 font-bold">{event.year}</span>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
@@ -239,7 +239,7 @@ const VerticalTimelineEvent = ({ event, index, isLast }: { event: TimelineEvent;
           transition={{ duration: 0.5, delay: 0.3 }}
         >
           <div className={`flex items-center gap-3 mb-3 ${!isLeft ? "md:flex-row-reverse" : ""}`}>
-            <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
               {event.icon}
             </div>
             <h3 className="text-xl font-bold text-white">{event.title}</h3>
@@ -254,7 +254,7 @@ const VerticalTimelineEvent = ({ event, index, isLast }: { event: TimelineEvent;
                   ? "bg-purple-500/20 text-purple-300"
                   : event.category === "project"
                     ? "bg-amber-500/20 text-amber-300"
-                    : "bg-emerald-500/20 text-emerald-300"
+                    : "bg-indigo-500/20 text-indigo-300"
             }`}
           >
             {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
@@ -268,7 +268,7 @@ const VerticalTimelineEvent = ({ event, index, isLast }: { event: TimelineEvent;
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 to-transparent z-10 rounded-xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent z-10 rounded-xl"></div>
           <Image src={event.imageUrl || "/placeholder.svg"} alt={event.imageAlt} fill className="object-cover" />
         </motion.div>
       </div>
@@ -281,7 +281,7 @@ const DirectionIndicator = ({ direction }: { direction: "down" | "right" }) => {
   return (
     <div className="flex justify-center my-8">
       <motion.div
-        className="w-12 h-12 rounded-full bg-zinc-800 border-2 border-emerald-500 flex items-center justify-center"
+        className="w-12 h-12 rounded-full bg-zinc-800 border-2 border-indigo-500 flex items-center justify-center"
         animate={{
           y: direction === "down" ? [0, 10, 0] : 0,
           x: direction === "right" ? [0, 10, 0] : 0,
@@ -292,9 +292,9 @@ const DirectionIndicator = ({ direction }: { direction: "down" | "right" }) => {
         }}
       >
         {direction === "down" ? (
-          <ChevronDown className="h-6 w-6 text-emerald-500" />
+          <ChevronDown className="h-6 w-6 text-indigo-500" />
         ) : (
-          <ChevronRight className="h-6 w-6 text-emerald-500" />
+          <ChevronRight className="h-6 w-6 text-indigo-500" />
         )}
       </motion.div>
     </div>
@@ -307,7 +307,7 @@ const ProgressIndicator = () => {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
   const width = useTransform(smoothProgress, [0, 1], ["0%", "100%"])
 
-  return <motion.div className="fixed top-0 left-0 right-0 h-1 bg-emerald-500 z-50" style={{ width, originX: 0 }} />
+  return <motion.div className="fixed top-0 left-0 right-0 h-1 bg-indigo-500 z-50" style={{ width, originX: 0 }} />
 }
 
 // Section connector component
@@ -315,7 +315,7 @@ const SectionConnector = ({ from, to }: { from: string; to: string }) => {
   // This would be implemented with SVG paths to create custom connectors between sections
   return (
     <div className="relative h-24">
-      <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-emerald-500/80"></div>
+      <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-indigo-500/80"></div>
     </div>
   )
 }
@@ -373,7 +373,7 @@ export default function ZigzagTimeline() {
       {sections.horizontal1.length > 0 && (
         <>
           <div className="mb-4 text-center">
-            <span className="text-emerald-500 font-medium">Scroll horizontally →</span>
+            <span className="text-indigo-500 font-medium">Scroll horizontally →</span>
           </div>
           <div className="relative overflow-x-auto pb-4 mb-12 timeline-scroll-section">
             <div className="whitespace-nowrap pl-[calc(50vw-250px)] pr-[calc(50vw-250px)]">
@@ -402,7 +402,7 @@ export default function ZigzagTimeline() {
       {sections.vertical.length > 0 && (
         <>
           <div className="mb-4 text-center">
-            <span className="text-emerald-500 font-medium">Scroll vertically ↓</span>
+            <span className="text-indigo-500 font-medium">Scroll vertically ↓</span>
           </div>
           <div className="max-w-5xl mx-auto px-4 mb-12">
             {sections.vertical.map((event, index) => (
@@ -429,7 +429,7 @@ export default function ZigzagTimeline() {
       {sections.horizontal2.length > 0 && (
         <>
           <div className="mb-4 text-center">
-            <span className="text-emerald-500 font-medium">Scroll horizontally →</span>
+            <span className="text-indigo-500 font-medium">Scroll horizontally →</span>
           </div>
           <div className="relative overflow-x-auto pb-4 mb-12 timeline-scroll-section">
             <div className="whitespace-nowrap pl-[calc(50vw-250px)] pr-[calc(50vw-250px)]">

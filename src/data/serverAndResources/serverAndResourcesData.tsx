@@ -117,7 +117,7 @@ export const serverCards: ServerCard[] = [
 export const getStatusColor = (status: string) => {
   switch (status) {
     case "live":
-      return "bg-green-500/20 text-green-300 border-green-500/30"
+      return "bg-indigo-500/20 text-indigo-300 border-indigo-500/30"
     case "development":
       return "bg-blue-500/20 text-blue-300 border-blue-500/30"
     case "planning":

@@ -20,7 +20,7 @@ export function YouTubePlayer({ videoId, title = "YouTube video player" }: YouTu
     <div className="relative w-full aspect-video">
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-zinc-900">
-          <Loader2 className="h-8 w-8 text-emerald-500 animate-spin" />
+          <Loader2 className="h-8 w-8 text-indigo-500 animate-spin" />
         </div>
       )}
       <iframe

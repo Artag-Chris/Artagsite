@@ -50,7 +50,7 @@ function ShowmoreInfo({
         <div className="relative z-20 mt-2">
           <button
             onClick={() => setShowMoreBio(!showMoreBio)}
-            className="text-emerald-400 text-sm flex items-center hover:text-emerald-300 transition-colors"
+            className="text-indigo-400 text-sm flex items-center hover:text-indigo-300 transition-colors"
           >
             {showMoreBio ? "Read less" : "Read more"}
             <ChevronDown

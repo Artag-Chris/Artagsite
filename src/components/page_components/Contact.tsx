@@ -19,7 +19,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { socialLinksContact, testimonials } from "@/data/contactData"
 
 type FormState = {
-  [key: string]: string; // Or a more specific mapping of object keys to their types
+  [key: string]: string; 
 };
 
 function Contact() {
@@ -81,7 +81,7 @@ function Contact() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Let's <span className="text-emerald-500">Connect</span>
+              Let's <span className="text-indigo-500">Connect</span>
             </h2>
             <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
               Do you need an efficient web solution? Let's talk and make it happen!
@@ -112,7 +112,7 @@ function Contact() {
                             onChange={handleChange}
                             placeholder="John Doe"
                             required
-                            className="mt-1 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-emerald-500 focus:ring-emerald-500"
+                            className="mt-1 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-indigo-500 focus:ring-indigo-500"
                           />
                         </div>
 
@@ -128,7 +128,7 @@ function Contact() {
                             onChange={handleChange}
                             placeholder="info@gmail.com"
                             required
-                            className="mt-1 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-emerald-500 focus:ring-emerald-500"
+                            className="mt-1 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-indigo-500 focus:ring-indigo-500"
                           />
                         </div>
 
@@ -137,7 +137,7 @@ function Contact() {
                             Project Type
                           </Label>
                           <Select value={formState.projectType} onValueChange={handleSelectChange}>
-                            <SelectTrigger className="mt-1 bg-zinc-800 border-zinc-700 text-white focus:border-emerald-500 focus:ring-emerald-500">
+                            <SelectTrigger className="mt-1 bg-zinc-800 border-zinc-700 text-white focus:border-indigo-500 focus:ring-indigo-500">
                               <SelectValue placeholder="Select project type" />
                             </SelectTrigger>
                             <SelectContent className="bg-zinc-800 border-zinc-700 text-white">
@@ -161,7 +161,7 @@ function Contact() {
                             onChange={handleChange}
                             placeholder="Tell me what you have in mind..."
                             required
-                            className="mt-1 min-h-[100px] sm:min-h-[120px] text-sm sm:text-base bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-emerald-500 focus:ring-emerald-500 placeholder:text-sm"
+                            className="mt-1 min-h-[100px] sm:min-h-[120px] text-sm sm:text-base bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-indigo-500 focus:ring-indigo-500 placeholder:text-sm"
                           />
                         </div>
                       </div>
@@ -169,7 +169,7 @@ function Contact() {
                       <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-2 sm:py-3 text-sm sm:text-base transition-all duration-300 relative overflow-hidden group"
+                        className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-medium py-2 sm:py-3 text-sm sm:text-base transition-all duration-300 relative overflow-hidden group"
                       >
                         <span className="relative z-10 flex items-center justify-center gap-1 sm:gap-2">
                           {isSubmitting ? "Sending..." : (
@@ -191,7 +191,7 @@ function Contact() {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <CheckCircle2 className="h-16 w-16 text-emerald-500 mb-4" />
+                      <CheckCircle2 className="h-16 w-16 text-indigo-500 mb-4" />
                       <h3 className="text-xl font-bold text-white mb-2">Message sent successfully!</h3>
                       <p className="text-zinc-300">
                         Thank you for contacting me. I'll get back to you as soon as possible.
@@ -216,14 +216,14 @@ function Contact() {
 
                   <div className="space-y-3 sm:space-y-5">
                     <div className="flex items-start gap-2 sm:gap-3">
-                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                        <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-emerald-500" />
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-indigo-500/10 flex items-center justify-center">
+                        <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-indigo-500" />
                       </div>
                       <div>
                         <p className="text-zinc-300 font-medium text-sm sm:text-base">Email</p>
                         <a
                           href="mailto:contact@johndoe.com"
-                          className="text-emerald-400 hover:text-emerald-300 transition-colors text-sm sm:text-base"
+                          className="text-indigo-400 hover:text-indigo-300 transition-colors text-sm sm:text-base"
                         >
                           artagdev@gmail.com
                         </a>
@@ -231,20 +231,20 @@ function Contact() {
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                        <Phone className="h-4 w-4 text-emerald-500" />
+                      <div className="w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center">
+                        <Phone className="h-4 w-4 text-indigo-500" />
                       </div>
                       <div>
                         <p className="text-zinc-300 font-medium">Phone</p>
-                        <a href="tel:+1234567890" className="text-emerald-400 hover:text-emerald-300 transition-colors">
+                        <a href="tel:+1234567890" className="text-indigo-400 hover:text-indigo-300 transition-colors">
                           +57 3205711428
                         </a>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                        <MapPin className="h-4 w-4 text-emerald-500" />
+                      <div className="w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center">
+                        <MapPin className="h-4 w-4 text-indigo-500" />
                       </div>
                       <div>
                         <p className="text-zinc-300 font-medium">Location</p>
@@ -280,11 +280,11 @@ function Contact() {
 
               {/* Testimonial */}
               <Card className="bg-zinc-900 border-zinc-800 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-500/10 rounded-bl-full"></div>
+                <div className="absolute top-0 right-0 w-20 h-20 bg-indigo-500/10 rounded-bl-full"></div>
 
                 <CardContent className="p-6 relative">
-                  <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4">
-                    <MessageSquare className="h-4 w-4 text-emerald-500" />
+                  <div className="w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center mb-4">
+                    <MessageSquare className="h-4 w-4 text-indigo-500" />
                   </div>
 
                   <div className="min-h-[160px] flex flex-col justify-between">
@@ -302,7 +302,7 @@ function Contact() {
                       </div>
                     </motion.div>
 
-                    <p className="text-emerald-400 mt-6 text-sm font-medium">
+                    <p className="text-indigo-400 mt-6 text-sm font-medium">
                       Over 50 clients have trusted my digital solutions. I'll help make your project successful!
                     </p>
                   </div>

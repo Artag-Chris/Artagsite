@@ -89,7 +89,7 @@ export default function TerminalLoader({ onLoadingComplete, minDisplayTime = 200
               <div className="flex gap-2">
                 <div className="w-3 h-3 rounded-full bg-red-500/60" />
                 <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
-                <div className="w-3 h-3 rounded-full bg-green-500/60" />
+                <div className="w-3 h-3 rounded-full bg-indigo-500/60" />
               </div>
               <span className="text-xs text-gray-500 ml-4 font-mono">artag@terminal</span>
             </div>

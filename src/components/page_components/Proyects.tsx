@@ -66,7 +66,7 @@ function Projects() {
           {/* Header with navigation for mobile */}
           <div className="flex flex-col sm:flex-row items-center justify-between mb-8 sm:mb-12">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-0">
-              Featured <span className="text-emerald-500">Projects</span>
+              Featured <span className="text-indigo-500">Projects</span>
             </h2>
             
             {/* Navigation moved below title on mobile */}

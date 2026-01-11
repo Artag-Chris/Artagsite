@@ -257,7 +257,7 @@ export const StudyIcon = ({
   const getConfidenceColor = (confidence: string) => {
     switch (confidence) {
       case "expert":
-        return "text-emerald-400 bg-emerald-500/20"
+        return "text-indigo-400 bg-indigo-500/20"
       case "confident":
         return "text-blue-400 bg-blue-500/20"
       case "intermediate":
