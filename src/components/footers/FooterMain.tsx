@@ -24,7 +24,7 @@ function Footer() {
       setTimeout(() => setIsSubscribed(false), 3000)
     }, 500)
   }
-
+  
   return (
     <footer className="bg-zinc-900 border-t border-zinc-800">
       {/* Main Footer */}
