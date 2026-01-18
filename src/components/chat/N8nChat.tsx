@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { useChatSuggestions } from "@/hooks/useChatSuggestions"
 
 interface N8nChatProps {
   webhookUrl: string
@@ -8,6 +9,7 @@ interface N8nChatProps {
   showWelcomeScreen?: boolean
   enableStreaming?: boolean
   initialMessages?: string[]
+  clickableSuggestions?: string[] // New: clickable suggestion buttons
   chatInputKey?: string
   chatSessionKey?: string
   loadPreviousSession?: boolean
@@ -40,6 +42,7 @@ export default function N8nChat({
   showWelcomeScreen = false,
   enableStreaming = false,
   initialMessages = ["Hi there! 👋", "My name is Nathan. How can I assist you today?"],
+  clickableSuggestions = [],
   chatInputKey = "chatInput",
   chatSessionKey = "sessionId",
   loadPreviousSession = true,
@@ -49,6 +52,13 @@ export default function N8nChat({
 }: N8nChatProps) {
   const chatContainerRef = useRef<HTMLDivElement>(null)
   const chatInitializedRef = useRef(false)
+
+  // Add clickable suggestion buttons
+  useChatSuggestions({
+    suggestions: clickableSuggestions,
+    containerSelector: "#n8n-chat-container",
+    enabled: clickableSuggestions.length > 0,
+  })
 
   useEffect(() => {
     // Apply custom CSS variables if provided

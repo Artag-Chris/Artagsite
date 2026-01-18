@@ -22,11 +22,14 @@ export const N8N_CHAT_CONFIG = {
 initialMessages: [
   "Hello! I'm Braska, your AI agent. 👋",
   "I can answer questions about ArtagDev and Christian. What would you like to know? 🤔",
-  "💡 Quick suggestions:",
-  "• Tell me about Christian's background",
-  "• What services does ArtagDev offer?",
-  "• How can I contact Christian?",
 ],
+
+  // Optional: Clickable suggestion buttons (auto-send message on click)
+  clickableSuggestions: [
+    "Tell me about Christian's background",
+    "What services does ArtagDev offer?",
+    "How can I contact Christian?",
+  ],
 
   // Optional: Key for chat input in the workflow
   chatInputKey: "chatInput",
