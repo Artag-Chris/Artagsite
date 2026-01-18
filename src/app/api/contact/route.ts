@@ -70,10 +70,13 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     // Handle validation errors
     if (error instanceof z.ZodError) {
+      const firstError = error.issues && error.issues.length > 0 ? error.issues[0] : null
+      const errorMessage = firstError ? firstError.message : 'Validación fallida'
+      
       return NextResponse.json(
         {
           success: false,
-          error: error.issues[0]?.message || 'Validación fallida',
+          error: errorMessage,
         },
         { status: 400 }
       )
