@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactNode } from 'react'
-import LoadingScreen from '@/components/loading/loading-screen'
+import RandomLoader from '@/components/loading/random-loader'
 import { useScrollRestoration } from '@/hooks/useScrollRestoration'
 
 interface PageWrapperProps {
@@ -13,7 +13,7 @@ export default function PageWrapper({ children }: PageWrapperProps) {
 
   return (
     <>
-      <LoadingScreen onLoadingComplete={restoreScroll} />
+      <RandomLoader onLoadingComplete={restoreScroll} />
       {children}
     </>
   )
