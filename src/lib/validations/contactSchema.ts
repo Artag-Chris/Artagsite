@@ -13,9 +13,12 @@ export const contactFormSchema = z.object({
     .max(100, 'El email no puede exceder 100 caracteres'),
   
   projectType: z
-    .enum(['web-development', 'mobile-app', 'ui-ux-design', 'consulting', 'other'], {
-      errorMap: () => ({ message: 'Tipo de proyecto inválido' }),
-    }),
+    .enum(['web-development', 'mobile-app', 'ui-ux-design', 'consulting', 'other'])
+    .catch('other')
+    .refine(
+      (val) => ['web-development', 'mobile-app', 'ui-ux-design', 'consulting', 'other'].includes(val),
+      { message: 'Tipo de proyecto inválido' }
+    ),
   
   message: z
     .string()
