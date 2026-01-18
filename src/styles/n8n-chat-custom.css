@@ -5,9 +5,9 @@
 
 :root {
   /* Colors - Artag Theme */
-  --chat--color-primary: #a855f7; /* Violet/Morado - Botón flotante */
-  --chat--color-primary-shade-50: #9333ea; /* Morado oscuro */
-  --chat--color-primary-shade-100: #7c3aed; /* Morado más oscuro */
+  --chat--color-primary: #4f46e5; /* Indigo oscuro - Botón flotante */
+  --chat--color-primary-shade-50: #4338ca; /* Indigo más oscuro */
+  --chat--color-primary-shade-100: #312e81; /* Indigo muy oscuro */
   --chat--color-secondary: #6366f1; /* Indigo - Mensajes usuario */
   --chat--color-secondary-shade-50: #4f46e5; /* Indigo oscuro */
   --chat--color-white: #ffffff;
@@ -38,7 +38,7 @@
   /* Header Styles */
   --chat--header-height: auto;
   --chat--header--padding: 1.5rem;
-  --chat--header--background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  --chat--header--background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
   --chat--header--color: var(--chat--color-white);
   --chat--header--border-top: none;
   --chat--header--border-bottom: none;
@@ -96,10 +96,10 @@
   --chat--button--hover--background: var(--chat--color-primary-shade-50);
   --chat--close--button--color-hover: var(--chat--color-primary);
   
-  /* Send and File Buttons */
+/* Send and File Buttons */
   --chat--input--send--button--background: transparent;
   --chat--input--send--button--color: var(--chat--color-primary);
-  --chat--input--send--button--background-hover: rgba(168, 85, 247, 0.1);
+  --chat--input--send--button--background-hover: rgba(79, 70, 229, 0.1);
   --chat--input--send--button--color-hover: var(--chat--color-primary-shade-50);
   --chat--input--file--button--background: transparent;
   --chat--input--file--button--color: var(--chat--color-secondary);
@@ -115,12 +115,12 @@
 
 /* Botón flotante del chat - Moderno con sombra */
 .n8n-chat-button {
-  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3) !important;
+  box-shadow: 0 10px 30px rgba(79, 70, 229, 0.3) !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .n8n-chat-button:hover {
-  box-shadow: 0 15px 40px rgba(168, 85, 247, 0.4) !important;
+  box-shadow: 0 15px 40px rgba(79, 70, 229, 0.4) !important;
   transform: translateY(-4px) !important;
 }
 
@@ -186,13 +186,13 @@
 /* Botón de envío - Moderno */
 .n8n-chat-send-button {
   background: transparent !important;
-  color: #a855f7 !important;
+  color: #4f46e5 !important;
   transition: all 0.3s ease !important;
 }
 
 .n8n-chat-send-button:hover {
-  background: rgba(168, 85, 247, 0.1) !important;
-  color: #9333ea !important;
+  background: rgba(79, 70, 229, 0.1) !important;
+  color: #4338ca !important;
 }
 
 /* Pantalla de bienvenida */
@@ -202,7 +202,7 @@
 
 .n8n-chat-welcome-title {
   font-weight: 700 !important;
-  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
@@ -223,7 +223,7 @@
 
 /* Indicador de escritura */
 .n8n-chat-typing-dot {
-  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%) !important;
 }
 
 /* Scrollbar personalizado */

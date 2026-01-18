@@ -22,6 +22,10 @@ export const N8N_CHAT_CONFIG = {
 initialMessages: [
   "Hello! I'm Braska, your AI agent. 👋",
   "I can answer questions about ArtagDev and Christian. What would you like to know? 🤔",
+  "💡 Quick suggestions:",
+  "• Tell me about Christian's background",
+  "• What services does ArtagDev offer?",
+  "• How can I contact Christian?",
 ],
 
   // Optional: Key for chat input in the workflow
@@ -42,14 +46,14 @@ i18nConfig: {
   subtitle: "I'm Braska, available to help you anytime",
   footer: "",
   getStarted: "New Chat",
-  inputPlaceholder: "What's your question?",
+  inputPlaceholder: "Ask me about Christian...",
 },
 
   // Optional: Custom CSS variables for styling
   customCSSVariables: {
-    primaryColor: "#a855f7", // Morado - para el botón flotante
-    primaryDark: "#9333ea",
-    primaryLight: "#c084fc",
+    primaryColor: "#4f46e5", // Indigo oscuro - para el botón flotante
+    primaryDark: "#4338ca",
+    primaryLight: "#818cf8",
     secondaryColor: "#6366f1", // Indigo
     secondaryDark: "#4f46e5",
     bgColor: "#18181b", // Zinc-900
