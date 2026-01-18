@@ -16,21 +16,53 @@ export function useChatSuggestions({
   enabled = true,
 }: UseChatSuggestionsOptions) {
   useEffect(() => {
-    if (!enabled || suggestions.length === 0) return
+    if (!enabled || suggestions.length === 0) {
+      console.log('ℹ️ Chat suggestions disabled or no suggestions provided')
+      return
+    }
+
+    console.log('🚀 Initializing chat suggestions with:', suggestions)
 
     let timeoutId: NodeJS.Timeout
     let observer: MutationObserver | null = null
 
     const addSuggestionButtons = () => {
       const container = document.querySelector(containerSelector)
-      if (!container) return
+      if (!container) {
+        console.log('❌ Chat container not found:', containerSelector)
+        return
+      }
 
-      // Find the messages container
-      const messagesContainer = container.querySelector('[class*="messages"]')
-      if (!messagesContainer) return
+      // Find the messages container - try multiple selectors
+      const messagesSelectors = [
+        '[class*="messages"]',
+        '[class*="Messages"]',
+        '[class*="message-list"]',
+        '[class*="chat-messages"]',
+        '.n8n-chat-messages',
+      ]
+      
+      let messagesContainer: Element | null = null
+      for (const selector of messagesSelectors) {
+        messagesContainer = container.querySelector(selector)
+        if (messagesContainer) {
+          console.log('✅ Found messages container with selector:', selector)
+          break
+        }
+      }
+
+      if (!messagesContainer) {
+        console.log('❌ Messages container not found, trying container itself')
+        messagesContainer = container
+      }
 
       // Check if buttons already exist
-      if (container.querySelector('.chat-suggestion-buttons')) return
+      if (container.querySelector('.chat-suggestion-buttons')) {
+        console.log('ℹ️ Suggestion buttons already exist')
+        return
+      }
+
+      console.log('🎨 Creating suggestion buttons...')
 
       // Create suggestion buttons container
       const buttonContainer = document.createElement('div')
@@ -75,36 +107,129 @@ export function useChatSuggestions({
 
         // Handle click - send message to chat
         button.onclick = () => {
-          const chatInput = container.querySelector('textarea[class*="textarea"]') as HTMLTextAreaElement
-          const sendButton = container.querySelector('button[class*="send"]') as HTMLButtonElement
+          console.log('🔘 Suggestion button clicked:', suggestion)
+          
+          // Try multiple selector strategies to find the input
+          const inputSelectors = [
+            'textarea[class*="textarea"]',
+            'textarea[class*="input"]',
+            'textarea',
+            'input[type="text"]',
+            '.n8n-chat-input textarea',
+            '.n8n-chat-input input',
+            '[class*="ChatInput"] textarea',
+            '[class*="ChatInput"] input',
+          ]
+          
+          const sendButtonSelectors = [
+            'button[class*="send"]',
+            'button[class*="Send"]',
+            'button[aria-label*="Send"]',
+            'button[aria-label*="send"]',
+            '.n8n-chat-send-button',
+            '[class*="SendButton"]',
+            'button[type="submit"]',
+            'form button:last-child',
+          ]
 
-          if (chatInput && sendButton) {
-            // Set the input value
-            chatInput.value = suggestion
-            
-            // Trigger input event so the chat widget knows the value changed
-            const inputEvent = new Event('input', { bubbles: true })
-            chatInput.dispatchEvent(inputEvent)
+          let chatInput: HTMLTextAreaElement | HTMLInputElement | null = null
+          let sendButton: HTMLButtonElement | null = null
 
-            // Small delay to ensure the input is processed
+          // Find the input element
+          for (const selector of inputSelectors) {
+            chatInput = container.querySelector(selector)
+            if (chatInput) {
+              console.log('✅ Found input with selector:', selector)
+              break
+            }
+          }
+
+          // Find the send button
+          for (const selector of sendButtonSelectors) {
+            sendButton = container.querySelector(selector)
+            if (sendButton) {
+              console.log('✅ Found send button with selector:', selector)
+              break
+            }
+          }
+
+          if (!chatInput) {
+            console.error('❌ Could not find chat input element')
+            console.log('📋 Available textareas:', container.querySelectorAll('textarea'))
+            console.log('📋 Available inputs:', container.querySelectorAll('input'))
+            return
+          }
+
+          if (!sendButton) {
+            console.error('❌ Could not find send button')
+            console.log('📋 Available buttons:', container.querySelectorAll('button'))
+          }
+
+          // Set the input value
+          console.log('📝 Setting input value to:', suggestion)
+          chatInput.value = suggestion
+          
+          // Trigger multiple events to ensure the chat widget detects the change
+          const events = ['input', 'change', 'keyup']
+          events.forEach(eventType => {
+            const event = new Event(eventType, { bubbles: true })
+            chatInput.dispatchEvent(event)
+          })
+
+          // Also try native setter
+          const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+            window.HTMLTextAreaElement.prototype,
+            'value'
+          )?.set || Object.getOwnPropertyDescriptor(
+            window.HTMLInputElement.prototype,
+            'value'
+          )?.set
+          
+          if (nativeInputValueSetter) {
+            nativeInputValueSetter.call(chatInput, suggestion)
+            chatInput.dispatchEvent(new Event('input', { bubbles: true }))
+          }
+
+          console.log('✅ Input value set, current value:', chatInput.value)
+
+          // Try to click send button
+          if (sendButton) {
             setTimeout(() => {
+              console.log('🚀 Clicking send button')
               sendButton.click()
               // Hide suggestions after clicking
               buttonContainer.style.display = 'none'
-            }, 100)
+              console.log('✅ Message sent, buttons hidden')
+            }, 150)
+          } else {
+            // Try to submit the form directly
+            const form = chatInput.closest('form')
+            if (form) {
+              console.log('📤 Submitting form directly')
+              setTimeout(() => {
+                form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }))
+                buttonContainer.style.display = 'none'
+              }, 150)
+            } else {
+              console.log('⚠️ Could not find send button or form, but input was filled')
+            }
           }
         }
 
         buttonContainer.appendChild(button)
       })
 
-      // Insert buttons after the last message
+      // Insert buttons after the last message or at the end of messages container
       const lastMessage = messagesContainer.querySelector('[class*="message"]:last-child')
       if (lastMessage) {
+        console.log('✅ Inserting buttons after last message')
         lastMessage.after(buttonContainer)
       } else {
+        console.log('✅ Appending buttons to messages container')
         messagesContainer.appendChild(buttonContainer)
       }
+      
+      console.log('🎉 Suggestion buttons added successfully')
     }
 
     // Wait for chat to initialize, then add buttons
