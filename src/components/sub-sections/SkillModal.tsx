@@ -25,7 +25,7 @@ export function SkillModal({ skill, isOpen, onClose }: SkillModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             onClick={onClose}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
           />
@@ -35,13 +35,13 @@ export function SkillModal({ skill, isOpen, onClose }: SkillModalProps) {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            onClick={onClose}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
           >
             <motion.div
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl"
+              onKeyDown={(e) => e.stopPropagation()}
+              className="relative w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl pointer-events-auto"
             >
               {/* Gradient Background */}
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-cyan-500/10 to-emerald-500/10 pointer-events-none" />
@@ -50,12 +50,14 @@ export function SkillModal({ skill, isOpen, onClose }: SkillModalProps) {
               <button
                 type="button"
                 onClick={(e) => {
+                  e.preventDefault()
                   e.stopPropagation()
                   onClose()
                 }}
-                className="absolute top-4 right-4 z-10 p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-700 transition-colors duration-200 cursor-pointer"
+                className="absolute top-4 right-4 z-50 p-2 rounded-lg bg-zinc-800 hover:bg-indigo-600/80 transition-all duration-300 ease-in-out cursor-pointer pointer-events-auto group shadow-lg"
+                aria-label="Close modal"
               >
-                <X className="h-5 w-5 text-zinc-300" />
+                <X className="h-5 w-5 text-zinc-300 group-hover:text-white transition-colors duration-300" />
               </button>
 
               {/* Content */}

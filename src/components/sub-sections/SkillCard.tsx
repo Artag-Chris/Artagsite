@@ -23,7 +23,7 @@ export function SkillCard({ skill, index, onCardClick }: { skill: Skill; index: 
       className="group"
     >
       <Card
-        className="relative bg-zinc-900/50 border-zinc-800/50 backdrop-blur-sm overflow-hidden h-[160px] cursor-pointer transition-all duration-300 hover:border-emerald-500/50 active:scale-95"
+        className="relative bg-zinc-900/50 border-zinc-800/50 backdrop-blur-sm overflow-hidden h-auto min-h-[160px] cursor-pointer transition-all duration-300 hover:border-emerald-500/50 active:scale-95"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => onCardClick(skill)}
@@ -39,7 +39,7 @@ export function SkillCard({ skill, index, onCardClick }: { skill: Skill; index: 
           Click
         </div>
 
-        <CardContent className="relative p-6 h-full flex flex-col z-10">
+        <CardContent className="relative p-6 flex flex-col z-10">
           <div className="flex items-center gap-3 mb-3">
             <div
               className={`relative p-2.5 rounded-xl bg-zinc-800/80 group-hover:bg-zinc-800 transition-all duration-300 ${isHovered ? "shadow-lg shadow-emerald-500/20" : ""}`}
@@ -54,16 +54,16 @@ export function SkillCard({ skill, index, onCardClick }: { skill: Skill; index: 
             </h3>
           </div>
 
+          {/* Mobile - Always show description */}
           <div className="md:hidden flex-1">
-            <p className="text-zinc-400 text-sm leading-relaxed line-clamp-3">{skill.description}</p>
+            <p className="text-zinc-400 text-sm leading-relaxed line-clamp-2">{skill.description}</p>
           </div>
 
-          <div
-            className={`hidden md:block flex-1 transition-all duration-500 ease-out ${
-              isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            <p className="text-zinc-300 text-sm leading-relaxed">{skill.description}</p>
+          {/* Desktop - Expandable description on hover */}
+          <div className={`hidden md:block transition-all duration-500 ease-in-out overflow-hidden ${
+            isHovered ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"
+          }`}>
+            <p className="text-zinc-300 text-sm leading-relaxed line-clamp-4">{skill.description}</p>
           </div>
 
           <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-emerald-500/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
