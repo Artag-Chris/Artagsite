@@ -20,9 +20,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { socialLinksContact, testimonials } from "@/data/contactData"
 import { useContactForm } from "@/hooks/useContactForm"
 
-type FormState = {
-  [key: string]: string; 
-};
+function Contact() {
   const {
     formData,
     isSubmitting,
