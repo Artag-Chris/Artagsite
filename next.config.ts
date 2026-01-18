@@ -21,6 +21,11 @@ const nextConfig: NextConfig = {
             },
         ],
     },
+    eslint: {
+        // Disable ESLint during builds due to ESLint v9 compatibility issues
+        // Run lint separately if needed: npm run lint
+        ignoreDuringBuilds: true,
+    },
 };
 
 export default nextConfig;
