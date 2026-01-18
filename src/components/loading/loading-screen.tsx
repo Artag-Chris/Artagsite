@@ -3,17 +3,25 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
-const LoadingScreen = () => {
+interface LoadingScreenProps {
+  onLoadingComplete?: () => void
+}
+
+const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     // Simulate loading time (you can remove this in production and use real loading detection)
     const timer = setTimeout(() => {
       setLoading(false)
+      // Call the callback after loading completes
+      if (onLoadingComplete) {
+        onLoadingComplete()
+      }
     }, 5000)
 
     return () => clearTimeout(timer)
-  }, []) 
+  }, [onLoadingComplete])
 
   return (
     <AnimatePresence>

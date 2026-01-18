@@ -285,7 +285,6 @@ function Contact() {
                       key={currentTestimonial}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
                       transition={{ duration: 0.5 }}
                     >
                       <p className="text-zinc-300 italic mb-4">"{testimonials[currentTestimonial].text}"</p>

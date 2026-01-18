@@ -1,3 +1,5 @@
+'use client'
+
 import N8nChat from "@/components/chat/N8nChat";
 import FooterMain from "@/components/footers/FooterMain";
 import About from "@/components/page_components/About";
@@ -6,11 +8,16 @@ import HeaderMain from "@/components/page_components/Headermain";
 import Hero from "@/components/page_components/Hero";
 import Proyects from "@/components/page_components/Proyects";
 import Skills from "@/components/page_components/Skills";
+import LoadingScreen from "@/components/loading/loading-screen";
 import { N8N_CHAT_CONFIG } from "@/config/n8n-chat.config";
+import { useScrollRestoration } from "@/hooks/useScrollRestoration";
 
 export default function Home() {
+  const { restoreScroll } = useScrollRestoration()
+
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 overflow-hidden">
+      <LoadingScreen onLoadingComplete={restoreScroll} />
       <HeaderMain />
       <main className="w-full max-w-[100vw]">
         <Hero />
