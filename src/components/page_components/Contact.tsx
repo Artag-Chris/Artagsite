@@ -41,7 +41,6 @@ type FormState = {
     }, 5000)
     return () => clearInterval(interval)
   }, [])
-  }, [])
 
   return (
     <section id="contact" className="py-12 sm:py-20 bg-black">
