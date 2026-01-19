@@ -18,7 +18,7 @@ export function SkillCard({ skill, index, onCardClick }: { skill: Skill; index: 
       transition={{ duration: 0.5, delay: index * 0.05 }}
       whileHover={{
         y: -8,
-        transition: { duration: 0.3, ease: "easeOut" },
+        transition: { duration: 0.3, ease: [0, 0, 0.2, 1] }, // ease-out for smooth lift
       }}
       className="group"
     >
@@ -59,12 +59,27 @@ export function SkillCard({ skill, index, onCardClick }: { skill: Skill; index: 
             <p className="text-zinc-400 text-sm leading-relaxed line-clamp-2">{skill.description}</p>
           </div>
 
-          {/* Desktop - Expandable description on hover */}
-          <div className={`hidden md:block transition-all duration-500 ease-in-out overflow-hidden ${
-            isHovered ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"
-          }`}>
+          {/* Desktop - Expandable description on hover with smooth Framer Motion */}
+          <motion.div
+            initial={{ height: 0, opacity: 0, marginTop: 0 }}
+            animate={isHovered ? { 
+              height: "auto", 
+              opacity: 1,
+              marginTop: 8
+            } : {
+              height: 0,
+              opacity: 0,
+              marginTop: 0
+            }}
+            transition={{ 
+              duration: 0.3,
+              ease: [0, 0, 0.2, 1], // ease-out for smooth expansion
+              opacity: { duration: 0.25, delay: isHovered ? 0.05 : 0 } // Slight delay on expand
+            }}
+            className="hidden md:block overflow-hidden"
+          >
             <p className="text-zinc-300 text-sm leading-relaxed line-clamp-4">{skill.description}</p>
-          </div>
+          </motion.div>
 
           <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-emerald-500/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </CardContent>
