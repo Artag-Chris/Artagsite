@@ -19,6 +19,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { socialLinksContact, testimonials } from "@/data/contactData"
 import { useContactForm } from "@/hooks/useContactForm"
+import { useMetaPixel } from "@/hooks/useMetaPixel"
 
 function Contact() {
   const {
@@ -28,10 +29,33 @@ function Contact() {
     error,
     handleChange,
     handleSelectChange,
-    handleSubmit,
+    handleSubmit: originalHandleSubmit,
   } = useContactForm()
 
+  const { trackEvent } = useMetaPixel()
   const [currentTestimonial, setCurrentTestimonial] = React.useState(0)
+
+  // Wrap the original handleSubmit with Meta Pixel tracking
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    // Track form submission
+    trackEvent("Contact", {
+      value: 1,
+      currency: "USD",
+      content_name: "Contact Form",
+      content_type: "lead",
+    })
+
+    // Call the original handler
+    await originalHandleSubmit(e)
+  }
+
+  // Track when social links are clicked
+  const handleSocialClick = (socialName: string) => {
+    trackEvent("ViewContent", {
+      content_type: "social_link",
+      content_name: socialName,
+    })
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -246,28 +270,29 @@ function Contact() {
                     </div>
                   </div>
 
-                  {/* Social Links */}
-                  <div className="mt-6">
-                    <p className="text-zinc-300 font-medium mb-3">Connect with me</p>
-                    <div className="flex gap-3">
-                      {socialLinksContact.map((social) => {
-                        const Icon = social.icon
-                        return (
-                          <motion.a
-                            key={social.name}
-                            href={social.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ y: -5 }}
-                            className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-zinc-800 border border-zinc-700 transition-colors duration-300 hover:border-zinc-500"
-                            aria-label={social.name}
-                          >
-                            <Icon className="h-5 w-5" />
-                          </motion.a>
-                        )
-                      })}
-                    </div>
-                  </div>
+                   {/* Social Links */}
+                   <div className="mt-6">
+                     <p className="text-zinc-300 font-medium mb-3">Connect with me</p>
+                     <div className="flex gap-3">
+                       {socialLinksContact.map((social) => {
+                         const Icon = social.icon
+                         return (
+                           <motion.a
+                             key={social.name}
+                             href={social.url}
+                             target="_blank"
+                             rel="noopener noreferrer"
+                             whileHover={{ y: -5 }}
+                             onClick={() => handleSocialClick(social.name)}
+                             className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-zinc-800 border border-zinc-700 transition-colors duration-300 hover:border-zinc-500"
+                             aria-label={social.name}
+                           >
+                             <Icon className="h-5 w-5" />
+                           </motion.a>
+                         )
+                       })}
+                     </div>
+                   </div>
                 </CardContent>
               </Card>
 

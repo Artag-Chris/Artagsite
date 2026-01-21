@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 import type { Metadata } from 'next'
 import { GoogleTagManager } from '@/components/google/GoogleTagManager'
 import GTMPageView from '@/components/google/GTMPageView'
+import { MetaPixel } from '@/components/meta/MetaPixel'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ['latin'] })
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
     siteName: "Artag",
     images: [
       {
-        url: "/logo.png", // Place this image in /public
+        url: "/og-image.png", // Optimized social sharing image
         width: 1200,
         height: 630,
         alt: "Artag software development in Pereira",
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
     title: "Artag | Software Development in Pereira",
     description:
       "Intelligent mobile applications and custom software from Pereira, Colombia.",
-    images: ["/twitter-artag.png"], // Place this image in /public
+    images: ["/twitter-image.png"], // Optimized Twitter image
     site: "@artagdev",
     creator: "@artagdev",
   },
@@ -103,6 +104,7 @@ export default function RootLayout({
         <SpeedInsights />
         <GoogleTagManager />
         <GTMPageView />
+        <MetaPixel />
         {children}
       </body>
     </html>

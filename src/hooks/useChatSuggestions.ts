@@ -16,12 +16,9 @@ export function useChatSuggestions({
   enabled = true,
 }: UseChatSuggestionsOptions) {
   useEffect(() => {
-    if (!enabled || suggestions.length === 0) {
-      console.log('ℹ️ Chat suggestions disabled or no suggestions provided')
+    if (!enabled || suggestions.length === 0) {      
       return
     }
-
-    console.log('🚀 Initializing chat suggestions with:', suggestions)
 
     let timeoutId: NodeJS.Timeout
     let observer: MutationObserver | null = null
@@ -52,17 +49,13 @@ export function useChatSuggestions({
       }
 
       if (!messagesContainer) {
-        console.log('❌ Messages container not found, trying container itself')
         messagesContainer = container
       }
 
       // Check if buttons already exist
       if (container.querySelector('.chat-suggestion-buttons')) {
-        console.log('ℹ️ Suggestion buttons already exist')
         return
       }
-
-      console.log('🎨 Creating suggestion buttons...')
 
       // Create suggestion buttons container
       const buttonContainer = document.createElement('div')
@@ -107,7 +100,6 @@ export function useChatSuggestions({
 
         // Handle click - send message to chat
         button.onclick = () => {
-          console.log('🔘 Suggestion button clicked:', suggestion)
           
           // Try multiple selector strategies to find the input
           const inputSelectors = [
@@ -155,18 +147,13 @@ export function useChatSuggestions({
 
           if (!chatInput) {
             console.error('❌ Could not find chat input element')
-            console.log('📋 Available textareas:', container.querySelectorAll('textarea'))
-            console.log('📋 Available inputs:', container.querySelectorAll('input'))
             return
           }
 
           if (!sendButton) {
             console.error('❌ Could not find send button')
-            console.log('📋 Available buttons:', container.querySelectorAll('button'))
           }
 
-          // Set the input value
-          console.log('📝 Setting input value to:', suggestion)
           chatInput.value = suggestion
           
           // Trigger multiple events to ensure the chat widget detects the change
@@ -190,8 +177,6 @@ export function useChatSuggestions({
             chatInput.dispatchEvent(new Event('input', { bubbles: true }))
           }
 
-          console.log('✅ Input value set, current value:', chatInput.value)
-
           // Try to click send button
           if (sendButton) {
             setTimeout(() => {
@@ -210,8 +195,6 @@ export function useChatSuggestions({
                 form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }))
                 buttonContainer.style.display = 'none'
               }, 150)
-            } else {
-              console.log('⚠️ Could not find send button or form, but input was filled')
             }
           }
         }
@@ -222,14 +205,11 @@ export function useChatSuggestions({
       // Insert buttons after the last message or at the end of messages container
       const lastMessage = messagesContainer.querySelector('[class*="message"]:last-child')
       if (lastMessage) {
-        console.log('✅ Inserting buttons after last message')
         lastMessage.after(buttonContainer)
       } else {
-        console.log('✅ Appending buttons to messages container')
         messagesContainer.appendChild(buttonContainer)
       }
-      
-      console.log('🎉 Suggestion buttons added successfully')
+
     }
 
     // Wait for chat to initialize, then add buttons
@@ -249,8 +229,6 @@ export function useChatSuggestions({
         })
       }
     }, 2000) // Wait 2 seconds for chat to initialize
-
-    // Cleanup
     return () => {
       clearTimeout(timeoutId)
       if (observer) {
