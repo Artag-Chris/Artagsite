@@ -52,10 +52,10 @@ function Contact() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Let's <span className="text-indigo-500">Connect</span>
+              Let's <span className="text-indigo-500">Collaborate</span>
             </h2>
             <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
-              Do you need an efficient web solution? Let's talk and make it happen!
+              I'm always interested in working on exciting projects. Let's build something great together.
             </p>
           </motion.div>
 
@@ -164,16 +164,16 @@ function Contact() {
                         className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-medium py-2 sm:py-3 text-sm sm:text-base transition-all duration-300 relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         <span className="relative z-10 flex items-center justify-center gap-1 sm:gap-2">
-                          {isSubmitting ? "Sending..." : (
-                            <>
-                              <span className="hidden sm:inline">
-                                Send me your inquiry and I'll get back to you soon!
-                              </span>
-                              <span className="sm:hidden">Send Message</span>
-                            </>
-                          )}
-                          <Send className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
-                        </span>
+                           {isSubmitting ? "Sending..." : (
+                             <>
+                               <span className="hidden sm:inline">
+                                 Send my inquiry
+                               </span>
+                               <span className="sm:hidden">Send</span>
+                             </>
+                           )}
+                           <Send className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
+                         </span>
                       </Button>
                     </form>
                     </>
@@ -295,7 +295,7 @@ function Contact() {
                     </motion.div>
 
                     <p className="text-indigo-400 mt-6 text-sm font-medium">
-                      Over 50 clients have trusted my digital solutions. I'll help make your project successful!
+                      I've worked with amazing teams and clients to create digital experiences that matter. Let's collaborate.
                     </p>
                   </div>
                 </CardContent>
@@ -303,18 +303,18 @@ function Contact() {
             </motion.div>
           </div>
 
-          {/* Final CTA */}
-          <motion.div
-            className="text-center mt-16"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
-            <h3 className="text-2xl font-bold text-white mb-3">I'm ready to help you</h3>
-            <p className="text-zinc-300 max-w-2xl mx-auto">
-              Tell me your idea and let's build something amazing together. Whether it's a website, an app, or consulting, I'm here to turn your vision into reality.
-            </p>
-          </motion.div>
+           {/* Final CTA */}
+           <motion.div
+             className="text-center mt-16"
+             initial={{ opacity: 0, y: 20 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ duration: 0.5, delay: 0.6 }}
+           >
+             <h3 className="text-2xl font-bold text-white mb-3">Let's create something amazing</h3>
+             <p className="text-zinc-300 max-w-2xl mx-auto">
+               Share your project details or ideas, and let's explore how we can collaborate to bring your vision to life.
+             </p>
+           </motion.div>
         </div>
       </div>
     </section>

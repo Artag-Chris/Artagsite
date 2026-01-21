@@ -18,21 +18,22 @@ export const metadata: Metadata = {
   },
   // Optimized description (150-160 characters)
   description:
-    "Innovative digital solutions in Pereira. Software development, mobile apps, and UI/UX design for companies looking to stand out in the digital world.",
+    "Full-stack developer specializing in web and mobile applications. Crafting elegant digital experiences with modern technologies.",
   // Relevant keywords
   keywords: [
-    "software development",
+    "software developer",
+    "full-stack developer",
+    "web developer",
+    "app developer",
     "mobile apps",
     "Pereira",
     "front-end",
     "back-end",
-    "API",
-    "databases",
-    "UI/UX design",
-    "graphic design",
-    "software architecture",
-    "Artag",
-    "digital solutions",
+    "React developer",
+    "Node.js developer",
+    "UI/UX designer",
+    "Artag Dev",
+    "developer portfolio",
   ],
   // Open Graph for social media
   openGraph: {
