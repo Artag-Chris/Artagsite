@@ -22,6 +22,8 @@ export interface ServerCard {
   imageUrl: string
   specs: string[]
   technologies: string[]
+  url?: string  // URL to access the server if live
+  features?: string[]  // Key features of the server
 }
 
 export const websiteCards: WebsiteCard[] = [

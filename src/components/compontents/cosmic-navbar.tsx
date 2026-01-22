@@ -13,6 +13,8 @@ if (typeof window !== "undefined") {
 interface NavLink {
   href: string
   label: string
+  shortLabel?: string
+  icon: React.ReactNode
 }
 
 interface CosmicNavbarProps {
@@ -26,6 +28,7 @@ const CosmicNavbar = ({ links, currentPath = "" }: CosmicNavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [windowDimensions, setWindowDimensions] = useState({ width: 1920, height: 1080 })
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null)
 
   const topHeaderRef = useRef<HTMLElement>(null)
   const bottomNavRef = useRef<HTMLDivElement>(null)
@@ -199,7 +202,7 @@ const CosmicNavbar = ({ links, currentPath = "" }: CosmicNavbarProps) => {
 
         {/* Border and nav content */}
         <div className="relative border-b border-white/10 shadow-2xl shadow-purple-500/10">
-          <div className="container mx-auto px-4 py-6">
+          <div className="container mx-auto px-4 py-5">
             {/* Mobile menu button */}
             <div className="md:hidden flex justify-end">
               <button
@@ -212,36 +215,63 @@ const CosmicNavbar = ({ links, currentPath = "" }: CosmicNavbarProps) => {
             </div>
 
             {/* Desktop menu */}
-            <ul className="hidden md:flex space-x-8 justify-center items-center py-4">
+            <ul className="hidden md:flex space-x-6 justify-center items-center py-3">
               {links.map((link) => {
                 const isActive = currentPath === link.href
                 return (
-                  <li key={link.href} className="group relative">
+                  <li
+                    key={link.href}
+                    className="group relative"
+                    onMouseEnter={() => setHoveredLink(link.href)}
+                    onMouseLeave={() => setHoveredLink(null)}
+                  >
                     <Link
                       href={link.href}
-                      className={`relative text-sm font-medium transition-all duration-300 ${
+                      className={`relative text-xs font-medium transition-all duration-300 ${
                         isActive ? "text-white" : "text-purple-200 hover:text-white"
-                      } flex items-center gap-2`}
+                      } flex items-center gap-2 px-3 py-2 rounded-lg`}
                     >
                       {/* Hover background */}
                       {!isActive && (
                         <motion.div
-                          className="absolute -inset-2 rounded-full bg-gradient-to-br from-purple-500/10 to-violet-500/10 opacity-0 group-hover:opacity-100"
+                          className="absolute -inset-2 rounded-lg bg-gradient-to-br from-purple-500/10 to-violet-500/10 opacity-0 group-hover:opacity-100"
                           layoutId={`hover-bg-${link.href}`}
                           transition={{ type: "spring", duration: 0.5 }}
                         />
                       )}
-                      <span className="relative z-10">{link.label}</span>
+
+                      {/* Icon */}
+                      <span className="relative z-10 flex items-center justify-center w-4 h-4">
+                        {link.icon}
+                      </span>
+
+                      {/* Tooltip label (appears on hover) */}
+                      <span className="relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 max-w-0 group-hover:max-w-xs overflow-hidden whitespace-nowrap">
+                        {link.shortLabel || link.label}
+                      </span>
 
                       {/* Active underline */}
                       {isActive && (
                         <motion.span
-                          className="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-400 to-violet-400"
+                          className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-400 to-violet-400"
                           layoutId="navbar-indicator"
                           transition={{ type: "spring", duration: 0.5 }}
                         />
                       )}
                     </Link>
+
+                    {/* Tooltip on hover */}
+                    {hoveredLink === link.href && (
+                      <motion.div
+                        className="absolute bottom-full mb-2 px-2 py-1 bg-purple-900/90 text-purple-100 text-xs rounded whitespace-nowrap pointer-events-none"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {link.label}
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-l-transparent border-r-transparent border-t-purple-900/90" />
+                      </motion.div>
+                    )}
                   </li>
                 )
               })}
@@ -271,13 +301,14 @@ const CosmicNavbar = ({ links, currentPath = "" }: CosmicNavbarProps) => {
                         <Link
                           href={link.href}
                           onClick={() => setIsMenuOpen(false)}
-                          className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+                          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
                             isActive
                               ? "text-white bg-purple-800/50 border-l-2 border-purple-400"
                               : "text-purple-200 hover:text-white hover:bg-purple-800/30"
                           }`}
                         >
-                          {link.label}
+                          <span className="flex items-center justify-center w-5 h-5">{link.icon}</span>
+                          <span>{link.label}</span>
                         </Link>
                       </motion.li>
                     )
@@ -300,20 +331,21 @@ const CosmicNavbar = ({ links, currentPath = "" }: CosmicNavbarProps) => {
 
         <div className="relative border-t border-white/10 shadow-2xl shadow-purple-500/10">
           <div className="container mx-auto px-4 py-3">
-            <ul className="hidden md:flex space-x-4 justify-center items-center">
+            <ul className="hidden md:flex space-x-3 justify-center items-center">
               {links.map((link) => {
                 const isActive = currentPath === link.href
                 return (
                   <li key={link.href} className="group relative">
                     <Link
                       href={link.href}
-                      className={`relative text-xs font-medium transition-all duration-300 px-3 py-2 rounded-full ${
+                      className={`relative text-xs font-medium transition-all duration-300 px-3 py-2 rounded-full flex items-center gap-1 ${
                         isActive
                           ? "text-white bg-purple-800/50 shadow-lg shadow-purple-500/20"
                           : "text-purple-200 hover:text-white hover:bg-purple-800/30"
                       }`}
                     >
-                      {link.label}
+                      <span className="flex items-center justify-center w-4 h-4">{link.icon}</span>
+                      <span className="hidden lg:inline">{link.shortLabel || link.label}</span>
                     </Link>
                   </li>
                 )
