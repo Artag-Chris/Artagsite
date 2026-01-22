@@ -156,7 +156,7 @@ export default function CurrentStudiesPage() {
         ))}
       </div>
 
-      <div className="container mx-auto px-4 py-10 relative z-10">
+      <div className="container mx-auto px-4 py-10 pt-16 md:pt-20 relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="page-title text-4xl md:text-6xl font-bold mb-6">

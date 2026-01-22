@@ -8,7 +8,7 @@ import ResourcesPage from "@/components/sub-sections/resources-page";
 export default function PrivateServersPage() {
 
     return (
-        <main className="bg-zinc-900 min-h-screen">
+        <main className="bg-zinc-950 min-h-screen">
             {/* Cosmic Navbar */}
             <CosmicNavbar links={navLinks} currentPath="/private-servers" />
 
