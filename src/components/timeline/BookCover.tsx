@@ -81,12 +81,6 @@ export default function BookCover({ onAnimationComplete }: BookCoverProps) {
         ))}
       </div>
 
-      {/* Ornamental frame (top-left corner) */}
-      <div className="absolute top-8 left-8 w-16 h-16 border-2 border-amber-400/40 rounded-lg opacity-50" />
-
-      {/* Ornamental frame (bottom-right corner) */}
-      <div className="absolute bottom-8 right-8 w-16 h-16 border-2 border-amber-400/40 rounded-lg opacity-50" />
-
       {/* Main content */}
       <div
         ref={contentRef}

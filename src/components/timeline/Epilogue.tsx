@@ -71,13 +71,7 @@ export default function Epilogue({ isVisible = false }: EpilogueProps) {
         ))}
       </div>
 
-      {/* Ornamental corner frames */}
-      <div className="absolute top-4 left-4 w-8 h-8 md:w-12 md:h-12 border-2 border-amber-400/30 rounded-lg" />
-      <div className="absolute top-4 right-4 w-8 h-8 md:w-12 md:h-12 border-2 border-amber-400/30 rounded-lg" />
-      <div className="absolute bottom-4 left-4 w-8 h-8 md:w-12 md:h-12 border-2 border-amber-400/30 rounded-lg" />
-      <div className="absolute bottom-4 right-4 w-8 h-8 md:w-12 md:h-12 border-2 border-amber-400/30 rounded-lg" />
-
-      {/* Page number */}
+      {/* Main content */}
       <div className="absolute top-6 md:top-8 right-6 md:right-8 text-zinc-500 text-xs md:text-sm font-serif">
         Epilogue
       </div>

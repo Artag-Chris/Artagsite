@@ -98,12 +98,6 @@ export default function BookPage({
       {/* Page background */}
       <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 to-zinc-950" />
 
-      {/* Ornamental corner frames */}
-      <div className="absolute top-4 left-4 w-8 h-8 md:w-12 md:h-12 border-2 border-amber-400/30 rounded-lg" />
-      <div className="absolute top-4 right-4 w-8 h-8 md:w-12 md:h-12 border-2 border-amber-400/30 rounded-lg" />
-      <div className="absolute bottom-4 left-4 w-8 h-8 md:w-12 md:h-12 border-2 border-amber-400/30 rounded-lg" />
-      <div className="absolute bottom-4 right-4 w-8 h-8 md:w-12 md:h-12 border-2 border-amber-400/30 rounded-lg" />
-
       {/* Page number */}
       <div className={`absolute top-6 md:top-8 text-zinc-500 text-xs md:text-sm font-serif ${
         side === "left" ? "left-6 md:left-8" : "right-6 md:right-8"
@@ -162,9 +156,6 @@ export default function BookPage({
         {/* Image if provided */}
         {imageUrl && (
           <div className={`relative h-40 md:h-56 rounded-lg overflow-hidden mb-6 md:mb-8 border-2 ${emotionalArcBorder[emotionalArc]} shadow-xl`}>
-            {/* Ornamental frame inside */}
-            <div className="absolute inset-2 border border-amber-400/20 rounded-sm pointer-events-none z-10" />
-            
             <Image
               src={imageUrl}
               alt={imageAlt || title}
