@@ -232,6 +232,14 @@ export const currentStudies: Study[] = [
   },
 ]
 
+export const getCategoriesWithCounts = () => {
+  const categories: Record<string, number> = {}
+  currentStudies.forEach((study) => {
+    categories[study.category] = (categories[study.category] || 0) + 1
+  })
+  return Object.entries(categories).sort((a, b) => b[1] - a[1])
+}
+
 export const StudyIcon = ({
   study,
   index,

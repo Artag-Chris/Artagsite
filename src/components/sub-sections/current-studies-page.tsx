@@ -1,61 +1,73 @@
 "use client"
-import { ArrowLeft, BookOpen } from "lucide-react"
+import { ArrowLeft, BookOpen, Search, X } from "lucide-react"
 import Link from "next/link"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { currentStudies, StudyIcon } from "@/data/currentstudies/currentStudiesData"
+import { currentStudies, StudyIcon, getCategoriesWithCounts } from "@/data/currentstudies/currentStudiesData"
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function CurrentStudiesPage() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const [activeFilter, setActiveFilter] = useState<"active" | "completed" | "all">("active")
+  const [searchQuery, setSearchQuery] = useState("")
+
+  // Filtrar estudios
+  const filteredStudies = currentStudies.filter((study) => {
+    // 1. Por status
+    if (activeFilter !== "all" && study.status !== activeFilter) return false
+
+    // 2. Por búsqueda (título + skills + descripción + categoría + provider)
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      return (
+        study.title.toLowerCase().includes(query) ||
+        study.category.toLowerCase().includes(query) ||
+        study.provider.toLowerCase().includes(query) ||
+        study.skills.some((skill) => skill.toLowerCase().includes(query)) ||
+        study.description.toLowerCase().includes(query)
+      )
+    }
+    return true
+  })
+
+  const categoriesWithCounts = getCategoriesWithCounts()
 
   useGSAP(
     () => {
-      // Floating animation for study icons
+      // Subtle entrance animation for study icons - SIN FLOATING
       gsap.utils.toArray(".study-icon").forEach((icon, index) => {
-        // Initial animation - icons appear with scale
         gsap.from(icon as Element, {
-          scale: 0,
+          scale: 0.95,
           opacity: 0,
-          y: 50,
-          duration: 1,
-          ease: "back.out(1.7)",
+          y: 30,
+          duration: 0.8,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: icon as Element,
             start: "top 85%",
           },
-          delay: index * 0.1,
+          delay: index * 0.08,
         })
+      })
 
-        // Continuous floating animation
-        gsap.to(icon as Element, {
-          y: "random(-8, 8)",
-          duration: "random(5, 8)",
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-          delay: index * 0.2,
-        })
-
-        // Subtle hover scale effect
-        const iconElement = icon as HTMLElement
+      // Subtle hover scale effect
+      const iconElements = document.querySelectorAll(".study-icon") as NodeListOf<HTMLElement>
+      iconElements.forEach((iconElement) => {
         iconElement.addEventListener("mouseenter", () => {
-          gsap.to(icon as Element, {
+          gsap.to(iconElement, {
             scale: 1.02,
-            y: -3,
-            duration: 0.4,
+            duration: 0.3,
             ease: "power2.out",
           })
         })
 
         iconElement.addEventListener("mouseleave", () => {
-          gsap.to(icon as Element, {
+          gsap.to(iconElement, {
             scale: 1,
-            y: 0,
-            duration: 0.4,
+            duration: 0.3,
             ease: "power2.out",
           })
         })
@@ -75,6 +87,33 @@ export default function CurrentStudiesPage() {
         opacity: 0,
         duration: 0.8,
         stagger: 0.1,
+        ease: "power2.out",
+        delay: 0.5,
+      })
+
+      // Search input animation
+      gsap.from(".search-container", {
+        y: 20,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        delay: 0.3,
+      })
+
+      // Category widget animation
+      gsap.from(".category-widget", {
+        y: 20,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        delay: 0.4,
+      })
+
+      // Tabs animation
+      gsap.from(".tabs-container", {
+        y: 15,
+        opacity: 0,
+        duration: 0.6,
         ease: "power2.out",
         delay: 0.5,
       })
@@ -129,10 +168,12 @@ export default function CurrentStudiesPage() {
         </Link>
 
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h1 className="page-title text-4xl md:text-6xl font-bold mb-6">
-            Current{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">Studies</span>
+            My{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">
+              Learning Journey
+            </span>
           </h1>
           <p className="text-xl text-zinc-300 max-w-2xl mx-auto mb-8">
             Continuously learning and expanding my skills through focused study programs and courses. Here's what I'm
@@ -140,7 +181,7 @@ export default function CurrentStudiesPage() {
           </p>
 
           {/* Stats */}
-          <div className="flex justify-center gap-8 mb-12">
+          <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-8">
             <div className="study-stat text-center">
               <div className="text-3xl font-bold text-blue-400">{totalStudies}</div>
               <div className="text-sm text-zinc-400">Total Studies</div>
@@ -160,7 +201,7 @@ export default function CurrentStudiesPage() {
           </div>
 
           {/* Confidence Legend */}
-          <div className="flex justify-center gap-6 mb-8">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-8">
             <div className="flex items-center gap-2 text-sm">
               <span className="text-lg">🌱</span>
               <span className="text-orange-400">Beginner</span>
@@ -180,12 +221,106 @@ export default function CurrentStudiesPage() {
           </div>
         </div>
 
-        {/* Studies Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto mb-16">
-          {currentStudies.map((study, index) => (
-            <StudyIcon key={study.id} study={study} index={index} />
-          ))}
+        {/* Category Breakdown Widget */}
+        <div className="category-widget max-w-4xl mx-auto mb-8 p-6 rounded-xl bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 backdrop-blur-sm">
+          <div className="text-sm font-semibold text-blue-300 mb-4">📚 Category Breakdown</div>
+          <div className="flex flex-wrap gap-4">
+            {categoriesWithCounts.map(([category, count]) => (
+              <div
+                key={category}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/30 transition-colors cursor-pointer"
+              >
+                <span className="text-sm font-medium text-blue-300">{category}</span>
+                <span className="text-xs text-zinc-400 bg-zinc-800/50 px-2 py-0.5 rounded-full">{count}</span>
+              </div>
+            ))}
+          </div>
         </div>
+
+        {/* Search Bar + Tabs Container */}
+        <div className="search-container max-w-4xl mx-auto mb-8 flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between pb-8 border-b border-zinc-700">
+          {/* Search Input */}
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-zinc-500" />
+            <input
+              type="text"
+              placeholder="Search studies, skills, categories..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 rounded-lg bg-zinc-800/50 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            )}
+          </div>
+
+          {/* Tabs */}
+          <div className="tabs-container flex gap-2">
+            <button
+              onClick={() => setActiveFilter("active")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                activeFilter === "active"
+                  ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white"
+                  : "text-zinc-400 bg-zinc-800/30 hover:bg-zinc-700/50"
+              }`}
+            >
+              Active
+            </button>
+            <button
+              onClick={() => setActiveFilter("completed")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                activeFilter === "completed"
+                  ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white"
+                  : "text-zinc-400 bg-zinc-800/30 hover:bg-zinc-700/50"
+              }`}
+            >
+              Completed
+            </button>
+            <button
+              onClick={() => setActiveFilter("all")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                activeFilter === "all"
+                  ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white"
+                  : "text-zinc-400 bg-zinc-800/30 hover:bg-zinc-700/50"
+              }`}
+            >
+              All
+            </button>
+          </div>
+        </div>
+
+        {/* Studies Grid */}
+        {filteredStudies.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto mb-16">
+            {filteredStudies.map((study, index) => (
+              <StudyIcon key={study.id} study={study} index={index} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16 max-w-4xl mx-auto">
+            <div className="w-16 h-16 rounded-full bg-zinc-800/50 flex items-center justify-center mx-auto mb-4">
+              <Search className="h-8 w-8 text-zinc-600" />
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">No studies found</h3>
+            <p className="text-zinc-400 mb-6">
+              Try adjusting your search or filter. Remember, you can search by study name, skills, categories, and more!
+            </p>
+            <button
+              onClick={() => {
+                setSearchQuery("")
+                setActiveFilter("all")
+              }}
+              className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-medium hover:from-blue-500 hover:to-cyan-400 transition-all"
+            >
+              Clear Filters
+            </button>
+          </div>
+        )}
 
         {/* Footer */}
         <div className="text-center py-8">
