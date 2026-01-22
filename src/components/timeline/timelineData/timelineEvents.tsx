@@ -26,6 +26,10 @@ export const timelineEvents: TimelineEvent[] = [
       "https://res.cloudinary.com/dfg2xrsqz/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1748870454/DALL_E_2025-06-02_08.20.22_-_A_detailed_manga-style_illustration_of_a_light-skinned_man_inspired_by_a_real_person__he_has_short_dark_hair_styled_upwards_a_trimmed_goatee_beard_a_s8hake.webp",
     imageAlt: "First coding experience",
     category: "education",
+    chapterNumber: 1,
+    chapterTitle: "The Beginning",
+    emotionalArc: "discovery",
+    quote: "Every journey begins with a single step into the unknown.",
   },
   {
     id: 2,
@@ -38,6 +42,10 @@ export const timelineEvents: TimelineEvent[] = [
       "https://res.cloudinary.com/dfg2xrsqz/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1748873481/3intento_mzvnrz.jpg",
     imageAlt: "Transformative relationship experience",
     category: "personal",
+    chapterNumber: 2,
+    chapterTitle: "A Meeting of Souls",
+    emotionalArc: "transformation",
+    quote: "The right person can change your entire perspective on life.",
   },
   {
     id: 3,
@@ -50,6 +58,10 @@ export const timelineEvents: TimelineEvent[] = [
       "https://res.cloudinary.com/dfg2xrsqz/image/upload/v1748875536/4intento_xqus5g.jpg",
     imageAlt: "Job searching in Bogotá",
     category: "work",
+    chapterNumber: 3,
+    chapterTitle: "The City of Trials",
+    emotionalArc: "challenge",
+    quote: "In uncertainty lies the opportunity to discover who you truly are.",
   },
   {
     id: 4,
@@ -62,6 +74,10 @@ export const timelineEvents: TimelineEvent[] = [
       "https://res.cloudinary.com/dfg2xrsqz/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1748875949/5intentop_muv3yv.jpg",
     imageAlt: "Dual journey of coding studies and impending fatherhood",
     category: "personal",
+    chapterNumber: 4,
+    chapterTitle: "Awakening",
+    emotionalArc: "triumph",
+    quote: "When passion meets purpose, magic happens.",
   },
   {
     id: 5,
@@ -71,9 +87,13 @@ export const timelineEvents: TimelineEvent[] = [
       "Faced profound professional and personal challenges: endured multiple software company rejections despite promising interviews, while simultaneously processing the heartbreaking loss of our expected child. Through this darkness, I found strength in continued learning and preparation, holding onto an unwavering conviction that perseverance in my passion would eventually lead to breakthrough.",
     icon: <Shield className="h-6 w-6 text-emerald-500" />,
     imageUrl:
-      "https://res.cloudinary.com/dfg2xrsqz/image/upload/v1748876334/6intento_niymlc.jpg",
+      "https://res.cloudinary.com/dfg2xrsqz/image/upload/v1748876334/6intento_niymlm.jpg",
     imageAlt: "Perseverance through professional and personal adversity",
     category: "personal",
+    chapterNumber: 5,
+    chapterTitle: "The Darkest Hour",
+    emotionalArc: "challenge",
+    quote: "Strength is not the absence of struggle, but perseverance through it.",
   },
   {
     id: 6,
@@ -86,6 +106,10 @@ export const timelineEvents: TimelineEvent[] = [
       "https://res.cloudinary.com/dfg2xrsqz/image/upload/v1748876599/7intento_hhofhn.jpg",
     imageAlt: "New beginnings with daughter in Pereira",
     category: "personal",
+    chapterNumber: 6,
+    chapterTitle: "A New Light",
+    emotionalArc: "triumph",
+    quote: "Sometimes the greatest blessing comes at the moment when hope feels lost.",
   },
   {
     id: 7,
@@ -98,6 +122,10 @@ export const timelineEvents: TimelineEvent[] = [
       "https://res.cloudinary.com/dfg2xrsqz/image/upload/v1748877349/8intento_k0isga.jpg",
     imageAlt: "Developer working with family photo nearby",
     category: "work",
+    chapterNumber: 7,
+    chapterTitle: "The Breakthrough",
+    emotionalArc: "triumph",
+    quote: "Dreams deferred are not dreams denied, only dreams with deeper roots.",
   },
 ];
 
@@ -110,4 +138,8 @@ export interface TimelineEvent {
   imageUrl: string;
   imageAlt: string;
   category: "education" | "work" | "project" | "achievement" | "personal";
+  chapterNumber: number;
+  chapterTitle: string;
+  emotionalArc: "challenge" | "triumph" | "transformation" | "discovery";
+  quote: string;
 }
