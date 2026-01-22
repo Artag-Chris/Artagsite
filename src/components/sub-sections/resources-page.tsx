@@ -97,72 +97,7 @@ export default function ResourcesPage() {
           </p>
         </div>
 
-        {/* Useful Websites Section */}
-        <section>
-          <div className="section-header text-center mb-10">
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <Globe className="h-7 w-7 text-purple-400" />
-              <h2 className="text-2xl md:text-3xl font-bold text-white">Useful Websites</h2>
-            </div>
-            <p className="text-zinc-400 max-w-2xl mx-auto text-sm">
-              Essential tools and platforms that power my development workflow
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {websiteCards.map((website) => (
-              <div
-                key={website.id}
-                className="website-card group bg-zinc-800/50 backdrop-blur-sm rounded-lg border border-zinc-700 overflow-hidden hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 hover:-translate-y-1"
-              >
-                <div className="relative h-40 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-transparent z-10"></div>
-                  <Image
-                    src={website.imageUrl || "/placeholder.svg"}
-                    alt={website.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </div>
-
-                <div className="p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400">
-                      {website.icon}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-bold text-white text-sm group-hover:text-purple-300 transition-colors">
-                        {website.title}
-                      </h3>
-                      <span className="text-xs text-purple-400">{website.category}</span>
-                    </div>
-                  </div>
-
-                  <p className="text-zinc-300 text-xs mb-3 line-clamp-2">{website.description}</p>
-
-                  <div className="flex flex-wrap gap-1 mb-3">
-                    {website.tags.slice(0, 2).map((tag) => (
-                      <span key={tag} className="px-2 py-0.5 bg-purple-500/10 text-purple-300 text-xs rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <a
-                    href={website.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-purple-400 hover:text-purple-300 transition-colors text-xs font-medium"
-                  >
-                    Visit <ExternalLink className="h-3 w-3" />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Private Servers Section */}
+        {/* Private Servers Section - NOW FIRST */}
         <section>
           <div className="section-header text-center mb-10">
             <div className="flex items-center justify-center gap-3 mb-3">
@@ -311,6 +246,71 @@ export default function ResourcesPage() {
               </div>
             </div>
           )}
+        </section>
+
+        {/* Useful Websites Section - NOW SECOND */}
+        <section>
+          <div className="section-header text-center mb-10">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <Globe className="h-7 w-7 text-purple-400" />
+              <h2 className="text-2xl md:text-3xl font-bold text-white">Useful Websites</h2>
+            </div>
+            <p className="text-zinc-400 max-w-2xl mx-auto text-sm">
+              Essential tools and platforms that power my development workflow
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {websiteCards.map((website) => (
+              <div
+                key={website.id}
+                className="website-card group bg-zinc-800/50 backdrop-blur-sm rounded-lg border border-zinc-700 overflow-hidden hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 hover:-translate-y-1"
+              >
+                <div className="relative h-40 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-transparent z-10"></div>
+                  <Image
+                    src={website.imageUrl || "/placeholder.svg"}
+                    alt={website.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+
+                <div className="p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400">
+                      {website.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-white text-sm group-hover:text-purple-300 transition-colors">
+                        {website.title}
+                      </h3>
+                      <span className="text-xs text-purple-400">{website.category}</span>
+                    </div>
+                  </div>
+
+                  <p className="text-zinc-300 text-xs mb-3 line-clamp-2">{website.description}</p>
+
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {website.tags.slice(0, 2).map((tag) => (
+                      <span key={tag} className="px-2 py-0.5 bg-purple-500/10 text-purple-300 text-xs rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <a
+                    href={website.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-purple-400 hover:text-purple-300 transition-colors text-xs font-medium"
+                  >
+                    Visit <ExternalLink className="h-3 w-3" />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* Bottom CTA section */}

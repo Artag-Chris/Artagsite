@@ -1,5 +1,5 @@
 
-import { Code, Palette, FileText, Globe, Monitor, Cpu, HardDrive,Server } from "lucide-react"
+import { Code, Palette, FileText, Globe, Monitor, Cpu, HardDrive, Server, FileUp, Music, Zap } from "lucide-react"
 
 export interface WebsiteCard {
   id: number
@@ -72,48 +72,43 @@ export const websiteCards: WebsiteCard[] = [
 export const serverCards: ServerCard[] = [
   {
     id: 1,
-    title: "Personal Portfolio API",
-    description: "RESTful API serving portfolio data, blog posts, and contact form submissions.",
+    title: "File Browser",
+    description: "Self-hosted file management server for uploading, downloading, and organizing files securely.",
     status: "live",
-    category: "Web Server",
-    icon: <Server className="h-6 w-6" />,
-    imageUrl: "https://res.cloudinary.com/dfg2xrsqz/image/upload/v1749090385/OIP_2_lbxmmg.jpg",
-    specs: ["2 CPU Cores", "4GB RAM", "50GB SSD"],
-    technologies: ["Node.js", "Express", "MongoDB", "Docker"],
+    category: "Storage",
+    icon: <FileUp className="h-6 w-6" />,
+    imageUrl: "https://res.cloudinary.com/dfg2xrsqz/image/upload/v1769098760/Screenshot_2026-01-22_111855_cwrrl6.png",
+    specs: ["2 CPU Cores", "4GB RAM", "100GB Storage"],
+    technologies: ["File Browser", "Nginx", "Linux"],
+    url: "https://file_browser.artagdev.com.co/",
+    features: ["Secure file uploads", "Directory browsing", "File management", "Download support"],
   },
   {
     id: 2,
-    title: "Media Streaming Server",
-    description: "Self-hosted media server for streaming movies, TV shows, and music.",
-    status: "development",
+    title: "Navidrome",
+    description: "Personal music streaming server for your collection with a beautiful web interface.",
+    status: "live",
     category: "Media Server",
-    icon: <Monitor className="h-6 w-6" />,
-    imageUrl: "https://res.cloudinary.com/dfg2xrsqz/image/upload/v1749090482/Screenshot_2025-06-04_212745_tuppwf.png",
-    specs: ["4 CPU Cores", "8GB RAM", "2TB HDD"],
-    technologies: ["Plex", "Jellyfin", "Nginx", "Linux"],
+    icon: <Music className="h-6 w-6" />,
+    imageUrl: "https://res.cloudinary.com/dfg2xrsqz/image/upload/v1769098873/Screenshot_2026-01-22_112102_pqwkhe.png",
+    specs: ["2 CPU Cores", "4GB RAM", "500GB Storage"],
+    technologies: ["Navidrome", "Nginx", "PostgreSQL"],
+    url: "https://navidrome.artagdev.com.co/",
+    features: ["Music streaming", "Playlist management", "Web player", "Cross-platform"],
   },
   {
     id: 3,
-    title: "Game Server Hub",
-    description: "Dedicated gaming server hosting multiple game instances for friends and community.",
-    status: "planning",
-    category: "Game Server",
-    icon: <Cpu className="h-6 w-6" />,
-    imageUrl: "https://res.cloudinary.com/dfg2xrsqz/image/upload/v1749090623/que-es-retroarch_frrclh.jpg",
-    specs: ["8 CPU Cores", "16GB RAM", "500GB NVMe"],
-    technologies: ["Docker", "Pterodactyl", "Redis", "MySQL"],
+    title: "N8N Automation",
+    description: "Workflow automation platform for connecting apps, automating tasks, and orchestrating integrations.",
+    status: "live",
+    category: "Automation",
+    icon: <Zap className="h-6 w-6" />,
+    imageUrl: "https://res.cloudinary.com/dfg2xrsqz/image/upload/v1769099065/Screenshot_2026-01-22_112412_xq9skh.png",
+    specs: ["2 CPU Cores", "8GB RAM", "50GB Storage"],
+    technologies: ["N8N", "Node.js", "PostgreSQL"],
+    url: "https://n8n.artagdev.com.co/",
+    features: ["Workflow automation", "Integration builder", "Scheduling", "Error handling"],
   },
-  {
-    id: 4,
-    title: "Cloud Storage Server",
-    description: "Private cloud storage solution with file synchronization and sharing capabilities.",
-    status: "planning",
-    category: "Storage Server",
-    icon: <HardDrive className="h-6 w-6" />,
-    imageUrl: "https://res.cloudinary.com/dfg2xrsqz/image/upload/v1749090748/almacenamiento-nube_kthcrq.jpg",
-    specs: ["2 CPU Cores", "8GB RAM", "4TB RAID"],
-    technologies: ["Nextcloud", "PostgreSQL", "Redis", "Nginx"],
-  }, 
 ]
 
 export const getStatusColor = (status: string) => {
