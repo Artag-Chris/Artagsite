@@ -1,6 +1,5 @@
 "use client"
-import { ArrowLeft, BookOpen, Search, X } from "lucide-react"
-import Link from "next/link"
+import { BookOpen, Search, X } from "lucide-react"
 import { useRef, useState } from "react"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
@@ -158,15 +157,6 @@ export default function CurrentStudiesPage() {
       </div>
 
       <div className="container mx-auto px-4 py-10 relative z-10">
-        {/* Back button */}
-        <Link
-          href="/#about"
-          className="inline-flex items-center text-blue-500 hover:text-blue-400 mb-8 transition-colors"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Home
-        </Link>
-
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="page-title text-4xl md:text-6xl font-bold mb-6">

@@ -1,7 +1,6 @@
 "use client"
 
-import { ArrowLeft, Gamepad2, ExternalLink, Users, Trophy, Flame } from "lucide-react"
-import Link from "next/link"
+import { Gamepad2, ExternalLink, Users, Trophy, Flame } from "lucide-react"
 
 import { useRef } from "react"
 import gsap from "gsap"
@@ -146,16 +145,10 @@ export default function FavoriteGamesPage() {
   return (
     <main ref={containerRef} className="bg-zinc-900 min-h-screen">
       <div className="container mx-auto px-4 py-10">
-        {/* Navigation */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-          {/* Back button */}
-          <Link href="/#about" className="inline-flex items-center text-pink-500 hover:text-pink-400 transition-colors">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Home
-          </Link>
-
-          {/* Platform links */}
-          <div className="flex gap-4">
+         {/* Navigation */}
+         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+           {/* Platform links */}
+           <div className="flex gap-4">
             <a
               href="https://steamcommunity.com/id/Artag-chris/"
               target="_blank"

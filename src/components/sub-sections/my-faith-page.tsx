@@ -1,7 +1,6 @@
 "use client"
 
-import { ArrowLeft, Heart, Zap, Shield, Lightbulb, ExternalLink } from "lucide-react"
-import Link from "next/link"
+import { Heart, Zap, Shield, Lightbulb, ExternalLink } from "lucide-react"
 import { useRef } from "react"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
@@ -104,15 +103,6 @@ export default function MyFaithPage() {
   return (
     <main ref={containerRef} className="bg-gradient-to-b from-zinc-900 via-blue-900/20 to-zinc-900 min-h-screen">
       <div className="container mx-auto px-4 py-10 max-w-5xl">
-        {/* Back button */}
-        <Link
-          href="/#faith"
-          className="inline-flex items-center text-blue-400 hover:text-blue-300 mb-12 transition-colors group"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-          Back to Home
-        </Link>
-
         {/* Header */}
         <div className="text-center mb-20">
           <h1 className="main-title text-6xl md:text-7xl font-bold mb-8 text-white leading-tight">
