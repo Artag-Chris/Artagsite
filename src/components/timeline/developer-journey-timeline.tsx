@@ -85,19 +85,25 @@ export default function DeveloperJourneyTimeline() {
 
        {/* Book Spreads */}
        <div className="relative w-full">
-         {timelineEvents.map((event, index) => (
-           <div
-             key={event.id}
-             data-spread={String(index)}
-             className="w-full"
-           >
-             <BookSpread
-               event={event}
-               index={index}
-               isInView={visibleSpreads.has(String(index))}
-             />
-           </div>
-         ))}
+         {Array.from({ length: Math.ceil(timelineEvents.length / 2) }).map((_, spreadIdx) => {
+           const leftEvent = timelineEvents[spreadIdx * 2]
+           const rightEvent = timelineEvents[spreadIdx * 2 + 1]
+           const events = [leftEvent, rightEvent].filter(Boolean)
+           
+           return (
+             <div
+               key={`spread-${spreadIdx}`}
+               data-spread={String(spreadIdx)}
+               className="w-full"
+             >
+               <BookSpread
+                 events={events}
+                 spreadIndex={spreadIdx}
+                 isInView={visibleSpreads.has(String(spreadIdx))}
+               />
+             </div>
+           )
+         })}
        </div>
 
        {/* Epilogue */}

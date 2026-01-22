@@ -6,12 +6,12 @@ import BookPage from "./BookPage"
 import { TimelineEvent } from "./timelineData/timelineEvents"
 
 interface BookSpreadProps {
-  event: TimelineEvent
-  index: number
+  events: TimelineEvent[]  // Now accepts array of events
+  spreadIndex: number
   isInView?: boolean
 }
 
-export default function BookSpread({ event, index, isInView = false }: BookSpreadProps) {
+export default function BookSpread({ events, spreadIndex, isInView = false }: BookSpreadProps) {
   const spreadRef = useRef<HTMLDivElement>(null)
   const [isMobile, setIsMobile] = useState(false)
 
@@ -37,31 +37,34 @@ export default function BookSpread({ event, index, isInView = false }: BookSprea
   }, [isInView])
 
   if (isMobile) {
-    // Mobile: Single column layout
+    // Mobile: Stack events vertically
     return (
       <div
         ref={spreadRef}
-        className="w-full min-h-screen flex flex-col relative"
+        className="w-full flex flex-col relative"
       >
-        <BookPage
-          side="left"
-          chapterNumber={event.chapterNumber}
-          chapterTitle={event.chapterTitle}
-          title={event.title}
-          description={event.description}
-          imageUrl={event.imageUrl}
-          imageAlt={event.imageAlt}
-          quote={event.quote}
-          emotionalArc={event.emotionalArc}
-          year={event.year}
-          index={index}
-          isVisible={isInView}
-        />
+        {events.map((event, eventIndex) => (
+          <BookPage
+            key={event.id}
+            side="left"
+            chapterNumber={event.chapterNumber}
+            chapterTitle={event.chapterTitle}
+            title={event.title}
+            description={event.description}
+            imageUrl={event.imageUrl}
+            imageAlt={event.imageAlt}
+            quote={event.quote}
+            emotionalArc={event.emotionalArc}
+            year={event.year}
+            index={spreadIndex * 2 + eventIndex}
+            isVisible={isInView}
+          />
+        ))}
       </div>
     )
   }
 
-  // Desktop: Two-page spread (left and right)
+  // Desktop: Two-page spread with different events
   return (
     <div
       ref={spreadRef}
@@ -77,41 +80,48 @@ export default function BookSpread({ event, index, isInView = false }: BookSprea
       {/* Right page background */}
       <div className="absolute right-0 top-0 bottom-0 w-1/2 border-l border-zinc-800/30" />
 
-      {/* Left Page */}
-      <div className="relative w-1/2 overflow-hidden">
-        <BookPage
-          side="left"
-          chapterNumber={event.chapterNumber}
-          chapterTitle={event.chapterTitle}
-          title={event.title}
-          description={event.description}
-          imageUrl={event.imageUrl}
-          imageAlt={event.imageAlt}
-          quote={event.quote}
-          emotionalArc={event.emotionalArc}
-          year={event.year}
-          index={index * 2}
-          isVisible={isInView}
-        />
-      </div>
+      {/* Left Page - First event */}
+      {events[0] && (
+        <div className="relative w-1/2 overflow-hidden">
+          <BookPage
+            side="left"
+            chapterNumber={events[0].chapterNumber}
+            chapterTitle={events[0].chapterTitle}
+            title={events[0].title}
+            description={events[0].description}
+            imageUrl={events[0].imageUrl}
+            imageAlt={events[0].imageAlt}
+            quote={events[0].quote}
+            emotionalArc={events[0].emotionalArc}
+            year={events[0].year}
+            index={spreadIndex * 2}
+            isVisible={isInView}
+          />
+        </div>
+      )}
 
-      {/* Right Page (duplicate with some variation) */}
-      <div className="relative w-1/2 overflow-hidden">
-        <BookPage
-          side="right"
-          chapterNumber={event.chapterNumber}
-          chapterTitle={event.chapterTitle}
-          title={event.title}
-          description={event.description}
-          imageUrl={event.imageUrl}
-          imageAlt={event.imageAlt}
-          quote={event.quote}
-          emotionalArc={event.emotionalArc}
-          year={event.year}
-          index={index * 2 + 1}
-          isVisible={isInView}
-        />
-      </div>
+      {/* Right Page - Second event (if exists) */}
+      {events[1] ? (
+        <div className="relative w-1/2 overflow-hidden">
+          <BookPage
+            side="right"
+            chapterNumber={events[1].chapterNumber}
+            chapterTitle={events[1].chapterTitle}
+            title={events[1].title}
+            description={events[1].description}
+            imageUrl={events[1].imageUrl}
+            imageAlt={events[1].imageAlt}
+            quote={events[1].quote}
+            emotionalArc={events[1].emotionalArc}
+            year={events[1].year}
+            index={spreadIndex * 2 + 1}
+            isVisible={isInView}
+          />
+        </div>
+      ) : (
+        // Empty right page if only one event
+        <div className="relative w-1/2 overflow-hidden bg-gradient-to-b from-zinc-900 to-zinc-950" />
+      )}
     </div>
   )
 }
