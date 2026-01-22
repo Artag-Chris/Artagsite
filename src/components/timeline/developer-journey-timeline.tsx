@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function DeveloperJourneyTimeline() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [visibleSpreads, setVisibleSpreads] = useState<Set<number>>(new Set())
+  const [visibleSpreads, setVisibleSpreads] = useState<Set<string>>(new Set())
   const [coverComplete, setCoverComplete] = useState(false)
 
   useEffect(() => {
@@ -23,15 +23,15 @@ export default function DeveloperJourneyTimeline() {
 
       // Update visible spreads based on scroll position
       const spreads = containerRef.current.querySelectorAll("[data-spread]")
-      const newVisible = new Set<number>()
+      const newVisible = new Set<string>()
 
       spreads.forEach((spread) => {
         const rect = spread.getBoundingClientRect()
-        const spreadIndex = parseInt(spread.getAttribute("data-spread") || "-1")
+        const spreadId = spread.getAttribute("data-spread") || ""
         
         // Element is visible if it's in viewport or near it
         if (rect.top < window.innerHeight && rect.bottom > 0) {
-          newVisible.add(spreadIndex)
+          newVisible.add(spreadId)
         }
       })
 
@@ -83,30 +83,30 @@ export default function DeveloperJourneyTimeline() {
         <BookCover onAnimationComplete={() => setCoverComplete(true)} />
       </div>
 
-      {/* Book Spreads */}
-      <div className="relative w-full">
-        {timelineEvents.map((event, index) => (
-          <div
-            key={event.id}
-            data-spread={index}
-            className="w-full"
-          >
-            <BookSpread
-              event={event}
-              index={index}
-              isInView={visibleSpreads.has(index)}
-            />
-          </div>
-        ))}
-      </div>
+       {/* Book Spreads */}
+       <div className="relative w-full">
+         {timelineEvents.map((event, index) => (
+           <div
+             key={event.id}
+             data-spread={String(index)}
+             className="w-full"
+           >
+             <BookSpread
+               event={event}
+               index={index}
+               isInView={visibleSpreads.has(String(index))}
+             />
+           </div>
+         ))}
+       </div>
 
-      {/* Epilogue */}
-      <div
-        data-spread="epilogue"
-        className="w-full"
-      >
-        <Epilogue isVisible={visibleSpreads.has(-1)} />
-      </div>
+       {/* Epilogue */}
+       <div
+         data-spread="epilogue"
+         className="w-full"
+       >
+         <Epilogue isVisible={visibleSpreads.has("epilogue")} />
+       </div>
     </div>
   )
 }
