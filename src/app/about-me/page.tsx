@@ -9,10 +9,11 @@ import DeveloperJourneyTimeline from "@/components/timeline/developer-journey-ti
 
 export default function AboutMePage() {
   return (
-    <main className="bg-zinc-900 min-h-screen">
+    <main className="bg-zinc-950 min-h-screen">
       {/* Cosmic Navbar */}
       <CosmicNavbar links={navLinks} currentPath="/about-me" />
 
+      {/* Intro section */}
       <div className="container mx-auto px-4 py-10">
         {/* Botón de regresar */}
         <Link href="/#about" className="inline-flex items-center text-emerald-500 hover:text-emerald-400 mb-8">
@@ -34,10 +35,10 @@ export default function AboutMePage() {
             Navigate my life story through this interactive journey: GSAP-powered animations bring to life how career shifts, personal challenges, and family milestones shaped my path. Each scroll-triggered revelation shows the profound connection between life experiences and professional growth.
           </p>
         </div>
-
-        {/* Interactive Timeline */}
-        <DeveloperJourneyTimeline/>
       </div>
+
+      {/* Interactive Timeline - Full Width */}
+      <DeveloperJourneyTimeline/>
     </main>
   )
 }
