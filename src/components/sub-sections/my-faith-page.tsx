@@ -102,7 +102,7 @@ export default function MyFaithPage() {
 
   return (
     <main ref={containerRef} className="bg-gradient-to-b from-zinc-900 via-blue-900/20 to-zinc-900 min-h-screen">
-      <div className="container mx-auto px-4 py-10 pt-16 md:pt-20 max-w-5xl">
+      <div className="container mx-auto px-4 py-10 pt-32 md:pt-40 max-w-5xl">
         {/* Header */}
         <div className="text-center mb-20">
           <h1 className="main-title text-6xl md:text-7xl font-bold mb-8 text-white leading-tight">

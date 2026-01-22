@@ -12,7 +12,7 @@ export default function PrivateServersPage() {
             {/* Cosmic Navbar */}
             <CosmicNavbar links={navLinks} currentPath="/private-servers" />
 
-            <div className="container mx-auto px-4 py-6 md:py-8 mt-16 md:mt-20">
+            <div className="container mx-auto px-4 py-6 md:py-8 mt-32 md:mt-40">
                 {/* Contenido de la sección */}
                 <div className="prose prose-lg prose-invert max-w-none prose-headings:text-emerald-400 prose-a:text-emerald-400">
                     <ResourcesPage />
