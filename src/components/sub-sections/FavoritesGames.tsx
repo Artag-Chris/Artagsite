@@ -105,43 +105,9 @@ export default function FavoriteGamesPage() {
 
   return (
     <main ref={containerRef} className="bg-zinc-900 min-h-screen">
-      <div className="container mx-auto px-4 py-10">
-         {/* Navigation */}
-         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-           {/* Platform links */}
-           <div className="flex gap-4">
-            <a
-              href="https://steamcommunity.com/id/Artag-chris/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="platform-link group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600/20 to-blue-500/20 border border-blue-500/30 text-blue-400 hover:from-blue-600/30 hover:to-blue-500/30 hover:border-blue-400/50 transition-all duration-300"
-            >
-              {/* Steam Icon */}
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M11.979 0C5.678 0 0.511 4.86 0.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.029 4.524 4.524s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.624 0 11.979-5.354 11.979-11.979C23.958 5.354 18.603.001 11.979.001zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.456-.397.957-1.497 1.41-2.454 1.01z" />
-              </svg>
-              <span className="text-sm font-medium">Steam</span>
-              <ExternalLink className="h-3 w-3 opacity-60 group-hover:opacity-100 transition-opacity" />
-            </a>
-
-            <a
-              href="https://store.epicgames.com/en-US/u/f38fecb99ad44927ae569ec6b9549220"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="platform-link group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600/20 to-pink-500/20 border border-purple-500/30 text-purple-400 hover:from-purple-600/30 hover:to-pink-500/30 hover:border-purple-400/50 transition-all duration-300"
-            >
-              {/* Epic Games Icon */}
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.5 2L24 7v10l-11.5 5L1 17V7l11.5-5zm0 2.311L3.5 8.5v7l9 3.689 9-3.689v-7l-9-4.189zM12.5 6.5L20 10v4l-7.5 3L5 14v-4l7.5-3.5zm0 1.811L7.5 11v2l5 2 5-2v-2l-5-2.689z" />
-              </svg>
-              <span className="text-sm font-medium">Epic Games</span>
-              <ExternalLink className="h-3 w-3 opacity-60 group-hover:opacity-100 transition-opacity" />
-            </a>
-          </div>
-        </div>
-
-        {/* Header */}
-        <div className="text-center mb-16">
+       <div className="container mx-auto px-4 py-10 pt-32 md:pt-40">
+          {/* Header */}
+          <div className="text-center mb-16">
           <h1 className="page-title text-4xl md:text-6xl font-bold mb-6">
             My{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
