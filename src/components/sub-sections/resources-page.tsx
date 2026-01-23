@@ -81,7 +81,7 @@ export default function ResourcesPage() {
 
 
   return (
-    <div ref={containerRef} className="relative py-8 bg-zinc-950 min-h-screen">
+    <div ref={containerRef} className="relative py-8">
       {/* Progress indicator */}
       <div className="fixed top-0 left-0 right-0 h-1 bg-zinc-800 z-40">
         <div className="progress-bar h-full bg-purple-500 scale-x-0"></div>

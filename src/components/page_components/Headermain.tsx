@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { Download, Menu, X, Sparkles, Zap, User, Code2, Rocket, Mail } from "lucide-react"
+import { Download, Menu, X, Sparkles, Zap, User, Code2, Rocket, Mail, BookOpen } from "lucide-react"
 import { handleResumeDownload } from "@/functions/handleResumenDownload"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -82,6 +82,10 @@ function HeaderMain() {
     { href: "#contact", label: "Contact", icon: Mail },
   ]
 
+  const externalNavLinks = [
+    { href: "/currentStudies", label: "Studies", icon: BookOpen },
+  ]
+
   return (
     <>
       <header
@@ -130,26 +134,43 @@ function HeaderMain() {
 
               <div className="hidden md:flex items-center gap-1">
                 {navLinks.map((link, index) => {
-                  const IconComponent = link.icon
-                  return (
-                    <div key={link.href} className="flex items-center">
-                      <Link
-                        href={link.href}
-                        className="group relative flex items-center gap-2.5 text-slate-300 hover:text-white transition-all duration-500 hover:scale-105 py-2.5 px-5 rounded-full hover:bg-gradient-to-br hover:from-indigo-500/10 hover:to-violet-500/10 backdrop-blur-sm"
-                        style={{ animationDelay: `${index * 0.1}s` }}
-                      >
-                        <IconComponent className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:rotate-12 group-hover:text-indigo-400" />
-                        <span className="font-medium tracking-wide">{link.label}</span>
-                        <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-500 transition-all duration-500 group-hover:w-4/5 group-hover:left-[10%] rounded-full shadow-lg shadow-indigo-500/50"></span>
-                        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500/0 to-violet-500/0 opacity-0 group-hover:from-indigo-500/10 group-hover:to-violet-500/10 group-hover:opacity-100 transition-all duration-500 blur-md"></div>
-                      </Link>
-                      {index < navLinks.length - 1 && (
-                        <div className="h-6 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent mx-1"></div>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
+                   const IconComponent = link.icon
+                   return (
+                     <div key={link.href} className="flex items-center">
+                       <Link
+                         href={link.href}
+                         className="group relative flex items-center gap-2.5 text-slate-300 hover:text-white transition-all duration-500 hover:scale-105 py-2.5 px-5 rounded-full hover:bg-gradient-to-br hover:from-indigo-500/10 hover:to-violet-500/10 backdrop-blur-sm"
+                         style={{ animationDelay: `${index * 0.1}s` }}
+                       >
+                         <IconComponent className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:rotate-12 group-hover:text-indigo-400" />
+                         <span className="font-medium tracking-wide">{link.label}</span>
+                         <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-500 transition-all duration-500 group-hover:w-4/5 group-hover:left-[10%] rounded-full shadow-lg shadow-indigo-500/50"></span>
+                         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500/0 to-violet-500/0 opacity-0 group-hover:from-indigo-500/10 group-hover:to-violet-500/10 group-hover:opacity-100 transition-all duration-500 blur-md"></div>
+                       </Link>
+                       {index < navLinks.length - 1 && (
+                         <div className="h-6 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent mx-1"></div>
+                       )}
+                     </div>
+                   )
+                 })}
+                 <div className="h-6 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent mx-1"></div>
+                 {externalNavLinks.map((link, index) => {
+                   const IconComponent = link.icon
+                   return (
+                     <div key={link.href} className="flex items-center">
+                       <Link
+                         href={link.href}
+                         className="group relative flex items-center gap-2.5 text-slate-300 hover:text-white transition-all duration-500 hover:scale-105 py-2.5 px-5 rounded-full hover:bg-gradient-to-br hover:from-cyan-500/10 hover:to-blue-500/10 backdrop-blur-sm"
+                       >
+                         <IconComponent className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:rotate-12 group-hover:text-cyan-400" />
+                         <span className="font-medium tracking-wide">{link.label}</span>
+                         <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 transition-all duration-500 group-hover:w-4/5 group-hover:left-[10%] rounded-full shadow-lg shadow-cyan-500/50"></span>
+                         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/0 to-blue-500/0 opacity-0 group-hover:from-cyan-500/10 group-hover:to-blue-500/10 group-hover:opacity-100 transition-all duration-500 blur-md"></div>
+                       </Link>
+                     </div>
+                   )
+                 })}
+               </div>
 
               <Button
                 variant="outline"
@@ -186,36 +207,50 @@ function HeaderMain() {
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div className="p-8 pt-24">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link, index) => {
-                const IconComponent = link.icon
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="flex items-center gap-4 text-slate-300 hover:text-white transition-all duration-300 text-lg py-4 px-5 rounded-2xl bg-gradient-to-br from-indigo-500/5 to-violet-500/5 hover:from-indigo-500/20 hover:to-violet-500/20 group border border-indigo-500/10 hover:border-indigo-500/30 shadow-lg hover:shadow-indigo-500/20"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <IconComponent className="w-5 h-5 group-hover:scale-110 transition-transform duration-300 group-hover:rotate-12 text-indigo-400" />
-                    <span className="font-medium">{link.label}</span>
-                  </Link>
-                )
-              })}
-              <Button
-                variant="outline"
-                className="flex items-center justify-center gap-3 border-indigo-500/50 text-indigo-300 hover:text-white hover:border-indigo-400 transition-all duration-300 mt-4 bg-gradient-to-br from-indigo-950/50 to-violet-950/50 hover:from-indigo-500/20 hover:to-violet-500/20 rounded-2xl py-4 group shadow-lg shadow-indigo-500/20"
-                onClick={() => {
-                  handleResumeDownload()
-                  setIsMobileMenuOpen(false)
-                }}
-              >
-                <Download className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
-                <span className="font-semibold">Download Resume</span>
-              </Button>
-            </div>
-          </div>
+           <div className="p-8 pt-24">
+             <div className="flex flex-col gap-4">
+               {navLinks.map((link, index) => {
+                 const IconComponent = link.icon
+                 return (
+                   <Link
+                     key={link.href}
+                     href={link.href}
+                     className="flex items-center gap-4 text-slate-300 hover:text-white transition-all duration-300 text-lg py-4 px-5 rounded-2xl bg-gradient-to-br from-indigo-500/5 to-violet-500/5 hover:from-indigo-500/20 hover:to-violet-500/20 group border border-indigo-500/10 hover:border-indigo-500/30 shadow-lg hover:shadow-indigo-500/20"
+                     onClick={() => setIsMobileMenuOpen(false)}
+                     style={{ animationDelay: `${index * 0.1}s` }}
+                   >
+                     <IconComponent className="w-5 h-5 group-hover:scale-110 transition-transform duration-300 group-hover:rotate-12 text-indigo-400" />
+                     <span className="font-medium">{link.label}</span>
+                   </Link>
+                 )
+               })}
+               {externalNavLinks.map((link) => {
+                 const IconComponent = link.icon
+                 return (
+                   <Link
+                     key={link.href}
+                     href={link.href}
+                     className="flex items-center gap-4 text-slate-300 hover:text-white transition-all duration-300 text-lg py-4 px-5 rounded-2xl bg-gradient-to-br from-cyan-500/5 to-blue-500/5 hover:from-cyan-500/20 hover:to-blue-500/20 group border border-cyan-500/10 hover:border-cyan-500/30 shadow-lg hover:shadow-cyan-500/20"
+                     onClick={() => setIsMobileMenuOpen(false)}
+                   >
+                     <IconComponent className="w-5 h-5 group-hover:scale-110 transition-transform duration-300 group-hover:rotate-12 text-cyan-400" />
+                     <span className="font-medium">{link.label}</span>
+                   </Link>
+                 )
+               })}
+               <Button
+                 variant="outline"
+                 className="flex items-center justify-center gap-3 border-indigo-500/50 text-indigo-300 hover:text-white hover:border-indigo-400 transition-all duration-300 mt-4 bg-gradient-to-br from-indigo-950/50 to-violet-950/50 hover:from-indigo-500/20 hover:to-violet-500/20 rounded-2xl py-4 group shadow-lg shadow-indigo-500/20"
+                 onClick={() => {
+                   handleResumeDownload()
+                   setIsMobileMenuOpen(false)
+                 }}
+               >
+                 <Download className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+                 <span className="font-semibold">Download Resume</span>
+               </Button>
+             </div>
+           </div>
         </div>
       </div>
 
@@ -253,27 +288,53 @@ function HeaderMain() {
                     )}
                   </div>
                 ))}
+                <div className="h-4 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent mx-0.5"></div>
+                {externalNavLinks.map((link) => (
+                  <div key={link.href} className="flex items-center">
+                    <Link
+                      href={link.href}
+                      className="text-slate-300 hover:text-white transition-all duration-300 text-sm hover:scale-105 py-2 px-4 rounded-full hover:bg-gradient-to-br hover:from-cyan-500/10 hover:to-blue-500/10 font-medium tracking-wide"
+                    >
+                      {link.label}
+                    </Link>
+                  </div>
+                ))}
               </div>
 
               <div className="flex md:hidden items-center gap-3">
                 {navLinks.map((link, index) => {
-                  const IconComponent = link.icon
-                  return (
-                    <div key={link.href} className="flex items-center">
-                      <Link
-                        href={link.href}
-                        className="text-slate-300 hover:text-white transition-all duration-300 text-xs hover:scale-110 flex flex-col items-center gap-1.5 py-1"
-                      >
-                        <IconComponent className="w-4 h-4 text-indigo-400" />
-                        <span className="font-medium">{link.label}</span>
-                      </Link>
-                      {index < navLinks.length - 1 && (
-                        <div className="h-10 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent mx-2"></div>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
+                   const IconComponent = link.icon
+                   return (
+                     <div key={link.href} className="flex items-center">
+                       <Link
+                         href={link.href}
+                         className="text-slate-300 hover:text-white transition-all duration-300 text-xs hover:scale-110 flex flex-col items-center gap-1.5 py-1"
+                       >
+                         <IconComponent className="w-4 h-4 text-indigo-400" />
+                         <span className="font-medium">{link.label}</span>
+                       </Link>
+                       {index < navLinks.length - 1 && (
+                         <div className="h-10 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent mx-2"></div>
+                       )}
+                     </div>
+                   )
+                 })}
+                 <div className="h-10 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent mx-2"></div>
+                 {externalNavLinks.map((link) => {
+                   const IconComponent = link.icon
+                   return (
+                     <div key={link.href} className="flex items-center">
+                       <Link
+                         href={link.href}
+                         className="text-slate-300 hover:text-white transition-all duration-300 text-xs hover:scale-110 flex flex-col items-center gap-1.5 py-1"
+                       >
+                         <IconComponent className="w-4 h-4 text-cyan-400" />
+                         <span className="font-medium">{link.label}</span>
+                       </Link>
+                     </div>
+                   )
+                 })}
+               </div>
 
               <Button
                 size="sm"
