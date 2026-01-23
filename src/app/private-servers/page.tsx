@@ -8,12 +8,14 @@ import ResourcesPage from "@/components/sub-sections/resources-page";
 export default function PrivateServersPage() {
 
     return (
-        <main className="bg-zinc-950 min-h-screen">
+        <main className="bg-zinc-900 min-h-screen">
             {/* Cosmic Navbar */}
             <CosmicNavbar links={navLinks} currentPath="/private-servers" />
 
-            <div className="mt-32 md:mt-40">
-                <ResourcesPage />
+            <div className="container mx-auto px-4 py-10">
+                <div className="prose prose-lg prose-invert max-w-none prose-headings:text-emerald-400 prose-a:text-emerald-400">
+                    <ResourcesPage />
+                </div>
             </div>
         </main>
     )

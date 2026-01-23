@@ -81,13 +81,14 @@ export default function ResourcesPage() {
 
 
   return (
-    <div ref={containerRef} className="relative py-8">
+    <main ref={containerRef} className="bg-zinc-900 min-h-screen">
       {/* Progress indicator */}
       <div className="fixed top-0 left-0 right-0 h-1 bg-zinc-800 z-40">
         <div className="progress-bar h-full bg-purple-500 scale-x-0"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 space-y-20">
+      <div className="container mx-auto px-4 py-10">
+        <div className="max-w-7xl mx-auto space-y-20">
         {/* Page intro */}
         <div className="text-center mb-8 px-4">
           <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">Resources & Infrastructure</h1>
@@ -325,6 +326,7 @@ export default function ResourcesPage() {
           </p>
         </div>
       </div>
-    </div>
+      </div>
+    </main>
   )
 }
