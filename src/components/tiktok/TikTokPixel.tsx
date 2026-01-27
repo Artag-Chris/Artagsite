@@ -13,10 +13,11 @@ declare global {
 
 /**
  * TikTok Pixel Component
- * 
- * Initializes TikTok Analytics Pixel for tracking user events
- * automatically loads on client side and tracks initial page view.
- * 
+ *
+ * Initializes TikTok Analytics Pixel for tracking user events.
+ * Uses TikTok's official base code format for compatibility with TikTok Pixel Helper extension.
+ * Automatically tracks initial page view.
+ *
  * @example
  * // In layout.tsx or root component
  * <TikTokPixel />
@@ -26,12 +27,13 @@ export function TikTokPixel() {
     const pixelId = analyticsConfig.tiktok.pixelId
 
     if (!pixelId) {
-      console.warn('⚠️ TikTok Pixel ID not configured')
+      console.warn("⚠️ TikTok Pixel ID not configured")
       return
     }
 
-    // Initialize TikTok Pixel
-    ;(function (w: any, d: Document, t: string) {
+    // TikTok Pixel official base code
+    // Using IIFE pattern for proper recognition by TikTok's tools
+    ;(function (w: any, d: any, t: string) {
       w.TiktokAnalyticsObject = t
       const ttq = (w[t] = w[t] || []) as any
 
@@ -74,7 +76,6 @@ export function TikTokPixel() {
 
       ttq.load = function (e: string, n?: any) {
         const r = "https://analytics.tiktok.com/i18n/pixel/events.js"
-        const o = n && n.partner
         ttq._i = ttq._i || {}
         ttq._i[e] = []
         ttq._i[e]._u = r
@@ -83,16 +84,15 @@ export function TikTokPixel() {
         ttq._o = ttq._o || {}
         ttq._o[e] = n || {}
 
-        const script = document.createElement("script")
-        script.type = "text/javascript"
-        script.async = true
-        script.src = r + "?sdkid=" + e + "&lib=" + t
+        const s = d.createElement("script")
+        s.type = "text/javascript"
+        s.async = true
+        s.src = r + "?sdkid=" + e + "&lib=" + t
 
-        const firstScript = document.getElementsByTagName("script")[0]
-        firstScript.parentNode?.insertBefore(script, firstScript)
+        const f = d.getElementsByTagName("script")[0]
+        f.parentNode?.insertBefore(s, f)
       }
 
-      // Load and track initial page view
       ttq.load(pixelId)
       ttq.page()
     })(window, document, "ttq")
