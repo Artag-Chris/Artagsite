@@ -1,10 +1,9 @@
 // components/GoogleTagManager.tsx
-import Script from 'next/script';
+import Script from 'next/script'
+import { analyticsConfig } from '@/config/analytics.config'
 
-const GTM_ID = 
-'GTM-MS75C74W';
-//'GTM-M8X3ZG97'
-const GA_ID = 'G-0EXYJWHP88';
+const GTM_ID = analyticsConfig.google.gtmId
+const GA_ID = analyticsConfig.google.gaId
 
 
 export function GoogleTagManager() {

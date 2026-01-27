@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
+import { analyticsConfig } from "@/config/analytics.config"
 
 // Extend Window interface for Meta Pixel
 declare global {
@@ -12,6 +13,13 @@ declare global {
 
 export function MetaPixel() {
   useEffect(() => {
+    const pixelId = analyticsConfig.meta.pixelId
+
+    if (!pixelId) {
+      console.warn('Meta Pixel ID not configured in environment variables')
+      return
+    }
+
     // Initialize Meta Pixel function
     if (!window.fbq) {
       window.fbq = function () {
@@ -37,12 +45,18 @@ export function MetaPixel() {
     script.src = "https://connect.facebook.net/en_US/fbevents.js"
     script.onload = () => {
       // Initialize Pixel with your Pixel ID
-      fbq("init", "1285478826745478")
+      fbq("init", pixelId)
       // Track initial page view
       fbq("track", "PageView")
+      console.log('✓ Meta Pixel initialized with ID:', pixelId)
+    }
+    script.onerror = () => {
+      console.error('Failed to load Meta Pixel SDK')
     }
     document.head.appendChild(script)
   }, [])
+
+  const pixelId = analyticsConfig.meta.pixelId
 
   // Noscript fallback for users without JavaScript
   return (
@@ -51,7 +65,7 @@ export function MetaPixel() {
         height="1"
         width="1"
         style={{ display: "none" }}
-        src="https://www.facebook.com/tr?id=1285478826745478&ev=PageView&noscript=1"
+        src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`}
         alt=""
       />
     </noscript>
