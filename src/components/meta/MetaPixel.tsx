@@ -51,23 +51,13 @@ export function MetaPixel() {
       console.log('✓ Meta Pixel initialized with ID:', pixelId)
     }
     script.onerror = () => {
-      console.error('Failed to load Meta Pixel SDK')
+      console.warn('⚠️ Meta Pixel SDK blocked (ad blocker or CSP issue). Pixel initialization queued but requests may be blocked.')
     }
     document.head.appendChild(script)
   }, [])
 
-  const pixelId = analyticsConfig.meta.pixelId
-
-  // Noscript fallback for users without JavaScript
-  return (
-    <noscript>
-      <img
-        height="1"
-        width="1"
-        style={{ display: "none" }}
-        src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`}
-        alt=""
-      />
-    </noscript>
-  )
+  // Return null - noscript fallback is not needed in Next.js
+  // Meta Pixel is loaded via useEffect and doesn't require noscript tag
+  // The noscript tag causes React hydration errors
+  return null
 }

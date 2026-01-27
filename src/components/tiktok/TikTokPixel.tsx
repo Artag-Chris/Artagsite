@@ -89,6 +89,11 @@ export function TikTokPixel() {
         s.async = true
         s.src = r + "?sdkid=" + e + "&lib=" + t
 
+        // Add error handling for blocked requests (ad blocker or CSP)
+        s.onerror = () => {
+          console.warn("⚠️ TikTok Pixel SDK blocked (ad blocker or CSP issue). Pixel initialization queued but requests may be blocked.")
+        }
+
         const f = d.getElementsByTagName("script")[0]
         f.parentNode?.insertBefore(s, f)
       }
