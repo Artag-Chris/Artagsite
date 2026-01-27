@@ -6,21 +6,7 @@ import { analyticsConfig } from "@/config/analytics.config"
 // Extend Window interface for TikTok Pixel
 declare global {
   interface Window {
-    ttq?: {
-      load: (pixelId: string) => void
-      page: () => void
-      track: (event: string, data?: any) => void
-      identify: (data: any) => void
-      instances: any
-      debug: (enabled: boolean) => void
-      _i?: Record<string, any>
-      _t?: Record<string, number>
-      _o?: Record<string, any>
-      push?: any
-      methods?: string[]
-      setAndDefer?: any
-      instance?: any
-    }
+    ttq?: any
     TiktokAnalyticsObject?: string
   }
 }
