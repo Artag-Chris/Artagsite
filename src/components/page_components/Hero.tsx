@@ -148,9 +148,8 @@ function Hero() {
         {/* Video Background */}
         <video
           ref={videoRef}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-            videoLoaded ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${videoLoaded ? "opacity-100" : "opacity-0"
+            }`}
           loop
           muted
           playsInline
@@ -161,9 +160,8 @@ function Hero() {
 
         {/* Fallback image for desktop if video fails to load */}
         <div
-          className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
-            !videoLoaded ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${!videoLoaded ? "opacity-100" : "opacity-0"
+            }`}
         >
           <Image
             src="/technology.png"
@@ -265,8 +263,10 @@ function Hero() {
               </motion.div>
             </motion.h1>
             <p className="text-gray-300 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl leading-relaxed">
-              I architect scalable systems and engineer automation solutions that help teams and organizations work smarter. From startup foundations to enterprise optimization, I turn complex technical challenges into elegant, maintainable solutions.
-            </p> 
+              I architect scalable systems that handle massive scale
+              while staying simple. Specializing in automation, system design,
+              and interfaces that users love.
+            </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <CTAButton text={"Let's Discuss Your Vision"} icon={<Sparkles />} />
@@ -280,7 +280,7 @@ function Hero() {
             </div>
           </div> */}
         </div>
-      </section> 
+      </section>
     </div>
   )
 }
