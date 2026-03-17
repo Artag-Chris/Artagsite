@@ -7,7 +7,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  MessageSquare,
   CheckCircle2,
   AlertCircle,
 } from "lucide-react"
@@ -17,7 +16,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
-import { socialLinksContact, testimonials } from "@/data/contactData"
+import { socialLinksContact } from "@/data/contactData"
 import { useContactForm } from "@/hooks/useContactForm"
 import { useMetaPixel } from "@/hooks/useMetaPixel"
 
@@ -33,7 +32,6 @@ function Contact() {
   } = useContactForm()
 
   const { trackEvent } = useMetaPixel()
-  const [currentTestimonial, setCurrentTestimonial] = React.useState(0)
 
   // Wrap the original handleSubmit with Meta Pixel tracking
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,10 +56,10 @@ function Contact() {
   }
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
-    }, 5000)
-    return () => clearInterval(interval)
+    // Meta Pixel tracking on mount
+    trackEvent("ViewContent", {
+      content_name: "Contact Section",
+    })
   }, [])
 
   return (
@@ -224,15 +222,14 @@ function Contact() {
               </div>
             </motion.div>
 
-            {/* Contact Info & Testimonials */}
+            {/* Contact Info */}
             <motion.div
               className="md:col-span-2 w-full"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              {/* Contact Info */}
-              <div className="bg-black border border-gray-700 mb-3 sm:mb-6 w-full rounded-lg">
+              <div className="bg-black border border-gray-700 w-full rounded-lg">
                 <div className="p-3 sm:p-6">
                   <h3 className="text-base sm:text-xl font-bold mb-3 sm:mb-6 text-white" style={{ fontFamily: 'var(--font-display)' }}>Contact Information</h3>
 
@@ -298,36 +295,6 @@ function Contact() {
                        })}
                      </div>
                    </div>
-                </div>
-              </div>
-
-              {/* Testimonial */}
-              <div className="bg-black border border-gray-700 relative overflow-hidden rounded-lg">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-cyan-500/10 rounded-bl-full"></div>
-
-                <div className="p-4 sm:p-6 relative">
-                  <div className="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center mb-4">
-                    <MessageSquare className="h-4 w-4 text-cyan-500" />
-                  </div>
-
-                  <div className="min-h-[160px] flex flex-col justify-between">
-                    <motion.div
-                      key={currentTestimonial}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <p className="text-gray-300 italic mb-4 text-sm sm:text-base">"{testimonials[currentTestimonial].text}"</p>
-                      <div>
-                        <p className="text-white font-medium text-sm">{testimonials[currentTestimonial].name}</p>
-                        <p className="text-gray-500 text-xs sm:text-sm">{testimonials[currentTestimonial].company}</p>
-                      </div>
-                    </motion.div>
-
-                    <p className="text-cyan-400 mt-6 text-xs sm:text-sm font-medium">
-                      I work with teams and organizations to design scalable systems and build automation that drives growth. Let's talk about your technical challenges.
-                    </p>
-                  </div>
                 </div>
               </div>
             </motion.div>
