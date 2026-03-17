@@ -22,30 +22,38 @@ function Skills() {
 
   return (
     <div>
-      <section id="skills" className="w-full bg-black py-16 sm:py-24 relative overflow-hidden" ref={sectionRef}>
-        {/* Subtle grid background */}
-        <div className="absolute inset-0 opacity-5 pointer-events-none"
+      <section id="skills" className="w-full bg-gradient-to-b from-black via-black to-[#0a0a0a] py-16 sm:py-32 relative overflow-hidden" ref={sectionRef}>
+        {/* Animated background grid - more prominent */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
           style={{
-            backgroundImage: `linear-gradient(90deg, #6366f1 1px, transparent 1px), linear-gradient(0deg, #6366f1 1px, transparent 1px)`,
-            backgroundSize: '50px 50px'
+            backgroundImage: `linear-gradient(90deg, #06b6d4 1px, transparent 1px), linear-gradient(0deg, #06b6d4 1px, transparent 1px)`,
+            backgroundSize: '40px 40px'
           }}
         ></div>
 
-        {/* Background glows */}
-        <div className="absolute top-1/3 right-0 w-1/3 h-1/3 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-1/4 w-1/3 h-1/3 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        {/* Enhanced background glows with animation */}
+        <div className="absolute top-20 right-1/4 w-1/2 h-1/2 bg-cyan-500/8 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDuration: '4s' }}></div>
+        <div className="absolute bottom-1/4 left-1/3 w-2/5 h-2/5 bg-indigo-500/6 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDuration: '5s', animationDelay: '0.5s' }}></div>
+        <div className="absolute top-1/3 left-0 w-1/3 h-1/3 bg-cyan-600/4 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
 
         {/* Content - Full Width */}
         <div className="w-full relative z-10">
-          {/* Header Section */}
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6" style={{ fontFamily: 'var(--font-display)' }}>
-              Tools of the <span className='text-cyan-400'>Trade</span>
-            </h2>
-            <p className="text-gray-300 text-base sm:text-lg max-w-3xl leading-relaxed">
-              I leverage these technologies and platforms to architect scalable systems and build powerful automation solutions. 
-              From n8n workflows to cloud infrastructure, these tools enable elegant technical solutions that solve real problems.
-            </p>
+          {/* Header Section with enhanced typography */}
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-20">
+            <div className="space-y-4 sm:space-y-6">
+              <div className="inline-block">
+                <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-cyan-500/70 bg-cyan-500/10 border border-cyan-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full backdrop-blur-sm">
+                  Architecture & Automation
+                </span>
+              </div>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
+                Tools of the <span className='text-cyan-400 drop-shadow-lg' style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Trade</span>
+              </h2>
+              <p className="text-gray-300 text-base sm:text-lg max-w-4xl leading-relaxed">
+                I leverage these technologies and platforms to architect scalable systems and build powerful automation solutions. 
+                From n8n workflows to cloud infrastructure, these tools enable elegant technical solutions that solve real problems.
+              </p>
+            </div>
           </div>
 
           {/* Skills Grid - Full Width with Padding */}
@@ -59,17 +67,22 @@ function Skills() {
                   </div>
                 ))}
               </div>
-              <div className="flex justify-center mt-4">
-                <p className="text-gray-500 text-sm">Tap card to see more →</p>
+              <div className="flex justify-center mt-6">
+                <p className="text-gray-500 text-sm font-medium">Tap card to see more →</p>
               </div>
             </div>
 
-            {/* Desktop Grid - Responsive */}
-            <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 text-white max-w-7xl mx-auto">
+            {/* Desktop Grid - Responsive with improved spacing */}
+            <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8 text-white max-w-7xl mx-auto">
               {skillsData.map((skill, index) => (
                 <SkillCard key={index} skill={skill} index={index} onCardClick={handleCardClick} />
               ))}
             </div>
+          </div>
+
+          {/* Bottom accent element */}
+          <div className="mt-20 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
           </div>
         </div>
       </section>
