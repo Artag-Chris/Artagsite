@@ -22,7 +22,7 @@ function Skills() {
 
   return (
     <div>
-      <section id="skills" className="w-full bg-gradient-to-b from-black via-black to-[#0a0a0a] py-16 sm:py-32 relative overflow-hidden" ref={sectionRef}>
+      <section id="skills" className="bg-gradient-to-b from-black via-black to-[#0a0a0a] py-16 sm:py-32 relative overflow-hidden w-screen -mx-[calc((100vw-100%)/2)]" ref={sectionRef}>
         {/* Animated background grid - more prominent */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
           style={{
