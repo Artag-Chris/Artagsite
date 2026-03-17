@@ -65,8 +65,12 @@ function Contact() {
   }, [])
 
   return (
-    <section id="contact" className="py-12 sm:py-20 bg-black">
-      <div className="container mx-auto px-3 sm:px-4">
+    <section id="contact" className="py-12 sm:py-20 bg-black relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute top-0 left-1/4 w-1/3 h-1/3 bg-indigo-500/3 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-0 right-1/4 w-1/3 h-1/3 bg-cyan-500/3 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div className="container mx-auto px-3 sm:px-4 relative z-10">
         <div className="max-w-5xl mx-auto w-full">
           {/* Header */}
           <motion.div
@@ -75,10 +79,10 @@ function Contact() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Let's <span className="text-indigo-500">Build Something Scalable</span>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+              Let's <span className="text-cyan-400">Build Something Scalable</span>
             </h2>
-            <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Whether you need system architecture, automation solutions, or strategic technical guidance—let's explore how we can work together to solve your toughest challenges.
             </p>
           </motion.div>
@@ -91,8 +95,8 @@ function Contact() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <Card className="bg-zinc-900 border-zinc-800 overflow-hidden w-full">
-                <CardContent className="p-4 sm:p-6">
+              <div className="bg-black border border-gray-700 overflow-hidden rounded-lg w-full">
+                <div className="p-4 sm:p-6">
                   {!isSubmitted ? (
                     <>
                       {error && (
@@ -108,7 +112,7 @@ function Contact() {
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="space-y-4">
                         <div>
-                          <Label htmlFor="name" className="text-zinc-300 mb-1 block">
+                          <Label htmlFor="name" className="text-gray-300 mb-1 block text-sm font-medium">
                             Your Name
                           </Label>
                           <Input
@@ -118,12 +122,12 @@ function Contact() {
                             onChange={handleChange}
                             placeholder="John Doe"
                             required
-                            className="mt-1 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-indigo-500 focus:ring-indigo-500"
+                            className="mt-1 bg-black border-gray-700 text-white placeholder:text-gray-600 focus:border-cyan-500 focus:ring-cyan-500 rounded-md"
                           />
                         </div>
 
                         <div>
-                          <Label htmlFor="email" className="text-zinc-300 mb-1 block">
+                          <Label htmlFor="email" className="text-gray-300 mb-1 block text-sm font-medium">
                             Email Address
                           </Label>
                           <Input
@@ -132,21 +136,21 @@ function Contact() {
                             type="email"
                             value={formData.email}
                             onChange={handleChange}
-                            placeholder="info@gmail.com"
+                            placeholder="you@example.com"
                             required
-                            className="mt-1 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-indigo-500 focus:ring-indigo-500"
+                            className="mt-1 bg-black border-gray-700 text-white placeholder:text-gray-600 focus:border-cyan-500 focus:ring-cyan-500 rounded-md"
                           />
                         </div>
 
                         <div>
-                          <Label htmlFor="projectType" className="text-zinc-300 mb-1 block">
+                          <Label htmlFor="projectType" className="text-gray-300 mb-1 block text-sm font-medium">
                             What can I help with?
                           </Label>
                           <Select value={formData.projectType} onValueChange={handleSelectChange}>
-                            <SelectTrigger className="mt-1 bg-zinc-800 border-zinc-700 text-white focus:border-indigo-500 focus:ring-indigo-500">
+                            <SelectTrigger className="mt-1 bg-black border-gray-700 text-white focus:border-cyan-500 focus:ring-cyan-500 rounded-md">
                               <SelectValue placeholder="Select project type" />
                             </SelectTrigger>
-                            <SelectContent className="bg-zinc-800 border-zinc-700 text-white">
+                            <SelectContent className="bg-black border-gray-700 text-white">
                               <SelectItem value="system-architecture">System Architecture Design</SelectItem>
                               <SelectItem value="automation-solutions">Automation Solutions</SelectItem>
                               <SelectItem value="devops-infrastructure">DevOps & Infrastructure</SelectItem>
@@ -158,7 +162,7 @@ function Contact() {
                         </div>
 
                         <div>
-                          <Label htmlFor="message" className="text-zinc-300 mb-1 block text-sm sm:text-base">
+                          <Label htmlFor="message" className="text-gray-300 mb-1 block text-sm sm:text-base font-medium">
                             Your Message
                           </Label>
                           <Textarea
@@ -168,7 +172,7 @@ function Contact() {
                             onChange={handleChange}
                             placeholder="Tell me what you have in mind..."
                             required
-                            className="mt-1 min-h-[100px] sm:min-h-[120px] text-sm sm:text-base bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-indigo-500 focus:ring-indigo-500 placeholder:text-sm"
+                            className="mt-1 min-h-[100px] sm:min-h-[120px] text-sm sm:text-base bg-black border-gray-700 text-white placeholder:text-gray-600 focus:border-cyan-500 focus:ring-cyan-500 rounded-md"
                           />
                           <input
                             type="text"
@@ -186,7 +190,7 @@ function Contact() {
                       <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-medium py-2 sm:py-3 text-sm sm:text-base transition-all duration-300 relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-semibold py-2 sm:py-3 text-sm sm:text-base transition-all duration-300 relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed rounded-md"
                       >
                         <span className="relative z-10 flex items-center justify-center gap-1 sm:gap-2">
                            {isSubmitting ? "Sending..." : (
@@ -209,15 +213,15 @@ function Contact() {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <CheckCircle2 className="h-16 w-16 text-indigo-500 mb-4" />
+                      <CheckCircle2 className="h-16 w-16 text-cyan-500 mb-4" />
                       <h3 className="text-xl font-bold text-white mb-2">Message sent successfully!</h3>
-                      <p className="text-zinc-300">
+                      <p className="text-gray-300">
                         Thank you for contacting me. I'll get back to you as soon as possible.
                       </p>
                     </motion.div>
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </motion.div>
 
             {/* Contact Info & Testimonials */}
@@ -228,52 +232,52 @@ function Contact() {
               transition={{ duration: 0.5, delay: 0.4 }}
             >
               {/* Contact Info */}
-              <Card className="bg-zinc-900 border-zinc-800 mb-3 sm:mb-6 w-full">
-                <CardContent className="p-3 sm:p-6">
-                  <h3 className="text-base sm:text-xl font-bold mb-3 sm:mb-6 text-white">Contact Information</h3>
+              <div className="bg-black border border-gray-700 mb-3 sm:mb-6 w-full rounded-lg">
+                <div className="p-3 sm:p-6">
+                  <h3 className="text-base sm:text-xl font-bold mb-3 sm:mb-6 text-white" style={{ fontFamily: 'var(--font-display)' }}>Contact Information</h3>
 
                   <div className="space-y-3 sm:space-y-5">
                     <div className="flex items-start gap-2 sm:gap-3">
-                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-indigo-500/10 flex items-center justify-center">
-                        <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-indigo-500" />
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
+                        <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-500" />
                       </div>
                       <div>
-                        <p className="text-zinc-300 font-medium text-sm sm:text-base">Email</p>
+                        <p className="text-gray-300 font-medium text-sm sm:text-base">Email</p>
                         <a
-                          href="mailto:contact@johndoe.com"
-                          className="text-indigo-400 hover:text-indigo-300 transition-colors text-sm sm:text-base"
+                          href="mailto:artagdev@gmail.com"
+                          className="text-cyan-400 hover:text-cyan-300 transition-colors text-sm sm:text-base"
                         >
                           artagdev@gmail.com
                         </a>
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center">
-                        <Phone className="h-4 w-4 text-indigo-500" />
+                    <div className="flex items-start gap-2 sm:gap-3">
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
+                        <Phone className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-500" />
                       </div>
                       <div>
-                        <p className="text-zinc-300 font-medium">Phone</p>
-                        <a href="tel:+1234567890" className="text-indigo-400 hover:text-indigo-300 transition-colors">
-                          +57 3205711428
+                        <p className="text-gray-300 font-medium text-sm sm:text-base">Phone</p>
+                        <a href="tel:+57320571142" className="text-cyan-400 hover:text-cyan-300 transition-colors text-sm sm:text-base">
+                          +57 320 571 1428
                         </a>
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center">
-                        <MapPin className="h-4 w-4 text-indigo-500" />
+                    <div className="flex items-start gap-2 sm:gap-3">
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
+                        <MapPin className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-500" />
                       </div>
                       <div>
-                        <p className="text-zinc-300 font-medium">Location</p>
-                        <p className="text-zinc-400">Pereira Risaralda Colombia</p>
+                        <p className="text-gray-300 font-medium text-sm sm:text-base">Location</p>
+                        <p className="text-gray-500 text-sm sm:text-base">Pereira, Risaralda, Colombia</p>
                       </div>
                     </div>
                   </div>
 
                    {/* Social Links */}
-                   <div className="mt-6">
-                     <p className="text-zinc-300 font-medium mb-3">Connect with me</p>
+                   <div className="mt-6 border-t border-gray-700 pt-6">
+                     <p className="text-gray-300 font-medium mb-3 text-sm">Connect with me</p>
                      <div className="flex gap-3">
                        {socialLinksContact.map((social) => {
                          const Icon = social.icon
@@ -285,7 +289,7 @@ function Contact() {
                              rel="noopener noreferrer"
                              whileHover={{ y: -5 }}
                              onClick={() => handleSocialClick(social.name)}
-                             className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-zinc-800 border border-zinc-700 transition-colors duration-300 hover:border-zinc-500"
+                             className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-black border border-gray-700 transition-all duration-300 hover:border-cyan-500"
                              aria-label={social.name}
                            >
                              <Icon className="h-5 w-5" />
@@ -294,16 +298,16 @@ function Contact() {
                        })}
                      </div>
                    </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
 
               {/* Testimonial */}
-              <Card className="bg-zinc-900 border-zinc-800 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-indigo-500/10 rounded-bl-full"></div>
+              <div className="bg-black border border-gray-700 relative overflow-hidden rounded-lg">
+                <div className="absolute top-0 right-0 w-20 h-20 bg-cyan-500/10 rounded-bl-full"></div>
 
-                <CardContent className="p-6 relative">
-                  <div className="w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center mb-4">
-                    <MessageSquare className="h-4 w-4 text-indigo-500" />
+                <div className="p-4 sm:p-6 relative">
+                  <div className="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center mb-4">
+                    <MessageSquare className="h-4 w-4 text-cyan-500" />
                   </div>
 
                   <div className="min-h-[160px] flex flex-col justify-between">
@@ -313,34 +317,34 @@ function Contact() {
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <p className="text-zinc-300 italic mb-4">"{testimonials[currentTestimonial].text}"</p>
+                      <p className="text-gray-300 italic mb-4 text-sm sm:text-base">"{testimonials[currentTestimonial].text}"</p>
                       <div>
-                        <p className="text-white font-medium">{testimonials[currentTestimonial].name}</p>
-                        <p className="text-zinc-400 text-sm">{testimonials[currentTestimonial].company}</p>
+                        <p className="text-white font-medium text-sm">{testimonials[currentTestimonial].name}</p>
+                        <p className="text-gray-500 text-xs sm:text-sm">{testimonials[currentTestimonial].company}</p>
                       </div>
                     </motion.div>
 
-                    <p className="text-indigo-400 mt-6 text-sm font-medium">
+                    <p className="text-cyan-400 mt-6 text-xs sm:text-sm font-medium">
                       I work with teams and organizations to design scalable systems and build automation that drives growth. Let's talk about your technical challenges.
                     </p>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </motion.div>
           </div>
 
-            {/* Final CTA */}
-            <motion.div
-              className="text-center mt-16"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-            >
-              <h3 className="text-2xl font-bold text-white mb-3">Ready to Solve Your Technical Challenge?</h3>
-              <p className="text-zinc-300 max-w-2xl mx-auto">
-                Share your project details and let's discuss how we can architect a solution that scales with your ambitions.
-              </p>
-            </motion.div>
+           {/* Final CTA */}
+           <motion.div
+             className="text-center mt-16"
+             initial={{ opacity: 0, y: 20 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ duration: 0.5, delay: 0.6 }}
+           >
+             <h3 className="text-2xl font-bold text-white mb-3" style={{ fontFamily: 'var(--font-display)' }}>Ready to Solve Your Technical Challenge?</h3>
+             <p className="text-gray-300 max-w-2xl mx-auto">
+               Share your project details and let's discuss how we can architect a solution that scales with your ambitions.
+             </p>
+           </motion.div>
         </div>
       </div>
     </section>

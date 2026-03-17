@@ -124,7 +124,7 @@ function Hero() {
   const parallaxOffset = scrollY * (isMobile ? 0.2 : 0.4)
 
   return (
-    <div className="relative overflow-hidden h-screen w-full">
+    <div className="relative overflow-hidden h-screen w-full bg-black">
       {/* City Loader Overlay */}
       {showCityLoader && (
         <RandomLoader
@@ -177,9 +177,23 @@ function Hero() {
           />
         </div>
 
-        {/* Overlay - darker on mobile for better text contrast */}
+        {/* Dark overlay - deeper for Techonic Precision */}
         <div
-          className={`absolute inset-0 z-10 transition-all duration-500 ${isMobile ? "bg-black/70" : "bg-black/50"}`}
+          className={`absolute inset-0 z-10 transition-all duration-500 ${isMobile ? "bg-black/75" : "bg-black/60"}`}
+        />
+
+        {/* Grid Reveal Overlay - Signature Element */}
+        <div className="absolute inset-0 z-12 grid-reveal"
+          style={{
+            backgroundImage: `
+              linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+              linear-gradient(0deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '40px 40px',
+            opacity: videoLoaded ? 0.3 : 0,
+            transition: 'opacity 0.6s ease-out',
+            pointerEvents: 'none',
+          }}
         />
 
         {/* Smooth fade-out gradient at bottom */}
@@ -189,9 +203,9 @@ function Hero() {
       {/* Hero Section Content */}
       <section className="container mx-auto px-4 h-full flex items-center relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full items-center">
-          {/* Left Content */}
-          <div className="max-w-2xl">
-            <Badge className="mb-4 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 transition-colors border border-indigo-500/30">
+          {/* Left Content - with stagger animation */}
+          <div className="max-w-2xl" style={{ animation: 'fadeInUp 0.8s ease-out 0.2s backwards' }}>
+            <Badge className="mb-4 bg-indigo-500/15 text-indigo-300 hover:bg-indigo-500/25 transition-all border border-indigo-500/40 backdrop-blur-sm">
               <TypingAnimation
                 phrases={["Software Architect", "Automation Specialist", "Technical Founder"]}
                 typeSpeed={80}
@@ -200,10 +214,10 @@ function Hero() {
                 loop={true}
               />
             </Badge>
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 text-white">
-              Design Systems, <span className="text-indigo-400">Build Automation.</span> Scale Intelligently.
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 text-white leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
+              Design Systems, <span className="text-cyan-400">Build Automation.</span> Scale Intelligently.
             </h1>
-            <p className="text-zinc-200 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl">
+            <p className="text-gray-300 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl leading-relaxed">
               I architect scalable systems and engineer automation solutions that help teams and organizations work smarter. From startup foundations to enterprise optimization, I turn complex technical challenges into elegant, maintainable solutions.
             </p> 
 
