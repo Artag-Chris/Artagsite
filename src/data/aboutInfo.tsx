@@ -9,29 +9,26 @@ export const tabs: TabItem[] = [
         <div className="space-y-4">
           <div className="relative pl-6 border-l-2 border-indigo-500/30">
             <div className="absolute w-3 h-3 bg-indigo-500 rounded-full -left-[7px] top-1"></div>
-            <h4 className="text-white font-medium">Full Stack Developer</h4>
+            <h4 className="text-white font-medium">Full Stack Developer & Software Architect</h4>
             <p className="text-indigo-400 text-sm">Finova • Dec 2024 - Present</p>
             <p className="text-zinc-400 text-sm mt-2">
-              Promoted to Full Stack Developer after demonstrating strong skills in both frontend and backend development.
-              Working with React, Node.js, and various database technologies.
+              Architecting scalable full-stack solutions across frontend and backend systems. Contributing to system design decisions, infrastructure optimization, and automation of deployment workflows. Building with React, Node.js, and cloud technologies.
             </p>
           </div>
           <div className="relative pl-6 border-l-2 border-indigo-500/30">
             <div className="absolute w-3 h-3 bg-indigo-500 rounded-full -left-[7px] top-1"></div>
-            <h4 className="text-white font-medium">React Developer</h4>
-            <p className="text-indigo-400 text-sm">Finova • aug 2024 - Dec 2024</p>
+            <h4 className="text-white font-medium">React & Frontend Architecture</h4>
+            <p className="text-indigo-400 text-sm">Finova • Aug 2024 - Dec 2024</p>
             <p className="text-zinc-400 text-sm mt-2">
-              Developed and maintained web applications using React.js, Redux, and modern frontend technologies.
-              Contributed to improving application performance and user experience.
+              Built component architectures and frontend systems using React.js and modern tools. Focused on scalability, performance optimization, and maintainable code structures that support growing product complexity.
             </p>
           </div>
           <div className="relative pl-6 border-l-2 border-indigo-500/30">
             <div className="absolute w-3 h-3 bg-indigo-500 rounded-full -left-[7px] top-1"></div>
-            <h4 className="text-white font-medium">Freelance Web Developer</h4>
-            <p className="text-indigo-400 text-sm">Various Platforms • 2021 - 2024</p>
+            <h4 className="text-white font-medium">Freelance Architecture & Development</h4>
+            <p className="text-indigo-400 text-sm">Various Clients • 2021 - 2024</p>
             <p className="text-zinc-400 text-sm mt-2">
-              Worked on diverse projects across multiple online platforms, building responsive websites and web applications for clients worldwide.
-              Gained experience with different tech stacks and client requirements.
+              Designed and built technical solutions across diverse tech stacks. Worked with startups and enterprises to architect systems, optimize workflows, and deliver production applications. Gained expertise in different architectural patterns and client requirements.
             </p>
           </div>
         </div>
@@ -48,7 +45,7 @@ export const tabs: TabItem[] = [
             <h4 className="text-white font-medium">Web Application Development Program</h4>
             <p className="text-indigo-400 text-sm">Universidad de Bucaramanga • 2023</p>
             <p className="text-zinc-400 text-sm mt-2">
-              Specialized training in modern web development technologies and frameworks.
+              Comprehensive training in modern web application architecture, design patterns, and full-stack development frameworks.
             </p>
           </div>
         </div>
@@ -65,8 +62,8 @@ export const tabs: TabItem[] = [
               <Award className="h-4 w-4" />
             </div>
             <div>
-              <h4 className="text-white text-sm font-medium">Pizza Champion</h4>
-              <p className="text-zinc-400 text-xs">Won a pizza for telling the most jokes to colleagues (2020)</p>
+              <h4 className="text-white text-sm font-medium">System Architecture Design</h4>
+              <p className="text-zinc-400 text-xs">Designed scalable architectures supporting growth from 0 to 500+ concurrent users</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
@@ -74,8 +71,8 @@ export const tabs: TabItem[] = [
               <Code className="h-4 w-4" />
             </div>
             <div>
-              <h4 className="text-white text-sm font-medium">Fast Learner Award</h4>
-              <p className="text-zinc-400 text-xs">Recognized for quickly mastering new technologies</p>
+              <h4 className="text-white text-sm font-medium">Automation Solutions</h4>
+              <p className="text-zinc-400 text-xs">Engineered automation workflows saving teams 50+ hours monthly through n8n and custom solutions</p>
             </div>
           </div>
         </div>

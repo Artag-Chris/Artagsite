@@ -19,27 +19,15 @@ function ShowmoreInfo({
           }`}
         >
           <p className="text-sm sm:text-base leading-relaxed">
-            I transform digital challenges into human connections — a passionate
-            fullstack developer crafting solutions where technology breathes
-            with emotion. For over 5 years, I've engineered web applications
-            that solve real-world problems while creating meaningful digital
-            relationships.
+            I architect systems and engineer automation solutions that help teams scale intelligently. As a Software Architect and Automation Specialist, I design technical foundations for startups, optimize workflows for enterprises, and build infrastructure that anticipates tomorrow's challenges.
           </p>
 
           <p className="text-sm sm:text-base leading-relaxed">
-            My journey began with childhood curiosity about the web's magic.
-            Today, I architect hybrid server infrastructures (on-site & cloud)
-            and build WhatsApp Business ecosystems using official APIs, helping
-            startups and enterprises bring conversational experiences to life.
+            My focus spans multiple domains: enterprise system design, cloud-native architecture, DevOps automation, business process workflows, and code generation. I work across formats—full-time roles, consulting engagements, or strategic advisory—bringing the same rigor and vision to each.
           </p>
 
           <p className={`${showMoreBio ? "block" : "hidden"} text-sm sm:text-base leading-relaxed`}>
-            I believe in clean code with emotional intelligence — whether
-            creating chatbots that understand intentions or scalable systems
-            that anticipate needs. Beyond coding, I explore how automation
-            fosters genuine connections and share discoveries through
-            open-source contributions. Because the future isn't just built; it's
-            felt.
+            I believe exceptional systems combine technical depth with clarity of thought. Whether architecting microservices, automating complex workflows, or guiding technical decisions, I focus on solutions that are maintainable, scalable, and aligned with business goals. When I'm not architecting systems, you'll find me exploring emerging technologies, contributing to open-source projects, or sharing technical insights.
           </p>
         </motion.div>
 

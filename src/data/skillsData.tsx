@@ -19,86 +19,84 @@ export const skillsData = [
  {
   name: "n8n",
   level: "",
-  description: "My visual automation workhorse: Connecting apps and services to transform complex workflows into effortless digital symphonies.",
-  icon: SiN8N, // Asegúrate de tener este icono importado
-  color: "text-blue-500", // Sugerencia de color para n8n
+  description: "Visual automation platform: Connecting services and transforming workflows into seamless digital experiences.",
+  icon: SiN8N,
+  color: "text-blue-500",
 },
+ {
+   name: "Docker",
+   level: "",
+   description: "Containerization and orchestration for building scalable, isolated application environments.",
+   icon: SiDocker,
+   color: "text-blue-400",
+ },
+ {
+   name: "AWS",
+   level: "",
+   description: "Cloud infrastructure for architecting globally-distributed, resilient systems.",
+   icon: SiAmazon,
+   color: "text-orange-400",
+ },
   {
     name: "TypeScript",
     level: "",
-    description: "A strongly typed programming language that builds on JavaScript, giving better tooling at any scale.",
+    description: "Strongly-typed JavaScript for building maintainable, scalable applications with confidence.",
     icon: SiTypescript,
     color: "text-blue-400",
   },
   {
-    name: "React",
-    level: "",
-    description: "A JavaScript library for building user interfaces, particularly single-page applications.",
-    icon: SiReact,
-    color: "text-cyan-400",
-  },
-  {
-    name: "Next.js",
-    level: "",
-    description: "A React framework that enables server-side rendering and generating static websites.",
-    icon: SiNextdotjs,
-    color: "text-white",
-  },
-  {
     name: "Node.js",
     level: "",
-    description:
-      "A JavaScript runtime built on Chrome's V8 JavaScript engine for building scalable network applications.",
+    description: "Runtime for building fast, scalable server-side applications and microservices.",
     icon: SiNodedotjs,
     color: "text-indigo-400",
   },
   {
-    name: "Express",
+    name: "Next.js",
     level: "",
-    description: "A minimal and flexible Node.js web application framework for building web and mobile applications.",
-    icon: SiExpress,
-    color: "text-gray-400",
+    description: "React framework for full-stack applications with server-side rendering and static generation.",
+    icon: SiNextdotjs,
+    color: "text-white",
   },
   {
-    name: "MongoDB",
+    name: "React",
     level: "",
-    description: "A NoSQL database that uses JSON-like documents with optional schemas for storing data.",
-    icon: SiMongodb,
-    color: "text-indigo-500",
+    description: "Component library for building interactive, maintainable user interfaces.",
+    icon: SiReact,
+    color: "text-cyan-400",
   },
   {
     name: "PostgreSQL",
     level: "",
-    description: "A powerful, open source object-relational database system with a strong reputation for reliability.",
+    description: "Enterprise-grade relational database for architecting reliable data systems.",
     icon: SiPostgresql,
     color: "text-blue-500",
   },
   {
+    name: "MongoDB",
+    level: "",
+    description: "NoSQL database for flexible, scalable data storage in modern applications.",
+    icon: SiMongodb,
+    color: "text-indigo-500",
+  },
+  {
+    name: "Express",
+    level: "",
+    description: "Minimal web framework for building APIs and server applications.",
+    icon: SiExpress,
+    color: "text-gray-400",
+  },
+  {
     name: "GraphQL",
     level: "",
-    description: "A query language for APIs and a runtime for executing those queries with your existing data.",
+    description: "Query language for building efficient, type-safe APIs.",
     icon: SiGraphql,
     color: "text-pink-500",
   },
   {
-    name: "Docker",
-    level: "",
-    description: "A platform for developing, shipping, and running applications in containers.",
-    icon: SiDocker,
-    color: "text-blue-400",
-  },
-  {
-    name: "AWS",
-    level: "",
-    description: "A comprehensive cloud platform offering over 200 fully featured services from data centers globally.",
-    icon: SiAmazon,
-    color: "text-orange-400",
-  },
-  {
     name: "Git",
     level: "",
-    description:
-      "A distributed version control system for tracking changes in source code during software development.",
+    description: "Version control system for collaborative development and maintaining code history.",
     icon: SiGit,
     color: "text-orange-500",
   },
@@ -114,4 +112,4 @@ export const skillsData = [
   }
 
 
-export const skills = ["React Developer", "UI/UX Enthusiast", "Next.js Expert", "Problem Solver", "Full Stack Developer"]
+export const skills = ["Software Architect", "Automation Specialist", "System Designer", "Technical Founder", "DevOps Engineer"]

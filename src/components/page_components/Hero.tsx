@@ -191,9 +191,9 @@ function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full items-center">
           {/* Left Content */}
           <div className="max-w-2xl">
-            <Badge className="mb-4 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 transition-colors border border-amber-500/30">
+            <Badge className="mb-4 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 transition-colors border border-indigo-500/30">
               <TypingAnimation
-                phrases={["Fullstack Developer", "UI/UX Designer", "Problem Solver"]}
+                phrases={["Software Architect", "Automation Specialist", "Technical Founder"]}
                 typeSpeed={80}
                 eraseSpeed={40}
                 delayBetweenPhrases={1500}
@@ -201,15 +201,14 @@ function Hero() {
               />
             </Badge>
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 text-white">
-              Where Innovation Clicks: <span className="text-indigo-400">Experiences </span> Designed to Captivate
+              Design Systems, <span className="text-indigo-400">Build Automation.</span> Scale Intelligently.
             </h1>
             <p className="text-zinc-200 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl">
-              I transform visions into beating-heart realities: crafting emotion-driven web experiences, AI-powered
-              applications, and seamless APIs that make your digital dreams breathe.
+              I architect scalable systems and engineer automation solutions that help teams and organizations work smarter. From startup foundations to enterprise optimization, I turn complex technical challenges into elegant, maintainable solutions.
             </p> 
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <CTAButton text={"Contac me"} icon={<Sparkles />} />
+              <CTAButton text={"Let's Discuss Your Vision"} icon={<Sparkles />} />
             </div>
           </div>
 

@@ -76,10 +76,10 @@ function Contact() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Let's <span className="text-indigo-500">Collaborate</span>
+              Let's <span className="text-indigo-500">Build Something Scalable</span>
             </h2>
             <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
-              I'm always interested in working on exciting projects. Let's build something great together.
+              Whether you need system architecture, automation solutions, or strategic technical guidance—let's explore how we can work together to solve your toughest challenges.
             </p>
           </motion.div>
 
@@ -140,17 +140,18 @@ function Contact() {
 
                         <div>
                           <Label htmlFor="projectType" className="text-zinc-300 mb-1 block">
-                            Project Type
+                            What can I help with?
                           </Label>
                           <Select value={formData.projectType} onValueChange={handleSelectChange}>
                             <SelectTrigger className="mt-1 bg-zinc-800 border-zinc-700 text-white focus:border-indigo-500 focus:ring-indigo-500">
                               <SelectValue placeholder="Select project type" />
                             </SelectTrigger>
                             <SelectContent className="bg-zinc-800 border-zinc-700 text-white">
-                              <SelectItem value="web-development">Web Development</SelectItem>
-                              <SelectItem value="mobile-app">Mobile App</SelectItem>
-                              <SelectItem value="ui-ux-design">UI/UX Design</SelectItem>
-                              <SelectItem value="consulting">Consulting</SelectItem>
+                              <SelectItem value="system-architecture">System Architecture Design</SelectItem>
+                              <SelectItem value="automation-solutions">Automation Solutions</SelectItem>
+                              <SelectItem value="devops-infrastructure">DevOps & Infrastructure</SelectItem>
+                              <SelectItem value="consulting">Technical Consulting</SelectItem>
+                              <SelectItem value="full-time">Full-time Role</SelectItem>
                               <SelectItem value="other">Other</SelectItem>
                             </SelectContent>
                           </Select>
@@ -320,7 +321,7 @@ function Contact() {
                     </motion.div>
 
                     <p className="text-indigo-400 mt-6 text-sm font-medium">
-                      I've worked with amazing teams and clients to create digital experiences that matter. Let's collaborate.
+                      I work with teams and organizations to design scalable systems and build automation that drives growth. Let's talk about your technical challenges.
                     </p>
                   </div>
                 </CardContent>
@@ -328,18 +329,18 @@ function Contact() {
             </motion.div>
           </div>
 
-           {/* Final CTA */}
-           <motion.div
-             className="text-center mt-16"
-             initial={{ opacity: 0, y: 20 }}
-             animate={{ opacity: 1, y: 0 }}
-             transition={{ duration: 0.5, delay: 0.6 }}
-           >
-             <h3 className="text-2xl font-bold text-white mb-3">Let's create something amazing</h3>
-             <p className="text-zinc-300 max-w-2xl mx-auto">
-               Share your project details or ideas, and let's explore how we can collaborate to bring your vision to life.
-             </p>
-           </motion.div>
+            {/* Final CTA */}
+            <motion.div
+              className="text-center mt-16"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <h3 className="text-2xl font-bold text-white mb-3">Ready to Solve Your Technical Challenge?</h3>
+              <p className="text-zinc-300 max-w-2xl mx-auto">
+                Share your project details and let's discuss how we can architect a solution that scales with your ambitions.
+              </p>
+            </motion.div>
         </div>
       </div>
     </section>

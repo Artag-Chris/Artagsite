@@ -38,16 +38,16 @@ export const socialLinksContact = [
     {
       name: "Sarah Johnson",
       company: "TechStart Inc.",
-      text: "Working with John was a game-changer for our project. His technical expertise and attention to detail exceeded our expectations.",
+      text: "Christian's architectural approach transformed our system's scalability challenges. His strategic thinking and technical depth were exactly what we needed.",
     },
     {
       name: "Michael Chen",
       company: "Innovate Solutions",
-      text: "John delivered our web application ahead of schedule and with all the features we needed. Highly recommended!",
+      text: "The automation solutions Christian implemented saved our team hundreds of hours. His understanding of both technical and business needs was exceptional.",
     },
     {
       name: "Emily Rodriguez",
       company: "Creative Digital",
-      text: "The website John built for us has significantly increased our conversion rate. His understanding of UX is exceptional.",
+      text: "Working with Christian on our infrastructure redesign was invaluable. He designed a system that grows with us and reduced our operational overhead significantly.",
     },
   ]
