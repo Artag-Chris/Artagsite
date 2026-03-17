@@ -1,0 +1,203 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    SKILLS SECTION - CAROUSEL LAYOUT
+═══════════════════════════════════════════════════════════════════════════════
+
+BEFORE (Vertical Stack):
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ What I Build                                                                 │
+│ Here are the real problems I solve...                                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+                              ↓ Long Card 1
+                              ↓ Long Card 2
+                              ↓ Long Card 3
+                              ↓ Long Card 4
+                              ↓ Long Card 5
+                              ↓ Long Card 6
+           [User has to scroll A LOT to reach next section]
+
+
+AFTER (Horizontal Carousel):
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ What I Build                                                                 │
+│ Here are the real problems I solve...                                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    ◀  [        FOCUSED CARD VIEW        ]  ▶
+    ◀  
+       ┌─────────────────────────────────────────────┐
+       │ ⭐ Zero-Downtime Database Migrations       │
+       │                                              │
+       │ Legacy systems with millions of records...  │
+       │                                              │
+       │ Tech Stack: PostgreSQL MySQL Docker AWS ... │
+       │                                              │
+       │ ┌─────────────────┐  ┌──────────────────┐  │
+       │ │ 32,000+         │  │ 0.004%           │  │
+       │ │ Users Migrated  │  │ Error Rate       │  │
+       │ └─────────────────┘  └──────────────────┘  │
+       │                                              │
+       │ Click to expand ↓                            │
+       └─────────────────────────────────────────────┘
+    ▶
+
+       • • • • • • 
+       1 / 6
+
+           [Short scroll to next section - Much better UX!]
+
+
+NAVIGATION OPTIONS:
+═══════════════════════════════════════════════════════════════════════════════
+
+Option 1: ARROW BUTTONS (Desktop)
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ◀ (on hover)    [    CARD VIEW    ]    (on hover) ▶                         │
+│                                                                              │
+│ Click arrow → Smooth scroll to next card                                    │
+│ Arrow auto-disables at start/end of carousel                                │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+
+Option 2: DOT NAVIGATION (All devices)
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ [        CARD VIEW        ]                                                  │
+│                                                                              │
+│ ◉ ○ ○ ○ ○ ○     ← Click any dot to jump to that slide                     │
+│                 ◉ = Current slide (active, cyan)                            │
+│                 ○ = Other slides (inactive, gray)                           │
+│                                                                              │
+│ 1 / 6           ← Shows current position / total                            │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+
+Option 3: MOBILE NATIVE SWIPE (Touch)
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ [CARD]                                                                       │
+│                                                                              │
+│ User swipes left/right with thumb                                           │
+│           ↙     ↘                                                           │
+│     Next    Prev    (smooth native scroll)                                  │
+│                                                                              │
+│ Dots update to show progress as user swipes                                 │
+│ • ◉ ○ ○ ○ ○  → • • ◉ ○ ○ ○  → • • • ◉ ○ ○                                │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+
+RESPONSIVE BEHAVIOR:
+═══════════════════════════════════════════════════════════════════════════════
+
+MOBILE (< 768px)
+┌──────────────────────────┐
+│ ◀ (hidden) [   CARD   ]  │   Hidden arrows (tap dots instead)
+│            (90vw width)  │   Full-width nearly (90 viewport width)
+│           ▶ (hidden)     │   Easy thumb navigation
+│                          │
+│      ◉ ○ ○ ○ ○ ○        │   Prominent dots
+│      1 / 6               │
+└──────────────────────────┘
+
+
+TABLET (768px - 1024px)
+┌────────────────────────────────────────────────────┐
+│ ◀ [        CARD VIEW        ] ▶                   │   Visible arrows
+│   (partial cards visible)    (on hover)           │   600px card width
+│                                                    │   Good balance
+│         ◉ ○ ○ ○ ○ ○                              │   Dots still prominent
+│         1 / 6                                      │
+└────────────────────────────────────────────────────┘
+
+
+DESKTOP (> 1024px)
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ◀ (hover to show)  [          CARD VIEW           ]  (hover to show) ▶       │
+│                    (700px optimized width)                                   │
+│ Clear view of card with padding on sides                                    │
+│ Arrows only show on hover (cleaner look)                                    │
+│                                                                              │
+│              ◉ ○ ○ ○ ○ ○                                                    │
+│              1 / 6                                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+
+KEY IMPROVEMENTS:
+═══════════════════════════════════════════════════════════════════════════════
+
+✓ BETTER UX
+  - Users focus on ONE card at a time
+  - No need to scroll through all 6 cards to reach next section
+  - Carousel takes ~1 screen height instead of 6+
+
+✓ CLEANER INTERFACE
+  - Arrows only show on hover (desktop)
+  - Dots give clear progress indication (1 / 6)
+  - Mobile-optimized with swipe support
+
+✓ EASIER NAVIGATION
+  - Click arrow → smooth scroll
+  - Click dot → jump to slide
+  - Swipe → natural mobile gesture
+  - All options available (users choose what feels best)
+
+✓ MAINTAINS FUNCTIONALITY
+  - Click card to expand full details
+  - All expandable content preserved
+  - Tech stack, capabilities, metrics all visible
+
+✓ DESIGN CONSISTENCY
+  - Techonic Precision maintained
+  - Cyan/Indigo color scheme
+  - Smooth animations
+  - Professional appearance
+
+
+CAROUSEL FLOW EXAMPLES:
+═══════════════════════════════════════════════════════════════════════════════
+
+Scenario 1: Desktop User Browsing
+─────────────────────────────────
+View Home → Scroll to Skills Section
+   ↓
+See carousel with first use case displayed
+   ↓
+(Hover over carousel → arrows appear)
+   ↓
+Click right arrow OR click next dot
+   ↓
+Smooth scroll to next use case
+   ↓
+Dot highlights update to show "2 / 6"
+   ↓
+Can expand card for details or scroll to next
+   ↓
+Arrows fade on mouse leave
+   ↓
+Continue browsing → Tools Section visible below
+
+
+Scenario 2: Mobile User Swiping
+────────────────────────────────
+View Home on phone → Scroll to Skills
+   ↓
+See carousel with card filling ~90% width
+   ↓
+Can see dots: ◉ ○ ○ ○ ○ ○
+   ↓
+Swipe left → smooth slide to next card
+   ↓
+Dot updates: ○ ◉ ○ ○ ○ ○ (shows "2 / 6")
+   ↓
+Can tap any dot to jump to specific use case
+   ↓
+Or continue swiping through all 6
+   ↓
+Below carousel: Tools section visible
+   ↓
+Minimal scrolling to reach other content
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+COMMIT HASH: 777fa5a
+
+This layout is MUCH more user-friendly and keeps people engaged with the
+content without forcing excessive scrolling!
