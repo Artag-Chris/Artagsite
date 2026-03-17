@@ -8,22 +8,26 @@ import type { UseCase } from "@/data/skillsData"
 interface UseCaseCardProps {
   useCase: UseCase
   index: number
+  isCarousel?: boolean
 }
 
-export function UseCaseCard({ useCase, index }: UseCaseCardProps) {
+export function UseCaseCard({ useCase, index, isCarousel = false }: UseCaseCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const Icon = useCase.icon
+
+  // Adjust width for carousel mode
+  const cardWidthClass = isCarousel ? "w-full min-w-[min(90vw,600px)] md:min-w-[700px] flex-shrink-0" : "w-full"
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
       viewport={{ once: true, margin: "-100px" }}
-      className="w-full group"
+      className={`${cardWidthClass} group`}
     >
       <div
-        className="relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-[#262626] hover:border-cyan-500/80 hover:from-[#0f0f0f] hover:to-[#1a1a1a]"
+        className="relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 h-full bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-[#262626] hover:border-cyan-500/80 hover:from-[#0f0f0f] hover:to-[#1a1a1a]"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         {/* Animated grid background overlay */}

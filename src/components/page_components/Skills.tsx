@@ -1,7 +1,6 @@
 "use client"
 import { useRef } from "react"
-import { useCasesData } from "@/data/skillsData"
-import { UseCaseCard } from "../sub-sections/UseCaseCard"
+import { UseCasesCarousel } from "../sub-sections/UseCasesCarousel"
 import { ToolsShowcase } from "../sub-sections/ToolsShowcase"
 import { GeometricBackground } from "../compontents/GeometricBackground"
 
@@ -38,22 +37,18 @@ function Skills() {
                 What I <span className='text-cyan-400 drop-shadow-lg' style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Build</span>
               </h2>
               <p className="text-gray-300 text-base sm:text-lg max-w-4xl leading-relaxed">
-                Here are the real problems I solve. Each expertise area represents years of hands-on experience building scalable systems, automating workflows, and delivering measurable results. Click any to explore the technical depth and specific capabilities.
+                Here are the real problems I solve. Each expertise area represents years of hands-on experience building scalable systems, automating workflows, and delivering measurable results. Scroll through to explore the technical depth and specific capabilities.
               </p>
             </div>
           </div>
 
-          {/* Use Cases Grid - Vertical Stack with proper spacing */}
-          <div className="w-full px-4 sm:px-6 lg:px-8">
-            <div className="space-y-6 md:space-y-8 max-w-4xl mx-auto">
-              {useCasesData.map((useCase, index) => (
-                <UseCaseCard key={useCase.id} useCase={useCase} index={index} />
-              ))}
-            </div>
+          {/* Use Cases Carousel */}
+          <div className="w-full px-0 sm:px-0 mb-12 sm:mb-16">
+            <UseCasesCarousel />
           </div>
 
           {/* Tools Showcase Section */}
-          <div className="mt-24 sm:mt-32 w-full px-4 sm:px-6 lg:px-8 border-t border-[#262626]">
+          <div className="mt-16 sm:mt-24 w-full px-4 sm:px-6 lg:px-8 border-t border-[#262626]">
             <div className="max-w-6xl mx-auto py-12 sm:py-16">
               <ToolsShowcase showLabel={true} />
             </div>
