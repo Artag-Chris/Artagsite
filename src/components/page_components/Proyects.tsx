@@ -1,143 +1,182 @@
 "use client"
 
-import React, { useState, useRef } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
-import { useMediaQuery } from "@/hooks/use-media-query"
+import React, { useState, useMemo } from "react"
+import { motion } from "framer-motion"
+import { Filter } from "lucide-react"
 import { projectsData } from "@/data/proyectData"
-import { ProjectPopup } from "../sub-sections/Propyect-PopUp"
-import GlowProjectCard from "@/components/compontents/GlowProyectCard";
+import { EnhancedProjectCard } from "../compontents/EnhancedProjectCard"
+import { ProjectModal } from "../sub-sections/ProjectModal"
 
-
+type CategoryFilter = "all" | "personal" | "client" | "featured"
 
 function Projects() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 })
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const isMobile = !useMediaQuery("(min-width: 768px)")
-  const carouselRef = useRef(null)
+  const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>("all")
+  const [selectedProject, setSelectedProject] = useState(projectsData[0])
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
+  const filteredProjects = useMemo(() => {
+    if (selectedCategory === "all") return projectsData
+    return projectsData.filter((project) => project.category === selectedCategory)
+  }, [selectedCategory])
 
-  const getItemsPerSlide = () => {
-    if (typeof window !== "undefined") {
-      if (window.innerWidth >= 1024) return 3 // lg
-      if (window.innerWidth >= 768) return 2 // md
-      return 1 // mobile
-    }
-    return 3 // Default for SSR
+  const handleProjectClick = (project: typeof projectsData[0]) => {
+    setSelectedProject(project)
+    setIsModalOpen(true)
   }
 
-  const itemsPerSlide = getItemsPerSlide()
-  const totalSlides = Math.ceil(projectsData.length / itemsPerSlide)
-
-  const handlePrevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1))
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
   }
-
-  const handleNextSlide = () => {
-    setCurrentIndex((prev) => (prev === totalSlides - 1 ? 0 : prev + 1))
-  }
-
-  const handleHover = (index: number, isHovered: boolean, event: React.MouseEvent<HTMLDivElement> | null) => {
-    if (isHovered) {
-      setHoveredIndex(index)
-      if (event) {
-        const rect = event.currentTarget.getBoundingClientRect()
-        setPopupPosition({
-          x: rect.left + rect.width / 2,
-          y: window.scrollY + rect.top,
-        })
-      }
-    } else {
-      setHoveredIndex(null)
-    }
-  }
-
-  // Calculate which projects to show in the current slide
-  const startIndex = currentIndex * itemsPerSlide
-  const visibleProjects = projectsData.slice(startIndex, startIndex + itemsPerSlide)
 
   return (
-    <div>
-      
-      {/* Projects Section */}
-      <section id="projects" className="py-12 sm:py-20">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4">
-          {/* Header with navigation for mobile */}
-          <div className="flex flex-col sm:flex-row items-center justify-between mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-0">
-              Featured <span className="text-indigo-500">Projects</span>
-            </h2>
-            
-            {/* Navigation moved below title on mobile */}
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={handlePrevSlide}
-                className="p-1.5 sm:p-2 rounded-full bg-zinc-800/80 hover:bg-zinc-700 transition-colors"
-                aria-label="Previous slide"
-              >
-                <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5 text-zinc-400" />
-              </button>
-              <button
-                onClick={handleNextSlide}
-                className="p-1.5 sm:p-2 rounded-full bg-zinc-800/80 hover:bg-zinc-700 transition-colors"
-                aria-label="Next slide"
-              >
-                <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-zinc-400" />
-              </button>
-              <div className="flex items-center space-x-1 ml-2 sm:ml-4">
-                {Array.from({ length: totalSlides }).map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentIndex(index)}
-                    className={`h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full transition-colors ${
-                      currentIndex === index ? "bg-emerald-500" : "bg-zinc-700"
-                    }`}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
+    <section
+      id="projects"
+      className="relative w-screen -mx-[calc((100vw-100%)/2)] bg-gradient-to-b from-black via-[#0a0a0a] to-black py-20 sm:py-28 lg:py-32 overflow-hidden"
+    >
+      {/* Enhanced background elements */}
+      <div className="absolute top-0 right-1/4 w-1/2 h-1/3 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDuration: '6s' }}></div>
+      <div className="absolute bottom-1/4 left-0 w-2/5 h-2/5 bg-cyan-500/8 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDuration: '7s', animationDelay: '1s' }}></div>
 
-            {/* Carousel Content */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <AnimatePresence mode="wait">
-                {visibleProjects.map((project, index) => (
-                  <motion.div
-                    key={startIndex + index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    onMouseEnter={(e) => handleHover(startIndex + index, true, e)}
-                    onMouseLeave={() => handleHover(startIndex + index, false, null)}
-                  >
-                    <GlowProjectCard
-                        project={project}
-                        index={startIndex + index}
-                        onHover={(isHovered: boolean) =>
-                            handleHover(startIndex + index, isHovered, null)
-                        }
-                        isHovered={hoveredIndex === startIndex + index}
-                    />
+      {/* Grid overlay */}
+      <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(90deg, #06b6d4 1px, transparent 1px), linear-gradient(0deg, #06b6d4 1px, transparent 1px)`,
+          backgroundSize: '40px 40px'
+        }}
+      ></div>
 
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </div>
-
-            {/* Popup that appears on hover (not on mobile) */}
-            {!isMobile && hoveredIndex !== null && (
-              <ProjectPopup
-                project={projectsData[hoveredIndex]}
-                isVisible={true}
-                position={popupPosition}
-              />
-            )}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16 sm:mb-20"
+        >
+          <div className="inline-block mb-4">
+            <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-cyan-500/70 bg-cyan-500/10 border border-cyan-500/20 px-4 py-2 rounded-full backdrop-blur-sm">
+              Portfolio
+            </span>
           </div>
-        </div>
-      </section>
-    </div>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+            Featured <span className="text-cyan-400 drop-shadow-lg" style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Projects</span>
+          </h2>
+          <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
+            Explore a curated selection of my work. From personal projects to enterprise solutions, each showcasing expertise in automation, architecture, and modern development.
+          </p>
+        </motion.div>
+
+        {/* Filter Tabs */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          viewport={{ once: true }}
+          className="flex flex-wrap items-center justify-center gap-3 mb-12 sm:mb-16"
+        >
+          <Filter className="h-4 w-4 text-cyan-500/60" />
+          {(["all", "personal", "client", "featured"] as const).map((category) => (
+            <motion.button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium text-sm sm:text-base transition-all duration-300 ${
+                selectedCategory === category
+                  ? "bg-gradient-to-r from-cyan-500 to-cyan-600 text-white shadow-lg shadow-cyan-500/50"
+                  : "bg-[#141414] border border-[#262626] text-gray-400 hover:border-cyan-500/30 hover:text-cyan-400"
+              }`}
+            >
+              {category.charAt(0).toUpperCase() + category.slice(1).replace("-", " ")}
+            </motion.button>
+          ))}
+        </motion.div>
+
+        {/* Projects Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12"
+        >
+          {filteredProjects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              onClick={() => handleProjectClick(project)}
+              className="cursor-pointer h-full"
+              whileHover={{ y: -8 }}
+              transition={{ type: "spring", stiffness: 400, damping: 30 }}
+            >
+              <EnhancedProjectCard project={project} index={index} />
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Empty State */}
+        {filteredProjects.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-12"
+          >
+            <p className="text-gray-400 text-lg">No projects found in this category.</p>
+          </motion.div>
+        )}
+
+        {/* Stats Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="mt-16 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"
+        >
+          {[
+            { label: "Projects", value: projectsData.length.toString() },
+            { label: "Live", value: projectsData.filter(p => p.status === "live").length.toString() },
+            { label: "Personal", value: projectsData.filter(p => p.category === "personal").length.toString() },
+            { label: "Clients", value: projectsData.filter(p => p.category === "client").length.toString() },
+          ].map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="p-4 sm:p-6 rounded-xl bg-gradient-to-br from-cyan-500/10 to-indigo-500/10 border border-cyan-500/20 text-center"
+            >
+              <motion.div
+                className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-2"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: index * 0.1 + 0.2 }}
+              >
+                {stat.value}
+              </motion.div>
+              <p className="text-xs sm:text-sm text-gray-400 uppercase tracking-wider">
+                {stat.label}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Project Modal */}
+      <ProjectModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+    </section>
   )
 }
 
