@@ -94,42 +94,43 @@ function HeaderMain() {
           isScrolled ? "transform -translate-y-full opacity-0" : "transform translate-y-0 opacity-100"
         }`}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-950/40 via-slate-950/60 to-violet-950/40 backdrop-blur-2xl"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-indigo-500/5 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a]/95 via-[#1a1a1a]/90 to-black/95 backdrop-blur-xl"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/3 to-transparent"></div>
 
-        <div className="relative border-b border-white/10 shadow-2xl shadow-indigo-500/10">
+        <div className="relative border-b border-[#262626] shadow-2xl shadow-cyan-500/5">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div
-              className="absolute w-3 h-3 bg-gradient-to-br from-indigo-400 to-violet-400 rounded-full animate-pulse blur-sm"
+              className="absolute w-2.5 h-2.5 bg-gradient-to-br from-cyan-400 to-cyan-500 rounded-full animate-pulse blur-sm"
               style={{
                 left: `${(mousePosition.x / windowDimensions.width) * 100}%`,
                 top: `${(mousePosition.y / windowDimensions.height) * 100}%`,
                 transform: `translate(-50%, -50%)`,
                 transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+                boxShadow: '0 0 12px rgba(6, 182, 212, 0.6)'
               }}
             ></div>
             <Sparkles
-              className="absolute top-6 right-32 w-5 h-5 text-indigo-400/50 animate-pulse"
+              className="absolute top-6 right-32 w-4 h-4 text-cyan-400/40 animate-pulse"
               style={{ animationDelay: "1s", animationDuration: "3s" }}
             />
             <Zap
-              className="absolute top-8 left-1/3 w-4 h-4 text-violet-400/40 animate-pulse"
+              className="absolute top-8 left-1/3 w-3.5 h-3.5 text-cyan-500/30 animate-pulse"
               style={{ animationDelay: "2s", animationDuration: "2.5s" }}
             />
-            <div className="absolute top-4 left-1/4 w-2 h-2 bg-indigo-500/30 rounded-full animate-pulse blur-sm"></div>
-            <div className="absolute bottom-4 right-1/4 w-2 h-2 bg-violet-500/30 rounded-full animate-pulse blur-sm"></div>
+            <div className="absolute top-4 left-1/4 w-1.5 h-1.5 bg-cyan-500/40 rounded-full animate-pulse blur-sm"></div>
+            <div className="absolute bottom-4 right-1/4 w-1.5 h-1.5 bg-cyan-400/30 rounded-full animate-pulse blur-sm"></div>
           </div>
 
           <div className="container mx-auto py-5 px-6 relative">
             <nav className="flex items-center justify-between">
               <div className="text-2xl font-bold group cursor-pointer relative">
-                <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient font-extrabold tracking-tight transition-all duration-500 group-hover:scale-110 inline-block">
+                <span className="bg-gradient-to-r from-cyan-400 via-cyan-300 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] font-extrabold tracking-tight transition-all duration-500 group-hover:scale-110 inline-block" style={{ fontFamily: 'var(--font-display)' }}>
                   Artag
                 </span>
-                <span className="text-slate-200 ml-2 transition-all duration-500 group-hover:text-indigo-300 font-semibold">
+                <span className="text-gray-300 ml-2 transition-all duration-500 group-hover:text-cyan-300 font-semibold">
                   Dev
                 </span>
-                <div className="h-0.5 w-0 bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-500 transition-all duration-700 ease-out group-hover:w-full rounded-full shadow-lg shadow-indigo-500/50"></div>
+                <div className="h-0.5 w-0 bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-700 ease-out group-hover:w-full rounded-full shadow-lg shadow-cyan-500/50"></div>
               </div>
 
               <div className="hidden md:flex items-center gap-1">
@@ -139,33 +140,33 @@ function HeaderMain() {
                      <div key={link.href} className="flex items-center">
                        <Link
                          href={link.href}
-                         className="group relative flex items-center gap-2.5 text-slate-300 hover:text-white transition-all duration-500 hover:scale-105 py-2.5 px-5 rounded-full hover:bg-gradient-to-br hover:from-indigo-500/10 hover:to-violet-500/10 backdrop-blur-sm"
+                         className="group relative flex items-center gap-2.5 text-gray-400 hover:text-white transition-all duration-500 hover:scale-105 py-2.5 px-5 rounded-full hover:bg-gradient-to-br hover:from-cyan-500/10 hover:to-cyan-600/10 backdrop-blur-sm border border-transparent hover:border-cyan-500/30"
                          style={{ animationDelay: `${index * 0.1}s` }}
                        >
-                         <IconComponent className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:rotate-12 group-hover:text-indigo-400" />
-                         <span className="font-medium tracking-wide">{link.label}</span>
-                         <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-500 transition-all duration-500 group-hover:w-4/5 group-hover:left-[10%] rounded-full shadow-lg shadow-indigo-500/50"></span>
-                         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500/0 to-violet-500/0 opacity-0 group-hover:from-indigo-500/10 group-hover:to-violet-500/10 group-hover:opacity-100 transition-all duration-500 blur-md"></div>
+                         <IconComponent className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:rotate-12 group-hover:text-cyan-400" />
+                         <span className="font-medium tracking-wide text-sm">{link.label}</span>
+                         <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-500 group-hover:w-4/5 group-hover:left-[10%] rounded-full shadow-lg shadow-cyan-500/40"></span>
+                         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/0 to-cyan-600/0 opacity-0 group-hover:from-cyan-500/10 group-hover:to-cyan-600/10 group-hover:opacity-100 transition-all duration-500 blur-md"></div>
                        </Link>
                        {index < navLinks.length - 1 && (
-                         <div className="h-6 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent mx-1"></div>
+                         <div className="h-6 w-px bg-gradient-to-b from-transparent via-[#404040]/50 to-transparent mx-1"></div>
                        )}
                      </div>
                    )
                  })}
-                 <div className="h-6 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent mx-1"></div>
+                 <div className="h-6 w-px bg-gradient-to-b from-transparent via-[#404040]/50 to-transparent mx-1"></div>
                  {externalNavLinks.map((link, index) => {
                    const IconComponent = link.icon
                    return (
                      <div key={link.href} className="flex items-center">
                        <Link
                          href={link.href}
-                         className="group relative flex items-center gap-2.5 text-slate-300 hover:text-white transition-all duration-500 hover:scale-105 py-2.5 px-5 rounded-full hover:bg-gradient-to-br hover:from-cyan-500/10 hover:to-blue-500/10 backdrop-blur-sm"
+                         className="group relative flex items-center gap-2.5 text-gray-400 hover:text-white transition-all duration-500 hover:scale-105 py-2.5 px-5 rounded-full hover:bg-gradient-to-br hover:from-cyan-500/10 hover:to-cyan-600/10 backdrop-blur-sm border border-transparent hover:border-cyan-500/30"
                        >
                          <IconComponent className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:rotate-12 group-hover:text-cyan-400" />
-                         <span className="font-medium tracking-wide">{link.label}</span>
-                         <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 transition-all duration-500 group-hover:w-4/5 group-hover:left-[10%] rounded-full shadow-lg shadow-cyan-500/50"></span>
-                         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/0 to-blue-500/0 opacity-0 group-hover:from-cyan-500/10 group-hover:to-blue-500/10 group-hover:opacity-100 transition-all duration-500 blur-md"></div>
+                         <span className="font-medium tracking-wide text-sm">{link.label}</span>
+                         <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-500 group-hover:w-4/5 group-hover:left-[10%] rounded-full shadow-lg shadow-cyan-500/40"></span>
+                         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/0 to-cyan-600/0 opacity-0 group-hover:from-cyan-500/10 group-hover:to-cyan-600/10 group-hover:opacity-100 transition-all duration-500 blur-md"></div>
                        </Link>
                      </div>
                    )
@@ -174,19 +175,19 @@ function HeaderMain() {
 
               <Button
                 variant="outline"
-                className="hidden md:flex items-center gap-3 border border-indigo-500/50 text-indigo-300 hover:text-white hover:border-indigo-400 transition-all duration-500 hover:scale-105 backdrop-blur-xl bg-gradient-to-br from-indigo-950/50 to-violet-950/50 hover:from-indigo-500/20 hover:to-violet-500/20 group relative overflow-hidden px-6 py-2.5 rounded-full font-semibold shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40"
+                className="hidden md:flex items-center gap-3 border border-cyan-500/50 text-cyan-400 hover:text-white hover:border-cyan-400 transition-all duration-500 hover:scale-105 backdrop-blur-xl bg-gradient-to-br from-cyan-950/40 to-cyan-900/30 hover:from-cyan-500/20 hover:to-cyan-600/20 group relative overflow-hidden px-6 py-2.5 rounded-full font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40"
                 onClick={handleResumeDownload}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                 <Download className="w-4 h-4 group-hover:rotate-12 transition-transform duration-500 relative z-10" />
                 <span className="relative z-10">Resume</span>
-                <Sparkles className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all duration-500 relative z-10 text-indigo-400" />
+                <Sparkles className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all duration-500 relative z-10 text-cyan-300" />
               </Button>
 
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden text-slate-300 hover:text-white hover:bg-indigo-500/20 transition-all duration-300 hover:scale-110 rounded-full border border-transparent hover:border-indigo-500/30"
+                className="md:hidden text-gray-400 hover:text-white hover:bg-cyan-500/20 transition-all duration-300 hover:scale-110 rounded-full border border-transparent hover:border-cyan-500/30"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -201,56 +202,56 @@ function HeaderMain() {
           isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
-        <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-xl" onClick={() => setIsMobileMenuOpen(false)} />
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-xl" onClick={() => setIsMobileMenuOpen(false)} />
         <div
-          className={`absolute top-0 right-0 h-full w-80 bg-gradient-to-br from-indigo-950/95 via-slate-950/95 to-violet-950/95 backdrop-blur-2xl border-l border-indigo-500/20 shadow-2xl shadow-indigo-500/20 transform transition-all duration-500 ${
+          className={`absolute top-0 right-0 h-full w-80 bg-gradient-to-br from-[#0a0a0a]/95 via-[#1a1a1a]/95 to-black/95 backdrop-blur-2xl border-l border-[#262626] shadow-2xl shadow-cyan-500/5 transform transition-all duration-500 ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
            <div className="p-8 pt-24">
-             <div className="flex flex-col gap-4">
-               {navLinks.map((link, index) => {
-                 const IconComponent = link.icon
-                 return (
-                   <Link
-                     key={link.href}
-                     href={link.href}
-                     className="flex items-center gap-4 text-slate-300 hover:text-white transition-all duration-300 text-lg py-4 px-5 rounded-2xl bg-gradient-to-br from-indigo-500/5 to-violet-500/5 hover:from-indigo-500/20 hover:to-violet-500/20 group border border-indigo-500/10 hover:border-indigo-500/30 shadow-lg hover:shadow-indigo-500/20"
-                     onClick={() => setIsMobileMenuOpen(false)}
-                     style={{ animationDelay: `${index * 0.1}s` }}
-                   >
-                     <IconComponent className="w-5 h-5 group-hover:scale-110 transition-transform duration-300 group-hover:rotate-12 text-indigo-400" />
-                     <span className="font-medium">{link.label}</span>
-                   </Link>
-                 )
-               })}
-               {externalNavLinks.map((link) => {
-                 const IconComponent = link.icon
-                 return (
-                   <Link
-                     key={link.href}
-                     href={link.href}
-                     className="flex items-center gap-4 text-slate-300 hover:text-white transition-all duration-300 text-lg py-4 px-5 rounded-2xl bg-gradient-to-br from-cyan-500/5 to-blue-500/5 hover:from-cyan-500/20 hover:to-blue-500/20 group border border-cyan-500/10 hover:border-cyan-500/30 shadow-lg hover:shadow-cyan-500/20"
-                     onClick={() => setIsMobileMenuOpen(false)}
-                   >
-                     <IconComponent className="w-5 h-5 group-hover:scale-110 transition-transform duration-300 group-hover:rotate-12 text-cyan-400" />
-                     <span className="font-medium">{link.label}</span>
-                   </Link>
-                 )
-               })}
-               <Button
-                 variant="outline"
-                 className="flex items-center justify-center gap-3 border-indigo-500/50 text-indigo-300 hover:text-white hover:border-indigo-400 transition-all duration-300 mt-4 bg-gradient-to-br from-indigo-950/50 to-violet-950/50 hover:from-indigo-500/20 hover:to-violet-500/20 rounded-2xl py-4 group shadow-lg shadow-indigo-500/20"
-                 onClick={() => {
-                   handleResumeDownload()
-                   setIsMobileMenuOpen(false)
-                 }}
-               >
-                 <Download className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
-                 <span className="font-semibold">Download Resume</span>
-               </Button>
-             </div>
-           </div>
+              <div className="flex flex-col gap-4">
+                {navLinks.map((link, index) => {
+                  const IconComponent = link.icon
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="flex items-center gap-4 text-slate-300 hover:text-white transition-all duration-300 text-lg py-4 px-5 rounded-2xl bg-gradient-to-br from-cyan-500/5 to-cyan-600/5 hover:from-cyan-500/20 hover:to-cyan-600/20 group border border-cyan-500/10 hover:border-cyan-500/30 shadow-lg hover:shadow-cyan-500/20"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <IconComponent className="w-5 h-5 group-hover:scale-110 transition-transform duration-300 group-hover:rotate-12 text-cyan-400" />
+                      <span className="font-medium">{link.label}</span>
+                    </Link>
+                  )
+                })}
+                {externalNavLinks.map((link) => {
+                  const IconComponent = link.icon
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="flex items-center gap-4 text-slate-300 hover:text-white transition-all duration-300 text-lg py-4 px-5 rounded-2xl bg-gradient-to-br from-cyan-500/5 to-cyan-600/5 hover:from-cyan-500/20 hover:to-cyan-600/20 group border border-cyan-500/10 hover:border-cyan-500/30 shadow-lg hover:shadow-cyan-500/20"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <IconComponent className="w-5 h-5 group-hover:scale-110 transition-transform duration-300 group-hover:rotate-12 text-cyan-400" />
+                      <span className="font-medium">{link.label}</span>
+                    </Link>
+                  )
+                })}
+                <Button
+                  variant="outline"
+                  className="flex items-center justify-center gap-3 border-cyan-500/50 text-cyan-300 hover:text-white hover:border-cyan-400 transition-all duration-300 mt-4 bg-gradient-to-br from-cyan-950/50 to-cyan-900/50 hover:from-cyan-500/20 hover:to-cyan-600/20 rounded-2xl py-4 group shadow-lg shadow-cyan-500/20"
+                  onClick={() => {
+                    handleResumeDownload()
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  <Download className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+                  <span className="font-semibold">Download Resume</span>
+                </Button>
+              </div>
+            </div>
         </div>
       </div>
 
@@ -260,16 +261,16 @@ function HeaderMain() {
           isScrolled ? "transform translate-y-0 opacity-100" : "transform translate-y-full opacity-0"
         }`}
       >
-        <div className="relative border-t border-white/10 bg-gradient-to-br from-indigo-950/40 via-slate-950/60 to-violet-950/40 backdrop-blur-2xl shadow-2xl shadow-indigo-500/10">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-indigo-500/5 to-transparent"></div>
+        <div className="relative border-t border-[#262626] bg-gradient-to-br from-[#0a0a0a]/95 via-[#1a1a1a]/90 to-black/95 backdrop-blur-2xl shadow-2xl shadow-cyan-500/5">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/3 to-transparent"></div>
 
           <div className="container mx-auto px-6 py-3.5 relative">
             <nav className="flex items-center justify-between">
               <div className="text-xl font-bold group cursor-pointer">
-                <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent font-extrabold">
+                <span className="bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent font-extrabold">
                   A
                 </span>
-                <span className="text-slate-300 ml-1.5 group-hover:text-indigo-300 transition-colors duration-300 font-semibold">
+                <span className="text-slate-300 ml-1.5 group-hover:text-cyan-300 transition-colors duration-300 font-semibold">
                   D
                 </span>
               </div>
@@ -279,21 +280,21 @@ function HeaderMain() {
                   <div key={link.href} className="flex items-center">
                     <Link
                       href={link.href}
-                      className="text-slate-300 hover:text-white transition-all duration-300 text-sm hover:scale-105 py-2 px-4 rounded-full hover:bg-gradient-to-br hover:from-indigo-500/10 hover:to-violet-500/10 font-medium tracking-wide"
+                      className="text-slate-300 hover:text-white transition-all duration-300 text-sm hover:scale-105 py-2 px-4 rounded-full hover:bg-gradient-to-br hover:from-cyan-500/10 hover:to-cyan-600/10 font-medium tracking-wide"
                     >
                       {link.label}
                     </Link>
                     {index < navLinks.length - 1 && (
-                      <div className="h-4 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent mx-0.5"></div>
+                      <div className="h-4 w-px bg-gradient-to-b from-transparent via-[#404040]/50 to-transparent mx-0.5"></div>
                     )}
                   </div>
                 ))}
-                <div className="h-4 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent mx-0.5"></div>
+                <div className="h-4 w-px bg-gradient-to-b from-transparent via-[#404040]/50 to-transparent mx-0.5"></div>
                 {externalNavLinks.map((link) => (
                   <div key={link.href} className="flex items-center">
                     <Link
                       href={link.href}
-                      className="text-slate-300 hover:text-white transition-all duration-300 text-sm hover:scale-105 py-2 px-4 rounded-full hover:bg-gradient-to-br hover:from-cyan-500/10 hover:to-blue-500/10 font-medium tracking-wide"
+                      className="text-slate-300 hover:text-white transition-all duration-300 text-sm hover:scale-105 py-2 px-4 rounded-full hover:bg-gradient-to-br hover:from-cyan-500/10 hover:to-cyan-600/10 font-medium tracking-wide"
                     >
                       {link.label}
                     </Link>
@@ -310,16 +311,16 @@ function HeaderMain() {
                          href={link.href}
                          className="text-slate-300 hover:text-white transition-all duration-300 text-xs hover:scale-110 flex flex-col items-center gap-1.5 py-1"
                        >
-                         <IconComponent className="w-4 h-4 text-indigo-400" />
+                         <IconComponent className="w-4 h-4 text-cyan-400" />
                          <span className="font-medium">{link.label}</span>
                        </Link>
                        {index < navLinks.length - 1 && (
-                         <div className="h-10 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent mx-2"></div>
+                         <div className="h-10 w-px bg-gradient-to-b from-transparent via-[#404040]/50 to-transparent mx-2"></div>
                        )}
                      </div>
                    )
                  })}
-                 <div className="h-10 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent mx-2"></div>
+                 <div className="h-10 w-px bg-gradient-to-b from-transparent via-[#404040]/50 to-transparent mx-2"></div>
                  {externalNavLinks.map((link) => {
                    const IconComponent = link.icon
                    return (
@@ -338,13 +339,13 @@ function HeaderMain() {
 
               <Button
                 size="sm"
-                className="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white border-0 transition-all duration-500 hover:scale-105 flex items-center gap-2.5 px-5 py-2 rounded-full font-semibold group relative overflow-hidden shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50"
+                className="bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white border-0 transition-all duration-500 hover:scale-105 flex items-center gap-2.5 px-5 py-2 rounded-full font-semibold group relative overflow-hidden shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50"
                 onClick={handleResumeDownload}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                 <Download className="w-3.5 h-3.5 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
                 <span className="hidden sm:inline relative z-10">Resume</span>
-                <Sparkles className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all duration-300 relative z-10" />
+                <Sparkles className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all duration-300 relative z-10 text-cyan-200" />
               </Button>
             </nav>
           </div>
