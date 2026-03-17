@@ -18,7 +18,7 @@ export interface ProjectProps {
   role?: string // Your role in the project
   achievements?: string[]
   startDate?: string
-  endDate?: string
+  endDate?: string | null
   
   project?: any;
   onHover?: (hovered: boolean) => void;
