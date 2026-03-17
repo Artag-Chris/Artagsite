@@ -14,7 +14,7 @@ interface ProjectPopupProps {
 }
 
 export function ProjectPopup({ project, isVisible, position }: ProjectPopupProps) {
-  const videoId = extractYouTubeId(project.youtubeUrl) || ""
+  const videoId = project.youtubeUrl ? extractYouTubeId(project.youtubeUrl) : ""
 
   return (
     <AnimatePresence>
@@ -78,22 +78,26 @@ export function ProjectPopup({ project, isVisible, position }: ProjectPopupProps
             )}
 
             <div className="flex justify-between items-center text-xs">
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-emerald-500 hover:text-emerald-400 flex items-center gap-1"
-              >
-                View <ExternalLink className="h-3 w-3" />
-              </a>
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-emerald-500 hover:text-emerald-400 flex items-center gap-1"
-              >
-                Code <Github className="h-3 w-3" />
-              </a>
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-emerald-500 hover:text-emerald-400 flex items-center gap-1"
+                >
+                  View <ExternalLink className="h-3 w-3" />
+                </a>
+              )}
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-emerald-500 hover:text-emerald-400 flex items-center gap-1"
+                >
+                  Code <Github className="h-3 w-3" />
+                </a>
+              )}
             </div>
           </div>
         </motion.div>
