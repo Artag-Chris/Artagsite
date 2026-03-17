@@ -245,18 +245,9 @@
   @apply border-[#6366f1] bg-[#0f0f0f];
   box-shadow: var(--shadow-glow);
 }
-    position: relative;
-    background: #1a1a1a;
-    overflow: hidden;
-    border-radius: 12px;
-    transition: transform 0.3s ease;
-  }
 
-  .card:hover {
-    transform: translateY(-2px);
-  }
-
-  .glow {
+/* Glow overlay styles */
+.glow {
     position: absolute;
     top: -50%;
     left: -50%;
@@ -274,15 +265,8 @@
     pointer-events: none;
     mix-blend-mode: soft-light; /* Softer blend mode */
     transition: opacity 0.4s ease;
-    transform: scale(0.8);
-  }
-
-  /* Only show glow on hover */
-  .card-hovered .glow {
-    opacity: 0.15; /* Very subtle opacity */
-    transform: scale(1);
-  }
-}
+     transform: scale(0.8);
+   }
 
 @layer base {
   * {
