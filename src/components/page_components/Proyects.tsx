@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react"
 import { motion } from "framer-motion"
-import { Filter } from "lucide-react"
+import { Filter, Search, X } from "lucide-react"
 import { projectsData } from "@/data/proyectData"
 import { EnhancedProjectCard } from "../compontents/EnhancedProjectCard"
 import { ProjectModal } from "../sub-sections/ProjectModal"
@@ -11,13 +11,31 @@ type CategoryFilter = "all" | "personal" | "client" | "featured"
 
 function Projects() {
   const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>("all")
+  const [searchQuery, setSearchQuery] = useState("")
   const [selectedProject, setSelectedProject] = useState(projectsData[0])
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const filteredProjects = useMemo(() => {
-    if (selectedCategory === "all") return projectsData
-    return projectsData.filter((project) => project.category === selectedCategory)
-  }, [selectedCategory])
+    let results = projectsData
+
+    // Filter by category
+    if (selectedCategory !== "all") {
+      results = results.filter((project) => project.category === selectedCategory)
+    }
+
+    // Filter by search query (name or tech)
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      results = results.filter((project) => {
+        const matchesName = project.title.toLowerCase().includes(query) ||
+                           project.description.toLowerCase().includes(query)
+        const matchesTech = project.tech.some(t => t.toLowerCase().includes(query))
+        return matchesName || matchesTech
+      })
+    }
+
+    return results
+  }, [selectedCategory, searchQuery])
 
   const handleProjectClick = (project: typeof projectsData[0]) => {
     setSelectedProject(project)
@@ -74,6 +92,40 @@ function Projects() {
           </p>
         </motion.div>
 
+        {/* Search Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.05 }}
+          viewport={{ once: true }}
+          className="mb-8 sm:mb-12"
+        >
+          <div className="relative group max-w-md mx-auto">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-lg opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 blur"></div>
+            <div className="relative flex items-center bg-[#0a0a0a] border border-[#262626] rounded-lg">
+              <Search className="absolute left-4 h-5 w-5 text-cyan-500/50" />
+              <input
+                type="text"
+                placeholder="Search projects by name or tech..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="flex-1 bg-transparent border-none text-white placeholder:text-gray-600 pl-12 pr-10 py-3 focus:outline-none text-sm sm:text-base"
+              />
+              {searchQuery && (
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-4 p-1 text-gray-500 hover:text-gray-300 transition-colors"
+                  aria-label="Clear search"
+                >
+                  <X className="h-4 w-4" />
+                </motion.button>
+              )}
+            </div>
+          </div>
+        </motion.div>
+
         {/* Filter Tabs */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -99,6 +151,17 @@ function Projects() {
             </motion.button>
           ))}
         </motion.div>
+
+        {/* Results count */}
+        {searchQuery && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center mb-6 text-sm text-gray-400"
+          >
+            Found <span className="text-cyan-400 font-semibold">{filteredProjects.length}</span> project{filteredProjects.length !== 1 ? "s" : ""}
+          </motion.div>
+        )}
 
         {/* Projects Grid */}
         <motion.div
@@ -128,7 +191,26 @@ function Projects() {
             animate={{ opacity: 1 }}
             className="text-center py-12"
           >
-            <p className="text-gray-400 text-lg">No projects found in this category.</p>
+            <div className="space-y-3">
+              <Search className="h-12 w-12 mx-auto text-gray-600" />
+              <p className="text-gray-400 text-lg">
+                {searchQuery
+                  ? `No projects found matching "${searchQuery}"`
+                  : "No projects found in this category."}
+              </p>
+              {searchQuery && (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  onClick={() => {
+                    setSearchQuery("")
+                    setSelectedCategory("all")
+                  }}
+                  className="mt-4 px-4 py-2 rounded-lg bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 hover:text-cyan-100 transition-colors text-sm"
+                >
+                  Clear filters
+                </motion.button>
+              )}
+            </div>
           </motion.div>
         )}
 
