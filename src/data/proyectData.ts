@@ -5,20 +5,50 @@ export interface ProjectProps {
   shortDescription?: string
   category: "personal" | "client" | "featured"
   status: "live" | "in-progress" | "archived"
+  
+  // Media & Gallery
   image?: string
   thumbnail?: string
+  gallery?: string[] // Array of image URLs
+  
+  // Video
   youtubeUrl?: string
   youtubeEmbedId?: string
+  
+  // Technologies
   tech: string[]
+  techTags?: {
+    [category: string]: string[] // e.g., { "Frontend": ["React"], "Backend": ["Node.js"] }
+  }
+  
+  // Features list
   features?: string[]
+  
+  // Links
   liveUrl?: string
   githubUrl?: string
-  repositoryVisibility?: "public" | "private" // For client projects
-  companyName?: string // For client projects
-  role?: string // Your role in the project
+  repositoryVisibility?: "public" | "private"
+  githubRepo?: string // Format: "username/repo" for API integration
+  
+  // Client info
+  companyName?: string
+  role?: string
+  
+  // Achievements
   achievements?: string[]
+  
+  // Timeline
   startDate?: string
   endDate?: string | null
+  
+  // Case Study
+  caseStudy?: {
+    problem: string
+    solution: string
+    results: string[]
+    keyLearnings?: string[]
+    challenges?: string[]
+  }
   
   project?: any;
   onHover?: (hovered: boolean) => void;
@@ -34,9 +64,19 @@ export const projectsData: ProjectProps[] = [
     shortDescription: "Personal portfolio with Next.js & animations",
     category: "personal",
     status: "live",
+    thumbnail: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=800&h=600&fit=crop",
+    ],
     youtubeUrl: "https://www.youtube.com/watch?v=LvsgCdWss4I&ab_channel=YourAverageTechBro",
     youtubeEmbedId: "LvsgCdWss4I",
     tech: ["Next.js", "React", "TailwindCSS", "Framer Motion", "TypeScript"],
+    techTags: {
+      "Frontend": ["Next.js", "React", "TailwindCSS", "Framer Motion"],
+      "Language": ["TypeScript"],
+    },
     features: [
       "Responsive design",
       "Dark theme with Techonic Precision",
@@ -49,6 +89,7 @@ export const projectsData: ProjectProps[] = [
     ],
     liveUrl: "https://artagdev.com",
     githubUrl: "https://github.com/Artag-Chris/Artagsite",
+    githubRepo: "Artag-Chris/Artagsite",
     repositoryVisibility: "public",
     role: "Solo Developer",
     achievements: [
@@ -59,6 +100,27 @@ export const projectsData: ProjectProps[] = [
     ],
     startDate: "2024-01",
     endDate: "2024-03",
+    caseStudy: {
+      problem: "Needed a professional portfolio that stands out and showcases technical expertise with smooth interactions and modern design.",
+      solution: "Built a custom Next.js site with Techonic Precision design system featuring animated components, full-width sections, and advanced Framer Motion animations.",
+      results: [
+        "Created a memorable portfolio experience",
+        "Implemented 15+ animated components",
+        "Achieved 95+ Lighthouse score",
+        "Mobile-optimized for all devices",
+      ],
+      keyLearnings: [
+        "Creating reusable component systems",
+        "Advanced animation choreography with Framer Motion",
+        "Performance optimization techniques",
+        "Responsive design patterns",
+      ],
+      challenges: [
+        "Balancing animations with performance",
+        "Creating a unique design system",
+        "Optimizing video background playback",
+      ],
+    },
   },
   {
     id: "automation-solution",
@@ -72,6 +134,16 @@ export const projectsData: ProjectProps[] = [
     youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     youtubeEmbedId: "dQw4w9WgXcQ",
     tech: ["Node.js", "TypeScript", "PostgreSQL", "Docker", "AWS"],
+    gallery: [
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1518932458119-e5bf12a0ae0b?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop",
+    ],
+    techTags: {
+      "Backend": ["Node.js", "Express", "TypeScript"],
+      "Database": ["PostgreSQL", "Redis"],
+      "DevOps": ["Docker", "AWS", "CI/CD"],
+    },
     features: [
       "Workflow automation",
       "System integration",
@@ -90,8 +162,29 @@ export const projectsData: ProjectProps[] = [
     ],
     startDate: "2023-06",
     endDate: "2023-12",
+    caseStudy: {
+      problem: "Client was spending 40+ hours/week on manual data processing and system synchronization across multiple platforms.",
+      solution: "Built a comprehensive automation suite with workflow orchestration, real-time monitoring, and intelligent error handling to streamline enterprise operations.",
+      results: [
+        "Reduced manual work from 40 hours to 8 hours per week",
+        "Achieved 99.9% uptime SLA",
+        "Automated 500+ daily workflows",
+        "Saved client $200K+ annually",
+      ],
+      keyLearnings: [
+        "Enterprise system architecture patterns",
+        "Building resilient automation systems",
+        "CI/CD pipeline optimization",
+        "Team leadership and documentation",
+      ],
+      challenges: [
+        "Integrating legacy systems",
+        "Handling large data volumes",
+        "Ensuring data consistency across services",
+      ],
+    },
   },
-  {
+   {
     id: "fullstack-ecommerce",
     title: "E-commerce Platform",
     description:
@@ -102,6 +195,16 @@ export const projectsData: ProjectProps[] = [
     youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     youtubeEmbedId: "dQw4w9WgXcQ",
     tech: ["React", "Node.js", "MongoDB", "Stripe", "Redis"],
+    gallery: [
+      "https://images.unsplash.com/photo-1572883454114-1601a06fdf4d?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1563062928-c3a4e62f3f6f?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=600&fit=crop",
+    ],
+    techTags: {
+      "Frontend": ["React", "Redux", "React Router"],
+      "Backend": ["Node.js", "Express", "Stripe API"],
+      "Database": ["MongoDB", "Redis"],
+    },
     features: [
       "User authentication",
       "Advanced product search",
@@ -114,6 +217,7 @@ export const projectsData: ProjectProps[] = [
     ],
     liveUrl: "https://ecommerce-example.com",
     githubUrl: "https://github.com/yourusername/ecommerce",
+    githubRepo: "yourusername/ecommerce",
     repositoryVisibility: "public",
     role: "Full Stack Developer",
     achievements: [
@@ -124,6 +228,27 @@ export const projectsData: ProjectProps[] = [
     ],
     startDate: "2023-03",
     endDate: "2023-09",
+    caseStudy: {
+      problem: "Businesses needed an affordable, scalable e-commerce solution with advanced features but without the complexity of major platforms.",
+      solution: "Developed a full-stack platform with modern tech stack featuring real-time inventory management, secure Stripe payment integration, and comprehensive admin analytics.",
+      results: [
+        "Successfully launched 50+ online stores",
+        "Average $50K+ monthly revenue per store",
+        "98% payment success rate",
+        "Mobile conversion rate: 35%",
+      ],
+      keyLearnings: [
+        "Payment processing best practices",
+        "Building scalable inventory systems",
+        "E-commerce UX optimization",
+        "Real-time analytics implementation",
+      ],
+      challenges: [
+        "Managing concurrent checkouts",
+        "Preventing fraudulent transactions",
+        "Optimizing large product catalogs",
+      ],
+    },
   },
   {
     id: "task-management",

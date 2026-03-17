@@ -2,8 +2,12 @@
 
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, ExternalLink, Github, Award, Calendar, CheckCircle2 } from "lucide-react"
+import { X, ExternalLink, Github, Award, Calendar, CheckCircle2, Image as ImageIcon, Code2, BookOpen } from "lucide-react"
 import type { ProjectProps } from "@/data/proyectData"
+import { ImageGallery } from "./ImageGallery"
+import { TechTags } from "./TechTags"
+import { CaseStudyComponent } from "./CaseStudy"
+import { GitHubStats } from "./GitHubStats"
 
 interface ProjectModalProps {
   project: ProjectProps | null
@@ -11,16 +15,21 @@ interface ProjectModalProps {
   onClose: () => void
 }
 
+type TabId = "overview" | "gallery" | "features" | "tech" | "case-study" | "github"
+
 export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
-  const [activeTab, setActiveTab] = useState<"overview" | "features" | "tech">("overview")
+  const [activeTab, setActiveTab] = useState<TabId>("overview")
 
   if (!project) return null
 
   const tabs = [
-    { id: "overview", label: "Overview" },
-    { id: "features", label: "Features" },
-    { id: "tech", label: "Tech Stack" },
-  ] as const
+    { id: "overview" as const, label: "Overview", icon: BookOpen },
+    ...(project.gallery && project.gallery.length > 0 ? [{ id: "gallery" as const, label: "Gallery", icon: ImageIcon }] : []),
+    { id: "features" as const, label: "Features", icon: CheckCircle2 },
+    { id: "tech" as const, label: "Tech Stack", icon: Code2 },
+    ...(project.caseStudy ? [{ id: "case-study" as const, label: "Case Study", icon: BookOpen }] : []),
+    ...(project.githubRepo ? [{ id: "github" as const, label: "GitHub", icon: Github }] : []),
+  ]
 
   const getYouTubeEmbedUrl = (videoId: string) => {
     return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`
@@ -47,7 +56,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
           >
-            <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-[#262626] shadow-2xl">
+            <div className="w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-2xl bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-[#262626] shadow-2xl">
               {/* Close Button */}
               <motion.button
                 whileHover={{ scale: 1.1 }}
@@ -148,27 +157,31 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
                     transition={{ delay: 0.3 }}
                     className="mb-6"
                   >
-                    <div className="flex gap-2 border-b border-[#262626] mb-6">
-                      {tabs.map((tab) => (
-                        <motion.button
-                          key={tab.id}
-                          onClick={() => setActiveTab(tab.id)}
-                          whileHover={{ color: "#06b6d4" }}
-                          className={`px-4 py-2 text-sm font-medium transition-colors relative ${
-                            activeTab === tab.id
-                              ? "text-cyan-400"
-                              : "text-gray-400 hover:text-gray-300"
-                          }`}
-                        >
-                          {tab.label}
-                          {activeTab === tab.id && (
-                            <motion.div
-                              layoutId="activeTab"
-                              className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-500 to-cyan-400"
-                            />
-                          )}
-                        </motion.button>
-                      ))}
+                    <div className="flex gap-2 border-b border-[#262626] mb-6 overflow-x-auto pb-2">
+                      {tabs.map((tab) => {
+                        const TabIcon = tab.icon
+                        return (
+                          <motion.button
+                            key={tab.id}
+                            onClick={() => setActiveTab(tab.id as TabId)}
+                            whileHover={{ color: "#06b6d4" }}
+                            className={`px-4 py-2 text-sm font-medium transition-colors relative flex items-center gap-2 whitespace-nowrap ${
+                              activeTab === tab.id
+                                ? "text-cyan-400"
+                                : "text-gray-400 hover:text-gray-300"
+                            }`}
+                          >
+                            <TabIcon className="h-4 w-4" />
+                            {tab.label}
+                            {activeTab === tab.id && (
+                              <motion.div
+                                layoutId="activeTab"
+                                className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-500 to-cyan-400"
+                              />
+                            )}
+                          </motion.button>
+                        )
+                      })}
                     </div>
 
                     {/* Tab Content */}
@@ -206,6 +219,17 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
                         </motion.div>
                       )}
 
+                      {activeTab === "gallery" && project.gallery && (
+                        <motion.div
+                          key="gallery"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                        >
+                          <ImageGallery images={project.gallery} title={project.title} />
+                        </motion.div>
+                      )}
+
                       {activeTab === "features" && (
                         <motion.div
                           key="features"
@@ -237,21 +261,30 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
-                          className="space-y-3"
                         >
-                          <div className="flex flex-wrap gap-2">
-                            {project.tech.map((tech, i) => (
-                              <motion.div
-                                key={i}
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: i * 0.05 }}
-                                className="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-500/20 to-cyan-500/20 border border-indigo-500/30 text-sm text-indigo-200"
-                              >
-                                {tech}
-                              </motion.div>
-                            ))}
-                          </div>
+                          <TechTags techTags={project.techTags} allTech={project.tech} />
+                        </motion.div>
+                      )}
+
+                      {activeTab === "case-study" && project.caseStudy && (
+                        <motion.div
+                          key="case-study"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                        >
+                          <CaseStudyComponent caseStudy={project.caseStudy} />
+                        </motion.div>
+                      )}
+
+                      {activeTab === "github" && project.githubRepo && (
+                        <motion.div
+                          key="github"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                        >
+                          <GitHubStats repo={project.githubRepo} />
                         </motion.div>
                       )}
                     </AnimatePresence>
