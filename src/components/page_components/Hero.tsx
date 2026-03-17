@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import TypingAnimation from "../animations/typingAnimation"
 import RandomLoader from "../loading/random-loader"
 import CTAButton from "../compontents/CTABottom"
-
+import { motion } from "framer-motion"
 import { Sparkles } from "lucide-react"
 
 function Hero() {
@@ -214,9 +214,56 @@ function Hero() {
                 loop={true}
               />
             </Badge>
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 text-white leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
-              Design Systems, <span className="text-cyan-400">Build Automation.</span> Scale Intelligently.
-            </h1>
+            <motion.h1
+              className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight"
+              style={{
+                fontFamily: 'var(--font-display)',
+                background: 'linear-gradient(135deg, #ffffff 0%, #06b6d4 50%, #6366f1 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="block"
+              >
+                Design Systems,
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+                className="block"
+              >
+                <span
+                  className="relative inline-block"
+                  style={{
+                    background: 'linear-gradient(135deg, #06b6d4 0%, #06b6d4 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    textShadow: '0 0 40px rgba(6, 182, 212, 0.5)',
+                    filter: 'drop-shadow(0 0 20px rgba(6, 182, 212, 0.4))',
+                  }}
+                >
+                  Build Automation.
+                </span>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+                className="block"
+              >
+                Scale Intelligently.
+              </motion.div>
+            </motion.h1>
             <p className="text-gray-300 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl leading-relaxed">
               I architect scalable systems and engineer automation solutions that help teams and organizations work smarter. From startup foundations to enterprise optimization, I turn complex technical challenges into elegant, maintainable solutions.
             </p> 
