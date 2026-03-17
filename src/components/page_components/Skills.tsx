@@ -1,24 +1,12 @@
 "use client"
-import { useRef, useState } from "react"
-import { skillsData, type Skill } from "@/data/skillsData"
-import { SkillCard } from "../sub-sections/SkillCard"
-import { SkillModal } from "../sub-sections/SkillModal"
+import { useRef } from "react"
+import { useCasesData } from "@/data/skillsData"
+import { UseCaseCard } from "../sub-sections/UseCaseCard"
+import { ToolsShowcase } from "../sub-sections/ToolsShowcase"
 import { GeometricBackground } from "../compontents/GeometricBackground"
 
 function Skills() {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const handleCardClick = (skill: Skill) => {
-    setSelectedSkill(skill)
-    setIsModalOpen(true)
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
-    setTimeout(() => setSelectedSkill(null), 300)
-  }
 
   return (
     <div>
@@ -47,48 +35,36 @@ function Skills() {
                 </span>
               </div>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
-                Tools of the <span className='text-cyan-400 drop-shadow-lg' style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Trade</span>
+                What I <span className='text-cyan-400 drop-shadow-lg' style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Build</span>
               </h2>
               <p className="text-gray-300 text-base sm:text-lg max-w-4xl leading-relaxed">
-                I leverage these technologies and platforms to architect scalable systems and build powerful automation solutions. 
-                From n8n workflows to cloud infrastructure, these tools enable elegant technical solutions that solve real problems.
+                Here are the real problems I solve. Each expertise area represents years of hands-on experience building scalable systems, automating workflows, and delivering measurable results. Click any to explore the technical depth and specific capabilities.
               </p>
             </div>
           </div>
 
-          {/* Skills Grid - Full Width with Padding */}
+          {/* Use Cases Grid - Vertical Stack with proper spacing */}
           <div className="w-full px-4 sm:px-6 lg:px-8">
-            {/* Mobile Carousel */}
-            <div className="md:hidden w-full overflow-x-auto scrollbar-hide snap-x snap-mandatory">
-              <div className="flex gap-4 pb-6 px-1">
-                {skillsData.map((skill, index) => (
-                  <div key={index} className="snap-start shrink-0 w-[280px]">
-                    <SkillCard skill={skill} index={index} onCardClick={handleCardClick} />
-                  </div>
-                ))}
-              </div>
-              <div className="flex justify-center mt-6">
-                <p className="text-gray-500 text-sm font-medium">Tap card to see more →</p>
-              </div>
-            </div>
-
-            {/* Desktop Grid - Responsive with improved spacing */}
-            <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8 text-white max-w-7xl mx-auto">
-              {skillsData.map((skill, index) => (
-                <SkillCard key={index} skill={skill} index={index} onCardClick={handleCardClick} />
+            <div className="space-y-6 md:space-y-8 max-w-4xl mx-auto">
+              {useCasesData.map((useCase, index) => (
+                <UseCaseCard key={useCase.id} useCase={useCase} index={index} />
               ))}
             </div>
           </div>
 
+          {/* Tools Showcase Section */}
+          <div className="mt-24 sm:mt-32 w-full px-4 sm:px-6 lg:px-8 border-t border-[#262626]">
+            <div className="max-w-6xl mx-auto py-12 sm:py-16">
+              <ToolsShowcase showLabel={true} />
+            </div>
+          </div>
+
           {/* Bottom accent element */}
-          <div className="mt-20 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
           </div>
         </div>
       </section>
-
-      {/* Skill Modal */}
-      <SkillModal skill={selectedSkill} isOpen={isModalOpen} onClose={handleCloseModal} />
     </div>
   )
 }

@@ -1,0 +1,127 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    SKILLS SECTION - NEW STRUCTURE
+═══════════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                              │
+│  What I Build                                   [Architecture & Automation]  │
+│                                                                              │
+│  Here are the real problems I solve. Each expertise area represents years   │
+│  of hands-on experience building scalable systems, automating workflows,    │
+│  and delivering measurable results.                                         │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  ⭐ Zero-Downtime Database Migrations                                    ▼  │
+│                                                                              │
+│  Legacy systems with millions of records need migration to modern           │
+│  databases without losing data or disrupting service.                       │
+│                                                                              │
+│  Tech Stack: PostgreSQL  MySQL  Docker  AWS  Node.js  TypeScript            │
+│                                                                              │
+│  ┌─────────────────┐  ┌──────────────────┐  ┌──────────────────┐           │
+│  │ 32,000+         │  │ 0.004%           │  │ 0 seconds        │           │
+│  │ Users Migrated  │  │ Error Rate       │  │ Downtime         │           │
+│  └─────────────────┘  └──────────────────┘  └──────────────────┘           │
+│                                                                              │
+│  [COLLAPSED] Click to expand →                                              │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  ⭐ Zero-Downtime Database Migrations                                    ▲  │
+│                                                                              │
+│  [EXPANDED - All details visible]                                            │
+│                                                                              │
+│  Problem                                                                     │
+│  ─────────────────────────────────────────────────────────────────────────  │
+│  Legacy systems with millions of records need migration to modern           │
+│  databases without losing data or disrupting service. Traditional           │
+│  migrations cause downtime measured in hours.                               │
+│                                                                              │
+│  Solution                                                                    │
+│  ─────────────────────────────────────────────────────────────────────────  │
+│  Design and execute sophisticated multi-phase migration strategies with     │
+│  parallel processing, checksums verification, and binary log replication    │
+│  to ensure zero-downtime transitions.                                       │
+│                                                                              │
+│  Capabilities                                                                │
+│  ─────────────────────────────────────────────────────────────────────────  │
+│  ✓ Design zero-downtime migration architectures                             │
+│  ✓ Implement data consistency verification systems                          │
+│  ✓ Build parallel processing pipelines for large datasets                   │
+│  ✓ Create rollback procedures and failsafe mechanisms                       │
+│  ✓ Monitor migration health in real-time                                    │
+│  ✓ Optimize for 99.99% uptime                                               │
+│                                                                              │
+│  Process                                                                     │
+│  ─────────────────────────────────────────────────────────────────────────  │
+│  1. Analyze source database schema and constraints                          │
+│  2. Design multi-stage replication strategy                                 │
+│  3. Set up parallel verification systems                                    │
+│  4. Execute incremental data transfers with checksums                       │
+│  5. Monitor integrity continuously                                          │
+│  6. Perform instantaneous cutover with zero downtime                        │
+│                                                                              │
+│  All Metrics                                                                 │
+│  ─────────────────────────────────────────────────────────────────────────  │
+│  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐           │
+│  │ 32,000+          │  │ 0.004%           │  │ 0 seconds        │           │
+│  │ Users Migrated   │  │ Error Rate       │  │ Downtime         │           │
+│  │ Records migrated │  │ Data integrity   │  │ Complete zero-   │           │
+│  │ without data loss│  │ maintained       │  │ downtime exec.   │           │
+│  └──────────────────┘  └──────────────────┘  └──────────────────┘           │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+[Pattern repeats for other use cases]
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  ⭐ Multi-Gateway Payment Integration                                   ▼  │
+│  ⭐ High-Performance System Optimization                                ▼  │
+│  ⭐ Scalable Microservices Architecture                                 ▼  │
+│  ⭐ Real-Time Features & Live Updates                                   ▼  │
+│  ⭐ Business Process Automation                                         ▼  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                        TECHNOLOGIES & TOOLS SECTION
+═══════════════════════════════════════════════════════════════════════════════
+
+Technologies & Tools
+
+Here's the full toolkit I use to bring these solutions to life. Each technology 
+is carefully selected and mastered for specific use cases.
+
+┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐
+│    n8n   │  │  Docker  │  │   AWS    │  │   React  │  │  Next.js │
+└──────────┘  └──────────┘  └──────────┘  └──────────┘  └──────────┘
+
+┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐
+│TypeScript│  │ Node.js  │  │PostgreSQL│  │ MongoDB  │  │ Express  │
+└──────────┘  └──────────┘  └──────────┘  └──────────┘  └──────────┘
+
+┌──────────┐  ┌──────────┐  ┌──────────┐
+│ GraphQL  │  │   Git    │  │  ...     │
+└──────────┘  └──────────┘  └──────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+KEY IMPROVEMENTS:
+
+✓ Problem-focused messaging
+✓ Real metrics showing impact
+✓ Deep technical details on demand (expandable)
+✓ Clear capability list for each expertise area
+✓ Process workflows documented
+✓ Real-world examples
+✓ Maintains design system consistency
+✓ Responsive on all devices
+✓ Better SEO (semantic clustering, specific keywords)
+✓ Higher conversion (visitors see expertise depth)
+
