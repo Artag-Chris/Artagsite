@@ -12,6 +12,7 @@ import { handleResumeDownload } from "@/functions/handleResumenDownload";
 import ImageFrame from "../sub-sections/ImageFrame";
 import ShowmoreInfo from "../sub-sections/ShowmoreInfo";
 import ExperEduAchiComponent from "../sub-sections/ExperEduAchiComponent";
+import ProfileStats from "../sub-sections/ProfileStats";
 
 function About() {
   const [currentSkill, setCurrentSkill] = useState(0);
@@ -43,7 +44,7 @@ function About() {
       {/* About Section */}
       <section
         id="about"
-        className="bg-gradient-to-b from-black via-black to-[#0a0a0a] py-16 sm:py-32 relative overflow-hidden"
+        className="bg-gradient-to-b from-black via-black to-[#0a0a0a] py-16 sm:py-32 relative overflow-hidden w-screen -mx-[calc((100vw-100%)/2)]"
       >
         {/* Enhanced background elements with animation */}
         <div className="absolute top-0 right-1/3 w-1/2 h-1/2 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDuration: '4s' }}></div>
@@ -58,15 +59,18 @@ function About() {
         ></div>
 
         <div className="max-w-7xl mx-auto px-3 sm:px-4 w-full relative z-10">
-          <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-16 items-center lg:items-start">
+          <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-16 items-center lg:items-start justify-center">
             {/* Image Frame with enhanced styling */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="w-full lg:w-1/3 flex-shrink-0"
+              className="w-full sm:w-80 lg:w-1/3 flex justify-center flex-shrink-0"
             >
-              <ImageFrame setIsHovered={setIsHovered} isHovered={isHovered} />
+              <div className="flex flex-col items-center w-full">
+                <ImageFrame setIsHovered={setIsHovered} isHovered={isHovered} />
+                <ProfileStats />
+              </div>
             </motion.div>
 
             <motion.div 
