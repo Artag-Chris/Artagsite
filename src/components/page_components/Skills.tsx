@@ -22,21 +22,29 @@ function Skills() {
 
   return (
     <div>
-      <section id="skills" className="w-full bg-zinc-950 py-16 sm:py-24 relative overflow-hidden" ref={sectionRef}>
-        {/* Geometric Background */}
-        <GeometricBackground />
+      <section id="skills" className="w-full bg-black py-16 sm:py-24 relative overflow-hidden" ref={sectionRef}>
+        {/* Subtle grid background */}
+        <div className="absolute inset-0 opacity-5 pointer-events-none"
+          style={{
+            backgroundImage: `linear-gradient(90deg, #6366f1 1px, transparent 1px), linear-gradient(0deg, #6366f1 1px, transparent 1px)`,
+            backgroundSize: '50px 50px'
+          }}
+        ></div>
+
+        {/* Background glows */}
+        <div className="absolute top-1/3 right-0 w-1/3 h-1/3 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-1/4 w-1/3 h-1/3 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
         {/* Content - Full Width */}
         <div className="w-full relative z-10">
           {/* Header Section */}
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-              Tools of the <span className='text-indigo-500'>Trade</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6" style={{ fontFamily: 'var(--font-display)' }}>
+              Tools of the <span className='text-cyan-400'>Trade</span>
             </h2>
-            <p className="text-zinc-300 text-base sm:text-lg max-w-3xl leading-relaxed">
-              Every day, I leverage these powerful technologies and platforms to craft seamless digital experiences. 
-              From frontend frameworks to backend infrastructure, these are the tools that transform ideas into 
-              production-ready solutions. Each one plays a crucial role in delivering excellence.
+            <p className="text-gray-300 text-base sm:text-lg max-w-3xl leading-relaxed">
+              I leverage these technologies and platforms to architect scalable systems and build powerful automation solutions. 
+              From n8n workflows to cloud infrastructure, these tools enable elegant technical solutions that solve real problems.
             </p>
           </div>
 
@@ -52,7 +60,7 @@ function Skills() {
                 ))}
               </div>
               <div className="flex justify-center mt-4">
-                <p className="text-zinc-400 text-sm">Tap card to see more →</p>
+                <p className="text-gray-500 text-sm">Tap card to see more →</p>
               </div>
             </div>
 
