@@ -1,0 +1,71 @@
+# Artag Software Development - Robots Configuration
+# Allow all search engines and AI crawlers
+# Block only unnecessary crawlers
+
+# Default rule for all bots
+User-agent: *
+Allow: /
+Disallow: /private-servers
+Disallow: /api/
+Disallow: /.next/
+Disallow: /node_modules/
+
+# AI & LLM Crawlers - EXPLICITLY ALLOWED
+# OpenAI (ChatGPT)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Anthropic (Claude)
+User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Google (AI Overviews & Gemini)
+User-agent: Google-Extended
+Allow: /
+
+# Microsoft (Copilot)
+User-agent: Bingbot
+Allow: /
+
+# Traditional Search Engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Block training crawlers that don't cite sources
+User-agent: CCBot
+Disallow: /
+
+User-agent: AmazonBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+# Crawl delay for aggressive crawlers
+User-agent: *
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://www.artagdev.com.co/sitemap.xml
