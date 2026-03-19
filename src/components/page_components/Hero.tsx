@@ -201,77 +201,78 @@ function Hero() {
       {/* Hero Section Content */}
       <section className="container mx-auto px-4 h-full flex items-center relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full items-center">
-          {/* Left Content - with stagger animation */}
-          <div className="max-w-2xl" style={{ animation: 'fadeInUp 0.8s ease-out 0.2s backwards' }}>
-            <Badge className="mb-4 bg-indigo-500/15 text-indigo-300 hover:bg-indigo-500/25 transition-all border border-indigo-500/40 backdrop-blur-sm">
-              <TypingAnimation
-                phrases={["Software Architect", "Automation Specialist", "Technical Founder"]}
-                typeSpeed={80}
-                eraseSpeed={40}
-                delayBetweenPhrases={1500}
-                loop={true}
-              />
-            </Badge>
-            <motion.h1
-              className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight"
-              style={{
-                fontFamily: 'var(--font-display)',
-                background: 'linear-gradient(135deg, #ffffff 0%, #06b6d4 50%, #6366f1 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="block"
-              >
-                Design Systems,
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                viewport={{ once: true }}
-                className="block"
-              >
-                <span
-                  className="relative inline-block"
-                  style={{
-                    background: 'linear-gradient(135deg, #06b6d4 0%, #06b6d4 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    textShadow: '0 0 40px rgba(6, 182, 212, 0.5)',
-                    filter: 'drop-shadow(0 0 20px rgba(6, 182, 212, 0.4))',
-                  }}
-                >
-                  Build Automation.
-                </span>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                viewport={{ once: true }}
-                className="block"
-              >
-                Scale Intelligently.
-              </motion.div>
-            </motion.h1>
-            <p className="text-gray-300 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl leading-relaxed">
-              I architect scalable systems that handle massive scale
-              while staying simple. Specializing in automation, system design,
-              and interfaces that users love.
-            </p>
+           {/* Left Content - with stagger animation */}
+           <div className="max-w-2xl" style={{ animation: 'fadeInUp 0.8s ease-out 0.2s backwards' }}>
+             <Badge className="mb-4 bg-indigo-500/15 text-indigo-300 hover:bg-indigo-500/25 transition-all border border-indigo-500/40 backdrop-blur-sm">
+               <TypingAnimation
+                 phrases={["Full-Stack Architect", "Automation Specialist", "Scale Engineer"]}
+                 typeSpeed={80}
+                 eraseSpeed={40}
+                 delayBetweenPhrases={1500}
+                 loop={true}
+               />
+             </Badge>
+             <motion.h1
+               className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight"
+               style={{
+                 fontFamily: 'var(--font-display)',
+                 background: 'linear-gradient(135deg, #ffffff 0%, #06b6d4 50%, #6366f1 100%)',
+                 WebkitBackgroundClip: 'text',
+                 WebkitTextFillColor: 'transparent',
+                 backgroundClip: 'text',
+               }}
+             >
+               <motion.div
+                 initial={{ opacity: 0, y: 20 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 transition={{ duration: 0.6, delay: 0.2 }}
+                 viewport={{ once: true }}
+                 className="block"
+               >
+                 Zero-Downtime
+               </motion.div>
+               <motion.div
+                 initial={{ opacity: 0, y: 20 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 transition={{ duration: 0.6, delay: 0.4 }}
+                 viewport={{ once: true }}
+                 className="block"
+               >
+                 <span
+                   className="relative inline-block"
+                   style={{
+                     background: 'linear-gradient(135deg, #06b6d4 0%, #06b6d4 100%)',
+                     WebkitBackgroundClip: 'text',
+                     WebkitTextFillColor: 'transparent',
+                     backgroundClip: 'text',
+                     textShadow: '0 0 40px rgba(6, 182, 212, 0.5)',
+                     filter: 'drop-shadow(0 0 20px rgba(6, 182, 212, 0.4))',
+                   }}
+                 >
+                   Systems at Scale.
+                 </span>
+               </motion.div>
+               <motion.div
+                 initial={{ opacity: 0, y: 20 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 transition={{ duration: 0.6, delay: 0.6 }}
+                 viewport={{ once: true }}
+                 className="block"
+               >
+                 Real-Time Automation.
+               </motion.div>
+             </motion.h1>
+             <p className="text-gray-300 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl leading-relaxed">
+               Full-stack software architect specializing in scalable systems, zero-downtime migrations, and enterprise automation.
+               Led database migrations for <strong>32,000+ users</strong> with <strong>0.004% error rate</strong>.
+               Built payment systems handling <strong>$2M+ daily volume</strong> and real-time features with <strong>&lt;100ms latency</strong>.
+               Nearshore development from Colombia.
+             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <CTAButton text={"Let's Discuss Your Vision"} icon={<Sparkles />} />
-            </div>
-          </div>
+             <div className="flex flex-col sm:flex-row gap-4">
+               <CTAButton text={"Let's Discuss Your Vision"} icon={<Sparkles />} />
+             </div>
+           </div>
 
           {/* Right 3D Element - Hidden on mobile */}
           {/* <div className="hidden lg:flex items-center justify-center h-96 w-full">

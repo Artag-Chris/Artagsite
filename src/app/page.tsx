@@ -7,6 +7,7 @@ import HeaderMain from "@/components/page_components/Headermain";
 import Hero from "@/components/page_components/Hero";
 import Proyects from "@/components/page_components/Proyects";
 import Skills from "@/components/page_components/Skills";
+import { FAQ } from "@/components/sub-sections/FAQ";
 import PageWrapper from "@/components/page-wrapper";
 import { N8N_CHAT_CONFIG } from "@/config/n8n-chat.config";
 
@@ -26,6 +27,7 @@ export default function Home() {
              <Proyects />
              <About />
            </div>
+           <FAQ />
            <Testimonials />
            <Contact />
            <N8nChat {...N8N_CHAT_CONFIG} />
