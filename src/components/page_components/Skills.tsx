@@ -1,11 +1,14 @@
 "use client"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { UseCasesCarousel } from "../sub-sections/UseCasesCarousel"
+import { UseCaseModal } from "../sub-sections/UseCaseModal"
 import { ToolsShowcase } from "../sub-sections/ToolsShowcase"
 import { GeometricBackground } from "../compontents/GeometricBackground"
+import { UseCase } from "@/data/skillsData"
 
 function Skills() {
   const sectionRef = useRef<HTMLDivElement>(null)
+  const [selectedUseCase, setSelectedUseCase] = useState<UseCase | null>(null)
 
   return (
     <div>
@@ -44,7 +47,7 @@ function Skills() {
 
           {/* Use Cases Carousel */}
           <div className="w-full px-0 sm:px-0 mb-12 sm:mb-16">
-            <UseCasesCarousel />
+            <UseCasesCarousel onSelectUseCase={setSelectedUseCase} />
           </div>
 
           {/* Tools Showcase Section */}
@@ -60,6 +63,15 @@ function Skills() {
           </div>
         </div>
       </section>
+
+      {/* Use Case Modal */}
+      {selectedUseCase && (
+        <UseCaseModal
+          useCase={selectedUseCase}
+          isOpen={!!selectedUseCase}
+          onClose={() => setSelectedUseCase(null)}
+        />
+      )}
     </div>
   )
 }

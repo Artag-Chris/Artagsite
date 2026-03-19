@@ -3,10 +3,14 @@
 import { motion } from "framer-motion"
 import { useState, useRef, useEffect } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { useCasesData } from "@/data/skillsData"
+import { useCasesData, UseCase } from "@/data/skillsData"
 import { UseCaseCard } from "./UseCaseCard"
 
-export function UseCasesCarousel() {
+interface UseCasesCarouselProps {
+  onSelectUseCase?: (useCase: UseCase) => void
+}
+
+export function UseCasesCarousel({ onSelectUseCase }: UseCasesCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
@@ -64,7 +68,7 @@ export function UseCasesCarousel() {
   }
 
   return (
-    <div className="w-full" ref={containerRef}>
+    <div className="w-full max-w-7xl mx-auto" ref={containerRef}>
       {/* Carousel Container */}
       <div className="relative group">
         {/* Scroll Container */}
@@ -89,12 +93,13 @@ export function UseCasesCarousel() {
           <div className="flex-shrink-0 w-4 md:w-8 lg:w-12" />
 
           {/* Cards */}
-          {useCasesData.map((useCase, index) => (
+           {useCasesData.map((useCase, index) => (
             <UseCaseCard
               key={useCase.id}
               useCase={useCase}
               index={index}
               isCarousel={true}
+              onSelect={onSelectUseCase}
             />
           ))}
 
