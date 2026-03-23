@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react"
 import { testimonials } from "@/data/contactData"
+import FeaturedTestimonials from "@/components/sub-sections/FeaturedTestimonials"
 
 function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -79,19 +80,45 @@ function Testimonials() {
         >
           <div className="inline-block mb-4">
             <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-cyan-500/70 bg-cyan-500/10 border border-cyan-500/20 px-4 py-2 rounded-full backdrop-blur-sm">
-              What Clients Say
+              Real Collaborations
             </span>
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-            Trusted by <span className='text-cyan-400 drop-shadow-lg' style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Innovators</span>
+            Trusted by <span className='text-cyan-400 drop-shadow-lg' style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Developers</span>
           </h2>
           <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
-            Hear from the teams I've worked with and the impact of architectural excellence and automation solutions.
+            Hear directly from developers I've collaborated with on real projects. Their insights reflect the impact of clean architecture, thoughtful code, and genuine partnerships.
           </p>
+        </motion.div>
+
+        {/* Featured Testimonials Grid */}
+        <motion.div
+          className="mb-16 sm:mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          <FeaturedTestimonials />
         </motion.div>
 
         {/* Testimonials Carousel */}
         <div className="relative">
+          <motion.div
+            className="mb-8 flex items-center justify-between"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="text-xl sm:text-2xl font-semibold text-gray-200">
+              All Testimonials
+            </h3>
+            <p className="text-sm text-gray-400">
+              Rotate to see more from my collaborators
+            </p>
+          </motion.div>
+          
           <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
               key={currentIndex}
