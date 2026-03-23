@@ -30,6 +30,14 @@ export const timelineEvents: TimelineEvent[] = [
     chapterTitle: "The Beginning",
     emotionalArc: "discovery",
     quote: "Every journey begins with a single step into the unknown.",
+    narrative: {
+      setup: "After finishing high school, I enrolled in English studies at university, searching for academic direction and purpose.",
+      conflict: "The path felt disconnected from my real interests. I attended classes and completed assignments, but lacked genuine passion or a clear professional vision for my future.",
+      resolution: "These exploratory years taught me the value of self-discovery and that it's okay if not every path leads where you expect. This foundation of exploration would serve me well later."
+    },
+    themes: ["education", "discovery", "self-reflection"],
+    impact: "medium",
+    location: "Colombia"
   },
   {
     id: 2,
@@ -46,6 +54,14 @@ export const timelineEvents: TimelineEvent[] = [
     chapterTitle: "A Meeting of Souls",
     emotionalArc: "transformation",
     quote: "The right person can change your entire perspective on life.",
+    narrative: {
+      setup: "In 2018, I met an extraordinary woman whose kindness, work ethic, and beautiful spirit captured my heart and my imagination.",
+      conflict: "Her presence challenged everything I thought I knew about myself. She saw potential in me that I couldn't see in myself, and her example of dedication and purpose made my own path feel aimless.",
+      resolution: "This meeting became the turning point. Her influence inspired me to reevaluate my life with greater seriousness. I realized I wanted to become worthy of her belief in me."
+    },
+    themes: ["personal-growth", "transformation", "inspiration"],
+    impact: "high",
+    location: "Colombia"
   },
   {
     id: 3,
@@ -62,6 +78,14 @@ export const timelineEvents: TimelineEvent[] = [
     chapterTitle: "The City of Trials",
     emotionalArc: "challenge",
     quote: "In uncertainty lies the opportunity to discover who you truly are.",
+    narrative: {
+      setup: "Motivated by my desire to build a better life, I moved to Bogotá, Colombia's capital, seeking new opportunities and professional growth.",
+      conflict: "The city tested me relentlessly. I tried car sales, worked as a call center agent, and searched desperately for stability. Every role felt temporary, every door seemed to close just as it opened.",
+      resolution: "Though I didn't find my breakthrough in Bogotá, I gained resilience and clarity. The struggle taught me that I needed to find my true calling, not just any job."
+    },
+    themes: ["struggle", "persistence", "self-discovery"],
+    impact: "high",
+    location: "Bogotá"
   },
   {
     id: 4,
@@ -78,6 +102,14 @@ export const timelineEvents: TimelineEvent[] = [
     chapterTitle: "Awakening",
     emotionalArc: "triumph",
     quote: "When passion meets purpose, magic happens.",
+    narrative: {
+      setup: "A friend recognized my natural problem-solving abilities and encouraged me to pursue programming. Through a government scholarship, I was accepted into a web application design bootcamp.",
+      conflict: "Learning to code was intense and challenging, but something felt different—this was the first time my work felt like play. Simultaneously, I learned I was going to be a father, which doubled my sense of responsibility.",
+      resolution: "These two forces converged into pure determination. I wasn't learning code for myself anymore—I was learning for my family's future. This clarity transformed how I approached my studies."
+    },
+    themes: ["breakthrough", "coding", "fatherhood", "purpose"],
+    impact: "high",
+    location: "Colombia"
   },
   {
     id: 5,
@@ -94,6 +126,14 @@ export const timelineEvents: TimelineEvent[] = [
     chapterTitle: "The Darkest Hour",
     emotionalArc: "challenge",
     quote: "Strength is not the absence of struggle, but perseverance through it.",
+    narrative: {
+      setup: "By early 2020, I was completing my bootcamp, interviewing at promising software companies, and preparing for the arrival of our first child. Everything seemed to be aligning.",
+      conflict: "Then everything broke at once. Rejection after rejection from companies. And more painfully: we lost our baby. The weight was crushing—professional failure paired with personal tragedy that shattered our hopes.",
+      resolution: "In the darkness, something crystallized. Instead of giving up, I doubled down. Every rejection became fuel. I kept learning, kept building, kept believing. I had to. My family's future depended on it. That stubborn determination became my anchor."
+    },
+    themes: ["resilience", "loss", "perseverance", "struggle"],
+    impact: "high",
+    location: "Colombia"
   },
   {
     id: 6,
@@ -110,6 +150,14 @@ export const timelineEvents: TimelineEvent[] = [
     chapterTitle: "A New Light",
     emotionalArc: "triumph",
     quote: "Sometimes the greatest blessing comes at the moment when hope feels lost.",
+    narrative: {
+      setup: "During the darkest period of rejections and grief, amidst temporary work and continued coding studies, something miraculous happened: my daughter was born.",
+      conflict: "The weight of loss and disappointment had been suffocating. But her arrival shifted everything. I couldn't stay depressed—she needed me. We couldn't raise her in Bogotá; the city felt too chaotic for new fatherhood.",
+      resolution: "We relocated to Pereira, a calmer city. With my daughter as my anchor and my newfound purpose as fuel, I intensified my job search with unprecedented focus and determination. Every rejection became less painful, every interview became more meaningful."
+    },
+    themes: ["fatherhood", "new-beginning", "determination", "hope"],
+    impact: "high",
+    location: "Pereira"
   },
   {
     id: 7,
@@ -126,6 +174,14 @@ export const timelineEvents: TimelineEvent[] = [
     chapterTitle: "The Breakthrough",
     emotionalArc: "triumph",
     quote: "Dreams deferred are not dreams denied, only dreams with deeper roots.",
+    narrative: {
+      setup: "After years of perseverance, sacrifice, and relentless learning, I finally landed my first developer role. It started as a front-end position, but I saw an opportunity to prove myself more comprehensively.",
+      conflict: "The job was demanding and the imposter syndrome was real. I was surrounded by developers with years more experience. Every day felt like swimming upstream—but I kept learning, kept building, kept growing.",
+      resolution: "My dedication paid off. Within months, I demonstrated full-stack capabilities beyond what was expected. My employer recognized my potential and my commitment. But more importantly, I recognized my own. The breakthrough wasn't just landing a job—it was finally becoming the developer I'd always believed I could be."
+    },
+    themes: ["breakthrough", "full-stack", "growth", "dedication", "success"],
+    impact: "high",
+    location: "Pereira"
   },
 ];
 
@@ -142,4 +198,16 @@ export interface TimelineEvent {
   chapterTitle: string;
   emotionalArc: "challenge" | "triumph" | "transformation" | "discovery";
   quote: string;
+  
+  // NEW: 3-act narrative structure
+  narrative: {
+    setup: string;
+    conflict: string;
+    resolution: string;
+  };
+  
+  // NEW: Metadata for exploration
+  themes: string[];
+  impact: "low" | "medium" | "high";
+  location?: string;
 }
