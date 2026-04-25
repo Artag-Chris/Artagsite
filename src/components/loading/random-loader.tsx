@@ -49,7 +49,7 @@ export default function RandomLoader({ onLoadingComplete, minDisplayTime = 2500 
 
   return (
     <Suspense fallback={null}>
-      <SelectedLoader onLoadingComplete={() => {}} minDisplayTime={minDisplayTime} />
+      <SelectedLoader onLoadingComplete={() => {}} minDisplayTime={0} />
     </Suspense>
   )
 }

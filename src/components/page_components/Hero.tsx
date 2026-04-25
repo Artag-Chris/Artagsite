@@ -17,38 +17,25 @@ function Hero() {
   const [showCityLoader, setShowCityLoader] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
-  const loaderStartTimeRef = useRef<number | null>(null)
-  const hasHiddenLoaderRef = useRef(false)
 
   // Handle mobile detection after component mounts to avoid hydration issues
   useEffect(() => {
     setIsMounted(true)
-    loaderStartTimeRef.current = Date.now()
 
     const checkMobile = () => {
       const mobile = window.innerWidth <= 768
       setIsMobile(mobile)
     }
 
-    // Initial check
     checkMobile()
-
-    // Add resize listener
     window.addEventListener("resize", checkMobile)
-
-    return () => {
-      window.removeEventListener("resize", checkMobile)
-    }
+    return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
+    const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   // Handle video load and play
@@ -61,10 +48,7 @@ function Hero() {
         video.play().catch(console.error)
       }
 
-      const handleLoadedData = () => {
-        setVideoLoaded(true)
-      }
-
+      const handleLoadedData = () => setVideoLoaded(true)
       const handleError = () => {
         console.warn("Video failed to load, using fallback image")
         setVideoLoaded(false)
@@ -74,10 +58,7 @@ function Hero() {
       video.addEventListener("loadeddata", handleLoadedData)
       video.addEventListener("error", handleError)
 
-      // Force load if video is ready
-      if (video.readyState >= 3) {
-        handleCanPlay()
-      }
+      if (video.readyState >= 3) handleCanPlay()
 
       return () => {
         video.removeEventListener("canplay", handleCanPlay)
@@ -87,39 +68,6 @@ function Hero() {
     }
   }, [isMounted])
 
-  // Handle loader visibility with minimum display time - single effect
-  useEffect(() => {
-    if (!isMounted || hasHiddenLoaderRef.current) return
-
-    const MIN_LOADER_TIME = 2500 // Minimum time to show loader (ms)
-    const MAX_LOADER_TIME = 4000 // Maximum time to show loader (ms)
-
-    const hideLoader = () => {
-      if (!hasHiddenLoaderRef.current) {
-        hasHiddenLoaderRef.current = true
-        setShowCityLoader(false)
-      }
-    }
-
-    // Set timer for minimum display time
-    const minTimer = setTimeout(() => {
-      // After minimum time, check if video is loaded
-      if (videoLoaded) {
-        hideLoader()
-      }
-    }, MIN_LOADER_TIME)
-
-    // Set timer for maximum display time (fallback)
-    const maxTimer = setTimeout(() => {
-      hideLoader()
-    }, MAX_LOADER_TIME)
-
-    return () => {
-      clearTimeout(minTimer)
-      clearTimeout(maxTimer)
-    }
-  }, [isMounted, videoLoaded])
-
   // Parallax effect - reduced on mobile
   const parallaxOffset = scrollY * (isMobile ? 0.2 : 0.4)
 
@@ -128,11 +76,8 @@ function Hero() {
       {/* City Loader Overlay */}
       {showCityLoader && (
         <RandomLoader
-          onLoadingComplete={() => {
-            // This callback is called when the loader animation completes
-            // But we control the actual hiding via the useEffect above
-          }}
-          minDisplayTime={1500}
+          onLoadingComplete={() => setShowCityLoader(false)}
+          minDisplayTime={3000}
         />
       )}
 
