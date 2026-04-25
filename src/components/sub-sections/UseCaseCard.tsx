@@ -59,7 +59,7 @@ export function UseCaseCard({ useCase, index, isCarousel = false, onSelect }: Us
 
             <div className="flex-1 min-w-0">
               <h3 
-                className="font-bold text-base md:text-lg text-white group-hover:text-cyan-300 transition-colors duration-300 line-clamp-1" 
+                className="font-bold text-base md:text-lg text-white group-hover:text-cyan-300 transition-colors duration-300 line-clamp-2 leading-snug" 
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 {useCase.title}

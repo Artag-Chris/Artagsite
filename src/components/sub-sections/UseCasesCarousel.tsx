@@ -70,7 +70,11 @@ export function UseCasesCarousel({ onSelectUseCase }: UseCasesCarouselProps) {
   return (
     <div className="w-full max-w-7xl mx-auto" ref={containerRef}>
       {/* Carousel Container */}
-      <div className="relative group">
+      <div className="relative group overflow-hidden rounded-xl">
+        {/* Right fade gradient — elegant clip instead of hard cut */}
+        <div className="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-black via-black/60 to-transparent z-10 pointer-events-none" />
+        {/* Left fade gradient */}
+        <div className="absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-black via-black/60 to-transparent z-10 pointer-events-none" />
         {/* Scroll Container */}
         <div
           ref={scrollContainerRef}
@@ -114,7 +118,7 @@ export function UseCasesCarousel({ onSelectUseCase }: UseCasesCarouselProps) {
           transition={{ duration: 0.3 }}
           onClick={() => scroll("left")}
           disabled={!canScrollLeft}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 z-20 p-3 rounded-full bg-black/60 backdrop-blur-sm border border-cyan-500/30 hover:border-cyan-500/80 hover:bg-black/80 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group-hover:opacity-100 opacity-0"
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/60 backdrop-blur-sm border border-cyan-500/30 hover:border-cyan-500/80 hover:bg-black/80 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group-hover:opacity-100 opacity-0"
           aria-label="Scroll left"
         >
           <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-cyan-400" />
@@ -127,7 +131,7 @@ export function UseCasesCarousel({ onSelectUseCase }: UseCasesCarouselProps) {
           transition={{ duration: 0.3 }}
           onClick={() => scroll("right")}
           disabled={!canScrollRight}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 z-20 p-3 rounded-full bg-black/60 backdrop-blur-sm border border-cyan-500/30 hover:border-cyan-500/80 hover:bg-black/80 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group-hover:opacity-100 opacity-0"
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/60 backdrop-blur-sm border border-cyan-500/30 hover:border-cyan-500/80 hover:bg-black/80 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group-hover:opacity-100 opacity-0"
           aria-label="Scroll right"
         >
           <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-cyan-400" />
