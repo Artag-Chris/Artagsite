@@ -205,7 +205,7 @@ function Hero() {
            <div className="max-w-2xl" style={{ animation: 'fadeInUp 0.8s ease-out 0.2s backwards' }}>
              <Badge className="mb-4 bg-indigo-500/15 text-indigo-300 hover:bg-indigo-500/25 transition-all border border-indigo-500/40 backdrop-blur-sm">
                <TypingAnimation
-                 phrases={["Full-Stack Architect", "Automation Specialist", "Scale Engineer"]}
+                 phrases={["Available for New Projects", "Open to Full-Time Roles", "Let's Build Something"]}
                  typeSpeed={80}
                  eraseSpeed={40}
                  delayBetweenPhrases={1500}
@@ -229,7 +229,7 @@ function Hero() {
                  viewport={{ once: true }}
                  className="block"
                >
-                 Zero-Downtime
+                 I Build Systems
                </motion.div>
                <motion.div
                  initial={{ opacity: 0, y: 20 }}
@@ -249,7 +249,7 @@ function Hero() {
                      filter: 'drop-shadow(0 0 20px rgba(6, 182, 212, 0.4))',
                    }}
                  >
-                   Systems at Scale.
+                   That Don't Break.
                  </span>
                </motion.div>
                <motion.div
@@ -259,18 +259,17 @@ function Hero() {
                  viewport={{ once: true }}
                  className="block"
                >
-                 Real-Time Automation.
+                 Or Slow Down.
                </motion.div>
              </motion.h1>
              <p className="text-gray-300 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl leading-relaxed">
-               Full-stack software architect specializing in scalable systems, zero-downtime migrations, and enterprise automation.
-               Led database migrations for <strong>32,000+ users</strong> with <strong>0.004% error rate</strong>.
-               Built payment systems handling <strong>$2M+ daily volume</strong> and real-time features with <strong>&lt;100ms latency</strong>.
-               Nearshore development from Colombia.
+               I'm Christian — a full-stack developer from Colombia who has moved <strong>32,000+ users</strong> between databases without losing a single one,
+               built payment flows handling <strong>$2M+ daily</strong>, and wired up automations that run 24/7 while people sleep.
+               If your system needs to scale, I'm the person you want on your team.
              </p>
 
              <div className="flex flex-col sm:flex-row gap-4">
-               <CTAButton text={"Let's Discuss Your Vision"} icon={<Sparkles />} />
+               <CTAButton text={"Let's Talk — I'm Available Now"} icon={<Sparkles />} />
              </div>
            </div>
 

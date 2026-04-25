@@ -87,14 +87,14 @@ function Contact() {
           >
             <div className="inline-block mb-4">
               <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-cyan-500/70 bg-cyan-500/10 border border-cyan-500/20 px-4 py-2 rounded-full backdrop-blur-sm">
-                Get In Touch
+                I'm Available — Let's Talk
               </span>
             </div>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-              Let's <span className="text-cyan-400 drop-shadow-lg" style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Build Together</span>
+              Got a Project? <span className="text-cyan-400 drop-shadow-lg" style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Write to Me.</span>
             </h2>
             <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
-              Whether you need system architecture, automation solutions, or strategic technical guidance—let's explore how we can work together to solve your toughest challenges.
+              No sales pitch, no agency overhead. Just a direct line to a developer who will actually read your message, think about your problem, and give you a real answer — usually within 24 hours.
             </p>
           </motion.div>
 
@@ -194,7 +194,7 @@ function Contact() {
                               name="message"
                               value={formData.message}
                               onChange={handleChange}
-                              placeholder="Tell me what you have in mind..."
+                              placeholder="Tell me what you're building, what's broken, or what you need. The more detail, the better I can help."
                               required
                               className="mt-1 min-h-[100px] sm:min-h-[120px] text-sm sm:text-base bg-[#0a0a0a]/50 border-[#262626] text-white placeholder:text-gray-600 focus:border-cyan-500 focus:ring-cyan-500 rounded-lg transition-all duration-300"
                             />
@@ -372,14 +372,16 @@ function Contact() {
            >
              <div className="inline-block mb-6">
                <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-cyan-500/70 bg-cyan-500/10 border border-cyan-500/20 px-4 py-2 rounded-full backdrop-blur-sm">
-                 Next Step
+                 Seriously, I Don't Bite
                </span>
              </div>
              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-               Ready to <span className="text-cyan-400">Transform</span> Your Vision?
+               Not Sure If I'm the Right Fit?{" "}
+               <span className="text-cyan-400">Ask Anyway.</span>
              </h3>
              <p className="text-gray-300 max-w-2xl mx-auto text-lg">
-               Share your project details in the form above, and let's discuss how we can architect a solution that scales with your ambitions.
+               The worst that happens is I point you in the right direction. The best? We build something you're proud of.
+               Send a message — no commitment, no pressure, just a conversation.
              </p>
            </motion.div>
         </div>

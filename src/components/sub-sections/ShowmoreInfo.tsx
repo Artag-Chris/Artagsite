@@ -19,19 +19,19 @@ function ShowmoreInfo({
           }`}
         >
           <p className="text-sm sm:text-base leading-relaxed font-body">
-            Full-stack software architect with expertise in scalable systems, zero-downtime migrations, and enterprise automation. I architect technical foundations for companies that need to move fast without breaking things. Specialized in microservices, real-time systems, and process automation with <strong>n8n and enterprise tools</strong>.
+            Hey, I'm Christian — a full-stack developer based in Pereira, Colombia. I obsess over one thing: building software that works exactly when it needs to, at the scale it needs to, without drama. I've migrated <strong>32,000+ users</strong> between databases without a single incident, and I'm genuinely proud of that.
           </p>
 
           <p className="text-sm sm:text-base leading-relaxed font-body">
-            <strong>Core expertise:</strong> I design and build systems that handle <strong>100K+ concurrent users</strong>, manage <strong>$2M+ daily payment volumes</strong>, and maintain <strong>99.99% uptime</strong>. I've led database migrations for <strong>32,000+ users with 0.004% error rate</strong> and built real-time features with <strong>&lt;100ms latency</strong>. I work across multiple technology domains: cloud infrastructure (AWS), containerization (Docker), system architecture, DevOps automation, and enterprise integrations.
+            My day-to-day lives in <strong>Node.js, React, TypeScript, and Docker</strong> — wiring up backends, designing architecture, automating workflows with <strong>n8n</strong>, and making sure payment systems don't fall over at 2am. I've handled <strong>$2M+ in daily payment volume</strong> and kept systems at <strong>99.99% uptime</strong>. Not because I got lucky, but because I care about the details most people skip.
           </p>
 
           <p className={`${showMoreBio ? "block" : "hidden"} text-sm sm:text-base leading-relaxed font-body`}>
-            <strong>Working approach:</strong> I believe exceptional systems combine technical depth with business clarity. Whether architecting microservices, automating complex workflows, optimizing system performance (achieving 40-60% improvements), or designing payment integrations, I focus on maintainable, scalable solutions that align with business goals. I've successfully automated 50+ business workflows with &lt;0.1% error rates and designed infrastructure for high-frequency trading and financial systems.
+            <strong>How I work:</strong> I'm not the type who disappears after the first PR. I ask questions before I write code, I push back when something doesn't make sense, and I communicate clearly — in English or Spanish. I've worked with startups who needed their first backend up yesterday, and with teams scaling systems that already had real users depending on them. Both scenarios suit me just fine.
           </p>
 
           <p className={`${showMoreBio ? "block" : "hidden"} text-sm sm:text-base leading-relaxed font-body`}>
-            <strong>Engagement formats:</strong> Full-time roles, consulting engagements, strategic technical advisory, and nearshore partnerships. I work with startups building their first backend, mid-market companies scaling systems, and enterprises optimizing critical infrastructure. When I'm not architecting systems, I contribute to open-source projects, explore emerging technologies, and share technical insights with the developer community.
+            I'm currently open to <strong>full-time roles, freelance projects, and nearshore collaborations</strong>. If you've got a technical challenge that needs a developer who actually gives a damn — I'd love to hear about it. Worst case: we have a good conversation.
           </p>
         </motion.div>
 

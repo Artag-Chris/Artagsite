@@ -166,7 +166,7 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="es">
+    <html lang="en">
       <head>
         {/* Organization Schema */}
         <script
