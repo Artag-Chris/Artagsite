@@ -164,7 +164,7 @@ export default function HeroTerminal() {
           className="absolute -bottom-4 -right-4 bg-gradient-to-br from-cyan-500/20 to-indigo-500/20 backdrop-blur-xl border border-cyan-500/30 rounded-xl px-4 py-2 flex items-center gap-2"
         >
           <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-          <span className="text-xs text-cyan-300 font-mono font-medium">Available for hire</span>
+          <span className="text-xs text-cyan-300 font-mono font-medium">Available to chat</span>
         </motion.div>
       </div>
     </motion.div>
