@@ -94,10 +94,6 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  // Google Search Console verification
-  verification: {
-    google: "your-google-verification-code",
-  },
   category: "technology",
 }
 
