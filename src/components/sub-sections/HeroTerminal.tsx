@@ -108,7 +108,7 @@ export default function HeroTerminal() {
                       <span className="text-indigo-400">$</span>
                       <span className="text-gray-100">
                         {typedCommand[i] ?? ""}
-                        {typedCommand[i]?.length !== line.command.length && (
+                        {typedCommand[i]?.length !== (line.command ?? "").length && (
                           <span className="inline-block w-2 h-4 bg-cyan-400 ml-0.5 animate-pulse align-middle" />
                         )}
                       </span>
