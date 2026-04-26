@@ -4,25 +4,25 @@ import { Code2, Zap, Users, Award } from "lucide-react";
 const stats = [
   {
     label: "Years Experience",
-    value: "5+",
+    value: "2+",
     icon: Zap,
     color: "from-cyan-500 to-cyan-400",
   },
   {
     label: "Projects Built",
-    value: "50+",
+    value: "15+",
     icon: Code2,
     color: "from-indigo-500 to-indigo-400",
   },
   {
     label: "Happy Clients",
-    value: "30+",
+    value: "10+",
     icon: Users,
     color: "from-cyan-500 to-cyan-400",
   },
   {
-    label: "Awards & Honors",
-    value: "10+",
+    label: "Workflows Automated",
+    value: "50+",
     icon: Award,
     color: "from-indigo-500 to-indigo-400",
   },

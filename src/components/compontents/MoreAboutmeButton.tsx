@@ -25,7 +25,7 @@ function MoreAboutmeButton() {
 
                     {/* Floating particles */}
                     <motion.div
-                        className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-300"
+                        className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-cyan-400"
                         animate={{
                             y: [0, -15, -5],
                             x: [0, 5, 10],
@@ -38,7 +38,7 @@ function MoreAboutmeButton() {
                         }}
                     />
                     <motion.div
-                        className="absolute -bottom-1 -left-1 w-1.5 h-1.5 rounded-full bg-emerald-400"
+                        className="absolute -bottom-1 -left-1 w-1.5 h-1.5 rounded-full bg-cyan-300"
                         animate={{
                             y: [0, -10, -20],
                             x: [0, -5, -10],

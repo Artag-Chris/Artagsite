@@ -8,6 +8,7 @@ import RandomLoader from "../loading/random-loader"
 import CTAButton from "../compontents/CTABottom"
 import { motion } from "framer-motion"
 import { Sparkles } from "lucide-react"
+import HeroTerminal from "../sub-sections/HeroTerminal"
 
 function Hero() {
   const videoContainerRef = useRef<HTMLDivElement>(null)
@@ -218,12 +219,10 @@ function Hero() {
              </div>
            </div>
 
-          {/* Right 3D Element - Hidden on mobile */}
-          {/* <div className="hidden lg:flex items-center justify-center h-96 w-full">
-            <div className="w-full h-full flex items-center justify-center">
-              <GLTFViewer modelPath="/procedural-animated-energy-beam-material.glb" autoRotate />
-            </div>
-          </div> */}
+          {/* Right column — animated terminal */}
+          <div className="hidden lg:flex items-center justify-center w-full">
+            <HeroTerminal />
+          </div>
         </div>
       </section>
     </div>
