@@ -1,14 +1,27 @@
 "use client"
 import { useRef, useState } from "react"
+import { motion } from "framer-motion"
+import { useInViewOnReady } from "@/hooks/useInViewOnReady"
 import { UseCasesCarousel } from "../sub-sections/UseCasesCarousel"
 import { UseCaseModal } from "../sub-sections/UseCaseModal"
 import { ToolsShowcase } from "../sub-sections/ToolsShowcase"
 import { GeometricBackground } from "../compontents/GeometricBackground"
 import { UseCase } from "@/data/skillsData"
 
+const headerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.25 } },
+}
+
+const headerItem = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
+}
+
 function Skills() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const [selectedUseCase, setSelectedUseCase] = useState<UseCase | null>(null)
+  const { ref: headerInViewRef, isReady: headerReady } = useInViewOnReady<HTMLDivElement>({ amount: 0.3 })
 
   return (
     <div>
@@ -30,19 +43,32 @@ function Skills() {
         <div className="w-full relative z-10">
           {/* Header Section with enhanced typography */}
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-20">
-            <div className="space-y-4 sm:space-y-6">
-              <div className="inline-block">
+            <motion.div
+              ref={headerInViewRef}
+              className="space-y-4 sm:space-y-6"
+              variants={headerContainer}
+              initial="hidden"
+              animate={headerReady ? "visible" : "hidden"}
+            >
+              <motion.div className="inline-block" variants={headerItem}>
                 <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-cyan-500/70 bg-cyan-500/10 border border-cyan-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full backdrop-blur-sm">
                   Architecture & Automation
                 </span>
-              </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
+              </motion.div>
+              <motion.h2
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
+                style={{ fontFamily: 'var(--font-display)' }}
+                variants={headerItem}
+              >
                 What I <span className='text-cyan-400 drop-shadow-lg' style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Build</span>
-              </h2>
-              <p className="text-gray-300 text-base sm:text-lg max-w-4xl leading-relaxed">
+              </motion.h2>
+              <motion.p
+                className="text-gray-300 text-base sm:text-lg max-w-4xl leading-relaxed"
+                variants={headerItem}
+              >
                 Here are the real problems I solve. Each expertise area represents years of hands-on experience building scalable systems, automating workflows, and delivering measurable results. Scroll through to explore the technical depth and specific capabilities.
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
           </div>
 
           {/* Use Cases Carousel */}
