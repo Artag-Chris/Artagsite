@@ -288,7 +288,7 @@ function Contact() {
 
                     <div className="space-y-5 sm:space-y-6">
                       {[
-                        { Icon: Mail, label: "Email", value: "artagdev@gmail.com", href: "mailto:artagdev@gmail.com" },
+                        { Icon: Mail, label: "Email", value: "info@artagdev.com.co", href: "mailto:info@artagdev.com.co" },
                         { Icon: Phone, label: "Phone", value: "+57 320 571 1428", href: "tel:+57320571142" },
                         { Icon: MapPin, label: "Location", value: "Pereira, Risaralda, Colombia", href: null }
                       ].map((item, index) => {

@@ -35,7 +35,7 @@ export const socialLinks = [
     {
       name: "Email",
       icon: MailIcon,
-      url: "mailto:artagdev@gmail.com",
+      url: "mailto:info@artagdev.com.co",
       color: "hover:text-[#D44638]",
     },
   ]

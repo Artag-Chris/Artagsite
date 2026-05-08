@@ -29,7 +29,7 @@ function CTAButton({ text, icon, className = "" }: CTAButtonProps) {
     {
       name: "Email",
       icon: <Mail className="h-4 w-4" />,
-      action: () => window.open('mailto:artagdev@gmail.com', '_blank'),
+      action: () => window.open('mailto:info@artagdev.com.co', '_blank'),
       color: "bg-red-500"
     },
     {

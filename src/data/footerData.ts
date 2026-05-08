@@ -53,7 +53,7 @@ export const socialLinksFooter = [
     {
       name: "Email",
       icon: Mail,
-      url: "mailto:artagdev@gmail.com",
+      url: "mailto:info@artagdev.com.co",
       color: "hover:text-[#D44638] hover:border-[#D44638]",
     },
   ]

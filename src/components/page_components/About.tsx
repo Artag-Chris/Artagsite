@@ -7,6 +7,16 @@ import { FileText, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInViewOnReady } from "@/hooks/useInViewOnReady";
 import { socialLinks } from "@/data/socialLinks";
+
+const titleContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.25, delayChildren: 0.4 } },
+};
+
+const titleItem = {
+  hidden: { opacity: 0, y: 8 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
 import { skills } from "@/data/skillsData";
 import MoreAboutmeButton from "../compontents/MoreAboutmeButton";
 import { handleResumeDownload } from "@/functions/handleResumenDownload";
@@ -75,23 +85,27 @@ function About() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
                 className="w-full space-y-6 sm:space-y-8"
+                variants={titleContainer}
+                initial="hidden"
+                animate={bioReady ? "visible" : "hidden"}
               >
-                {/* Title with enhanced styling */}
+                {/* Title with staggered reveal: h2 first, then badge */}
                 <div>
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 w-full text-left leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
+                  <motion.h2
+                    variants={titleItem}
+                    className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 w-full text-left leading-tight"
+                    style={{ fontFamily: 'var(--font-display)' }}
+                  >
                     About <span className="text-cyan-400 drop-shadow-lg" style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.3)' }}>Me</span>
-                  </h2>
-                  
+                  </motion.h2>
+
                   {/* Subtitle badge */}
-                  <div className="inline-block mt-3">
+                  <motion.div className="inline-block mt-3" variants={titleItem}>
                     <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-cyan-500/70 bg-cyan-500/10 border border-cyan-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full backdrop-blur-sm">
                       Software Architect & Automation Specialist
                     </span>
-                  </div>
+                  </motion.div>
                 </div>
 
                 {/* Animated skills display - Enhanced */}
