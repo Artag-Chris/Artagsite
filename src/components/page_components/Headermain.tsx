@@ -179,14 +179,14 @@ function HeaderMain() {
                </div>
 
               <Button
-                variant="outline"
-                className="hidden md:flex items-center gap-3 border border-cyan-500/50 text-cyan-400 hover:text-white hover:border-cyan-400 transition-all duration-500 hover:scale-105 backdrop-blur-xl bg-gradient-to-br from-cyan-950/40 to-cyan-900/30 hover:from-cyan-500/20 hover:to-cyan-600/20 group relative overflow-hidden px-6 py-2.5 rounded-full font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40"
+                variant="ghost"
+                className="hidden md:flex items-center gap-2.5 text-gray-400 hover:text-white transition-all duration-500 hover:scale-105 group relative overflow-hidden px-5 py-2.5 rounded-full font-medium tracking-wide text-sm border border-transparent hover:border-cyan-400/70 hover:bg-cyan-500/[0.14]"
                 onClick={handleResumeDownload}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <Download className="w-4 h-4 group-hover:rotate-12 transition-transform duration-500 relative z-10" />
+                <Download className="w-4 h-4 opacity-70 group-hover:opacity-100 group-hover:rotate-12 group-hover:text-cyan-400 transition-all duration-500 relative z-10" />
                 <span className="relative z-10">Resume</span>
-                <Sparkles className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all duration-500 relative z-10 text-cyan-300" />
+                <Sparkles className="w-3 h-3 opacity-0 group-hover:opacity-70 transition-opacity duration-500 relative z-10 text-cyan-300" />
               </Button>
 
               <Button
@@ -343,14 +343,15 @@ function HeaderMain() {
                </div>
 
               <Button
+                variant="ghost"
                 size="sm"
-                className="bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white border-0 transition-all duration-500 hover:scale-105 flex items-center gap-2.5 px-5 py-2 rounded-full font-semibold group relative overflow-hidden shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50"
+                className="flex items-center gap-2 text-slate-300 hover:text-white transition-all duration-500 hover:scale-105 px-4 py-2 rounded-full font-medium tracking-wide text-sm border border-transparent hover:border-cyan-400/70 hover:bg-cyan-500/[0.14] group relative overflow-hidden"
                 onClick={handleResumeDownload}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <Download className="w-3.5 h-3.5 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <Download className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 group-hover:rotate-12 group-hover:text-cyan-400 transition-all duration-500 relative z-10" />
                 <span className="hidden sm:inline relative z-10">Resume</span>
-                <Sparkles className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all duration-300 relative z-10 text-cyan-200" />
+                <Sparkles className="w-3 h-3 opacity-0 group-hover:opacity-70 transition-opacity duration-500 relative z-10 text-cyan-300" />
               </Button>
             </nav>
           </div>
