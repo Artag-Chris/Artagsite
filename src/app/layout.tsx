@@ -1,7 +1,7 @@
 import './globals.css'
 import '@/styles/n8n-chat-custom.css'
 import '@n8n/chat/style.css'
-import { Inter } from 'next/font/google'
+import { Inter, Space_Grotesk } from 'next/font/google'
 import type { Metadata } from 'next'
 import { GoogleTagManager } from '@/components/google/GoogleTagManager'
 import GTMPageView from '@/components/google/GTMPageView'
@@ -9,7 +9,18 @@ import { MetaPixel } from '@/components/meta/MetaPixel'
 import { TikTokPixel } from '@/components/tiktok/TikTokPixel'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+})
 
 export const metadata: Metadata = {
   // Main title (50-60 characters) - AI-optimized with keywords
@@ -162,7 +173,7 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <head>
         {/* Organization Schema */}
         <script
@@ -177,7 +188,7 @@ export default function RootLayout({
           suppressHydrationWarning
         />
       </head>
-      <body className={inter.className}>
+      <body>
         <SpeedInsights />
         <GoogleTagManager />
         <GTMPageView />

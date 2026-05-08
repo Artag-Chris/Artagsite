@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import TypingAnimation from "../animations/typingAnimation"
 import RandomLoader from "../loading/random-loader"
 import CTAButton from "../compontents/CTABottom"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { Sparkles } from "lucide-react"
 import HeroTerminal from "../sub-sections/HeroTerminal"
 
@@ -18,6 +18,8 @@ function Hero() {
   const [showCityLoader, setShowCityLoader] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
+  const [h1Done, setH1Done] = useState(false)
+  const [bioDone, setBioDone] = useState(false)
 
   // Handle mobile detection after component mounts to avoid hydration issues
   useEffect(() => {
@@ -38,6 +40,37 @@ function Hero() {
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  // Sequence: loader → H1 (1.8s) → bio chunks (~3s) → CTA + flash.
+  // Each stage gates the next so neither bio nor CTA reserves space before its turn.
+  useEffect(() => {
+    if (showCityLoader) {
+      setH1Done(false)
+      setBioDone(false)
+      return
+    }
+    const tH1 = setTimeout(() => setH1Done(true), 1800)
+    return () => clearTimeout(tH1)
+  }, [showCityLoader])
+
+  useEffect(() => {
+    if (!h1Done) {
+      setBioDone(false)
+      return
+    }
+    // Bio finishes ~3s after mount: delayChildren 0.5 + 5*staggerChildren 0.35 + duration 0.7
+    const tBio = setTimeout(() => setBioDone(true), 3000)
+    return () => clearTimeout(tBio)
+  }, [h1Done])
+
+  const bioChunks: { text: string; bold: boolean }[] = [
+    { text: "I'm Christian — a full-stack developer from Colombia who has moved ", bold: false },
+    { text: "32,000+ users", bold: true },
+    { text: " between databases without losing a single one, built payment flows handling ", bold: false },
+    { text: "$2M+ daily", bold: true },
+    { text: ", and wired up automations that run 24/7 while people sleep. ", bold: false },
+    { text: "If your system needs to scale, I'm the person you want on your team.", bold: false },
+  ]
 
   // Handle video load and play
   useEffect(() => {
@@ -167,23 +200,12 @@ function Hero() {
                  WebkitTextFillColor: 'transparent',
                  backgroundClip: 'text',
                }}
+               initial={{ opacity: 0.2 }}
+               animate={showCityLoader ? { opacity: 0.2 } : { opacity: 1 }}
+               transition={{ duration: 1.8, delay: 0, ease: "linear" }}
              >
-               <motion.div
-                 initial={{ opacity: 0, y: 20 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 transition={{ duration: 0.6, delay: 0.2 }}
-                 viewport={{ once: true }}
-                 className="block"
-               >
-                 I Build Systems
-               </motion.div>
-               <motion.div
-                 initial={{ opacity: 0, y: 20 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 transition={{ duration: 0.6, delay: 0.4 }}
-                 viewport={{ once: true }}
-                 className="block"
-               >
+               <span className="block">I Build Systems</span>
+               <span className="block">
                  <span
                    className="relative inline-block"
                    style={{
@@ -197,26 +219,79 @@ function Hero() {
                  >
                    That Don't Break.
                  </span>
-               </motion.div>
-               <motion.div
-                 initial={{ opacity: 0, y: 20 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 transition={{ duration: 0.6, delay: 0.6 }}
-                 viewport={{ once: true }}
-                 className="block"
-               >
-                 Or Slow Down.
-               </motion.div>
+               </span>
+               <span className="block">Or Slow Down.</span>
              </motion.h1>
-             <p className="text-gray-300 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl leading-relaxed">
-               I'm Christian — a full-stack developer from Colombia who has moved <strong>32,000+ users</strong> between databases without losing a single one,
-               built payment flows handling <strong>$2M+ daily</strong>, and wired up automations that run 24/7 while people sleep.
-               If your system needs to scale, I'm the person you want on your team.
-             </p>
+             <AnimatePresence>
+               {h1Done && (
+                 <motion.div
+                   key="bio-wrap"
+                   initial={{ opacity: 0, height: 0 }}
+                   animate={{ opacity: 1, height: "auto" }}
+                   transition={{
+                     height: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+                     opacity: { duration: 0.6, ease: "easeOut" },
+                   }}
+                   style={{ overflow: "hidden" }}
+                 >
+                   <motion.p
+                     className="text-gray-300 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl leading-relaxed"
+                     initial="hidden"
+                     animate="visible"
+                     variants={{
+                       hidden: {},
+                       visible: {
+                         transition: {
+                           delayChildren: 0.5,
+                           staggerChildren: 0.35,
+                         },
+                       },
+                     }}
+                   >
+                     {bioChunks.map((chunk, i) => (
+                       <motion.span
+                         key={i}
+                         variants={{
+                           hidden: { opacity: 0 },
+                           visible: { opacity: 1, transition: { duration: 0.7, ease: "linear" } },
+                         }}
+                       >
+                         {chunk.bold ? <strong>{chunk.text}</strong> : chunk.text}
+                       </motion.span>
+                     ))}
+                   </motion.p>
+                 </motion.div>
+               )}
+             </AnimatePresence>
 
-             <div className="flex flex-col sm:flex-row gap-4">
-               <CTAButton text={"Let's Talk — I'm Available Now"} icon={<Sparkles />} />
-             </div>
+             <AnimatePresence>
+               {bioDone && (
+                 <motion.div
+                   key="cta-wrap"
+                   className="flex flex-col sm:flex-row gap-4"
+                   initial={{ opacity: 0, filter: "drop-shadow(0 0 0px rgba(99, 102, 241, 0))" }}
+                   animate={{
+                     opacity: 1,
+                     filter: [
+                       "drop-shadow(0 0 0px rgba(99, 102, 241, 0))",
+                       "drop-shadow(0 0 0px rgba(99, 102, 241, 0))",
+                       "drop-shadow(0 0 18px rgba(99, 102, 241, 0.75))",
+                       "drop-shadow(0 0 0px rgba(99, 102, 241, 0))",
+                     ],
+                   }}
+                   transition={{
+                     opacity: { duration: 0.6, ease: "easeOut" },
+                     filter: {
+                       duration: 1.4,
+                       times: [0, 0.4, 0.55, 1],
+                       ease: "easeInOut",
+                     },
+                   }}
+                 >
+                   <CTAButton text={"Let's Talk — I'm Available Now"} icon={<Sparkles />} />
+                 </motion.div>
+               )}
+             </AnimatePresence>
            </div>
 
           {/* Right column — animated terminal */}
