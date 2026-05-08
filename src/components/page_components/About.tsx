@@ -1,10 +1,11 @@
 "use client";
 
 import type React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { FileText, ExternalLink } from "lucide-react";
-import { motion, useInView, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
+import { useInViewOnReady } from "@/hooks/useInViewOnReady";
 import { socialLinks } from "@/data/socialLinks";
 import { skills } from "@/data/skillsData";
 import MoreAboutmeButton from "../compontents/MoreAboutmeButton";
@@ -20,10 +21,9 @@ function About() {
   const [activeTab, setActiveTab] = useState("experience");
   const [showMoreBio, setShowMoreBio] = useState(false);
 
-  const bioRef = useRef(null);
-  const isInView = useInView(bioRef, { once: true });
-  const controls = useAnimation();
- 
+  const { ref: imageInViewRef, isReady: imageReady } = useInViewOnReady<HTMLDivElement>({ amount: 0.2 });
+  const { ref: bioInViewRef, isReady: bioReady } = useInViewOnReady<HTMLDivElement>({ amount: 0.2 });
+
   // Rotate through skills
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,13 +31,6 @@ function About() {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
-
-  // Animate elements when they come into view
-  useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
-    }
-  }, [controls, isInView]);
 
   return (
     <div>
@@ -62,8 +55,9 @@ function About() {
           <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-16 items-center lg:items-start justify-center">
             {/* Image Frame with enhanced styling */}
             <motion.div
+              ref={imageInViewRef}
               initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              animate={imageReady ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="w-full sm:w-80 lg:w-1/3 flex justify-center flex-shrink-0"
             >
@@ -73,11 +67,11 @@ function About() {
               </div>
             </motion.div>
 
-            <motion.div 
-              className="w-full lg:w-2/3" 
-              ref={bioRef}
+            <motion.div
+              className="w-full lg:w-2/3"
+              ref={bioInViewRef}
               initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              animate={bioReady ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <motion.div

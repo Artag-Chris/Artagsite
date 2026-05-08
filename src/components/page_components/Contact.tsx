@@ -19,6 +19,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { socialLinksContact } from "@/data/contactData"
 import { useContactForm } from "@/hooks/useContactForm"
 import { useMetaPixel } from "@/hooks/useMetaPixel"
+import { useInViewOnReady } from "@/hooks/useInViewOnReady"
 
 function Contact() {
   const {
@@ -32,6 +33,7 @@ function Contact() {
   } = useContactForm()
 
   const { trackEvent } = useMetaPixel()
+  const { ref: headerInViewRef, isReady: headerReady } = useInViewOnReady<HTMLDivElement>({ amount: 0.3 })
 
   // Wrap the original handleSubmit with Meta Pixel tracking
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -80,9 +82,10 @@ function Contact() {
         <div className="max-w-5xl mx-auto w-full">
           {/* Header */}
           <motion.div
+            ref={headerInViewRef}
             className="text-center mb-12"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={headerReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5 }}
           >
             <div className="inline-block mb-4">

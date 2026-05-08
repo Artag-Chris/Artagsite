@@ -6,6 +6,7 @@ import { Filter, Search, X } from "lucide-react"
 import { projectsData } from "@/data/proyectData"
 import { EnhancedProjectCard } from "../compontents/EnhancedProjectCard"
 import { ProjectModal } from "../sub-sections/ProjectModal"
+import { useInViewOnReady } from "@/hooks/useInViewOnReady"
 
 type CategoryFilter = "all" | "personal" | "client" | "featured"
 
@@ -14,6 +15,7 @@ function Projects() {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedProject, setSelectedProject] = useState(projectsData[0])
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { ref: headerInViewRef, isReady: headerReady } = useInViewOnReady<HTMLDivElement>({ amount: 0.3 })
 
   const filteredProjects = useMemo(() => {
     let results = projectsData
@@ -73,10 +75,10 @@ function Projects() {
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
+          ref={headerInViewRef}
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={headerReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
           className="text-center mb-16 sm:mb-20"
         >
           <div className="inline-block mb-4">
