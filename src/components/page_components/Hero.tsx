@@ -13,7 +13,7 @@ import HeroTerminal from "../sub-sections/HeroTerminal"
 function Hero() {
   const videoContainerRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [scrollY, setScrollY] = useState(0)
+  const isMobileRef = useRef(false)
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [showCityLoader, setShowCityLoader] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
@@ -27,16 +27,31 @@ function Hero() {
 
     const checkMobile = () => {
       const mobile = window.innerWidth <= 768
+      isMobileRef.current = mobile
       setIsMobile(mobile)
     }
 
     checkMobile()
-    window.addEventListener("resize", checkMobile)
+    window.addEventListener("resize", checkMobile, { passive: true })
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
+  // Parallax via direct ref mutation + rAF — no React state, no re-render per scroll.
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY)
+    let ticking = false
+    const update = () => {
+      if (videoContainerRef.current) {
+        const offset = window.scrollY * (isMobileRef.current ? 0.2 : 0.4)
+        videoContainerRef.current.style.transform = `translate3d(0, ${offset}px, 0)`
+      }
+      ticking = false
+    }
+    const handleScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(update)
+    }
+    update()
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -102,9 +117,6 @@ function Hero() {
     }
   }, [isMounted])
 
-  // Parallax effect - reduced on mobile
-  const parallaxOffset = scrollY * (isMobile ? 0.2 : 0.4)
-
   return (
     <div className="relative overflow-hidden h-screen w-full bg-black">
       {/* City Loader Overlay */}
@@ -115,13 +127,14 @@ function Hero() {
         />
       )}
 
-      {/* Background Container with Parallax Effect */}
+      {/* Background Container with Parallax Effect (transform mutated via ref in scroll handler) */}
       <div
         ref={videoContainerRef}
         className="absolute inset-0 w-full h-full overflow-hidden"
         style={{
-          transform: `translateY(${parallaxOffset}px)`,
+          transform: "translate3d(0, 0, 0)",
           height: "calc(100% + 200px)",
+          willChange: "transform",
         }}
       >
         {/* Video Background */}

@@ -15,65 +15,68 @@ if (typeof window !== "undefined") {
 function HeaderMain() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [windowDimensions, setWindowDimensions] = useState({ width: 1920, height: 1080 })
 
   const headerRef = useRef<HTMLElement>(null)
   const bottomNavRef = useRef<HTMLDivElement>(null)
+  const cyanDotRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setWindowDimensions({ width: window.innerWidth, height: window.innerHeight })
-    }
+    let scrollTicking = false
+    let mouseTicking = false
 
-    let lastScrollY = 0
     const handleScroll = () => {
-      const scrollPosition = window.scrollY
-      const shouldBeScrolled = scrollPosition > 100
-
-      if (shouldBeScrolled !== isScrolled) {
-        setIsScrolled(shouldBeScrolled)
-
-        // Animación suave con GSAP
-        if (headerRef.current) {
-          gsap.to(headerRef.current, {
-            y: shouldBeScrolled ? -100 : 0,
-            opacity: shouldBeScrolled ? 0 : 1,
-            duration: 0.6,
-            ease: "power3.out",
-          })
-        }
-
-        if (bottomNavRef.current) {
-          gsap.to(bottomNavRef.current, {
-            y: shouldBeScrolled ? 0 : 100,
-            opacity: shouldBeScrolled ? 1 : 0,
-            duration: 0.6,
-            ease: "power3.out",
-          })
-        }
-      }
-
-      lastScrollY = scrollPosition
+      if (scrollTicking) return
+      scrollTicking = true
+      requestAnimationFrame(() => {
+        const shouldBeScrolled = window.scrollY > 100
+        setIsScrolled((prev) => {
+          if (prev === shouldBeScrolled) return prev
+          if (headerRef.current) {
+            gsap.to(headerRef.current, {
+              y: shouldBeScrolled ? -100 : 0,
+              opacity: shouldBeScrolled ? 0 : 1,
+              duration: 0.4,
+              ease: "power3.out",
+              overwrite: "auto",
+            })
+          }
+          if (bottomNavRef.current) {
+            gsap.to(bottomNavRef.current, {
+              y: shouldBeScrolled ? 0 : 100,
+              opacity: shouldBeScrolled ? 1 : 0,
+              duration: 0.4,
+              ease: "power3.out",
+              overwrite: "auto",
+            })
+          }
+          return shouldBeScrolled
+        })
+        scrollTicking = false
+      })
     }
 
+    // Move the cyan dot via direct style mutation — no React render on mousemove.
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
+      if (mouseTicking) return
+      mouseTicking = true
+      requestAnimationFrame(() => {
+        if (cyanDotRef.current) {
+          const x = (e.clientX / window.innerWidth) * 100
+          const y = (e.clientY / window.innerHeight) * 100
+          cyanDotRef.current.style.left = `${x}%`
+          cyanDotRef.current.style.top = `${y}%`
+        }
+        mouseTicking = false
+      })
     }
 
-    const handleResize = () => {
-      setWindowDimensions({ width: window.innerWidth, height: window.innerHeight })
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    window.addEventListener("mousemove", handleMouseMove)
-    window.addEventListener("resize", handleResize)
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    window.addEventListener("mousemove", handleMouseMove, { passive: true })
     return () => {
       window.removeEventListener("scroll", handleScroll)
       window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("resize", handleResize)
     }
-  }, [isScrolled])
+  }, [])
 
   const navLinks = [
     { href: "#about", label: "About", icon: User },
@@ -94,19 +97,21 @@ function HeaderMain() {
           isScrolled ? "transform -translate-y-full opacity-0" : "transform translate-y-0 opacity-100"
         }`}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a]/95 via-[#1a1a1a]/90 to-black/95 backdrop-blur-xl"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a]/95 via-[#1a1a1a]/95 to-black/95 backdrop-blur-md"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/3 to-transparent"></div>
 
         <div className="relative border-b border-[#262626] shadow-2xl shadow-cyan-500/5">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div
+              ref={cyanDotRef}
               className="absolute w-2.5 h-2.5 bg-gradient-to-br from-cyan-400 to-cyan-500 rounded-full animate-pulse blur-sm"
               style={{
-                left: `${(mousePosition.x / windowDimensions.width) * 100}%`,
-                top: `${(mousePosition.y / windowDimensions.height) * 100}%`,
-                transform: `translate(-50%, -50%)`,
-                transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-                boxShadow: '0 0 12px rgba(6, 182, 212, 0.6)'
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+                transition: 'left 0.5s cubic-bezier(0.4, 0, 0.2, 1), top 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                boxShadow: '0 0 12px rgba(6, 182, 212, 0.6)',
+                willChange: 'left, top',
               }}
             ></div>
             <Sparkles
@@ -202,9 +207,9 @@ function HeaderMain() {
           isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
-        <div className="absolute inset-0 bg-black/70 backdrop-blur-xl" onClick={() => setIsMobileMenuOpen(false)} />
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setIsMobileMenuOpen(false)} />
         <div
-          className={`absolute top-0 right-0 h-full w-80 bg-gradient-to-br from-[#0a0a0a]/95 via-[#1a1a1a]/95 to-black/95 backdrop-blur-2xl border-l border-[#262626] shadow-2xl shadow-cyan-500/5 transform transition-all duration-500 ${
+          className={`absolute top-0 right-0 h-full w-80 bg-gradient-to-br from-[#0a0a0a]/98 via-[#1a1a1a]/98 to-black/98 backdrop-blur-md border-l border-[#262626] shadow-2xl shadow-cyan-500/5 transform transition-all duration-500 ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -261,7 +266,7 @@ function HeaderMain() {
           isScrolled ? "transform translate-y-0 opacity-100" : "transform translate-y-full opacity-0"
         }`}
       >
-        <div className="relative border-t border-[#262626] bg-gradient-to-br from-[#0a0a0a]/95 via-[#1a1a1a]/90 to-black/95 backdrop-blur-2xl shadow-2xl shadow-cyan-500/5">
+        <div className="relative border-t border-[#262626] bg-gradient-to-br from-[#0a0a0a]/95 via-[#1a1a1a]/95 to-black/95 backdrop-blur-md shadow-2xl shadow-cyan-500/5">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/3 to-transparent"></div>
 
           <div className="container mx-auto px-6 py-3.5 relative">
