@@ -10,12 +10,32 @@ interface UseCasesCarouselProps {
   onSelectUseCase?: (useCase: UseCase) => void
 }
 
+const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
+
+// rAF-driven smooth scroll with consistent easing across browsers (native
+// scroll-behavior: smooth feels rigid on Windows). Cancellable via the returned function.
+function animateScrollLeft(el: HTMLElement, targetLeft: number, duration = 700) {
+  const startLeft = el.scrollLeft
+  const distance = targetLeft - startLeft
+  if (Math.abs(distance) < 1) return () => {}
+  const startTime = performance.now()
+  let frame = 0
+  const step = (now: number) => {
+    const t = Math.min((now - startTime) / duration, 1)
+    el.scrollLeft = startLeft + distance * easeOutCubic(t)
+    if (t < 1) frame = requestAnimationFrame(step)
+  }
+  frame = requestAnimationFrame(step)
+  return () => cancelAnimationFrame(frame)
+}
+
 export function UseCasesCarousel({ onSelectUseCase }: UseCasesCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
   const containerRef = useRef<HTMLDivElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const cancelScrollRef = useRef<() => void>(() => {})
 
   // Check scroll position
   const checkScroll = () => {
@@ -32,39 +52,51 @@ export function UseCasesCarousel({ onSelectUseCase }: UseCasesCarouselProps) {
     return () => window.removeEventListener("resize", checkScroll)
   }, [])
 
+  // First child is the padding spacer; cards start at index 1.
+  const getCardEl = (index: number): HTMLElement | null => {
+    const container = scrollContainerRef.current
+    if (!container) return null
+    return (container.children[index + 1] as HTMLElement) || null
+  }
+
+  const scrollToIndex = (index: number) => {
+    const container = scrollContainerRef.current
+    const cardEl = getCardEl(index)
+    if (!container || !cardEl) return
+    cancelScrollRef.current()
+    const target = cardEl.offsetLeft - (container.clientWidth - cardEl.offsetWidth) / 2
+    cancelScrollRef.current = animateScrollLeft(container, target, 700)
+    setCurrentIndex(index)
+  }
+
   const scroll = (direction: "left" | "right") => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 700 // Adjusted for typical card width
-      const currentScroll = scrollContainerRef.current.scrollLeft
-
-      scrollContainerRef.current.scrollTo({
-        left: direction === "left" ? currentScroll - scrollAmount : currentScroll + scrollAmount,
-        behavior: "smooth",
-      })
-
-      // Update button states after scroll
-      setTimeout(checkScroll, 600)
-    }
+    const next = direction === "right"
+      ? Math.min(currentIndex + 1, useCasesData.length - 1)
+      : Math.max(currentIndex - 1, 0)
+    scrollToIndex(next)
   }
 
-  const handleDotClick = (index: number) => {
-    if (scrollContainerRef.current) {
-      const cardWidth = scrollContainerRef.current.children[0]?.getBoundingClientRect().width || 600
-      scrollContainerRef.current.scrollTo({
-        left: cardWidth * index,
-        behavior: "smooth",
-      })
-      setCurrentIndex(index)
-    }
-  }
+  const handleDotClick = (index: number) => scrollToIndex(index)
 
+  // Pick the card whose center is closest to the viewport center.
   const handleScroll = () => {
     checkScroll()
-    if (scrollContainerRef.current) {
-      const cardWidth = scrollContainerRef.current.children[0]?.getBoundingClientRect().width || 600
-      const newIndex = Math.round(scrollContainerRef.current.scrollLeft / cardWidth)
-      setCurrentIndex(Math.max(0, Math.min(newIndex, useCasesData.length - 1)))
+    const container = scrollContainerRef.current
+    if (!container) return
+    const center = container.scrollLeft + container.clientWidth / 2
+    let bestIndex = 0
+    let bestDist = Infinity
+    for (let i = 0; i < useCasesData.length; i++) {
+      const el = getCardEl(i)
+      if (!el) continue
+      const cardCenter = el.offsetLeft + el.offsetWidth / 2
+      const dist = Math.abs(cardCenter - center)
+      if (dist < bestDist) {
+        bestDist = dist
+        bestIndex = i
+      }
     }
+    setCurrentIndex(bestIndex)
   }
 
   return (
@@ -78,9 +110,9 @@ export function UseCasesCarousel({ onSelectUseCase }: UseCasesCarouselProps) {
         {/* Scroll Container */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-6 overflow-x-auto scroll-smooth pb-4 px-4 md:px-0"
+          className="flex gap-6 overflow-x-auto pb-4 px-4 md:px-0"
           style={{
-            scrollBehavior: "smooth",
+            scrollSnapType: "x mandatory",
             scrollbarWidth: "none",
             msOverflowStyle: "none",
           }}

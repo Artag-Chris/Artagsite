@@ -1,24 +1,55 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useInViewOnReady } from "@/hooks/useInViewOnReady"
 import { toolsData } from "@/data/skillsData"
 
 interface ToolsShowcaseProps {
   showLabel?: boolean
 }
 
+const headerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.25 } },
+}
+
+const headerItem = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
+}
+
 export function ToolsShowcase({ showLabel = true }: ToolsShowcaseProps) {
+  const { ref: headerInViewRef, isReady: headerReady } = useInViewOnReady<HTMLDivElement>({ amount: 0.3 })
+
   return (
     <div className="w-full">
       {showLabel && (
-        <div className="mb-8">
-          <p className="text-xs sm:text-sm font-mono uppercase tracking-widest text-gray-500 mb-3">
-            Technologies & Tools
-          </p>
-          <p className="text-gray-400 text-sm max-w-2xl">
+        <motion.div
+          ref={headerInViewRef}
+          className="mb-12 sm:mb-16 space-y-4 sm:space-y-6"
+          variants={headerContainer}
+          initial="hidden"
+          animate={headerReady ? "visible" : "hidden"}
+        >
+          <motion.div className="inline-block" variants={headerItem}>
+            <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-cyan-500/70 bg-cyan-500/10 border border-cyan-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full backdrop-blur-sm">
+              Tech Stack
+            </span>
+          </motion.div>
+          <motion.h2
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight"
+            style={{ fontFamily: 'var(--font-display)' }}
+            variants={headerItem}
+          >
+            Technologies & <span className="text-cyan-400 drop-shadow-lg" style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Tools</span>
+          </motion.h2>
+          <motion.p
+            className="text-gray-300 text-base sm:text-lg max-w-3xl leading-relaxed"
+            variants={headerItem}
+          >
             Here's the full toolkit I use to bring these solutions to life. Each technology is carefully selected and mastered for specific use cases.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       )}
 
       {/* Tools grid - Compact display */}

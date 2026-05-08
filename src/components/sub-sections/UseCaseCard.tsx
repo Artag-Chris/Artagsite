@@ -23,9 +23,11 @@ export function UseCaseCard({ useCase, index, isCarousel = false, onSelect }: Us
       transition={{ duration: 0.5, delay: index * 0.05 }}
       viewport={{ once: true, margin: "-100px" }}
       className={`${cardWidthClass} group h-fit`}
+      style={isCarousel ? { scrollSnapAlign: "center" } : undefined}
     >
-      <div
-        className="relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-[#262626] hover:border-cyan-500/80 hover:from-[#0f0f0f] hover:to-[#1a1a1a]"
+      <motion.div
+        layoutId={`usecase-card-${useCase.id}`}
+        className="relative rounded-2xl overflow-hidden cursor-pointer transition-colors duration-300 bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-[#262626] hover:border-cyan-500/80 hover:from-[#0f0f0f] hover:to-[#1a1a1a]"
         onClick={() => onSelect?.(useCase)}
       >
         {/* Animated grid background overlay */}
@@ -105,7 +107,7 @@ export function UseCaseCard({ useCase, index, isCarousel = false, onSelect }: Us
             Click to view details →
           </p>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   )
 }

@@ -54,22 +54,33 @@ export function UseCaseModal({ useCase, isOpen, onClose }: UseCaseModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.25 }}
             onClick={handleBackdropClick}
             className="fixed inset-0 bg-black/50 backdrop-blur-xl z-40"
             aria-hidden="true"
           />
 
-          {/* Modal */}
-          <motion.div
-            ref={modalRef}
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+          {/* Centering wrapper — clicks on empty area close the modal */}
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 pointer-events-none"
+            onClick={handleBackdropClick}
           >
-            <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-[#262626] shadow-2xl">
+            {/* Modal — shares layoutId with the source card so Framer morphs
+                position/size/rounded corners between them. */}
+            <motion.div
+              ref={modalRef}
+              layoutId={`usecase-card-${useCase.id}`}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-[#262626] shadow-2xl pointer-events-auto"
+            >
+            {/* Inner content fades in AFTER the layout morph completes,
+                and fades out fast on close so the morph back is clean. */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 0.15 } }}
+              transition={{ duration: 0.3, delay: 0.35 }}
+            >
               {/* Header with close button */}
               <div className="sticky top-0 z-10 flex items-start justify-between gap-4 p-6 sm:p-8 bg-gradient-to-b from-[#141414] to-[#141414]/80 border-b border-[#262626]">
                 <div className="flex items-start gap-4 flex-1 min-w-0">
@@ -265,8 +276,9 @@ export function UseCaseModal({ useCase, isOpen, onClose }: UseCaseModalProps) {
                   </motion.div>
                 )}
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+            </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
