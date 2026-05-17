@@ -7,6 +7,28 @@ import {
 import { StudiesFilterableGrid } from "./current-studies/StudiesFilterableGrid"
 import { StudyParticles } from "./current-studies/StudyParticles"
 
+const studiesJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Full-Stack Developer Current Studies",
+  description:
+    "Ongoing learning topics of a Colombian full-stack developer covering software architecture, mobile, DevOps, system design and security.",
+  itemListElement: currentStudies.map((s, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "Course",
+      name: s.title,
+      description: s.description,
+      provider: { "@type": "Organization", name: s.provider },
+      url: s.officialLink,
+      educationalLevel: s.confidence,
+      teaches: s.skills.join(", "),
+      timeRequired: s.duration,
+    },
+  })),
+}
+
 const CONFIDENCE_LEGEND = [
   { icon: "🌱", label: "Beginner", className: "text-orange-400" },
   { icon: "📚", label: "Intermediate", className: "text-yellow-400" },
@@ -20,19 +42,24 @@ export default function CurrentStudiesPage() {
 
   return (
     <main className="bg-zinc-900 min-h-screen relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(studiesJsonLd) }}
+      />
       <StudyParticles />
 
       <div className="container mx-auto px-4 py-10 pt-32 md:pt-40 relative z-10">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            My{" "}
+            Full-Stack Developer{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">
               Learning Journey
             </span>
           </h1>
           <p className="text-xl text-zinc-300 max-w-2xl mx-auto mb-8">
-            Continuously learning and expanding my skills through focused study programs and courses. Here&apos;s what
-            I&apos;m currently working on and how confident I feel about each technology.
+            Current studies and continuous learning of a Colombian full-stack developer — software architecture,
+            microservices, React Native, Docker, GraphQL, advanced TypeScript, serverless and system scalability. Each
+            topic is rated by my real confidence level so you know exactly where I stand.
           </p>
 
           <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-8">
