@@ -1,8 +1,7 @@
 import './globals.css'
-import '@/styles/n8n-chat-custom.css'
-import '@n8n/chat/style.css'
-import { Inter, Space_Grotesk } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import type { Metadata } from 'next'
+import ThemeProvider from '@/components/theme-provider'
 import { GoogleTagManager } from '@/components/google/GoogleTagManager'
 import GTMPageView from '@/components/google/GTMPageView'
 import { MetaPixel } from '@/components/meta/MetaPixel'
@@ -173,28 +172,26 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <head>
-        {/* Organization Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-          suppressHydrationWarning
-        />
-        {/* Person Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-          suppressHydrationWarning
-        />
-      </head>
-      <body>
-        <SpeedInsights />
-        <GoogleTagManager />
-        <GTMPageView />
-        <MetaPixel />
-        <TikTokPixel />
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider>
+          <SpeedInsights />
+          <GoogleTagManager />
+          <GTMPageView />
+          <MetaPixel />
+          <TikTokPixel />
+          {/* Organization Schema */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          />
+          {/* Person Schema */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+          />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
