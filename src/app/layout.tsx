@@ -1,5 +1,5 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Inter, Space_Grotesk } from 'next/font/google'
 import type { Metadata } from 'next'
 import ThemeProvider from '@/components/theme-provider'
 import { GoogleTagManager } from '@/components/google/GoogleTagManager'
@@ -173,7 +173,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.className} ${spaceGrotesk.variable}`}>
         <ThemeProvider>
           <SpeedInsights />
           <GoogleTagManager />
