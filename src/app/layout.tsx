@@ -1,5 +1,5 @@
 import './globals.css'
-import { Inter, Space_Grotesk } from 'next/font/google'
+import { Inter, Space_Grotesk, IBM_Plex_Mono } from 'next/font/google'
 import type { Metadata } from 'next'
 import ThemeProvider from '@/components/theme-provider'
 import { GoogleTagManager } from '@/components/google/GoogleTagManager'
@@ -19,6 +19,13 @@ const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
   display: 'swap',
   weight: ['400', '500', '600', '700'],
+})
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+  weight: ['400', '500', '600'],
 })
 
 export const metadata: Metadata = {
@@ -173,7 +180,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} ${spaceGrotesk.variable}`}>
+      <body className={`${inter.className} ${spaceGrotesk.variable} ${ibmPlexMono.variable}`}>
         <ThemeProvider>
           <SpeedInsights />
           <GoogleTagManager />

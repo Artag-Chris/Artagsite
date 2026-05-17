@@ -1,31 +1,12 @@
 "use client"
 
-import { useState, FormEvent } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight, Heart, Mail, Github, Linkedin, ExternalLink } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Mail, Heart, Github, Linkedin, ExternalLink } from "lucide-react"
 import { navLinks, services, socialLinksFooter } from "@/data/footerData"
 
 function Footer() {
-  const [email, setEmail] = useState("")
-  const [isSubscribed, setIsSubscribed] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
   const currentYear = new Date().getFullYear()
-
-  const handleSubscribe = (e: FormEvent) => {
-    e.preventDefault()
-    if (!email) return
-
-    setIsLoading(true)
-    setTimeout(() => {
-      setIsSubscribed(true)
-      setEmail("")
-      setIsLoading(false)
-      setTimeout(() => setIsSubscribed(false), 3000)
-    }, 600)
-  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -196,11 +177,11 @@ function Footer() {
             </div>
           </motion.div>
 
-          {/* Column 4: Newsletter */}
+          {/* Column 4: Contact CTA */}
           <motion.div className="space-y-6" variants={itemVariants}>
             <div>
               <h3 className="text-white font-semibold mb-4 text-base relative inline-block">
-                Stay Updated
+                Let&apos;s Talk
                 <motion.span
                   className="absolute -bottom-2 left-0 h-0.5 bg-gradient-to-r from-cyan-500 to-transparent"
                   initial={{ width: 0 }}
@@ -211,63 +192,18 @@ function Footer() {
               </h3>
 
               <p className="text-gray-400 text-sm mb-6 mt-6 leading-relaxed">
-                Subscribe to get updates on new projects, tech insights, and automation tips.
+                Have a project in mind or just want to chat? I&apos;m always open to new opportunities and conversations.
               </p>
 
-              {!isSubscribed ? (
-                <motion.form
-                  onSubmit={handleSubscribe}
-                  className="space-y-3"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="relative group">
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-lg opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 blur"></div>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-cyan-500/50" />
-                      <Input
-                        type="email"
-                        placeholder="your@email.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="bg-[#0a0a0a] border border-[#262626] text-white placeholder:text-gray-600 pl-10 pr-12 focus:border-cyan-500/50 focus:ring-0 focus:outline-none text-sm transition-all duration-300"
-                      />
-                      <motion.button
-                        type="submit"
-                        disabled={isLoading}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="absolute right-1.5 top-1/2 -translate-y-1/2 p-2 rounded-md bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white disabled:opacity-50 transition-all"
-                      >
-                        <ArrowRight className="h-4 w-4" />
-                      </motion.button>
-                    </div>
-                  </div>
-                  <p className="text-gray-600 text-xs">
-                    ✓ No spam, unsubscribe anytime
-                  </p>
-                </motion.form>
-              ) : (
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  className="bg-gradient-to-br from-cyan-500/10 to-indigo-500/10 border border-cyan-500/30 rounded-lg p-4 text-cyan-300 text-sm"
-                >
-                  <div className="flex items-center gap-2">
-                    <motion.div
-                      initial={{ scale: 0, rotate: -180 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <Heart className="h-4 w-4 fill-cyan-400 text-cyan-400" />
-                    </motion.div>
-                    <span>Thanks for subscribing!</span>
-                  </div>
-                </motion.div>
-              )}
+              <motion.a
+                href="#contact"
+                className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-medium rounded-lg text-sm transition-all"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Mail className="h-4 w-4" />
+                Get in touch
+              </motion.a>
             </div>
           </motion.div>
         </motion.div>
