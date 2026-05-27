@@ -3,8 +3,9 @@ import { Award, FileText, GraduationCap, Palette } from "lucide-react"
 export function FormalEducation() {
   return (
     <section
+      id="formal-education"
       aria-labelledby="formal-education-heading"
-      className="max-w-5xl mx-auto mb-12"
+      className="max-w-5xl mx-auto mb-12 scroll-mt-24"
     >
       <div className="flex items-center gap-3 mb-6">
         <GraduationCap className="h-6 w-6 text-amber-400" />

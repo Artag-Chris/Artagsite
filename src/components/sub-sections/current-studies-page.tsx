@@ -4,6 +4,8 @@ import {
   getCategoriesWithCounts,
   getStudyStats,
 } from "@/data/currentstudies/currentStudiesData"
+import { AtAGlance } from "./current-studies/AtAGlance"
+import { CourseCertifications } from "./current-studies/CourseCertifications"
 import { FormalEducation } from "./current-studies/FormalEducation"
 import { StudiesFilterableGrid } from "./current-studies/StudiesFilterableGrid"
 import { StudyParticles } from "./current-studies/StudyParticles"
@@ -65,7 +67,11 @@ export default function CurrentStudiesPage() {
             topic is rated by my real confidence level and — where possible — linked to the actual code where I use it.
           </p>
           <p className="text-xs text-zinc-500 mb-8">Last updated: {LAST_UPDATED}</p>
+        </div>
 
+        <AtAGlance />
+
+        <div className="text-center mb-12">
           <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-8">
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-400">{stats.total}</div>
@@ -112,7 +118,11 @@ export default function CurrentStudiesPage() {
           </div>
         </div>
 
-        <StudiesFilterableGrid studies={currentStudies} />
+        <div id="active-studies" className="scroll-mt-24">
+          <StudiesFilterableGrid studies={currentStudies} />
+        </div>
+
+        <CourseCertifications />
 
         <div className="text-center py-8">
           <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500/20 to-cyan-400/20 flex items-center justify-center mx-auto mb-4">
