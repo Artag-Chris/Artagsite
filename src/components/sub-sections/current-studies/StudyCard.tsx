@@ -7,6 +7,7 @@ import {
   Container,
   Cpu,
   Database,
+  Github,
   Globe,
   Layers,
   Network,
@@ -99,7 +100,29 @@ export function StudyCard({ study, index = 0 }: { study: Study; index?: number }
           </span>
         </div>
 
-        <div className="text-xs text-zinc-500">{study.duration}</div>
+        <div className="flex items-center justify-center gap-2 text-xs text-zinc-500">
+          <Calendar className="h-3 w-3" />
+          <span>{study.startDate}</span>
+        </div>
+
+        {study.usedIn && (
+          <p className="text-xs text-zinc-400 mt-2 px-2 leading-relaxed">
+            <span className="text-blue-300 font-medium">Used in:</span>{" "}
+            {study.usedIn}
+          </p>
+        )}
+
+        {study.proofLink && (
+          <a
+            href={study.proofLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative z-[70] inline-flex items-center gap-1.5 mt-2 px-3 py-1.5 rounded-full bg-blue-500/15 hover:bg-blue-500/25 border border-blue-500/30 text-blue-300 text-xs font-medium transition-colors"
+          >
+            <Github className="h-3 w-3" />
+            {study.proofLabel ?? "View proof"}
+          </a>
+        )}
       </div>
 
       <div className="absolute inset-x-0 top-full mt-4 p-4 bg-zinc-800/95 rounded-xl border border-zinc-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-[60] shadow-2xl shadow-black/50 pointer-events-none group-hover:pointer-events-auto">

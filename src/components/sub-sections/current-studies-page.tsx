@@ -4,8 +4,11 @@ import {
   getCategoriesWithCounts,
   getStudyStats,
 } from "@/data/currentstudies/currentStudiesData"
+import { FormalEducation } from "./current-studies/FormalEducation"
 import { StudiesFilterableGrid } from "./current-studies/StudiesFilterableGrid"
 import { StudyParticles } from "./current-studies/StudyParticles"
+
+const LAST_UPDATED = "May 2026"
 
 const studiesJsonLd = {
   "@context": "https://schema.org",
@@ -56,16 +59,17 @@ export default function CurrentStudiesPage() {
               Learning Journey
             </span>
           </h1>
-          <p className="text-xl text-zinc-300 max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-zinc-300 max-w-2xl mx-auto mb-4">
             Current studies and continuous learning of a Colombian full-stack developer — software architecture,
             microservices, React Native, Docker, GraphQL, advanced TypeScript, serverless and system scalability. Each
-            topic is rated by my real confidence level so you know exactly where I stand.
+            topic is rated by my real confidence level and — where possible — linked to the actual code where I use it.
           </p>
+          <p className="text-xs text-zinc-500 mb-8">Last updated: {LAST_UPDATED}</p>
 
           <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-8">
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-400">{stats.total}</div>
-              <div className="text-sm text-zinc-400">Total Studies</div>
+              <div className="text-sm text-zinc-400">Topics Tracked</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-emerald-400">{stats.confident}</div>
@@ -73,11 +77,11 @@ export default function CurrentStudiesPage() {
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-400">{stats.active}</div>
-              <div className="text-sm text-zinc-400">Active Studies</div>
+              <div className="text-sm text-zinc-400">Active Right Now</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-indigo-400">{stats.completed}</div>
-              <div className="text-sm text-zinc-400">Completed</div>
+              <div className="text-3xl font-bold text-amber-400">13</div>
+              <div className="text-sm text-zinc-400">Microservices Shipped</div>
             </div>
           </div>
 
@@ -90,6 +94,8 @@ export default function CurrentStudiesPage() {
             ))}
           </div>
         </div>
+
+        <FormalEducation />
 
         <div className="max-w-4xl mx-auto mb-8 p-6 rounded-xl bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20">
           <div className="text-sm font-semibold text-blue-300 mb-4">📚 Category Breakdown</div>
