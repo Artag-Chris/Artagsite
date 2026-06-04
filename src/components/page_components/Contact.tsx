@@ -90,14 +90,14 @@ function Contact() {
           >
             <div className="inline-block mb-4">
               <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-cyan-500/70 bg-cyan-500/10 border border-cyan-500/20 px-4 py-2 rounded-full backdrop-blur-sm">
-                I'm Available — Let's Talk
+                Send a Message
               </span>
             </div>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-              Got a Project? <span className="text-cyan-400 drop-shadow-lg" style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Write to Me.</span>
+              Have something to say?{" "}<span className="text-cyan-400 drop-shadow-lg" style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Write to Me.</span>
             </h2>
             <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
-              No sales pitch, no agency overhead. Just a direct line to a developer who will actually read your message, think about your problem, and give you a real answer — usually within 24 hours.
+              Whether you want to collaborate, ask something, or just say hi — I read every message and reply personally.
             </p>
           </motion.div>
 
@@ -171,18 +171,17 @@ function Contact() {
 
                           <div>
                             <Label htmlFor="projectType" className="text-gray-300 mb-1 block text-sm font-medium">
-                              What can I help with?
+                              What's this about?
                             </Label>
                             <Select value={formData.projectType} onValueChange={handleSelectChange}>
                               <SelectTrigger className="mt-1 bg-[#0a0a0a]/50 border-[#262626] text-white focus:border-cyan-500 focus:ring-cyan-500 rounded-lg transition-all duration-300">
-                                <SelectValue placeholder="Select project type" />
+                                <SelectValue placeholder="Select a topic" />
                               </SelectTrigger>
                               <SelectContent className="bg-[#141414] border-[#262626] text-white">
-                                <SelectItem value="system-architecture">System Architecture Design</SelectItem>
-                                <SelectItem value="automation-solutions">Automation Solutions</SelectItem>
-                                <SelectItem value="devops-infrastructure">DevOps & Infrastructure</SelectItem>
-                                <SelectItem value="consulting">Technical Consulting</SelectItem>
-                                <SelectItem value="full-time">Full-time Role</SelectItem>
+                                <SelectItem value="collaboration">Collaboration</SelectItem>
+                                <SelectItem value="question">Question or Idea</SelectItem>
+                                <SelectItem value="feedback">Feedback</SelectItem>
+                                <SelectItem value="just-saying-hi">Just saying hi</SelectItem>
                                 <SelectItem value="other">Other</SelectItem>
                               </SelectContent>
                             </Select>
@@ -197,7 +196,7 @@ function Contact() {
                               name="message"
                               value={formData.message}
                               onChange={handleChange}
-                              placeholder="Tell me what you're building, what's broken, or what you need. The more detail, the better I can help."
+                              placeholder="What's on your mind? The more detail, the better I can respond."
                               required
                               className="mt-1 min-h-[100px] sm:min-h-[120px] text-sm sm:text-base bg-[#0a0a0a]/50 border-[#262626] text-white placeholder:text-gray-600 focus:border-cyan-500 focus:ring-cyan-500 rounded-lg transition-all duration-300"
                             />
@@ -227,9 +226,9 @@ function Contact() {
                             <span className="relative z-10 flex items-center justify-center gap-2">
                                {isSubmitting ? "Sending..." : (
                                  <>
-                                   <span className="hidden sm:inline">
-                                     Send my inquiry
-                                   </span>
+                                    <span className="hidden sm:inline">
+                                      Send message
+                                    </span>
                                    <span className="sm:hidden">Send</span>
                                  </>
                                )}
@@ -249,7 +248,7 @@ function Contact() {
                         <CheckCircle2 className="h-16 w-16 text-cyan-500 mb-4" />
                         <h3 className="text-xl font-bold text-white mb-2">Message sent successfully!</h3>
                         <p className="text-gray-300">
-                          Thank you for contacting me. I'll get back to you as soon as possible.
+                          Thanks for reaching out. I'll get back to you soon.
                         </p>
                       </motion.div>
                     )}
@@ -375,16 +374,15 @@ function Contact() {
            >
              <div className="inline-block mb-6">
                <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-cyan-500/70 bg-cyan-500/10 border border-cyan-500/20 px-4 py-2 rounded-full backdrop-blur-sm">
-                 Seriously, I Don't Bite
+                 I Don't Bite
                </span>
              </div>
              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-               Not Sure If I'm the Right Fit?{" "}
-               <span className="text-cyan-400">Ask Anyway.</span>
+               Want to connect?{" "}
+               <span className="text-cyan-400">Say Hi.</span>
              </h3>
              <p className="text-gray-300 max-w-2xl mx-auto text-lg">
-               The worst that happens is I point you in the right direction. The best? We build something you're proud of.
-               Send a message — no commitment, no pressure, just a conversation.
+               No pitch, no pressure. Just a real person who loves what he does.
              </p>
            </motion.div>
         </div>

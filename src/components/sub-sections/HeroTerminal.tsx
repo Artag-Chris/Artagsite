@@ -18,9 +18,9 @@ const lines = [
     output: ["api-gateway    ██████████ 99.99%  UP", "payment-svc    ██████████ 99.97%  UP", "automation     ██████████ 100.0%  UP"],
     delay: 2400,
   },
-  { prompt: "christian@artagdev", command: "whoami --available", delay: 3800 },
+  { prompt: "christian@artagdev", command: "whoami --stack", delay: 3800 },
   {
-    output: ["✓ Open to full-time roles", "✓ Freelance & nearshore", "✓ Response time < 24h"],
+    output: ["TypeScript · React · Node.js", "PostgreSQL · Docker · AWS", "n8n · Automation · Architecture"],
     delay: 4400,
     highlight: true,
   },

@@ -66,7 +66,7 @@ function Skills() {
                 className="text-gray-300 text-base sm:text-lg max-w-4xl leading-relaxed"
                 variants={headerItem}
               >
-                Here are the real problems I solve. Each expertise area represents years of hands-on experience building scalable systems, automating workflows, and delivering measurable results. Scroll through to explore the technical depth and specific capabilities.
+                Here's what I've built and worked on over the years. Each area represents hands-on experience building scalable systems, automating workflows, and solving real problems. Scroll through to explore the technical depth.
               </motion.p>
             </motion.div>
           </div>

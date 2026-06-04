@@ -42,8 +42,6 @@ export const metadata: Metadata = {
   keywords: [
     "full-stack developer",
     "software architect",
-    "custom software development",
-    "nearshore developer",
     "microservices architecture",
     "real-time web applications",
     "process automation",
@@ -134,18 +132,9 @@ export default function RootLayout({
     ],
     contactPoint: {
       "@type": "ContactPoint",
-      contactType: "Customer Service",
+      contactType: "Developer",
       url: "https://www.artagdev.com.co",
     },
-    areaServed: ["CO", "US", "MX", "AR"],
-    serviceType: [
-      "Custom Software Development",
-      "Web Application Development",
-      "Mobile App Development",
-      "Process Automation",
-      "System Architecture",
-      "Cloud Infrastructure",
-    ],
   }
 
   // Person Schema Markup for Professional Profile

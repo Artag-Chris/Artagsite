@@ -25,10 +25,10 @@ export const tabs: TabItem[] = [
           </div>
           <div className="relative pl-6 border-l-2 border-indigo-500/30">
             <div className="absolute w-3 h-3 bg-indigo-500 rounded-full -left-[7px] top-1"></div>
-            <h4 className="text-white font-medium">Freelance Architecture & Development</h4>
-            <p className="text-indigo-400 text-sm">Various Clients • 2021 - 2024</p>
+            <h4 className="text-white font-medium">Independent Architecture & Development</h4>
+            <p className="text-indigo-400 text-sm">Various Projects • 2021 - 2024</p>
             <p className="text-zinc-400 text-sm mt-2">
-              Designed and built technical solutions across diverse tech stacks. Worked with startups and enterprises to architect systems, optimize workflows, and deliver production applications. Gained expertise in different architectural patterns and client requirements.
+              Designed and built technical solutions across diverse tech stacks. Worked on projects ranging from startup MVPs to enterprise systems, architecting solutions and delivering production applications.
             </p>
           </div>
         </div>

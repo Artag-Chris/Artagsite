@@ -131,26 +131,7 @@ export const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({ projec
               )}
             </div>
 
-            {/* Client info for client projects */}
-            {project.category === "client" && project.companyName && (
-              <motion.div
-                className="mb-6 p-3 rounded-lg bg-indigo-500/10 border border-indigo-500/20"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                viewport={{ once: true }}
-              >
-                <p className="text-xs text-indigo-300">
-                  <span className="font-semibold">Client:</span> {project.companyName}
-                </p>
-                {project.repositoryVisibility === "private" && (
-                  <p className="text-xs text-indigo-300 flex items-center gap-1 mt-1">
-                    <Lock className="h-3 w-3" />
-                    Private Repository
-                  </p>
-                )}
-              </motion.div>
-            )}
+
 
             {/* Action Buttons */}
             <div className="flex gap-3 mt-auto">

@@ -127,7 +127,7 @@ export const projectsData: ProjectProps[] = [
     title: "Intelligent WhatsApp Management System for Colombian Coffee Region Companies",
     description: "Complete WhatsApp automation architecture solving message loss, Meta blocks, and critical response times for mid-sized companies. Implementation with Node.js, custom WebSockets, and Redis as state manager.",
     shortDescription: "WhatsApp platform with Node.js + React + Redis",
-    category: "client",
+    category: "featured",
     status: "live",
     companyName: "Mid-sized companies in Colombia's coffee region (retail and services sectors)",
     youtubeUrl: "https://www.youtube.com/watch?v=-ofLY0GiPCQ",

@@ -27,7 +27,7 @@ initialMessages: [
   // Optional: Clickable suggestion buttons (auto-send message on click)
   clickableSuggestions: [
     "Tell me about Christian's background",
-    "What services does ArtagDev offer?",
+    "What kind of projects does ArtagDev build?",
     "How can I contact Christian?",
   ],
 
@@ -46,7 +46,7 @@ initialMessages: [
   // Optional: Internationalization configuration
 i18nConfig: {
   title: "Hi there! 👋",
-  subtitle: "I'm Braska, available to help you anytime",
+  subtitle: "I'm Braska — ask me anything about Christian's work",
   footer: "",
   getStarted: "New Chat",
   inputPlaceholder: "Ask me about Christian...",

@@ -8,7 +8,7 @@ import { EnhancedProjectCard } from "../compontents/EnhancedProjectCard"
 import { ProjectModal } from "../sub-sections/ProjectModal"
 import { useInViewOnReady } from "@/hooks/useInViewOnReady"
 
-type CategoryFilter = "all" | "personal" | "client" | "featured"
+type CategoryFilter = "all" | "personal" | "featured"
 
 function Projects() {
   const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>("all")
@@ -137,7 +137,7 @@ function Projects() {
           className="flex flex-wrap items-center justify-center gap-3 mb-12 sm:mb-16"
         >
           <Filter className="h-4 w-4 text-cyan-500/60" />
-          {(["all", "personal", "client", "featured"] as const).map((category) => (
+          {(["all", "personal", "featured"] as const).map((category) => (
             <motion.button
               key={category}
               onClick={() => setSelectedCategory(category)}
@@ -228,7 +228,7 @@ function Projects() {
             { label: "Projects", value: projectsData.length.toString() },
             { label: "Live", value: projectsData.filter(p => p.status === "live").length.toString() },
             { label: "Personal", value: projectsData.filter(p => p.category === "personal").length.toString() },
-            { label: "Clients", value: projectsData.filter(p => p.category === "client").length.toString() },
+            { label: "Built", value: projectsData.filter(p => p.category === "personal" || p.category === "featured").length.toString() },
           ].map((stat, index) => (
             <motion.div
               key={index}

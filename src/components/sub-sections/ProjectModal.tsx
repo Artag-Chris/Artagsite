@@ -102,7 +102,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
                       <div>
                         <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 mb-3">
                           <span className="text-xs font-semibold text-cyan-300 uppercase">
-                            {project.category === "personal" ? "Personal" : project.category === "client" ? "Client" : "Featured"}
+                            {project.category === "personal" ? "Personal" : "Featured"}
                           </span>
                         </div>
                         <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">{project.title}</h2>

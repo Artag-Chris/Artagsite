@@ -84,7 +84,7 @@ function Hero() {
     { text: " between databases without losing a single one, built payment flows handling ", bold: false },
     { text: "$2M+ daily", bold: true },
     { text: ", and wired up automations that run 24/7 while people sleep. ", bold: false },
-    { text: "If your system needs to scale, I'm the person you want on your team.", bold: false },
+    { text: "I build systems I'm proud to put my name on.", bold: false },
   ]
 
   // Handle video load and play
@@ -196,13 +196,13 @@ function Hero() {
            {/* Left Content - with stagger animation */}
            <div className="max-w-2xl" style={{ animation: 'fadeInUp 0.8s ease-out 0.2s backwards' }}>
              <Badge className="mb-4 bg-indigo-500/15 text-indigo-300 hover:bg-indigo-500/25 transition-all border border-indigo-500/40 backdrop-blur-sm">
-               <TypingAnimation
-                 phrases={["Available for New Projects", "Open to Full-Time Roles", "Let's Build Something"]}
-                 typeSpeed={80}
-                 eraseSpeed={40}
-                 delayBetweenPhrases={1500}
-                 loop={true}
-               />
+                <TypingAnimation
+                  phrases={["Building things that matter", "Clean code. Real impact.", "Always learning."]}
+                  typeSpeed={80}
+                  eraseSpeed={40}
+                  delayBetweenPhrases={1500}
+                  loop={true}
+                />
              </Badge>
              <motion.h1
                className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight"
@@ -301,7 +301,7 @@ function Hero() {
                      },
                    }}
                  >
-                   <CTAButton text={"Let's Talk — I'm Available Now"} icon={<Sparkles />} />
+                   <CTAButton text={"Say Hello"} icon={<Sparkles />} />
                  </motion.div>
                )}
              </AnimatePresence>

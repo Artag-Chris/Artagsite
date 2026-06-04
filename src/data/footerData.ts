@@ -67,12 +67,12 @@ export const socialLinksFooter = [
     { name: "Contact", href: "#contact" },
   ]
   
-  // Services offered
+  // Specialties
   export const services = [
-    "Web Development",
-    "UI/UX Design",
-    "Mobile Applications",
-    "API Development",
-    "E-commerce Solutions",
-    "Technical Consulting",
+    "Full-Stack Development",
+    "System Architecture",
+    "Process Automation",
+    "API Design",
+    "Performance Optimization",
+    "Cloud Infrastructure",
   ]

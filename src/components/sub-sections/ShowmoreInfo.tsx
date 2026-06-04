@@ -37,11 +37,11 @@ function ShowmoreInfo({
               </p>
 
               <p className="text-sm sm:text-base leading-relaxed font-body">
-                <strong>How I work:</strong> I'm not the type who disappears after the first PR. I ask questions before I write code, I push back when something doesn't make sense, and I communicate clearly — in English or Spanish. I've worked with startups who needed their first backend up yesterday, and with teams scaling systems that already had real users depending on them. Both scenarios suit me just fine.
+                <strong>How I work:</strong> I'm not the type who disappears after the first PR. I ask questions before I write code, I push back when something doesn't make sense, and I communicate clearly — in English or Spanish.
               </p>
 
               <p className="text-sm sm:text-base leading-relaxed font-body">
-                I'm currently open to <strong>full-time roles, freelance projects, and nearshore collaborations</strong>. If you've got a technical challenge that needs a developer who actually gives a damn — I'd love to hear about it. Worst case: we have a good conversation.
+                I genuinely care about the craft — the details most people skip, the edge cases nobody thinks about, the architecture that holds up at 3am when something breaks. That's what keeps me building.
               </p>
             </motion.div>
           )}

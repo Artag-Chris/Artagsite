@@ -26,11 +26,6 @@ const faqItems: FAQItem[] = [
       "Yes. I've built multi-gateway payment systems handling $2M+ daily transaction volume. Experience includes Stripe, PayPal, custom payment processors, PCI compliance, secure data handling, webhook management, and reconciliation systems. I focus on reliability, security, and fraud prevention.",
   },
   {
-    question: "Do you offer nearshore development?",
-    answer:
-      "Yes. I'm based in Colombia (Pereira, Risaralda) and offer nearshore development services. I work with startups, mid-market companies, and enterprises across North America, Latin America, and globally. Flexible engagement formats: full-time, part-time, contract, or strategic advisory.",
-  },
-  {
     question: "What's your approach to system architecture?",
     answer:
       "I design systems with scalability, maintainability, and business goals in mind. I use microservices for complex systems, evaluate trade-offs between different architectural patterns, and ensure systems can handle 100K+ concurrent users. I focus on clear documentation, monitoring, and operational simplicity.",
@@ -64,7 +59,7 @@ export function FAQ() {
             Frequently Asked <span className="text-cyan-400">Questions</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Answers to common questions about services, technologies, and capabilities.
+            Answers to common questions about my work, technologies, and experience.
           </p>
         </div>
 

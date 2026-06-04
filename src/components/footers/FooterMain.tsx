@@ -66,7 +66,7 @@ function Footer() {
               </div>
 
               <p className="text-gray-400 text-sm leading-relaxed">
-                Software architect and automation specialist. Building scalable systems and elegant digital experiences with modern technologies.
+                Full-stack developer and automation enthusiast. I build scalable systems, design clean architecture, and automate the tedious stuff.
               </p>
             </div>
 
@@ -143,7 +143,7 @@ function Footer() {
           <motion.div className="space-y-6" variants={itemVariants}>
             <div>
               <h3 className="text-white font-semibold mb-4 text-base relative inline-block">
-                Specialties
+                What I Do
                 <motion.span
                   className="absolute -bottom-2 left-0 h-0.5 bg-gradient-to-r from-indigo-500 to-transparent"
                   initial={{ width: 0 }}
