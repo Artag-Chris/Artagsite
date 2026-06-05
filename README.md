@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Artag Dev — Portfolio
 
-## Getting Started
+A personal portfolio and digital presence built for **Christian (Artag Dev)**, a Colombian full-stack developer and software architect. This site is more than a showcase — it's a space to connect with other developers, share what I build, talk about technology, and offer help where I can.
 
-First, run the development server:
+Whether you're here to see my work, discuss an idea, or just geek out about architecture and automation — you're welcome.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Built With
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Next.js 15** — App Router, Server Components by default, Route Handlers
+- **React 19** — latest stable
+- **TypeScript** — strict mode
+- **Tailwind CSS 3** — utility-first styling with custom design system
+- **Framer Motion 12** — page and component animations
+- **GSAP** — scroll-driven and timeline animations
+- **shadcn/ui** — accessible primitives (new-york style, neutral base)
+- **styled-components** — SSR-enabled via Next.js compiler
+- **next-themes** — dark mode (wired at the root level)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Infrastructure & Tooling
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Vercel** — deployment, Speed Insights
+- **Google Tag Manager / GA4** — analytics
+- **Meta Pixel & TikTok Pixel** — conversion tracking
+- **n8n** — chat widget with AI assistant
+- **nodemailer + Gmail SMTP** — contact form backend
+- **Zod** — form validation with strict schema enforcement
 
-## Learn More
+## Architecture Highlights
 
-To learn more about Next.js, take a look at the following resources:
+- **Server-first architecture** — components default to server-rendered; `"use client"` is scoped to interactive islands (forms, animations, analytics)
+- **Static generation** — all pages pre-rendered at build time for maximum performance
+- **Route-based code splitting** — each page loads only its own bundle
+- **Dynamic imports** — heavy libraries (n8n chat, 3D loaders) are lazy-loaded
+- **Content-Security-Policy** — auto-generated from a centralized analytics domain list
+- **Semantic HTML + JSON-LD** — structured data for search engines and AI crawlers (Organization, Person, FAQ schemas)
+- **Custom 404, error, and loading states** — every route has fallback UI
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Content
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+All copy, projects, skills, and social data live in `src/data/`. There's no CMS — content is hand-written and version-controlled alongside the code.
 
-## Deploy on Vercel
+## Contact
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Website: [artagdev.com.co](https://www.artagdev.com.co)
+- Email: artagdev@gmail.com
+- LinkedIn: [linkedin.com/in/artag](https://www.linkedin.com/in/artag/)
+- GitHub: [github.com/Artag-Chris](https://github.com/Artag-Chris)
