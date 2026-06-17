@@ -205,7 +205,7 @@ function Contact() {
                               name="website"
                               value={formData.website}
                               onChange={handleChange}
-                              style={{ display: 'none' }}
+                              style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
                               tabIndex={-1}
                               autoComplete="off"
                               aria-hidden="true"

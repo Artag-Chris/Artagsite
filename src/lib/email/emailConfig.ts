@@ -15,10 +15,10 @@ const transporter = nodemailer.createTransport({
  */
 function getEmailTemplate(data: ContactFormData, clientIp: string): string {
   const projectTypeMap: Record<string, string> = {
-    'web-development': 'Desarrollo Web',
-    'mobile-app': 'Aplicación Móvil',
-    'ui-ux-design': 'Diseño UI/UX',
-    'consulting': 'Consultoría',
+    'collaboration': 'Colaboración',
+    'question': 'Pregunta o Idea',
+    'feedback': 'Retroalimentación',
+    'just-saying-hi': 'Saludo',
     'other': 'Otro',
   }
 

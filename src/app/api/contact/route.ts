@@ -5,16 +5,55 @@ import { checkRateLimit, getClientIp } from '@/lib/rateLimit'
 import { isSpam } from '@/lib/anti-spam'
 import { z } from 'zod'
 
+const ALLOWED_ORIGINS = [
+  process.env.NEXT_PUBLIC_DOMAIN,
+  'https://www.artagdev.com.co',
+  'https://artagdev.com.co',
+].filter(Boolean) as string[]
+
+const MAX_BODY_SIZE = 15_000 // 15KB
+const MIN_SUBMIT_TIME_MS = 3_000 // 3 seconds — bots submit faster
+
 /**
  * POST /api/contact
- * Handle contact form submissions
+ * Handle contact form submissions with bot protection
  */
 export async function POST(request: NextRequest) {
   try {
-    // Get client IP for rate limiting
+    // 1. Origin validation (CSRF protection)
+    const origin = request.headers.get('origin')
+    const referer = request.headers.get('referer')
+    const isValidOrigin =
+      !origin || // allow if no origin (direct curl, same-origin)
+      ALLOWED_ORIGINS.some(
+        (allowed) => origin === allowed || origin?.startsWith(allowed + '/')
+      )
+    const isValidReferer =
+      !referer ||
+      ALLOWED_ORIGINS.some(
+        (allowed) => referer?.startsWith(allowed)
+      )
+
+    if (!isValidOrigin && !isValidReferer) {
+      return NextResponse.json(
+        { success: false, error: 'Origen no permitido.' },
+        { status: 403 }
+      )
+    }
+
+    // 2. Body size check
+    const contentLength = request.headers.get('content-length')
+    if (contentLength && parseInt(contentLength) > MAX_BODY_SIZE) {
+      return NextResponse.json(
+        { success: false, error: 'Solicitud demasiado grande.' },
+        { status: 413 }
+      )
+    }
+
+    // 3. Get client IP for rate limiting
     const clientIp = getClientIp(request)
 
-    // Check rate limit (1 request per 5 minutes)
+    // 4. Check rate limit
     const rateLimit = checkRateLimit(clientIp)
     if (!rateLimit.allowed) {
       return NextResponse.json(
@@ -33,15 +72,24 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Parse request body
+    // 5. Parse and validate
     const body = await request.json()
-
-    // Validate request using Zod schema
     const validatedData = contactFormSchema.parse(body)
 
-    // Check for spam
+    // 6. Timing check: reject if submitted too fast (bot)
+    if (validatedData.timestamp) {
+      const submitTime = parseInt(validatedData.timestamp)
+      const elapsed = Date.now() - submitTime
+      if (!isNaN(submitTime) && elapsed < MIN_SUBMIT_TIME_MS) {
+        console.warn(`Fast submission detected from IP: ${clientIp} (${elapsed}ms)`)
+        return NextResponse.json(
+          { success: true, message: 'Tu mensaje ha sido recibido. Te contactaremos pronto.' }
+        )
+      }
+    }
+
+    // 7. Spam check
     if (isSpam(validatedData.message, validatedData.website)) {
-      // Silently reject spam (don't reveal detection to potential spammers)
       console.warn(`Spam detected from IP: ${clientIp}`)
       return NextResponse.json({
         success: true,
@@ -49,7 +97,7 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Send email
+    // 8. Send email
     await sendContactEmail(
       {
         name: validatedData.name,
@@ -68,27 +116,19 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     )
   } catch (error) {
-    // Handle validation errors
     if (error instanceof z.ZodError) {
       const firstError = error.issues && error.issues.length > 0 ? error.issues[0] : null
       const errorMessage = firstError ? firstError.message : 'Validación fallida'
-      
+
       return NextResponse.json(
-        {
-          success: false,
-          error: errorMessage,
-        },
+        { success: false, error: errorMessage },
         { status: 400 }
       )
     }
 
-    // Handle other errors
     console.error('Contact form error:', error)
     return NextResponse.json(
-      {
-        success: false,
-        error: 'Error al procesar tu solicitud. Por favor intenta de nuevo.',
-      },
+      { success: false, error: 'Error al procesar tu solicitud. Por favor intenta de nuevo.' },
       { status: 500 }
     )
   }
@@ -96,12 +136,17 @@ export async function POST(request: NextRequest) {
 
 /**
  * OPTIONS /api/contact
- * Handle CORS preflight requests
+ * Handle CORS preflight — only allow known origins
  */
-export async function OPTIONS() {
+export async function OPTIONS(request: NextRequest) {
+  const origin = request.headers.get('origin') || ''
+  const allowedOrigin = ALLOWED_ORIGINS.find(
+    (allowed) => origin === allowed || origin.startsWith(allowed + '/')
+  )
+
   return new NextResponse(null, {
     headers: {
-      'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_DOMAIN || '*',
+      'Access-Control-Allow-Origin': allowedOrigin || 'https://www.artagdev.com.co',
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     },

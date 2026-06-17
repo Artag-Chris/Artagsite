@@ -1,13 +1,8 @@
-/**
- * Contact Form Data Type
- * Defines the structure of contact form submissions
- */
-
-export type ProjectType = 
-  | 'web-development' 
-  | 'mobile-app' 
-  | 'ui-ux-design' 
-  | 'consulting' 
+export type ProjectType =
+  | 'collaboration'
+  | 'question'
+  | 'feedback'
+  | 'just-saying-hi'
   | 'other'
 
 export interface ContactFormData {
@@ -15,7 +10,8 @@ export interface ContactFormData {
   email: string
   projectType: ProjectType
   message: string
-  website?: string // Honeypot field (should be empty)
+  website?: string
+  timestamp?: string
 }
 
 export interface ContactFormResponse {

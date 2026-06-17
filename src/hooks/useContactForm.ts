@@ -17,9 +17,10 @@ export function useContactForm() {
     formData: {
       name: '',
       email: '',
-      projectType: 'web-development',
+      projectType: 'other',
       message: '',
       website: '',
+      timestamp: Date.now().toString(),
     },
     isSubmitting: false,
     isSubmitted: false,
@@ -66,13 +67,8 @@ export function useContactForm() {
         // Validate form data
         const validatedData = contactFormSchema.parse(state.formData)
 
-        // Submit to API
-        const response = await submitContact({
-          name: validatedData.name,
-          email: validatedData.email,
-          projectType: validatedData.projectType,
-          message: validatedData.message,
-        })
+        // Submit to API (include all fields for server-side checks)
+        const response = await submitContact(validatedData)
 
         if (response.success) {
           setState((prev) => ({
@@ -82,9 +78,10 @@ export function useContactForm() {
             formData: {
               name: '',
               email: '',
-              projectType: 'web-development',
+              projectType: 'other',
               message: '',
               website: '',
+              timestamp: '',
             },
           }))
 
