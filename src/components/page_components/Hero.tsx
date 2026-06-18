@@ -145,7 +145,7 @@ function Hero() {
           loop
           muted
           playsInline
-          preload="none"
+          preload="auto"
           poster="/technology.webp"
         >
           <source src="/tech-mobile.mp4" type="video/mp4" media="(max-width: 768px)" />
