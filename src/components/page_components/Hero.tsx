@@ -145,9 +145,11 @@ function Hero() {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="none"
+          poster="/technology.webp"
         >
-          <source src="/tech4k.mp4" type="video/mp4" />
+          <source src="/tech-mobile.mp4" type="video/mp4" media="(max-width: 768px)" />
+          <source src="/tech-desktop.mp4" type="video/mp4" media="(min-width: 769px)" />
         </video>
 
         {/* Fallback image for desktop if video fails to load */}
@@ -156,7 +158,7 @@ function Hero() {
             }`}
         >
           <Image
-            src="/technology.png"
+            src="/technology.webp"
             alt="Technology background"
             fill
             priority

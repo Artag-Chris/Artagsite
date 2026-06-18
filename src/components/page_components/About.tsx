@@ -1,9 +1,6 @@
 "use client";
 
-import type React from "react";
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { FileText, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInViewOnReady } from "@/hooks/useInViewOnReady";
 import { socialLinks } from "@/data/socialLinks";

@@ -196,7 +196,7 @@ const HorizontalTimelineEvent = ({
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent z-10 rounded-xl"></div>
-            <Image src={event.imageUrl || "/placeholder.svg"} alt={event.imageAlt} fill className="object-cover" />
+            <Image src={event.imageUrl || "/placeholder.svg"} alt={event.imageAlt} fill sizes="(max-width: 768px) 100vw, 500px" className="object-cover" />
           </motion.div>
         </div>
       </div>
@@ -269,7 +269,7 @@ const VerticalTimelineEvent = ({ event, index, isLast }: { event: TimelineEvent;
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent z-10 rounded-xl"></div>
-          <Image src={event.imageUrl || "/placeholder.svg"} alt={event.imageAlt} fill className="object-cover" />
+          <Image src={event.imageUrl || "/placeholder.svg"} alt={event.imageAlt} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
         </motion.div>
       </div>
     </div>

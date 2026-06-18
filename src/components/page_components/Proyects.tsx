@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useMemo } from "react"
+import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
 import { Filter, Search, X } from "lucide-react"
 import { projectsData } from "@/data/proyectData"

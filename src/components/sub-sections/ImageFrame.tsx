@@ -59,6 +59,7 @@ function ImageFrame({ setIsHovered, isHovered }: { setIsHovered: any; isHovered:
           src="https://res.cloudinary.com/dfg2xrsqz/image/upload/v1747582652/aefuflson0wfblt5szrk.jpg"
           alt="Christian's portrait"
           fill
+          sizes="(max-width: 640px) 320px, 384px"
           className={`object-cover transition-transform duration-700 ${
             isHovered ? "scale-110" : "scale-100"
           }`}

@@ -125,6 +125,7 @@ export default function ResourcesPage() {
                       src={server.imageUrl || "/placeholder.svg"}
                       alt={server.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute top-3 right-3 z-20">
@@ -199,6 +200,7 @@ export default function ResourcesPage() {
                           src={server.imageUrl || "/placeholder.svg"}
                           alt={server.title}
                           fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                         <div className="absolute top-3 right-3 z-20">
@@ -273,6 +275,7 @@ export default function ResourcesPage() {
                     src={website.imageUrl || "/placeholder.svg"}
                     alt={website.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
