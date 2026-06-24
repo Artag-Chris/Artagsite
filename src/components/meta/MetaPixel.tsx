@@ -14,50 +14,44 @@ declare global {
 export function MetaPixel() {
   useEffect(() => {
     const pixelId = analyticsConfig.meta.pixelId
+    if (!pixelId) return
 
-    if (!pixelId) {
-      console.warn('Meta Pixel ID not configured in environment variables')
-      return
-    }
+    const idle = window.requestIdleCallback || ((fn: Function) => setTimeout(fn, 2000))
+    idle(() => {
+      // Initialize Meta Pixel function
+      if (!window.fbq) {
+        window.fbq = function () {
+          ;(window.fbq as any).q = (window.fbq as any).q || []
+          ;((window.fbq as any).q as any[]).push(arguments)
+        }
 
-    // Initialize Meta Pixel function
-    if (!window.fbq) {
-      window.fbq = function () {
-        ;(window.fbq as any).q = (window.fbq as any).q || []
-        ;((window.fbq as any).q as any[]).push(arguments)
+        ;(window.fbq as any).push = window.fbq
+        ;(window.fbq as any).loaded = true
+        ;(window.fbq as any).version = "2.0"
+        ;(window.fbq as any).queue = []
       }
 
-      ;(window.fbq as any).push = window.fbq
-      ;(window.fbq as any).loaded = true
-      ;(window.fbq as any).version = "2.0"
-      ;(window.fbq as any).queue = []
-    }
+      const fbq = window.fbq
 
-    const fbq = window.fbq
+      if (!window._fbq) {
+        window._fbq = fbq
+      }
 
-    if (!window._fbq) {
-      window._fbq = fbq
-    }
-
-    // Load Facebook SDK
-    const script = document.createElement("script")
-    script.async = true
-    script.src = "https://connect.facebook.net/en_US/fbevents.js"
-    script.onload = () => {
-      // Initialize Pixel with your Pixel ID
-      fbq("init", pixelId)
-      // Track initial page view
-      fbq("track", "PageView")
-      console.log('✓ Meta Pixel initialized with ID:', pixelId)
-    }
-    script.onerror = () => {
-      console.warn('⚠️ Meta Pixel SDK blocked (ad blocker or CSP issue). Pixel initialization queued but requests may be blocked.')
-    }
-    document.head.appendChild(script)
+      // Load Facebook SDK
+      const script = document.createElement("script")
+      script.async = true
+      script.src = "https://connect.facebook.net/en_US/fbevents.js"
+      script.onload = () => {
+        fbq("init", pixelId)
+        fbq("track", "PageView")
+        console.log('✓ Meta Pixel initialized with ID:', pixelId)
+      }
+      script.onerror = () => {
+        console.warn('⚠️ Meta Pixel SDK blocked (ad blocker or CSP issue). Pixel initialization queued but requests may be blocked.')
+      }
+      document.head.appendChild(script)
+    })
   }, [])
 
-  // Return null - noscript fallback is not needed in Next.js
-  // Meta Pixel is loaded via useEffect and doesn't require noscript tag
-  // The noscript tag causes React hydration errors
   return null
 }
