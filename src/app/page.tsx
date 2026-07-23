@@ -28,7 +28,7 @@ export default function Home() {
            <div className="max-w-7xl mx-auto px-3 sm:px-4">
              <Skills /> 
              <Proyects /> 
-             <About /> 
+             <About />  
            </div>
            <FAQ />
            <Testimonials /> 
