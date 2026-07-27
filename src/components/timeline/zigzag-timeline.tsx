@@ -160,7 +160,7 @@ const HorizontalTimelineEvent = ({
         <div className={`flex flex-col ${isTop ? "mt-8" : "mb-8 order-first"}`}>
           {/* Description card */}
           <motion.div
-            className="bg-zinc-800/50 backdrop-blur-sm p-6 rounded-xl border border-zinc-700 shadow-xl mb-4"
+            className="bg-[#111111] backdrop-blur-sm p-6 rounded-xl border border-white/5 shadow-xl mb-4"
             initial={{ opacity: 0, y: isTop ? -30 : 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -195,7 +195,7 @@ const HorizontalTimelineEvent = ({
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent z-10 rounded-xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-transparent z-10 rounded-xl"></div>
             <Image src={event.imageUrl || "/placeholder.svg"} alt={event.imageAlt} fill sizes="(max-width: 768px) 100vw, 500px" className="object-cover" />
           </motion.div>
         </div>
@@ -231,7 +231,7 @@ const VerticalTimelineEvent = ({ event, index, isLast }: { event: TimelineEvent;
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
         {/* Description side */}
         <motion.div
-          className={`bg-zinc-800/50 backdrop-blur-sm p-6 rounded-xl border border-zinc-700 shadow-xl ${
+          className={`bg-[#111111] backdrop-blur-sm p-6 rounded-xl border border-white/5 shadow-xl ${
             !isLeft ? "md:col-start-2" : ""
           }`}
           initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
@@ -268,7 +268,7 @@ const VerticalTimelineEvent = ({ event, index, isLast }: { event: TimelineEvent;
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent z-10 rounded-xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-transparent z-10 rounded-xl"></div>
           <Image src={event.imageUrl || "/placeholder.svg"} alt={event.imageAlt} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
         </motion.div>
       </div>
@@ -454,8 +454,8 @@ export default function ZigzagTimeline() {
         transition={{ duration: 0.7 }}
         viewport={{ once: true, margin: "-100px 0px" }}
       >
-        <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-6">
-          <Rocket className="h-8 w-8 text-emerald-500" />
+        <div className="w-16 h-16 rounded-full bg-cyan-500/10 flex items-center justify-center mx-auto mb-6">
+          <Rocket className="h-8 w-8 text-cyan-400" />
         </div>
         <h3 className="text-2xl font-bold mb-4">The Journey Continues...</h3>
         <p className="text-zinc-300">

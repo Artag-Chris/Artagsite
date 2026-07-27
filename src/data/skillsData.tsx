@@ -11,53 +11,57 @@ import {
   SiDocker,
   SiAmazon,
   SiGit,
-  SiN8N
+  SiN8N,
+  SiTerraform,
+  SiCloudflare,
+  SiRedis,
+  SiPrisma,
+  SiVercel,
+  SiKubernetes,
+  SiNginx,
+  SiLinux,
+  SiGithubactions,
+  SiPython,
+  SiJest,
+  SiTailwindcss,
+  SiSupabase,
+  SiFirebase,
+  SiStripe,
+  SiSocketdotio,
+  SiExpo,
+  SiZod,
+  SiGrafana,
+  SiPrometheus,
 } from "react-icons/si"
 
 
 // ============ TOOLS DATA (For optional secondary display) ============
-export const toolsData = [
+export interface Tool {
+  name: string;
+  level: string;
+  description: string;
+  icon: React.ElementType;
+  color: string;
+  category: string;
+}
+
+export const toolsData: Tool[] = [
+  // ── Languages & Frameworks ──
  {
-  name: "n8n",
-  level: "",
-  description: "Visual automation platform: Connecting services and transforming workflows into seamless digital experiences.",
-  icon: SiN8N,
-  color: "text-blue-500",
-},
- {
-   name: "Docker",
+   name: "TypeScript",
    level: "",
-   description: "Containerization and orchestration for building scalable, isolated application environments.",
-   icon: SiDocker,
+   description: "Strongly-typed JavaScript for building maintainable, scalable applications with confidence.",
+   icon: SiTypescript,
    color: "text-blue-400",
+   category: "Languages & Frameworks",
  },
- {
-   name: "AWS",
-   level: "",
-   description: "Cloud infrastructure for architecting globally-distributed, resilient systems.",
-   icon: SiAmazon,
-   color: "text-orange-400",
- },
-  {
-    name: "TypeScript",
-    level: "",
-    description: "Strongly-typed JavaScript for building maintainable, scalable applications with confidence.",
-    icon: SiTypescript,
-    color: "text-blue-400",
-  },
   {
     name: "Node.js",
     level: "",
     description: "Runtime for building fast, scalable server-side applications and microservices.",
     icon: SiNodedotjs,
-    color: "text-indigo-400",
-  },
-  {
-    name: "Next.js",
-    level: "",
-    description: "React framework for full-stack applications with server-side rendering and static generation.",
-    icon: SiNextdotjs,
-    color: "text-white",
+    color: "text-green-500",
+    category: "Languages & Frameworks",
   },
   {
     name: "React",
@@ -65,20 +69,23 @@ export const toolsData = [
     description: "Component library for building interactive, maintainable user interfaces.",
     icon: SiReact,
     color: "text-cyan-400",
+    category: "Languages & Frameworks",
   },
   {
-    name: "PostgreSQL",
+    name: "Next.js",
     level: "",
-    description: "Enterprise-grade relational database for architecting reliable data systems.",
-    icon: SiPostgresql,
-    color: "text-blue-500",
+    description: "React framework for full-stack applications with server-side rendering and static generation.",
+    icon: SiNextdotjs,
+    color: "text-white",
+    category: "Languages & Frameworks",
   },
   {
-    name: "MongoDB",
+    name: "React Native",
     level: "",
-    description: "NoSQL database for flexible, scalable data storage in modern applications.",
-    icon: SiMongodb,
-    color: "text-indigo-500",
+    description: "Cross-platform mobile development with native performance using Expo.",
+    icon: SiExpo,
+    color: "text-blue-400",
+    category: "Languages & Frameworks",
   },
   {
     name: "Express",
@@ -86,6 +93,7 @@ export const toolsData = [
     description: "Minimal web framework for building APIs and server applications.",
     icon: SiExpress,
     color: "text-gray-400",
+    category: "Languages & Frameworks",
   },
   {
     name: "GraphQL",
@@ -93,13 +101,212 @@ export const toolsData = [
     description: "Query language for building efficient, type-safe APIs.",
     icon: SiGraphql,
     color: "text-pink-500",
+    category: "Languages & Frameworks",
   },
   {
-    name: "Git",
+    name: "Python",
     level: "",
-    description: "Version control system for collaborative development and maintaining code history.",
-    icon: SiGit,
-    color: "text-orange-500",
+    description: "Versatile language for scripting, data processing, and backend services.",
+    icon: SiPython,
+    color: "text-yellow-400",
+    category: "Languages & Frameworks",
+  },
+  // ── Databases ──
+  {
+    name: "PostgreSQL",
+    level: "",
+    description: "Enterprise-grade relational database for architecting reliable data systems.",
+    icon: SiPostgresql,
+    color: "text-blue-500",
+    category: "Databases",
+  },
+  {
+    name: "MongoDB",
+    level: "",
+    description: "NoSQL database for flexible, scalable data storage in modern applications.",
+    icon: SiMongodb,
+    color: "text-green-500",
+    category: "Databases",
+  },
+  {
+    name: "Redis",
+    level: "",
+    description: "In-memory data store for caching, sessions, and real-time features.",
+    icon: SiRedis,
+    color: "text-red-500",
+    category: "Databases",
+  },
+  {
+    name: "Prisma",
+    level: "",
+    description: "Next-generation ORM for type-safe database access and migrations.",
+    icon: SiPrisma,
+    color: "text-indigo-400",
+    category: "Databases",
+  },
+  {
+    name: "Supabase",
+    level: "",
+    description: "Open-source Firebase alternative with Postgres, auth, and real-time.",
+    icon: SiSupabase,
+    color: "text-green-400",
+    category: "Databases",
+  },
+  {
+    name: "Firebase",
+    level: "",
+    description: "Google's app development platform for auth, Firestore, and hosting.",
+    icon: SiFirebase,
+    color: "text-orange-400",
+    category: "Databases",
+  },
+  // ── DevOps & Cloud ──
+ {
+   name: "Docker",
+   level: "",
+   description: "Containerization and orchestration for building scalable, isolated application environments.",
+   icon: SiDocker,
+   color: "text-blue-400",
+   category: "DevOps & Cloud",
+ },
+  {
+    name: "Kubernetes",
+    level: "",
+    description: "Container orchestration for deploying and managing microservices at scale.",
+    icon: SiKubernetes,
+    color: "text-blue-500",
+    category: "DevOps & Cloud",
+  },
+  {
+    name: "AWS",
+    level: "",
+    description: "Cloud infrastructure for architecting globally-distributed, resilient systems.",
+    icon: SiAmazon,
+    color: "text-orange-400",
+    category: "DevOps & Cloud",
+  },
+  {
+    name: "Cloudflare",
+    level: "",
+    description: "CDN, DDoS protection, and edge computing for fast, secure applications.",
+    icon: SiCloudflare,
+    color: "text-orange-400",
+    category: "DevOps & Cloud",
+  },
+  {
+    name: "Terraform",
+    level: "",
+    description: "Infrastructure as code for provisioning and managing cloud resources.",
+    icon: SiTerraform,
+    color: "text-purple-400",
+    category: "DevOps & Cloud",
+  },
+  {
+    name: "Vercel",
+    level: "",
+    description: "Deployment platform for Next.js with edge functions and analytics.",
+    icon: SiVercel,
+    color: "text-white",
+    category: "DevOps & Cloud",
+  },
+  {
+    name: "Nginx",
+    level: "",
+    description: "High-performance web server and reverse proxy for load balancing.",
+    icon: SiNginx,
+    color: "text-green-500",
+    category: "DevOps & Cloud",
+  },
+  {
+    name: "Linux",
+    level: "",
+    description: "Server administration, shell scripting, and system management.",
+    icon: SiLinux,
+    color: "text-yellow-400",
+    category: "DevOps & Cloud",
+  },
+  {
+    name: "GitHub Actions",
+    level: "",
+    description: "CI/CD pipelines for automated testing, building, and deployment.",
+    icon: SiGithubactions,
+    color: "text-blue-400",
+    category: "DevOps & Cloud",
+  },
+  // ── Automation & Real-time ──
+  {
+    name: "n8n",
+    level: "",
+    description: "Visual automation platform for connecting services and transforming workflows.",
+    icon: SiN8N,
+    color: "text-orange-400",
+    category: "Automation & Real-time",
+  },
+  {
+    name: "Socket.IO",
+    level: "",
+    description: "Real-time bidirectional event-based communication for live features.",
+    icon: SiSocketdotio,
+    color: "text-white",
+    category: "Automation & Real-time",
+  },
+  // ── Monitoring & Security ──
+  {
+    name: "Grafana",
+    level: "",
+    description: "Observability dashboards for monitoring metrics, logs, and traces.",
+    icon: SiGrafana,
+    color: "text-orange-400",
+    category: "Monitoring & Security",
+  },
+  {
+    name: "Prometheus",
+    level: "",
+    description: "Metrics collection and alerting for system monitoring.",
+    icon: SiPrometheus,
+    color: "text-red-400",
+    category: "Monitoring & Security",
+  },
+  // ── Tools & Libraries ──
+ {
+   name: "Git",
+   level: "",
+   description: "Version control system for collaborative development and maintaining code history.",
+   icon: SiGit,
+   color: "text-orange-500",
+   category: "Tools & Libraries",
+ },
+  {
+    name: "Tailwind CSS",
+    level: "",
+    description: "Utility-first CSS framework for rapid UI development.",
+    icon: SiTailwindcss,
+    color: "text-cyan-400",
+    category: "Tools & Libraries",
+  },
+  {
+    name: "Zod",
+    level: "",
+    description: "TypeScript-first schema validation for forms and APIs.",
+    icon: SiZod,
+    color: "text-blue-400",
+    category: "Tools & Libraries",
+  },
+  {
+    name: "Stripe",
+    level: "",
+    description: "Payment processing infrastructure for online businesses.",
+    icon: SiStripe,
+    color: "text-indigo-400",
+    category: "Tools & Libraries",
+  },
+  {
+    name: "Jest",
+    level: "",
+    description: "Testing framework for JavaScript with snapshot and coverage support.",
+    icon: SiJest,
+    color: "text-red-400",
+    category: "Tools & Libraries",
   },
 ]
 
@@ -119,6 +326,7 @@ export interface UseCase {
   title: string;
   icon: React.ElementType;
   iconColor: string;
+  tab: "everyone" | "developer";
   
   // Problem statement - What business problem does this solve
   problem: string;
@@ -147,11 +355,144 @@ export interface UseCase {
 }
 
 export const useCasesData: UseCase[] = [
+  // ── FOR EVERYONE ──
+  {
+    id: "whatsapp-integrations",
+    title: "WhatsApp & Messaging Bots",
+    icon: SiN8N,
+    iconColor: "text-green-400",
+    tab: "everyone",
+    
+    problem: "You're answering the same messages manually, or your team misses important requests because they come from too many places.",
+    
+    solution: "Build smart messaging flows that handle common questions, route messages to the right person, and follow up automatically — so nothing slips through.",
+    
+    techStack: ["WhatsApp API", "n8n", "Webhooks"],
+    
+    capabilities: [
+      "Automated welcome messages and FAQs",
+      "Smart routing to team members",
+      "Order confirmations and follow-ups",
+      "Integration with your CRM or spreadsheet",
+    ],
+    
+    metrics: [
+      {
+        label: "Messages Handled",
+        value: "1,000+",
+        description: "Automated monthly"
+      },
+      {
+        label: "Response Time",
+        value: "<5 sec",
+        description: "Average automated reply"
+      },
+      {
+        label: "Manual Work Saved",
+        value: "10+ hrs/week",
+        description: "For small teams"
+      }
+    ],
+    
+    process: [
+      "Map out your current message flow",
+      "Design the automation logic",
+      "Connect WhatsApp + your tools",
+      "Test with real scenarios",
+      "Launch and monitor"
+    ]
+  },
+  {
+    id: "service-connections",
+    title: "Connecting Your Tools Together",
+    icon: SiN8N,
+    iconColor: "text-blue-400",
+    tab: "everyone",
+    
+    problem: "Your data is scattered across spreadsheets, CRMs, email, and apps that don't talk to each other. You're copying info manually between them.",
+    
+    solution: "I build invisible bridges between your tools so data flows automatically. When something changes in one place, it updates everywhere it needs to.",
+    
+    techStack: ["n8n", "APIs", "Webhooks"],
+    
+    capabilities: [
+      "Connect Google Sheets, email, CRMs, and more",
+      "Auto-sync data between platforms",
+      "Trigger actions when something changes",
+      "Error alerts so you know if something breaks",
+    ],
+    
+    metrics: [
+      {
+        label: "Services Connected",
+        value: "12+",
+        description: "Different platforms integrated"
+      },
+      {
+        label: "Workflows Active",
+        value: "50+",
+        description: "Running daily in production"
+      },
+      {
+        label: "Error Rate",
+        value: "<0.1%",
+        description: "Automated reliability"
+      }
+    ],
+    
+    process: [
+      "Audit your current tools and pain points",
+      "Design the data flow",
+      "Build and test the connections",
+      "Deploy with monitoring",
+      "Hand off documentation"
+    ]
+  },
+  {
+    id: "custom-dashboards",
+    title: "Custom Dashboards & Internal Tools",
+    icon: SiReact,
+    iconColor: "text-blue-400",
+    tab: "everyone",
+    
+    problem: "You need a way to see your data in one place — sales, inventory, team performance — but off-the-shelf tools are expensive or don't fit your workflow.",
+    
+    solution: "I build clean, fast web dashboards tailored to exactly what you need to see. No bloat, no unused features — just the data that matters to you.",
+    
+    techStack: ["React", "Next.js", "Node.js", "PostgreSQL"],
+    
+    capabilities: [
+      "Real-time data visualization",
+      "Role-based access for your team",
+      "Mobile-friendly dashboards",
+      "Connect to your existing databases",
+    ],
+    
+    metrics: [
+      {
+        label: "Build Time",
+        value: "2-4 weeks",
+        description: "Typical dashboard project"
+      },
+      {
+        label: "Devices",
+        value: "All",
+        description: "Desktop, tablet, and mobile"
+      },
+      {
+        label: "Updates",
+        value: "Real-time",
+        description: "Data refreshes live"
+      }
+    ]
+  },
+  // ── FOR DEVELOPERS ──
   {
     id: "zero-downtime-migrations",
     title: "Zero-Downtime Database Migrations",
     icon: SiPostgresql,
     iconColor: "text-blue-500",
+    tab: "developer",
     
     problem: "Legacy systems with millions of records need migration to modern databases without losing data or disrupting service. Traditional migrations cause downtime measured in hours.",
     
@@ -195,12 +536,12 @@ export const useCasesData: UseCase[] = [
       "Perform instantaneous cutover with zero downtime"
     ]
   },
-
   {
     id: "multi-gateway-payments",
     title: "Multi-Gateway Payment Integration",
     icon: SiGraphql,
     iconColor: "text-pink-500",
+    tab: "developer",
     
     problem: "Handle payments from multiple gateways (PayValid, AvallPay, etc.) with different protocols, error handling, and requirements. Need smart routing to prevent payment failures and optimize costs.",
     
@@ -237,12 +578,12 @@ export const useCasesData: UseCase[] = [
     
     example: "Route international transactions through lower-fee gateways, fallback to premium gateways on failure, handle currency conversions, and provide real-time reconciliation."
   },
-
   {
     id: "performance-optimization",
     title: "High-Performance System Optimization",
     icon: SiAmazon,
     iconColor: "text-orange-400",
+    tab: "developer",
     
     problem: "Applications suffering from slow load times, high latency, and poor scalability. Users experiencing degraded experience under load.",
     
@@ -277,12 +618,12 @@ export const useCasesData: UseCase[] = [
       }
     ]
   },
-
   {
     id: "scalable-architecture",
     title: "Scalable Microservices Architecture",
     icon: SiDocker,
     iconColor: "text-blue-400",
+    tab: "developer",
     
     problem: "Monolithic applications struggling to scale. Need to handle millions of concurrent users with independent service scaling.",
     
@@ -317,12 +658,12 @@ export const useCasesData: UseCase[] = [
       }
     ]
   },
-
   {
     id: "real-time-features",
     title: "Real-Time Features & Live Updates",
     icon: SiReact,
-    iconColor: "text-cyan-400",
+    iconColor: "text-blue-300",
+    tab: "developer",
     
     problem: "Applications need live data updates without polling. Users expect instant notifications and real-time collaborative features.",
     
@@ -357,16 +698,16 @@ export const useCasesData: UseCase[] = [
       }
     ]
   },
-
   {
-    id: "automation-workflows",
-    title: "Business Process Automation",
+    id: "automation-workflows-dev",
+    title: "Advanced Workflow Automation",
     icon: SiN8N,
     iconColor: "text-blue-500",
+    tab: "developer",
     
-    problem: "Repetitive business processes consuming manual effort. Different systems need to communicate and share data seamlessly.",
+    problem: "Complex business logic spanning multiple services needs reliable automation with error handling, retries, and monitoring.",
     
-    solution: "Design and build automation workflows connecting disparate systems, eliminating manual work, and ensuring data consistency across platforms.",
+    solution: "Design and build production-grade automation workflows with conditional logic, error recovery, dead-letter queues, and observability.",
     
     techStack: ["n8n", "Node.js", "TypeScript", "GraphQL", "PostgreSQL", "AWS"],
     
@@ -400,4 +741,4 @@ export const useCasesData: UseCase[] = [
 ]
 
 
-export const skills = ["Software Architect", "Automation Specialist", "System Designer", "Technical Founder", "DevOps Engineer"]
+export const skills = ["I Connect Things", "I Automate Workflows", "I Build Tools", "Let's Collaborate", "I Save You Time"]

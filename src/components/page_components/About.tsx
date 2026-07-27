@@ -44,19 +44,11 @@ function About() {
       {/* About Section */}
       <section
         id="about"
-        className="bg-gradient-to-b from-black via-black to-[#0a0a0a] py-16 sm:py-32 relative overflow-hidden w-screen -mx-[calc((100vw-100%)/2)]"
+        className="bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#080808] py-16 sm:py-32 relative overflow-hidden w-screen -mx-[calc((100vw-100%)/2)]"
       >
-        {/* Enhanced background elements with animation */}
-        <div className="absolute top-0 right-1/3 w-1/2 h-1/2 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDuration: '4s' }}></div>
-        <div className="absolute bottom-1/4 left-0 w-2/5 h-2/5 bg-cyan-500/8 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDuration: '5s', animationDelay: '0.5s' }}></div>
-        
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
-          style={{
-            backgroundImage: `linear-gradient(90deg, #06b6d4 1px, transparent 1px), linear-gradient(0deg, #06b6d4 1px, transparent 1px)`,
-            backgroundSize: '40px 40px'
-          }}
-        ></div>
+        {/* Subtle background glows */}
+        <div className="absolute top-0 right-1/3 w-1/2 h-1/2 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-1/4 left-0 w-2/5 h-2/5 bg-blue-500/3 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-3 sm:px-4 w-full relative z-10">
           <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-16 items-center lg:items-start justify-center">
@@ -94,13 +86,13 @@ function About() {
                     className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 w-full text-left leading-tight"
                     style={{ fontFamily: 'var(--font-display)' }}
                   >
-                    About <span className="text-cyan-400 drop-shadow-lg" style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.3)' }}>Me</span>
+                    About <span className="text-blue-400">Me</span>
                   </motion.h2>
 
                   {/* Subtitle badge */}
                   <motion.div className="inline-block mt-3" variants={titleItem}>
-                    <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-cyan-500/70 bg-cyan-500/10 border border-cyan-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full backdrop-blur-sm">
-                      Software Architect & Automation Specialist
+                    <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-amber-400/70 bg-amber-500/10 border border-amber-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">
+                      I connect things. I automate workflows. Let&apos;s build together.
                     </span>
                   </motion.div>
                 </div>
@@ -113,7 +105,7 @@ function About() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.5 }}
-                    className="text-cyan-400 font-bold text-lg sm:text-xl tracking-wide"
+                    className="text-blue-400 font-bold text-lg sm:text-xl tracking-wide"
                   >
                     {skills[currentSkill]}
                   </motion.div>
@@ -143,14 +135,12 @@ function About() {
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ 
-                          y: -6, 
-                          scale: 1.15,
-                          boxShadow: `0 0 24px ${social.color === 'text-cyan-400' ? 'rgba(6, 182, 212, 0.5)' : 'rgba(99, 102, 241, 0.5)'}`
+                          y: -3, 
                         }}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 0.05 * index }}
-                        className={`inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-[#262626] ${social.color} transition-all duration-300 hover:border-cyan-500/60 hover:from-[#0f0f0f] hover:to-[#1a1a1a] backdrop-blur-sm`}
+                        transition={{ duration: 0.2, delay: 0.05 * index }}
+                        className={`inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-[#111111] border border-white/5 ${social.color} transition-all duration-200 hover:border-white/10 hover:bg-white/5`}
                         aria-label={social.name}
                       >
                         <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
@@ -160,7 +150,7 @@ function About() {
                 </motion.div>
 
                 {/* Tabs for experience, education, achievements - Enhanced */}
-                <div className="border-t border-[#262626] pt-6 sm:pt-8">
+                <div className="border-t border-white/5 pt-6 sm:pt-8">
                   <ExperEduAchiComponent
                     setActiveTab={setActiveTab}
                     activeTab={activeTab}

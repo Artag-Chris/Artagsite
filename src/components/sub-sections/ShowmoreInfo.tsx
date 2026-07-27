@@ -14,7 +14,7 @@ function ShowmoreInfo({
       {/* Always visible: first two paragraphs */}
       <div className="text-gray-300 space-y-3 sm:space-y-4">
         <p className="text-sm sm:text-base leading-relaxed font-body">
-          Hey, I'm Christian — a full-stack developer based in Pereira, Colombia. I obsess over one thing: building software that works exactly when it needs to, at the scale it needs to, without drama. I've migrated <strong>32,000+ users</strong> between databases without a single incident, and I'm genuinely proud of that.
+          Hey, I&apos;m Christian — I connect things that don&apos;t talk to each other, automate the stuff you do manually, and build tools that save real time. Based in Pereira, Colombia 🇨🇴. I&apos;ve spent 5+ years figuring out how to make services work together — WhatsApp, Discord, Slack, databases, payment systems, you name it.
         </p>
 
         {/* Expandable: paragraphs 2-4 fade and slide in/out together */}
@@ -33,15 +33,15 @@ function ShowmoreInfo({
               className="space-y-3 sm:space-y-4"
             >
               <p className="text-sm sm:text-base leading-relaxed font-body">
-                My day-to-day lives in <strong>Node.js, React, TypeScript, and Docker</strong> — wiring up backends, designing architecture, automating workflows with <strong>n8n</strong>, and making sure payment systems don't fall over at 2am. I've handled <strong>$2M+ in daily payment volume</strong> and kept systems at <strong>99.99% uptime</strong>. Not because I got lucky, but because I care about the details most people skip.
+                I work with <strong>Node.js, React, TypeScript, and n8n</strong> to build microservices, automate workflows, and create custom tools. I&apos;ve connected <strong>12+ services</strong> into seamless pipelines and automated <strong>50+ business processes</strong>. Not because I got lucky, but because I care about the details most people skip.
               </p>
 
               <p className="text-sm sm:text-base leading-relaxed font-body">
-                <strong>How I work:</strong> I'm not the type who disappears after the first PR. I ask questions before I write code, I push back when something doesn't make sense, and I communicate clearly — in English or Spanish.
+                <strong>How I work:</strong> You tell me what&apos;s broken or what&apos;s slowing you down, and I figure out the best way to fix it. No jargon, no over-engineering. I communicate clearly — in English or Spanish — and I don&apos;t disappear after the first deliverable.
               </p>
 
               <p className="text-sm sm:text-base leading-relaxed font-body">
-                I genuinely care about the craft — the details most people skip, the edge cases nobody thinks about, the architecture that holds up at 3am when something breaks. That's what keeps me building.
+                I care about the craft — the edge cases nobody thinks about, the integrations that actually work at 3am, the automation that saves you 10 hours a week. That&apos;s what keeps me building.
               </p>
             </motion.div>
           )}
@@ -51,7 +51,7 @@ function ShowmoreInfo({
       <div className="relative z-20 mt-3">
         <button
           onClick={() => setShowMoreBio(!showMoreBio)}
-          className="text-cyan-400 text-sm flex items-center hover:text-cyan-300 transition-colors font-medium"
+          className="text-blue-400 text-sm flex items-center hover:text-blue-300 transition-colors font-medium"
         >
           <span>{showMoreBio ? "Read less" : "Read more about my experience"}</span>
           <motion.span

@@ -39,38 +39,26 @@ export const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({ projec
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
       viewport={{ once: true }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className="h-full"
     >
-      <div className="group relative h-full overflow-hidden rounded-2xl">
-        {/* Glow effect background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-indigo-500/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
+      <div className="group relative h-full overflow-hidden rounded-xl">
         {/* Main card */}
-        <div className={`relative h-full bg-gradient-to-br ${categoryColors[project.category]} backdrop-blur-xl border rounded-2xl p-6 sm:p-8 transition-all duration-300 flex flex-col`}>
-          {/* Grid overlay */}
-          <div
-            className="absolute inset-0 opacity-[0.02] rounded-2xl pointer-events-none"
-            style={{
-              backgroundImage: `linear-gradient(90deg, #06b6d4 1px, transparent 1px), linear-gradient(0deg, #06b6d4 1px, transparent 1px)`,
-              backgroundSize: '20px 20px'
-            }}
-          ></div>
-
+        <div className="relative h-full bg-zinc-900/60 backdrop-blur-sm border border-white/5 rounded-xl p-6 sm:p-8 transition-all duration-200 flex flex-col hover:border-white/10">
           <div className="relative z-10 flex flex-col h-full">
             {/* Header with Category and Status */}
             <div className="flex items-start justify-between mb-4">
               <div>
                 <motion.div
-                  className="inline-block px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 mb-3"
-                  whileHover={{ scale: 1.05 }}
+                  className="inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-3"
+                  whileHover={{ scale: 1.02 }}
                 >
-                  <span className="text-xs font-semibold text-cyan-300 uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
                     {categoryLabels[project.category]}
                   </span>
                 </motion.div>
@@ -102,13 +90,13 @@ export const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({ projec
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ delay: i * 0.1 }}
                     viewport={{ once: true }}
-                    className="px-2.5 py-1 rounded-lg bg-[#141414] border border-[#262626] text-xs text-gray-300 hover:border-cyan-500/30 hover:text-cyan-400 transition-colors"
+                    className="px-2.5 py-1 rounded-lg bg-[#111111] border border-white/5 text-xs text-zinc-400 hover:border-white/10 hover:text-zinc-300 transition-colors"
                   >
                     {tech}
                   </motion.div>
                 ))}
                 {project.tech.length > 4 && (
-                  <div className="px-2.5 py-1 rounded-lg bg-[#141414] border border-[#262626] text-xs text-gray-400">
+                  <div className="px-2.5 py-1 rounded-lg bg-[#111111] border border-white/5 text-xs text-zinc-500">
                     +{project.tech.length - 4} more
                   </div>
                 )}
@@ -140,9 +128,9 @@ export const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({ projec
                   href={project.youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05, x: 5 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500/20 to-cyan-500/10 border border-cyan-500/30 hover:border-cyan-500/60 hover:from-cyan-500/30 hover:to-cyan-500/20 text-cyan-300 hover:text-cyan-100 transition-all text-sm font-medium"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 text-zinc-300 hover:text-white transition-all text-sm font-medium"
                 >
                   <Play className="h-4 w-4" />
                   Demo
@@ -154,9 +142,9 @@ export const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({ projec
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05, x: 5 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-indigo-500/20 to-indigo-500/10 border border-indigo-500/30 hover:border-indigo-500/60 hover:from-indigo-500/30 hover:to-indigo-500/20 text-indigo-300 hover:text-indigo-100 transition-all text-sm font-medium"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 text-zinc-300 hover:text-white transition-all text-sm font-medium"
                 >
                   <ExternalLink className="h-4 w-4" />
                   Live
@@ -168,9 +156,9 @@ export const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({ projec
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05, x: 5 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#141414] border border-[#262626] hover:border-gray-400 text-gray-400 hover:text-white transition-all text-sm font-medium"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#111111] border border-white/5 hover:border-white/10 text-zinc-500 hover:text-zinc-300 transition-all text-sm font-medium"
                 >
                   <Github className="h-4 w-4" />
                   Code

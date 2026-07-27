@@ -4,23 +4,23 @@ import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 const lines = [
-  { prompt: "christian@artagdev", command: "git log --oneline -3", delay: 0 },
+  { prompt: "christian@artagdev", command: "curl https://n8n.artagdev.com.co/health", delay: 0 },
   {
     output: [
-      "a3f9c12 feat: migrate 32k users — 0.004% error rate",
-      "b81e004 feat: payment gateway $2M+ daily volume",
-      "c77d331 fix: latency <100ms on real-time events",
+      "✓ WhatsApp API — connected",
+      "✓ Discord Bot — online",
+      "✓ Instagram webhook — listening",
     ],
     delay: 600,
   },
-  { prompt: "christian@artagdev", command: "uptime --services", delay: 1800 },
+  { prompt: "christian@artagdev", command: "cat integrations.json | jq '.count'", delay: 1800 },
   {
-    output: ["api-gateway    ██████████ 99.99%  UP", "payment-svc    ██████████ 99.97%  UP", "automation     ██████████ 100.0%  UP"],
+    output: ['"12 active services"'],
     delay: 2400,
   },
-  { prompt: "christian@artagdev", command: "whoami --stack", delay: 3800 },
+  { prompt: "christian@artagdev", command: "whoami --passion", delay: 3800 },
   {
-    output: ["TypeScript · React · Node.js", "PostgreSQL · Docker · AWS", "n8n · Automation · Architecture"],
+    output: ["Connecting things that weren't talking", "Automating what people do manually", "Building tools that save real time"],
     delay: 4400,
     highlight: true,
   },
@@ -39,7 +39,6 @@ export default function HeroTerminal() {
       setTimeout(() => {
         setVisibleLines((prev) => [...prev, i])
 
-        // Type out commands character by character
         if ("command" in line && line.command) {
           const cmd = line.command
           let charIdx = 0
@@ -55,41 +54,26 @@ export default function HeroTerminal() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.97 }}
+      initial={{ opacity: 0, y: 20, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
       className="hidden lg:block w-full max-w-lg mx-auto"
     >
-      {/* Terminal window */}
       <div className="relative group">
-        {/* Glow behind terminal */}
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-indigo-500/15 rounded-2xl blur-2xl opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
+        <div className="relative bg-[#0d0d0d]/90 backdrop-blur-sm border border-white/5 group-hover:border-white/10 rounded-2xl overflow-hidden transition-all duration-200">
 
-        <div className="relative bg-[#0d0d0d]/90 backdrop-blur-xl border border-[#2a2a2a] group-hover:border-cyan-500/30 rounded-2xl overflow-hidden transition-all duration-300 shadow-2xl">
-
-          {/* Title bar */}
-          <div className="flex items-center gap-2 px-4 py-3 bg-[#161616] border-b border-[#222]">
+          <div className="flex items-center gap-2 px-4 py-3 bg-[#111111] border-b border-white/5">
             <div className="w-3 h-3 rounded-full bg-red-500/80" />
             <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
             <div className="w-3 h-3 rounded-full bg-green-500/80" />
-            <span className="ml-3 text-xs text-gray-500 font-mono">christian@artagdev — zsh</span>
+            <span className="ml-3 text-xs text-zinc-500 font-mono">christian@artagdev — zsh</span>
             <div className="ml-auto flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
-              <span className="text-xs text-cyan-500/70 font-mono">live</span>
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-xs text-zinc-500 font-mono">live</span>
             </div>
           </div>
 
-          {/* Terminal body */}
           <div className="p-5 font-mono text-sm space-y-1.5 min-h-[280px]">
-            {/* Grid overlay */}
-            <div
-              className="absolute inset-0 opacity-[0.015] pointer-events-none"
-              style={{
-                backgroundImage: `linear-gradient(90deg, #06b6d4 1px, transparent 1px), linear-gradient(0deg, #06b6d4 1px, transparent 1px)`,
-                backgroundSize: "20px 20px",
-              }}
-            />
-
             <AnimatePresence>
               {(lines as Line[]).map((line, i) => {
                 if (!visibleLines.includes(i)) return null
@@ -103,13 +87,13 @@ export default function HeroTerminal() {
                       transition={{ duration: 0.2 }}
                       className="flex items-center gap-1.5 flex-wrap"
                     >
-                      <span className="text-cyan-400">{line.prompt}</span>
-                      <span className="text-gray-500">~</span>
-                      <span className="text-indigo-400">$</span>
-                      <span className="text-gray-100">
+                       <span className="text-blue-400">{line.prompt}</span>
+                       <span className="text-zinc-600">~</span>
+                       <span className="text-amber-400">$</span>
+                      <span className="text-zinc-100">
                         {typedCommand[i] ?? ""}
                         {typedCommand[i]?.length !== (line.command ?? "").length && (
-                          <span className="inline-block w-2 h-4 bg-cyan-400 ml-0.5 animate-pulse align-middle" />
+                           <span className="inline-block w-2 h-4 bg-blue-400 ml-0.5 animate-pulse align-middle" />
                         )}
                       </span>
                     </motion.div>
@@ -129,7 +113,7 @@ export default function HeroTerminal() {
                             ? "text-cyan-300 font-medium"
                             : out.includes("UP")
                             ? "text-green-400/90"
-                            : "text-gray-400"
+                            : "text-zinc-500"
                         }
                       >
                         {out}
@@ -140,31 +124,29 @@ export default function HeroTerminal() {
               })}
             </AnimatePresence>
 
-            {/* Blinking cursor at end */}
             {visibleLines.length === lines.length && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className="flex items-center gap-1.5 mt-1"
               >
-                <span className="text-cyan-400">christian@artagdev</span>
-                <span className="text-gray-500">~</span>
-                <span className="text-indigo-400">$</span>
-                <span className="inline-block w-2 h-4 bg-cyan-400 ml-1 animate-pulse align-middle" />
+                 <span className="text-blue-400">christian@artagdev</span>
+                 <span className="text-zinc-600">~</span>
+                 <span className="text-amber-400">$</span>
+                 <span className="inline-block w-2 h-4 bg-blue-400 ml-1 animate-pulse align-middle" />
               </motion.div>
             )}
           </div>
         </div>
 
-        {/* Floating badge */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 5, duration: 0.5 }}
-          className="absolute -bottom-4 -right-4 bg-gradient-to-br from-cyan-500/20 to-indigo-500/20 backdrop-blur-xl border border-cyan-500/30 rounded-xl px-4 py-2 flex items-center gap-2"
+          transition={{ delay: 5, duration: 0.4 }}
+          className="absolute -bottom-4 -right-4 bg-[#111111] border border-white/5 rounded-xl px-4 py-2 flex items-center gap-2"
         >
-          <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-          <span className="text-xs text-cyan-300 font-mono font-medium">Available to chat</span>
+          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-xs text-zinc-400 font-mono font-medium">Available to collaborate</span>
         </motion.div>
       </div>
     </motion.div>

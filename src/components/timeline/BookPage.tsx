@@ -96,7 +96,7 @@ export default function BookPage({
       style={{ perspective: "1200px" }}
     >
       {/* Page background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 to-zinc-950" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] to-[#111111]" />
 
       {/* Page number */}
       <div className={`absolute top-6 md:top-8 text-zinc-500 text-xs md:text-sm font-serif ${
@@ -117,7 +117,7 @@ export default function BookPage({
               {String(chapterNumber).padStart(2, "0")}
             </span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-serif font-bold text-emerald-300 mb-2">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold text-cyan-300 mb-2">
             {chapterTitle}
           </h2>
           <p className="text-sm text-zinc-500 font-serif">{year}</p>

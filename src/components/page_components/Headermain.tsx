@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { Download, Menu, X, Sparkles, Zap, User, Code2, Rocket, Mail, BookOpen } from "lucide-react"
+import { Download, Menu, X, User, Code2, Rocket, Mail, BookOpen } from "lucide-react"
 import { handleResumeDownload } from "@/functions/handleResumenDownload"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -18,11 +18,9 @@ function HeaderMain() {
 
   const headerRef = useRef<HTMLElement>(null)
   const bottomNavRef = useRef<HTMLDivElement>(null)
-  const cyanDotRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     let scrollTicking = false
-    let mouseTicking = false
 
     const handleScroll = () => {
       if (scrollTicking) return
@@ -35,7 +33,7 @@ function HeaderMain() {
             gsap.to(headerRef.current, {
               y: shouldBeScrolled ? -100 : 0,
               opacity: shouldBeScrolled ? 0 : 1,
-              duration: 0.4,
+              duration: 0.35,
               ease: "power3.out",
               overwrite: "auto",
             })
@@ -44,7 +42,7 @@ function HeaderMain() {
             gsap.to(bottomNavRef.current, {
               y: shouldBeScrolled ? 0 : 100,
               opacity: shouldBeScrolled ? 1 : 0,
-              duration: 0.4,
+              duration: 0.35,
               ease: "power3.out",
               overwrite: "auto",
             })
@@ -55,34 +53,15 @@ function HeaderMain() {
       })
     }
 
-    // Move the cyan dot via direct style mutation — no React render on mousemove.
-    const handleMouseMove = (e: MouseEvent) => {
-      if (mouseTicking) return
-      mouseTicking = true
-      requestAnimationFrame(() => {
-        if (cyanDotRef.current) {
-          const x = (e.clientX / window.innerWidth) * 100
-          const y = (e.clientY / window.innerHeight) * 100
-          cyanDotRef.current.style.left = `${x}%`
-          cyanDotRef.current.style.top = `${y}%`
-        }
-        mouseTicking = false
-      })
-    }
-
     window.addEventListener("scroll", handleScroll, { passive: true })
-    window.addEventListener("mousemove", handleMouseMove, { passive: true })
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-      window.removeEventListener("mousemove", handleMouseMove)
-    }
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   const navLinks = [
     { href: "#about", label: "About", icon: User },
-    { href: "#skills", label: "Skills", icon: Code2 },
+    { href: "#skills", label: "What I Do", icon: Code2 },
     { href: "#projects", label: "Projects", icon: Rocket },
-    { href: "#contact", label: "Contact", icon: Mail },
+    { href: "#contact", label: "Let's Talk", icon: Mail },
   ]
 
   const externalNavLinks = [
@@ -93,106 +72,65 @@ function HeaderMain() {
     <>
       <header
         ref={headerRef}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-out ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
           isScrolled ? "transform -translate-y-full opacity-0" : "transform translate-y-0 opacity-100"
         }`}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a]/95 via-[#1a1a1a]/95 to-black/95 backdrop-blur-md"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/3 to-transparent"></div>
-
-        <div className="relative border-b border-[#262626] shadow-2xl shadow-cyan-500/5">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div
-              ref={cyanDotRef}
-              className="absolute w-2.5 h-2.5 bg-gradient-to-br from-cyan-400 to-cyan-500 rounded-full animate-pulse blur-sm"
-              style={{
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%)',
-                transition: 'left 0.5s cubic-bezier(0.4, 0, 0.2, 1), top 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                boxShadow: '0 0 12px rgba(6, 182, 212, 0.6)',
-                willChange: 'left, top',
-              }}
-            ></div>
-            <Sparkles
-              className="absolute top-6 right-32 w-4 h-4 text-cyan-400/40 animate-pulse"
-              style={{ animationDelay: "1s", animationDuration: "3s" }}
-            />
-            <Zap
-              className="absolute top-8 left-1/3 w-3.5 h-3.5 text-cyan-500/30 animate-pulse"
-              style={{ animationDelay: "2s", animationDuration: "2.5s" }}
-            />
-            <div className="absolute top-4 left-1/4 w-1.5 h-1.5 bg-cyan-500/40 rounded-full animate-pulse blur-sm"></div>
-            <div className="absolute bottom-4 right-1/4 w-1.5 h-1.5 bg-cyan-400/30 rounded-full animate-pulse blur-sm"></div>
-          </div>
-
-          <div className="container mx-auto py-5 px-6 relative">
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-xl"></div>
+        <div className="relative border-b border-white/5">
+          <div className="container mx-auto py-4 px-6 relative">
             <nav className="flex items-center justify-between">
-              <div className="text-2xl font-bold group cursor-pointer relative">
-                <span className="bg-gradient-to-r from-cyan-400 via-cyan-300 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] font-extrabold tracking-tight transition-all duration-500 group-hover:scale-110 inline-block" style={{ fontFamily: 'var(--font-display)' }}>
+              <Link href="/" className="text-xl font-bold tracking-tight group">
+                <span className="text-white font-bold" style={{ fontFamily: 'var(--font-display)' }}>
                   Artag
                 </span>
-                <span className="text-gray-300 ml-2 transition-all duration-500 group-hover:text-cyan-300 font-semibold">
+                <span className="text-zinc-500 font-medium ml-1 group-hover:text-zinc-300 transition-colors duration-300">
                   Dev
                 </span>
-                <div className="h-0.5 w-0 bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-700 ease-out group-hover:w-full rounded-full shadow-lg shadow-cyan-500/50"></div>
-              </div>
+              </Link>
 
               <div className="hidden md:flex items-center gap-1">
-                {navLinks.map((link, index) => {
+                {navLinks.map((link) => {
                    const IconComponent = link.icon
                    return (
-                     <div key={link.href} className="flex items-center">
-                       <Link
-                         href={link.href}
-                         className="group relative flex items-center gap-2.5 text-gray-400 hover:text-white transition-all duration-500 hover:scale-105 py-2.5 px-5 rounded-full hover:bg-gradient-to-br hover:from-cyan-500/10 hover:to-cyan-600/10 backdrop-blur-sm border border-transparent hover:border-cyan-500/30"
-                         style={{ animationDelay: `${index * 0.1}s` }}
-                       >
-                         <IconComponent className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:rotate-12 group-hover:text-cyan-400" />
-                         <span className="font-medium tracking-wide text-sm">{link.label}</span>
-                         <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-500 group-hover:w-4/5 group-hover:left-[10%] rounded-full shadow-lg shadow-cyan-500/40"></span>
-                         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/0 to-cyan-600/0 opacity-0 group-hover:from-cyan-500/10 group-hover:to-cyan-600/10 group-hover:opacity-100 transition-all duration-500 blur-md"></div>
-                       </Link>
-                       {index < navLinks.length - 1 && (
-                         <div className="h-6 w-px bg-gradient-to-b from-transparent via-[#404040]/50 to-transparent mx-1"></div>
-                       )}
-                     </div>
+                     <Link
+                       key={link.href}
+                       href={link.href}
+                       className="group relative flex items-center gap-2 text-zinc-500 hover:text-white transition-colors duration-200 py-2 px-4 rounded-lg hover:bg-white/5"
+                     >
+                       <IconComponent className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity duration-200" />
+                       <span className="text-sm font-medium">{link.label}</span>
+                     </Link>
                    )
                  })}
-                 <div className="h-6 w-px bg-gradient-to-b from-transparent via-[#404040]/50 to-transparent mx-1"></div>
-                 {externalNavLinks.map((link, index) => {
+                 {externalNavLinks.map((link) => {
                    const IconComponent = link.icon
                    return (
-                     <div key={link.href} className="flex items-center">
-                       <Link
-                         href={link.href}
-                         className="group relative flex items-center gap-2.5 text-gray-400 hover:text-white transition-all duration-500 hover:scale-105 py-2.5 px-5 rounded-full hover:bg-gradient-to-br hover:from-cyan-500/10 hover:to-cyan-600/10 backdrop-blur-sm border border-transparent hover:border-cyan-500/30"
-                       >
-                         <IconComponent className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:rotate-12 group-hover:text-cyan-400" />
-                         <span className="font-medium tracking-wide text-sm">{link.label}</span>
-                         <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-500 group-hover:w-4/5 group-hover:left-[10%] rounded-full shadow-lg shadow-cyan-500/40"></span>
-                         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/0 to-cyan-600/0 opacity-0 group-hover:from-cyan-500/10 group-hover:to-cyan-600/10 group-hover:opacity-100 transition-all duration-500 blur-md"></div>
-                       </Link>
-                     </div>
+                     <Link
+                       key={link.href}
+                       href={link.href}
+                       className="group relative flex items-center gap-2 text-zinc-500 hover:text-white transition-colors duration-200 py-2 px-4 rounded-lg hover:bg-white/5"
+                     >
+                       <IconComponent className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity duration-200" />
+                       <span className="text-sm font-medium">{link.label}</span>
+                     </Link>
                    )
                  })}
-               </div>
+              </div>
 
               <Button
                 variant="ghost"
-                className="hidden md:flex items-center gap-2.5 text-gray-400 hover:text-white transition-all duration-500 hover:scale-105 group relative overflow-hidden px-5 py-2.5 rounded-full font-medium tracking-wide text-sm border border-transparent hover:border-cyan-400/70 hover:bg-cyan-500/[0.14]"
+                className="hidden md:flex items-center gap-2 text-zinc-500 hover:text-white transition-colors duration-200 px-4 py-2 rounded-lg text-sm border border-transparent hover:border-white/10 hover:bg-white/5"
                 onClick={handleResumeDownload}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <Download className="w-4 h-4 opacity-70 group-hover:opacity-100 group-hover:rotate-12 group-hover:text-cyan-400 transition-all duration-500 relative z-10" />
-                <span className="relative z-10">Resume</span>
-                <Sparkles className="w-3 h-3 opacity-0 group-hover:opacity-70 transition-opacity duration-500 relative z-10 text-cyan-300" />
+                <Download className="w-4 h-4" />
+                <span>Resume</span>
               </Button>
 
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden text-gray-400 hover:text-white hover:bg-cyan-500/20 transition-all duration-300 hover:scale-110 rounded-full border border-transparent hover:border-cyan-500/30"
+                className="md:hidden text-zinc-500 hover:text-white hover:bg-white/10 transition-colors duration-200 rounded-lg"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -202,82 +140,77 @@ function HeaderMain() {
         </div>
       </header>
 
+      {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-40 md:hidden transition-all duration-500 ${
+        className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
           isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
-        <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setIsMobileMenuOpen(false)} />
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setIsMobileMenuOpen(false)} />
         <div
-          className={`absolute top-0 right-0 h-full w-80 bg-gradient-to-br from-[#0a0a0a]/98 via-[#1a1a1a]/98 to-black/98 backdrop-blur-md border-l border-[#262626] shadow-2xl shadow-cyan-500/5 transform transition-all duration-500 ${
+          className={`absolute top-0 right-0 h-full w-72 bg-[#0a0a0a]/95 backdrop-blur-xl border-l border-white/5 shadow-2xl transform transition-all duration-300 ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-           <div className="p-8 pt-24">
-              <div className="flex flex-col gap-4">
-                {navLinks.map((link, index) => {
-                  const IconComponent = link.icon
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="flex items-center gap-4 text-slate-300 hover:text-white transition-all duration-300 text-lg py-4 px-5 rounded-2xl bg-gradient-to-br from-cyan-500/5 to-cyan-600/5 hover:from-cyan-500/20 hover:to-cyan-600/20 group border border-cyan-500/10 hover:border-cyan-500/30 shadow-lg hover:shadow-cyan-500/20"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      <IconComponent className="w-5 h-5 group-hover:scale-110 transition-transform duration-300 group-hover:rotate-12 text-cyan-400" />
-                      <span className="font-medium">{link.label}</span>
-                    </Link>
-                  )
-                })}
-                {externalNavLinks.map((link) => {
-                  const IconComponent = link.icon
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="flex items-center gap-4 text-slate-300 hover:text-white transition-all duration-300 text-lg py-4 px-5 rounded-2xl bg-gradient-to-br from-cyan-500/5 to-cyan-600/5 hover:from-cyan-500/20 hover:to-cyan-600/20 group border border-cyan-500/10 hover:border-cyan-500/30 shadow-lg hover:shadow-cyan-500/20"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <IconComponent className="w-5 h-5 group-hover:scale-110 transition-transform duration-300 group-hover:rotate-12 text-cyan-400" />
-                      <span className="font-medium">{link.label}</span>
-                    </Link>
-                  )
-                })}
-                <Button
-                  variant="outline"
-                  className="flex items-center justify-center gap-3 border-cyan-500/50 text-cyan-300 hover:text-white hover:border-cyan-400 transition-all duration-300 mt-4 bg-gradient-to-br from-cyan-950/50 to-cyan-900/50 hover:from-cyan-500/20 hover:to-cyan-600/20 rounded-2xl py-4 group shadow-lg shadow-cyan-500/20"
-                  onClick={() => {
-                    handleResumeDownload()
-                    setIsMobileMenuOpen(false)
-                  }}
-                >
-                  <Download className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
-                  <span className="font-semibold">Download Resume</span>
-                </Button>
-              </div>
-            </div>
+           <div className="p-6 pt-20">
+             <div className="flex flex-col gap-2">
+               {navLinks.map((link) => {
+                 const IconComponent = link.icon
+                 return (
+                   <Link
+                     key={link.href}
+                     href={link.href}
+                     className="flex items-center gap-3 text-zinc-400 hover:text-white transition-colors duration-200 py-3 px-4 rounded-lg hover:bg-white/5"
+                     onClick={() => setIsMobileMenuOpen(false)}
+                   >
+                     <IconComponent className="w-5 h-5" />
+                     <span className="font-medium">{link.label}</span>
+                   </Link>
+                 )
+               })}
+               {externalNavLinks.map((link) => {
+                 const IconComponent = link.icon
+                 return (
+                   <Link
+                     key={link.href}
+                     href={link.href}
+                     className="flex items-center gap-3 text-zinc-400 hover:text-white transition-colors duration-200 py-3 px-4 rounded-lg hover:bg-white/5"
+                     onClick={() => setIsMobileMenuOpen(false)}
+                   >
+                     <IconComponent className="w-5 h-5" />
+                     <span className="font-medium">{link.label}</span>
+                   </Link>
+                 )
+               })}
+               <Button
+                 variant="outline"
+                 className="flex items-center justify-center gap-2 border-white/10 text-zinc-400 hover:text-white hover:border-white/20 transition-colors duration-200 mt-4 py-3"
+                 onClick={() => {
+                   handleResumeDownload()
+                   setIsMobileMenuOpen(false)
+                 }}
+               >
+                 <Download className="w-4 h-4" />
+                 <span className="font-medium">Download Resume</span>
+               </Button>
+             </div>
+           </div>
         </div>
       </div>
 
+      {/* Bottom Nav (on scroll) */}
       <div
         ref={bottomNavRef}
-        className={`fixed bottom-0 left-0 right-0 z-50 transition-all duration-700 ease-out ${
+        className={`fixed bottom-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
           isScrolled ? "transform translate-y-0 opacity-100" : "transform translate-y-full opacity-0"
         }`}
       >
-        <div className="relative border-t border-[#262626] bg-gradient-to-br from-[#0a0a0a]/95 via-[#1a1a1a]/95 to-black/95 backdrop-blur-md shadow-2xl shadow-cyan-500/5">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/3 to-transparent"></div>
-
-          <div className="container mx-auto px-6 py-3.5 relative">
+        <div className="relative border-t border-white/5 bg-[#0a0a0a]/90 backdrop-blur-xl">
+          <div className="container mx-auto px-6 py-3">
             <nav className="flex items-center justify-between">
-              <div className="text-xl font-bold group cursor-pointer">
-                <span className="bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent font-extrabold">
-                  A
-                </span>
-                <span className="text-slate-300 ml-1.5 group-hover:text-cyan-300 transition-colors duration-300 font-semibold">
-                  D
-                </span>
+              <div className="text-lg font-bold cursor-pointer">
+                <span className="text-white font-bold" style={{ fontFamily: 'var(--font-display)' }}>A</span>
+                <span className="text-zinc-600 ml-1 font-medium">D</span>
               </div>
 
               <div className="hidden md:flex items-center gap-1">
@@ -285,21 +218,21 @@ function HeaderMain() {
                   <div key={link.href} className="flex items-center">
                     <Link
                       href={link.href}
-                      className="text-slate-300 hover:text-white transition-all duration-300 text-sm hover:scale-105 py-2 px-4 rounded-full hover:bg-gradient-to-br hover:from-cyan-500/10 hover:to-cyan-600/10 font-medium tracking-wide"
+                      className="text-zinc-500 hover:text-white transition-colors duration-200 text-sm py-2 px-3 rounded-lg hover:bg-white/5 font-medium"
                     >
                       {link.label}
                     </Link>
                     {index < navLinks.length - 1 && (
-                      <div className="h-4 w-px bg-gradient-to-b from-transparent via-[#404040]/50 to-transparent mx-0.5"></div>
+                      <div className="h-4 w-px bg-white/10 mx-1"></div>
                     )}
                   </div>
                 ))}
-                <div className="h-4 w-px bg-gradient-to-b from-transparent via-[#404040]/50 to-transparent mx-0.5"></div>
                 {externalNavLinks.map((link) => (
                   <div key={link.href} className="flex items-center">
+                    <div className="h-4 w-px bg-white/10 mx-1"></div>
                     <Link
                       href={link.href}
-                      className="text-slate-300 hover:text-white transition-all duration-300 text-sm hover:scale-105 py-2 px-4 rounded-full hover:bg-gradient-to-br hover:from-cyan-500/10 hover:to-cyan-600/10 font-medium tracking-wide"
+                      className="text-zinc-500 hover:text-white transition-colors duration-200 text-sm py-2 px-3 rounded-lg hover:bg-white/5 font-medium"
                     >
                       {link.label}
                     </Link>
@@ -307,51 +240,30 @@ function HeaderMain() {
                 ))}
               </div>
 
-              <div className="flex md:hidden items-center gap-3">
-                {navLinks.map((link, index) => {
+              <div className="flex md:hidden items-center gap-2">
+                {navLinks.map((link) => {
                    const IconComponent = link.icon
                    return (
-                     <div key={link.href} className="flex items-center">
-                       <Link
-                         href={link.href}
-                         className="text-slate-300 hover:text-white transition-all duration-300 text-xs hover:scale-110 flex flex-col items-center gap-1.5 py-1"
-                       >
-                         <IconComponent className="w-4 h-4 text-cyan-400" />
-                         <span className="font-medium">{link.label}</span>
-                       </Link>
-                       {index < navLinks.length - 1 && (
-                         <div className="h-10 w-px bg-gradient-to-b from-transparent via-[#404040]/50 to-transparent mx-2"></div>
-                       )}
-                     </div>
+                     <Link
+                       key={link.href}
+                       href={link.href}
+                       className="text-zinc-500 hover:text-white transition-colors duration-200 text-xs flex flex-col items-center gap-1 py-1 px-2"
+                     >
+                       <IconComponent className="w-4 h-4" />
+                       <span className="font-medium">{link.label}</span>
+                     </Link>
                    )
                  })}
-                 <div className="h-10 w-px bg-gradient-to-b from-transparent via-[#404040]/50 to-transparent mx-2"></div>
-                 {externalNavLinks.map((link) => {
-                   const IconComponent = link.icon
-                   return (
-                     <div key={link.href} className="flex items-center">
-                       <Link
-                         href={link.href}
-                         className="text-slate-300 hover:text-white transition-all duration-300 text-xs hover:scale-110 flex flex-col items-center gap-1.5 py-1"
-                       >
-                         <IconComponent className="w-4 h-4 text-cyan-400" />
-                         <span className="font-medium">{link.label}</span>
-                       </Link>
-                     </div>
-                   )
-                 })}
-               </div>
+              </div>
 
               <Button
                 variant="ghost"
                 size="sm"
-                className="flex items-center gap-2 text-slate-300 hover:text-white transition-all duration-500 hover:scale-105 px-4 py-2 rounded-full font-medium tracking-wide text-sm border border-transparent hover:border-cyan-400/70 hover:bg-cyan-500/[0.14] group relative overflow-hidden"
+                className="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors duration-200 px-3 py-2 rounded-lg text-sm border border-transparent hover:border-white/10 hover:bg-white/5"
                 onClick={handleResumeDownload}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <Download className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 group-hover:rotate-12 group-hover:text-cyan-400 transition-all duration-500 relative z-10" />
-                <span className="hidden sm:inline relative z-10">Resume</span>
-                <Sparkles className="w-3 h-3 opacity-0 group-hover:opacity-70 transition-opacity duration-500 relative z-10 text-cyan-300" />
+                <Download className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Resume</span>
               </Button>
             </nav>
           </div>
@@ -359,7 +271,7 @@ function HeaderMain() {
       </div>
 
       {/* Spacer for fixed header */}
-      <div className="h-24"></div>
+      <div className="h-16"></div>
     </>
   )
 }

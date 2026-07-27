@@ -36,33 +36,20 @@ export default function TimelineHero({ eventCount, yearStart, yearEnd }: Timelin
   return (
     <div
       ref={heroRef}
-      className="relative w-full py-16 md:py-24 px-4 md:px-6 lg:px-8 bg-gradient-to-b from-zinc-900 to-zinc-950 overflow-hidden"
+      className="relative w-full py-16 md:py-24 px-4 md:px-6 lg:px-8 bg-gradient-to-b from-[#0a0a0a] to-[#111111] overflow-hidden"
     >
-      {/* Subtle background grid */}
-      <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(90deg, #06b6d4 1px, transparent 1px), linear-gradient(0deg, #06b6d4 1px, transparent 1px)`,
-          backgroundSize: '40px 40px'
-        }}
-      />
-
       {/* Content */}
       <div ref={contentRef} className="relative z-10 max-w-4xl mx-auto">
         {/* Title */}
         <h1
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight"
-          style={{
-            fontFamily: 'var(--font-display)',
-            textShadow: '0 0 20px rgba(6, 182, 212, 0.3)',
-            color: '#ffffff',
-          }}
+          style={{ fontFamily: 'var(--font-display)' }}
         >
           The Architect's <span className="text-cyan-400">Ledger</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl text-gray-400 mb-8 md:mb-10 leading-relaxed max-w-2xl">
+        <p className="text-lg md:text-xl text-zinc-400 mb-8 md:mb-10 leading-relaxed max-w-2xl">
           A journey from uncertainty to mastery. Seven transformative milestones that shaped who I am today.
         </p>
 

@@ -11,39 +11,34 @@ interface FAQItem {
 
 const faqItems: FAQItem[] = [
   {
-    question: "What technologies do you specialize in?",
+    question: "What exactly do you do?",
     answer:
-      "I specialize in full-stack development with TypeScript, React, Node.js, and Next.js. For backend systems: PostgreSQL, MongoDB, GraphQL, and microservices architecture. For automation: n8n, Zapier, and custom integrations. Cloud infrastructure: AWS (EC2, Lambda, RDS, S3). Real-time systems: WebSockets, Socket.io. I also work with Docker, Kubernetes, and DevOps tooling.",
+      "I help people connect the tools they already use. WhatsApp to Slack, spreadsheets to web apps, manual processes to automated workflows. If you have services that don't talk to each other, I make them talk. I also build custom tools and dashboards when off-the-shelf solutions don't cut it.",
   },
   {
-    question: "What's your experience with zero-downtime deployments?",
+    question: "I'm not technical — can I still work with you?",
     answer:
-      "I've led database migrations for 32,000+ users with a 0.004% error rate and zero downtime. This involved blue-green deployments, careful data validation, and rollback strategies. I specialize in planning and executing critical infrastructure changes while maintaining system availability.",
+      "Absolutely. Most of my clients aren't developers. You tell me what's broken or what's slowing you down, and I figure out the best way to fix it. I handle all the technical stuff — you just see things working.",
   },
   {
-    question: "Can you handle payment integrations?",
+    question: "What integrations do you work with?",
     answer:
-      "Yes. I've built multi-gateway payment systems handling $2M+ daily transaction volume. Experience includes Stripe, PayPal, custom payment processors, PCI compliance, secure data handling, webhook management, and reconciliation systems. I focus on reliability, security, and fraud prevention.",
+      "WhatsApp Business API, Discord, Instagram, Slack, email services, Google Sheets, CRMs, payment processors, databases, custom APIs — basically anything with a webhook or an API. I've built microservices architecture connecting 12+ services.",
   },
   {
-    question: "What's your approach to system architecture?",
+    question: "How does pricing work?",
     answer:
-      "I design systems with scalability, maintainability, and business goals in mind. I use microservices for complex systems, evaluate trade-offs between different architectural patterns, and ensure systems can handle 100K+ concurrent users. I focus on clear documentation, monitoring, and operational simplicity.",
+      "It depends on the project. Simple automations can be quick and affordable. Bigger systems with multiple integrations take more planning. I'm transparent about costs before we start — no surprises. Let's chat about what you need and I'll give you a real number.",
   },
   {
-    question: "How do you handle real-time features?",
+    question: "Can you build a full app, not just automations?",
     answer:
-      "I've built real-time web applications with <100ms latency using WebSockets, Socket.io, and server-sent events. I design efficient data synchronization, handle connection management, and optimize for performance and scalability.",
+      "Yes. I build web apps, dashboards, internal tools, and client-facing products. React, Next.js, Node.js, databases — the full stack. Some people come to me for an automation and end up with a whole system. That's totally fine.",
   },
   {
-    question: "What process automation tools do you use?",
+    question: "How do we get started?",
     answer:
-      "Primarily n8n for enterprise automation workflows. I've automated 50+ business processes with <0.1% error rates. I also work with Zapier, Make, and custom automation solutions. My focus is on reliable, maintainable workflows that integrate with existing systems.",
-  },
-  {
-    question: "Can you help optimize performance?",
-    answer:
-      "Yes. I've achieved 40-60% performance improvements across projects. This includes database query optimization, caching strategies, code splitting, load balancing, CDN implementation, and infrastructure optimization. I focus on identifying bottlenecks and delivering measurable improvements.",
+      "Send me a message here or reach out on WhatsApp/Discord. Tell me what you're trying to do, and I'll let you know if I can help. Usually we hop on a quick call, I ask a few questions, and we go from there. No formal proposals unless you want one.",
   },
 ]
 
@@ -51,24 +46,22 @@ export function FAQ() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
 
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-b from-black via-[#0a0a0a]/50 to-black">
+    <section className="py-16 sm:py-20 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/50 to-[#0a0a0a]">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4" style={{ fontFamily: "var(--font-display)" }}>
-            Frequently Asked <span className="text-cyan-400">Questions</span>
+            Frequently Asked <span className="text-blue-400">Questions</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Answers to common questions about my work, technologies, and experience.
+          <p className="text-zinc-500 max-w-2xl mx-auto">
+            Answers to common questions about working with me.
           </p>
         </div>
 
-        {/* FAQ Items */}
         <div className="space-y-3 sm:space-y-4">
           {faqItems.map((item, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
               viewport={{ once: true }}
@@ -76,7 +69,7 @@ export function FAQ() {
             >
               <button
                 onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
-                className="w-full text-left px-4 sm:px-6 py-4 rounded-xl bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-[#262626] hover:border-cyan-500/40 transition-all duration-300 group-hover:from-[#0f0f0f] group-hover:to-[#1a1a1a]"
+                className="w-full text-left px-4 sm:px-6 py-4 rounded-xl bg-[#111111] border border-white/5 hover:border-white/10 transition-all duration-200"
               >
                 <div className="flex items-start justify-between gap-4">
                   <h3 className="font-semibold text-white text-sm sm:text-base leading-tight">
@@ -87,12 +80,11 @@ export function FAQ() {
                     transition={{ duration: 0.2 }}
                     className="flex-shrink-0 mt-1"
                   >
-                    <ChevronDown className="w-5 h-5 text-cyan-400/60 group-hover:text-cyan-400 transition-colors" />
+                    <ChevronDown className="w-5 h-5 text-zinc-500 transition-colors" />
                   </motion.div>
                 </div>
               </button>
 
-              {/* Answer */}
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
                 animate={
@@ -103,8 +95,8 @@ export function FAQ() {
                 transition={{ duration: 0.3 }}
                 className="overflow-hidden"
               >
-                <div className="px-4 sm:px-6 py-4 bg-black/40 border border-t-0 border-[#262626] rounded-b-xl">
-                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed">{item.answer}</p>
+                <div className="px-4 sm:px-6 py-4 bg-[#0a0a0a] border border-t-0 border-white/5 rounded-b-xl">
+                  <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">{item.answer}</p>
                 </div>
               </motion.div>
             </motion.div>
@@ -112,7 +104,6 @@ export function FAQ() {
         </div>
       </div>
 
-      {/* FAQ Schema Markup */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

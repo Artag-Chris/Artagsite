@@ -79,12 +79,12 @@ function Hero() {
   }, [h1Done])
 
   const bioChunks: { text: string; bold: boolean }[] = [
-    { text: "I'm Christian — a full-stack developer from Colombia who has moved ", bold: false },
-    { text: "32,000+ users", bold: true },
-    { text: " between databases without losing a single one, built payment flows handling ", bold: false },
-    { text: "$2M+ daily", bold: true },
-    { text: ", and wired up automations that run 24/7 while people sleep. ", bold: false },
-    { text: "I build systems I'm proud to put my name on.", bold: false },
+    { text: "I'm Christian — I connect services, automate workflows, and build tools that save you time. From ", bold: false },
+    { text: "WhatsApp to Slack", bold: true },
+    { text: ", from ", bold: false },
+    { text: "spreadsheets to full apps", bold: true },
+    { text: ", I make things work together so you don't have to. ", bold: false },
+    { text: "Based in Pereira, Colombia 🇨🇴", bold: false },
   ]
 
   // Handle video load and play
@@ -123,7 +123,7 @@ function Hero() {
       {showCityLoader && (
         <RandomLoader
           onLoadingComplete={() => setShowCityLoader(false)}
-          minDisplayTime={3000}
+          minDisplayTime={1500}
         />
       )}
 
@@ -169,27 +169,27 @@ function Hero() {
           />
         </div>
 
-        {/* Dark overlay - deeper for Techonic Precision */}
+        {/* Dark overlay */}
         <div
-          className={`absolute inset-0 z-10 transition-all duration-500 ${isMobile ? "bg-black/75" : "bg-black/60"}`}
+          className={`absolute inset-0 z-10 transition-all duration-500 ${isMobile ? "bg-black/70" : "bg-black/50"}`}
         />
 
-        {/* Grid Reveal Overlay - Signature Element */}
+        {/* Subtle grid accent */}
         <div className="absolute inset-0 z-12 grid-reveal"
           style={{
             backgroundImage: `
-              linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px),
-              linear-gradient(0deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px)
+              linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+              linear-gradient(0deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px)
             `,
-            backgroundSize: '40px 40px',
-            opacity: videoLoaded ? 0.3 : 0,
+            backgroundSize: '60px 60px',
+            opacity: videoLoaded ? 0.15 : 0,
             transition: 'opacity 0.6s ease-out',
             pointerEvents: 'none',
           }}
         />
 
-        {/* Smooth fade-out gradient at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent via-black/30 to-black z-15 pointer-events-none" />
+        {/* Bottom fade gradient */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-[#0a0a0a] z-15 pointer-events-none" />
       </div>
 
       {/* Hero Section Content */}
@@ -197,46 +197,35 @@ function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full items-center">
            {/* Left Content - with stagger animation */}
            <div className="max-w-2xl" style={{ animation: 'fadeInUp 0.8s ease-out 0.2s backwards' }}>
-             <Badge className="mb-4 bg-indigo-500/15 text-indigo-300 hover:bg-indigo-500/25 transition-all border border-indigo-500/40 backdrop-blur-sm">
+               <Badge className="mb-4 bg-amber-500/10 text-amber-400 hover:bg-amber-500/15 transition-all border border-amber-500/20 backdrop-blur-sm">
                 <TypingAnimation
-                  phrases={["Building things that matter", "Clean code. Real impact.", "Always learning."]}
+                    phrases={["I connect what's broken", "I automate what's boring", "Let's build something cool"]}
                   typeSpeed={80}
                   eraseSpeed={40}
                   delayBetweenPhrases={1500}
                   loop={true}
                 />
              </Badge>
-             <motion.h1
-               className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight"
-               style={{
-                 fontFamily: 'var(--font-display)',
-                 background: 'linear-gradient(135deg, #ffffff 0%, #06b6d4 50%, #6366f1 100%)',
-                 WebkitBackgroundClip: 'text',
-                 WebkitTextFillColor: 'transparent',
-                 backgroundClip: 'text',
-               }}
-               initial={{ opacity: 0.2 }}
-               animate={showCityLoader ? { opacity: 0.2 } : { opacity: 1 }}
-               transition={{ duration: 1.8, delay: 0, ease: "linear" }}
-             >
-               <span className="block">I Build Systems</span>
-               <span className="block">
-                 <span
-                   className="relative inline-block"
-                   style={{
-                     background: 'linear-gradient(135deg, #06b6d4 0%, #06b6d4 100%)',
-                     WebkitBackgroundClip: 'text',
-                     WebkitTextFillColor: 'transparent',
-                     backgroundClip: 'text',
-                     textShadow: '0 0 40px rgba(6, 182, 212, 0.5)',
-                     filter: 'drop-shadow(0 0 20px rgba(6, 182, 212, 0.4))',
-                   }}
-                 >
-                   That Don't Break.
-                 </span>
-               </span>
-               <span className="block">Or Slow Down.</span>
-             </motion.h1>
+               <motion.h1
+                className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 leading-[1.1]"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  color: '#ffffff',
+                }}
+                initial={{ opacity: 0.2 }}
+                animate={showCityLoader ? { opacity: 0.2 } : { opacity: 1 }}
+                transition={{ duration: 1.8, delay: 0, ease: "linear" }}
+              >
+                <span className="block">I Connect Stuff.</span>
+                <span className="block">
+                  <span
+                    className="text-blue-400"
+                  >
+                    I Automate the Boring.
+                  </span>
+                </span>
+                <span className="block text-zinc-400">Let&apos;s Build Something.</span>
+              </motion.h1>
              <AnimatePresence>
                {h1Done && (
                  <motion.div
@@ -249,8 +238,8 @@ function Hero() {
                    }}
                    style={{ overflow: "hidden" }}
                  >
-                   <motion.p
-                     className="text-gray-300 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl leading-relaxed"
+                    <motion.p
+                      className="text-zinc-400 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl leading-relaxed"
                      initial="hidden"
                      animate="visible"
                      variants={{
@@ -281,29 +270,17 @@ function Hero() {
 
              <AnimatePresence>
                {bioDone && (
-                 <motion.div
-                   key="cta-wrap"
-                   className="flex flex-col sm:flex-row gap-4"
-                   initial={{ opacity: 0, filter: "drop-shadow(0 0 0px rgba(99, 102, 241, 0))" }}
-                   animate={{
-                     opacity: 1,
-                     filter: [
-                       "drop-shadow(0 0 0px rgba(99, 102, 241, 0))",
-                       "drop-shadow(0 0 0px rgba(99, 102, 241, 0))",
-                       "drop-shadow(0 0 18px rgba(99, 102, 241, 0.75))",
-                       "drop-shadow(0 0 0px rgba(99, 102, 241, 0))",
-                     ],
-                   }}
-                   transition={{
-                     opacity: { duration: 0.6, ease: "easeOut" },
-                     filter: {
-                       duration: 1.4,
-                       times: [0, 0.4, 0.55, 1],
-                       ease: "easeInOut",
-                     },
-                   }}
-                 >
-                   <CTAButton text={"Say Hello"} icon={<Sparkles />} />
+                  <motion.div
+                    key="cta-wrap"
+                    className="flex flex-col sm:flex-row gap-4"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      opacity: { duration: 0.5, ease: "easeOut" },
+                      y: { duration: 0.5, ease: "easeOut" },
+                    }}
+                  >
+                   <CTAButton text={"Got something in mind?"} icon={<Sparkles />} />
                  </motion.div>
                )}
              </AnimatePresence>

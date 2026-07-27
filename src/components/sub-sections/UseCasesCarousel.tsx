@@ -1,20 +1,19 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { useCasesData, UseCase } from "@/data/skillsData"
+import { UseCase } from "@/data/skillsData"
 import { UseCaseCard } from "./UseCaseCard"
 
 interface UseCasesCarouselProps {
+  useCases: UseCase[]
   onSelectUseCase?: (useCase: UseCase) => void
 }
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
 
-// rAF-driven smooth scroll with consistent easing across browsers (native
-// scroll-behavior: smooth feels rigid on Windows). Cancellable via the returned function.
-function animateScrollLeft(el: HTMLElement, targetLeft: number, duration = 700) {
+function animateScrollLeft(el: HTMLElement, targetLeft: number, duration = 600) {
   const startLeft = el.scrollLeft
   const distance = targetLeft - startLeft
   if (Math.abs(distance) < 1) return () => {}
@@ -29,30 +28,36 @@ function animateScrollLeft(el: HTMLElement, targetLeft: number, duration = 700) 
   return () => cancelAnimationFrame(frame)
 }
 
-export function UseCasesCarousel({ onSelectUseCase }: UseCasesCarouselProps) {
+export function UseCasesCarousel({ useCases, onSelectUseCase }: UseCasesCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
-  const containerRef = useRef<HTMLDivElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const cancelScrollRef = useRef<() => void>(() => {})
 
-  // Check scroll position
-  const checkScroll = () => {
+  const checkScroll = useCallback(() => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
-      setCanScrollLeft(scrollLeft > 0)
+      setCanScrollLeft(scrollLeft > 10)
       setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
     }
-  }
+  }, [])
 
   useEffect(() => {
     checkScroll()
     window.addEventListener("resize", checkScroll)
     return () => window.removeEventListener("resize", checkScroll)
-  }, [])
+  }, [checkScroll])
 
-  // First child is the padding spacer; cards start at index 1.
+  useEffect(() => {
+    setCurrentIndex(0)
+    setCanScrollLeft(false)
+    setCanScrollRight(true)
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft = 0
+    }
+  }, [useCases])
+
   const getCardEl = (index: number): HTMLElement | null => {
     const container = scrollContainerRef.current
     if (!container) return null
@@ -65,28 +70,25 @@ export function UseCasesCarousel({ onSelectUseCase }: UseCasesCarouselProps) {
     if (!container || !cardEl) return
     cancelScrollRef.current()
     const target = cardEl.offsetLeft - (container.clientWidth - cardEl.offsetWidth) / 2
-    cancelScrollRef.current = animateScrollLeft(container, target, 700)
+    cancelScrollRef.current = animateScrollLeft(container, target, 600)
     setCurrentIndex(index)
   }
 
   const scroll = (direction: "left" | "right") => {
     const next = direction === "right"
-      ? Math.min(currentIndex + 1, useCasesData.length - 1)
+      ? Math.min(currentIndex + 1, useCases.length - 1)
       : Math.max(currentIndex - 1, 0)
     scrollToIndex(next)
   }
 
-  const handleDotClick = (index: number) => scrollToIndex(index)
-
-  // Pick the card whose center is closest to the viewport center.
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     checkScroll()
     const container = scrollContainerRef.current
     if (!container) return
     const center = container.scrollLeft + container.clientWidth / 2
     let bestIndex = 0
     let bestDist = Infinity
-    for (let i = 0; i < useCasesData.length; i++) {
+    for (let i = 0; i < useCases.length; i++) {
       const el = getCardEl(i)
       if (!el) continue
       const cardCenter = el.offsetLeft + el.offsetWidth / 2
@@ -97,102 +99,89 @@ export function UseCasesCarousel({ onSelectUseCase }: UseCasesCarouselProps) {
       }
     }
     setCurrentIndex(bestIndex)
-  }
+  }, [checkScroll, useCases.length])
+
+  const progress = useCases.length > 1 ? currentIndex / (useCases.length - 1) : 0
 
   return (
-    <div className="w-full max-w-7xl mx-auto" ref={containerRef}>
-      {/* Carousel Container */}
-      <div className="relative group overflow-hidden rounded-xl">
-        {/* Right fade gradient — elegant clip instead of hard cut */}
-        <div className="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-black via-black/60 to-transparent z-10 pointer-events-none" />
-        {/* Left fade gradient */}
-        <div className="absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-black via-black/60 to-transparent z-10 pointer-events-none" />
-        {/* Scroll Container */}
-        <div
-          ref={scrollContainerRef}
-          className="flex gap-6 overflow-x-auto pb-4 px-4 md:px-0"
-          style={{
-            scrollSnapType: "x mandatory",
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
-          }}
-          onScroll={handleScroll}
-        >
-          {/* Hide scrollbar */}
-          <style>{`
-            div::-webkit-scrollbar {
-              display: none;
-            }
-          `}</style>
+    <div className="w-full">
+      <div className="relative max-w-7xl mx-auto">
+        {/* Carousel Container */}
+        <div className="relative group">
+          {/* Edge fades */}
+          <div className="absolute left-0 top-0 h-full w-16 sm:w-32 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 h-full w-16 sm:w-32 bg-gradient-to-l from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent z-10 pointer-events-none" />
 
-          {/* Padding start */}
-          <div className="flex-shrink-0 w-4 md:w-8 lg:w-12" />
+          {/* Scroll Container */}
+          <div
+            ref={scrollContainerRef}
+            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 px-6 sm:px-10 lg:px-16"
+            style={{
+              scrollSnapType: "x mandatory",
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            }}
+            onScroll={handleScroll}
+          >
+            <style>{`
+              div::-webkit-scrollbar { display: none; }
+            `}</style>
 
-          {/* Cards */}
-           {useCasesData.map((useCase, index) => (
-            <UseCaseCard
-              key={useCase.id}
-              useCase={useCase}
-              index={index}
-              isCarousel={true}
-              onSelect={onSelectUseCase}
-            />
-          ))}
-
-          {/* Padding end */}
-          <div className="flex-shrink-0 w-4 md:w-8 lg:w-12" />
+            {useCases.map((useCase, index) => (
+              <UseCaseCard
+                key={useCase.id}
+                useCase={useCase}
+                index={index}
+                isCarousel={true}
+                onSelect={onSelectUseCase}
+              />
+            ))}
+          </div>
         </div>
 
-        {/* Left Arrow Button */}
-        <motion.button
-          initial={{ opacity: 0, x: -10 }}
-          whileInView={{ opacity: canScrollLeft ? 1 : 0.3 }}
-          transition={{ duration: 0.3 }}
-          onClick={() => scroll("left")}
-          disabled={!canScrollLeft}
-          className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/60 backdrop-blur-sm border border-cyan-500/30 hover:border-cyan-500/80 hover:bg-black/80 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group-hover:opacity-100 opacity-0"
-          aria-label="Scroll left"
-        >
-          <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-cyan-400" />
-        </motion.button>
+        {/* Navigation — below carousel */}
+        <div className="flex items-center justify-between px-6 sm:px-10 lg:px-16 mt-6">
+          {/* Arrow buttons */}
+          <div className="flex items-center gap-2">
+            <motion.button
+              onClick={() => scroll("left")}
+              disabled={!canScrollLeft}
+              className="p-2.5 rounded-xl bg-white/[0.04] backdrop-blur-sm border border-white/[0.06] hover:bg-white/[0.08] hover:border-white/[0.12] transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="w-4 h-4 text-zinc-400" />
+            </motion.button>
+            <motion.button
+              onClick={() => scroll("right")}
+              disabled={!canScrollRight}
+              className="p-2.5 rounded-xl bg-white/[0.04] backdrop-blur-sm border border-white/[0.06] hover:bg-white/[0.08] hover:border-white/[0.12] transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-4 h-4 text-zinc-400" />
+            </motion.button>
+          </div>
 
-        {/* Right Arrow Button */}
-        <motion.button
-          initial={{ opacity: 0, x: 10 }}
-          whileInView={{ opacity: canScrollRight ? 1 : 0.3 }}
-          transition={{ duration: 0.3 }}
-          onClick={() => scroll("right")}
-          disabled={!canScrollRight}
-          className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/60 backdrop-blur-sm border border-cyan-500/30 hover:border-cyan-500/80 hover:bg-black/80 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group-hover:opacity-100 opacity-0"
-          aria-label="Scroll right"
-        >
-          <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-cyan-400" />
-        </motion.button>
-      </div>
+          {/* Progress bar */}
+          <div className="flex-1 max-w-[200px] mx-4 sm:mx-8">
+            <div className="h-[2px] bg-white/[0.06] rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-gradient-to-r from-blue-500 to-blue-400 rounded-full"
+                animate={{ width: `${(1 / useCases.length) * 100}%` }}
+                style={{ marginLeft: `${progress * (100 - (100 / useCases.length))}%` }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              />
+            </div>
+          </div>
 
-      {/* Navigation Dots */}
-      <div className="flex justify-center gap-2 mt-8">
-        {useCasesData.map((_, index) => (
-          <motion.button
-            key={index}
-            onClick={() => handleDotClick(index)}
-            className={`transition-all duration-300 rounded-full border ${
-              currentIndex === index
-                ? "bg-cyan-500 border-cyan-400 w-3 h-3"
-                : "bg-gray-700/40 border-gray-600/40 w-2 h-2 hover:bg-cyan-500/40 hover:border-cyan-500/40"
-            }`}
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.9 }}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
-
-      {/* Slide counter - Optional */}
-      <div className="flex justify-center mt-4">
-        <span className="text-xs md:text-sm font-mono text-gray-500">
-          {currentIndex + 1} / {useCasesData.length}
-        </span>
+          {/* Counter */}
+          <span className="text-xs font-mono text-zinc-600 tabular-nums">
+            {String(currentIndex + 1).padStart(2, "0")} / {String(useCases.length).padStart(2, "0")}
+          </span>
+        </div>
       </div>
     </div>
   )

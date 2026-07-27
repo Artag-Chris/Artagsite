@@ -40,7 +40,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "First Steps in Programming",
     description:
       "Discovered my passion for coding through a web development course. Built my first HTML and CSS website, sparking a lifelong journey into the world of programming.",
-    icon: <Code className="h-6 w-6 text-emerald-500" />,
+    icon: <Code className="h-6 w-6 text-cyan-400" />,
     imageUrl: "/placeholder.svg?height=400&width=600",
     imageAlt: "First coding experience",
     category: "education",
@@ -53,7 +53,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "Computer Science Degree",
     description:
       "Enrolled in a Computer Science program where I built a strong foundation in algorithms, data structures, and software engineering principles. Participated in coding competitions and hackathons.",
-    icon: <GraduationCap className="h-6 w-6 text-emerald-500" />,
+    icon: <GraduationCap className="h-6 w-6 text-cyan-400" />,
     imageUrl: "/placeholder.svg?height=400&width=600",
     imageAlt: "University graduation",
     category: "education",
@@ -66,7 +66,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "First Professional Role",
     description:
       "Joined a startup as a junior developer where I worked on real-world projects. Learned to collaborate with a team and deliver under tight deadlines. Developed skills in React and Node.js.",
-    icon: <Briefcase className="h-6 w-6 text-emerald-500" />,
+    icon: <Briefcase className="h-6 w-6 text-cyan-400" />,
     imageUrl: "/placeholder.svg?height=400&width=600",
     imageAlt: "First job experience",
     category: "work",
@@ -79,7 +79,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "Major Project Launch",
     description:
       "Led the development of a critical e-commerce platform that significantly increased company revenue. Implemented modern architecture patterns and optimized for performance and scalability.",
-    icon: <Rocket className="h-6 w-6 text-emerald-500" />,
+    icon: <Rocket className="h-6 w-6 text-cyan-400" />,
     imageUrl: "/placeholder.svg?height=400&width=600",
     imageAlt: "Project launch celebration",
     category: "project",
@@ -92,7 +92,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "Overcoming Challenges",
     description:
       "Navigated through the pandemic by adapting to remote work and leading digital transformation initiatives. Learned new technologies and methodologies to stay relevant in a changing landscape.",
-    icon: <Lightbulb className="h-6 w-6 text-emerald-500" />,
+    icon: <Lightbulb className="h-6 w-6 text-cyan-400" />,
     imageUrl: "/placeholder.svg?height=400&width=600",
     imageAlt: "Remote work setup",
     category: "achievement",
@@ -105,7 +105,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "Industry Recognition",
     description:
       "Received an industry award for innovative solutions in web development. Published technical articles and spoke at conferences, establishing myself as a thought leader in the development community.",
-    icon: <Award className="h-6 w-6 text-emerald-500" />,
+    icon: <Award className="h-6 w-6 text-cyan-400" />,
     imageUrl: "/placeholder.svg?height=400&width=600",
     imageAlt: "Award ceremony",
     category: "achievement",
@@ -118,7 +118,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "Current Journey",
     description:
       "Currently focused on exploring emerging technologies like AI and blockchain while mentoring the next generation of developers. Building a personal brand and contributing to open-source projects.",
-    icon: <Heart className="h-6 w-6 text-emerald-500" />,
+    icon: <Heart className="h-6 w-6 text-cyan-400" />,
     imageUrl: "/placeholder.svg?height=400&width=600",
     imageAlt: "Current workspace",
     category: "work",
@@ -136,11 +136,11 @@ const VerticalTimelineEvent = ({ event, index, isLast }: { event: TimelineEvent;
   return (
     <div className="mb-24 last:mb-0 relative" ref={ref}>
       {/* Timeline line */}
-      <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-emerald-500/80 to-emerald-500/80"></div>
+      <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-cyan-400/80 to-cyan-400/80"></div>
 
       {/* Connect to next section if this is the last vertical before horizontal */}
       {isLast && index < timelineEvents.length - 1 && timelineEvents[index + 1].direction === "horizontal" && (
-        <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 w-1 h-12 bg-emerald-500/80"></div>
+        <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 w-1 h-12 bg-cyan-400/80"></div>
       )}
 
       {/* Year marker */}
@@ -150,16 +150,16 @@ const VerticalTimelineEvent = ({ event, index, isLast }: { event: TimelineEvent;
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <div className="w-12 h-12 rounded-full bg-zinc-800 border-2 border-emerald-500 flex items-center justify-center">
-          <Calendar className="h-5 w-5 text-emerald-500" />
+        <div className="w-12 h-12 rounded-full bg-zinc-800 border-2 border-cyan-400 flex items-center justify-center">
+          <Calendar className="h-5 w-5 text-cyan-400" />
         </div>
-        <span className="mt-1 text-emerald-500 font-bold">{event.year}</span>
+        <span className="mt-1 text-cyan-400 font-bold">{event.year}</span>
       </motion.div>
 
       <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 ${!isLeft ? "md:flex-row-reverse" : ""}`}>
         {/* Description side */}
         <motion.div
-          className={`bg-zinc-800/50 backdrop-blur-sm p-6 rounded-xl border border-zinc-700 shadow-xl ${
+          className={`bg-[#111111] backdrop-blur-sm p-6 rounded-xl border border-white/5 shadow-xl ${
             !isLeft ? "md:text-right md:col-start-2" : "md:col-start-1"
           }`}
           initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
@@ -167,7 +167,7 @@ const VerticalTimelineEvent = ({ event, index, isLast }: { event: TimelineEvent;
           transition={{ duration: 0.5, delay: 0.3 }}
         >
           <div className={`flex items-center gap-3 mb-3 ${!isLeft ? "md:flex-row-reverse" : ""}`}>
-            <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
               {event.icon}
             </div>
             <h3 className="text-xl font-bold text-white">{event.title}</h3>
@@ -179,10 +179,10 @@ const VerticalTimelineEvent = ({ event, index, isLast }: { event: TimelineEvent;
               event.category === "education"
                 ? "bg-blue-500/20 text-blue-300"
                 : event.category === "work"
-                  ? "bg-purple-500/20 text-purple-300"
+                  ? "bg-indigo-500/10 text-indigo-400"
                   : event.category === "project"
                     ? "bg-amber-500/20 text-amber-300"
-                    : "bg-emerald-500/20 text-emerald-300"
+                    : "bg-cyan-500/10 text-cyan-400"
             }`}
           >
             {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
@@ -198,7 +198,7 @@ const VerticalTimelineEvent = ({ event, index, isLast }: { event: TimelineEvent;
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 to-transparent z-10 rounded-xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-transparent z-10 rounded-xl"></div>
           <Image src={event.imageUrl || "/placeholder.svg"} alt={event.imageAlt} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
         </motion.div>
       </div>
@@ -225,16 +225,16 @@ const HorizontalTimelineEvent = ({
   return (
     <div className="mb-8 relative" ref={ref}>
       {/* Horizontal timeline line */}
-      <div className="absolute top-1/2 transform -translate-y-1/2 left-0 h-1 w-full bg-emerald-500/80"></div>
+      <div className="absolute top-1/2 transform -translate-y-1/2 left-0 h-1 w-full bg-cyan-400/80"></div>
 
       {/* Connect from previous vertical section if this is the first horizontal */}
       {isFirst && index > 0 && timelineEvents[index - 1].direction === "vertical" && (
-        <div className="absolute left-0 top-0 transform -translate-y-full h-24 w-1 bg-emerald-500/80"></div>
+        <div className="absolute left-0 top-0 transform -translate-y-full h-24 w-1 bg-cyan-400/80"></div>
       )}
 
       {/* Connect to next vertical section if this is the last horizontal */}
       {isLast && index < timelineEvents.length - 1 && timelineEvents[index + 1].direction === "vertical" && (
-        <div className="absolute right-0 top-0 transform -translate-y-full h-24 w-1 bg-emerald-500/80"></div>
+        <div className="absolute right-0 top-0 transform -translate-y-full h-24 w-1 bg-cyan-400/80"></div>
       )}
 
       {/* Year marker */}
@@ -244,10 +244,10 @@ const HorizontalTimelineEvent = ({
         animate={isInView ? { opacity: 1, scale: 1 } : {}}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <div className="w-12 h-12 rounded-full bg-zinc-800 border-2 border-emerald-500 flex items-center justify-center">
-          <Calendar className="h-5 w-5 text-emerald-500" />
+        <div className="w-12 h-12 rounded-full bg-zinc-800 border-2 border-cyan-400 flex items-center justify-center">
+          <Calendar className="h-5 w-5 text-cyan-400" />
         </div>
-        <span className="mt-1 text-emerald-500 font-bold">{event.year}</span>
+        <span className="mt-1 text-cyan-400 font-bold">{event.year}</span>
       </motion.div>
 
       <div className={`grid grid-cols-1 md:grid-cols-1 gap-8 ${isTop ? "flex-col" : "flex-col-reverse"}`}>
@@ -255,13 +255,13 @@ const HorizontalTimelineEvent = ({
         <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 ${isTop ? "mt-20" : "mb-20"}`}>
           {/* Description side */}
           <motion.div
-            className="bg-zinc-800/50 backdrop-blur-sm p-6 rounded-xl border border-zinc-700 shadow-xl"
+            className="bg-[#111111] backdrop-blur-sm p-6 rounded-xl border border-white/5 shadow-xl"
             initial={{ opacity: 0, y: isTop ? -50 : 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
                 {event.icon}
               </div>
               <h3 className="text-xl font-bold text-white">{event.title}</h3>
@@ -273,10 +273,10 @@ const HorizontalTimelineEvent = ({
                 event.category === "education"
                   ? "bg-blue-500/20 text-blue-300"
                   : event.category === "work"
-                    ? "bg-purple-500/20 text-purple-300"
+                    ? "bg-indigo-500/10 text-indigo-400"
                     : event.category === "project"
                       ? "bg-amber-500/20 text-amber-300"
-                      : "bg-emerald-500/20 text-emerald-300"
+                      : "bg-cyan-500/10 text-cyan-400"
               }`}
             >
               {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
@@ -290,7 +290,7 @@ const HorizontalTimelineEvent = ({
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 to-transparent z-10 rounded-xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-transparent z-10 rounded-xl"></div>
             <Image src={event.imageUrl || "/placeholder.svg"} alt={event.imageAlt} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
           </motion.div>
         </div>
@@ -304,7 +304,7 @@ const DirectionIndicator = ({ direction }: { direction: "down" | "right" }) => {
   return (
     <div className="flex justify-center my-8">
       <motion.div
-        className="w-12 h-12 rounded-full bg-zinc-800 border-2 border-emerald-500 flex items-center justify-center"
+        className="w-12 h-12 rounded-full bg-zinc-800 border-2 border-cyan-400 flex items-center justify-center"
         animate={{
           y: direction === "down" ? [0, 10, 0] : 0,
           x: direction === "right" ? [0, 10, 0] : 0,
@@ -315,9 +315,9 @@ const DirectionIndicator = ({ direction }: { direction: "down" | "right" }) => {
         }}
       >
         {direction === "down" ? (
-          <ChevronDown className="h-6 w-6 text-emerald-500" />
+          <ChevronDown className="h-6 w-6 text-cyan-400" />
         ) : (
-          <ChevronRight className="h-6 w-6 text-emerald-500" />
+          <ChevronRight className="h-6 w-6 text-cyan-400" />
         )}
       </motion.div>
     </div>
@@ -330,7 +330,7 @@ const ProgressIndicator = () => {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
   const width = useTransform(smoothProgress, [0, 1], ["0%", "100%"])
 
-  return <motion.div className="fixed top-0 left-0 right-0 h-1 bg-emerald-500 z-50" style={{ width, originX: 0 }} />
+  return <motion.div className="fixed top-0 left-0 right-0 h-1 bg-cyan-400 z-50" style={{ width, originX: 0 }} />
 }
 
 // Main timeline component
@@ -442,8 +442,8 @@ export default function MixedDirectionTimeline() {
         transition={{ duration: 0.7 }}
         viewport={{ once: true, margin: "-100px 0px" }}
       >
-        <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-6">
-          <Rocket className="h-8 w-8 text-emerald-500" />
+        <div className="w-16 h-16 rounded-full bg-cyan-500/10 flex items-center justify-center mx-auto mb-6">
+          <Rocket className="h-8 w-8 text-cyan-400" />
         </div>
         <h3 className="text-2xl font-bold mb-4">The Journey Continues...</h3>
         <p className="text-zinc-300">

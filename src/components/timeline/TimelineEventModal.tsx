@@ -105,14 +105,14 @@ export default function TimelineEventModal({
       {/* Modal */}
       <div
         ref={modalRef}
-        className="relative w-full h-full md:h-auto md:max-w-2xl md:max-h-[90vh] bg-gradient-to-b from-zinc-900 to-zinc-950 md:rounded-xl overflow-y-auto md:overflow-hidden flex flex-col"
+        className="relative w-full h-full md:h-auto md:max-w-2xl md:max-h-[90vh] bg-gradient-to-b from-[#111111] to-[#0a0a0a] md:rounded-xl overflow-y-auto md:overflow-hidden flex flex-col"
       >
         {/* Sticky Header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between px-6 md:px-8 py-4 border-b border-zinc-800/50 bg-gradient-to-b from-zinc-900 to-zinc-900/50 backdrop-blur-sm">
+        <div className="sticky top-0 z-10 flex items-center justify-between px-6 md:px-8 py-4 border-b border-white/5 bg-gradient-to-b from-[#111111] to-[#111111]/50 backdrop-blur-sm">
           {/* Close button */}
           <button
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-zinc-800/50 transition-colors duration-150 text-zinc-400 hover:text-white"
+            className="p-2 rounded-lg hover:bg-[#111111]/50 transition-colors duration-150 text-zinc-400 hover:text-white"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -129,7 +129,7 @@ export default function TimelineEventModal({
           <div className="p-6 md:p-8 space-y-8">
             {/* Hero Image */}
             {event.imageUrl && (
-              <div className="relative h-48 md:h-64 rounded-lg overflow-hidden border border-zinc-700/50">
+              <div className="relative h-48 md:h-64 rounded-lg overflow-hidden border border-white/10">
                 <Image
                   src={event.imageUrl}
                   alt={event.imageAlt}
@@ -174,31 +174,31 @@ export default function TimelineEventModal({
             {/* Narrative sections */}
             <div className="space-y-6">
               {/* Setup */}
-              <div className="bg-gradient-to-r from-zinc-800/30 to-transparent border-l-2 border-blue-400/40 p-6 rounded-lg">
+              <div className="bg-gradient-to-r from-white/5 to-transparent border-l-2 border-blue-400/40 p-6 rounded-lg">
                 <h3 className="text-sm font-mono text-blue-400/70 uppercase tracking-widest mb-3">
                   The Setup
                 </h3>
-                <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+                <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                   {event.narrative.setup}
                 </p>
               </div>
 
               {/* Conflict */}
-              <div className="bg-gradient-to-r from-zinc-800/30 to-transparent border-l-2 border-amber-400/40 p-6 rounded-lg">
+              <div className="bg-gradient-to-r from-white/5 to-transparent border-l-2 border-amber-400/40 p-6 rounded-lg">
                 <h3 className="text-sm font-mono text-amber-400/70 uppercase tracking-widest mb-3">
                   The Challenge
                 </h3>
-                <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+                <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                   {event.narrative.conflict}
                 </p>
               </div>
 
               {/* Resolution */}
-              <div className="bg-gradient-to-r from-zinc-800/30 to-transparent border-l-2 border-emerald-400/40 p-6 rounded-lg">
-                <h3 className="text-sm font-mono text-emerald-400/70 uppercase tracking-widest mb-3">
+              <div className="bg-gradient-to-r from-white/5 to-transparent border-l-2 border-cyan-400/40 p-6 rounded-lg">
+                <h3 className="text-sm font-mono text-cyan-400/70 uppercase tracking-widest mb-3">
                   The Insight
                 </h3>
-                <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+                <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                   {event.narrative.resolution}
                 </p>
               </div>
@@ -212,7 +212,7 @@ export default function TimelineEventModal({
             </div>
 
             {/* Timeline visualization */}
-            <div className="bg-zinc-800/30 border border-zinc-700/50 rounded-lg p-4 md:p-6">
+            <div className="bg-white/5 border border-white/5 rounded-lg p-4 md:p-6">
               <p className="text-xs md:text-sm font-mono text-zinc-500 uppercase tracking-widest mb-4">
                 Timeline Position
               </p>
@@ -239,12 +239,12 @@ export default function TimelineEventModal({
         </div>
 
         {/* Navigation Footer */}
-        <div className="sticky bottom-0 border-t border-zinc-800/50 bg-gradient-to-t from-zinc-900 to-zinc-900/50 backdrop-blur-sm px-6 md:px-8 py-4 flex items-center justify-between gap-4">
+        <div className="sticky bottom-0 border-t border-white/5 bg-gradient-to-t from-[#111111] to-[#111111]/50 backdrop-blur-sm px-6 md:px-8 py-4 flex items-center justify-between gap-4">
           {/* Previous button */}
           <button
             onClick={onPreviousEvent}
             disabled={!hasPreviousEvent}
-            className="px-4 py-2 rounded-lg border border-zinc-700/50 text-zinc-400 hover:text-white hover:border-cyan-400/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-150 text-sm md:text-base"
+            className="px-4 py-2 rounded-lg border border-white/10 text-zinc-400 hover:text-white hover:border-cyan-400/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-150 text-sm md:text-base"
           >
             ← Previous
           </button>

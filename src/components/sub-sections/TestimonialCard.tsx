@@ -21,77 +21,58 @@ function TestimonialCard({
   onHoverEnd,
   delay = 0,
 }: TestimonialCardProps) {
-  // Relationship badge colors
   const relationshipColors = {
-    colleague: "bg-blue-500/20 text-blue-300 border-blue-500/30",
-    manager: "bg-purple-500/20 text-purple-300 border-purple-500/30",
-    mentee: "bg-green-500/20 text-green-300 border-green-500/30",
-    friend: "bg-pink-500/20 text-pink-300 border-pink-500/30",
-    client: "bg-amber-500/20 text-amber-300 border-amber-500/30",
+    colleague: "bg-blue-500/10 text-blue-400/80 border-blue-500/20",
+    manager: "bg-purple-500/10 text-purple-400/80 border-purple-500/20",
+    mentee: "bg-green-500/10 text-green-400/80 border-green-500/20",
+    friend: "bg-pink-500/10 text-pink-400/80 border-pink-500/20",
+    client: "bg-amber-500/10 text-amber-400/80 border-amber-500/20",
   }
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
+      transition={{ duration: 0.4, delay }}
       onHoverStart={onHover}
       onHoverEnd={onHoverEnd}
       className="h-full"
     >
-      {/* Card glow effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-indigo-500/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-
-      {/* Testimonial Card */}
       <motion.div
-        className="group relative h-full bg-gradient-to-br from-[#141414]/80 to-[#0a0a0a]/80 backdrop-blur-xl border border-[#262626] rounded-2xl p-6 sm:p-8 transition-all duration-300 hover:border-cyan-500/30 hover:shadow-2xl flex flex-col"
+        className="group relative h-full bg-[#111111]/80 backdrop-blur-sm border border-white/5 rounded-xl p-6 sm:p-8 transition-all duration-200 hover:border-white/10 flex flex-col"
         animate={{
-          y: isHovered ? -5 : 0,
-          borderColor: isHovered ? "rgba(6, 182, 212, 0.3)" : "rgba(38, 38, 38, 1)",
+          y: isHovered ? -3 : 0,
         }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.2 }}
       >
-        {/* Grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.02] rounded-2xl pointer-events-none"
-          style={{
-            backgroundImage: `linear-gradient(90deg, #06b6d4 1px, transparent 1px), linear-gradient(0deg, #06b6d4 1px, transparent 1px)`,
-            backgroundSize: "20px 20px",
-          }}
-        ></div>
-
         <div className="relative z-10 flex flex-col h-full">
-          {/* Quote Icon */}
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: delay + 0.1 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: delay + 0.1 }}
             className="mb-4"
           >
-            <div className="inline-flex p-2 rounded-lg bg-gradient-to-br from-cyan-500/20 to-indigo-500/10 border border-cyan-500/30">
-              <Quote className="w-5 h-5 text-cyan-400" />
+            <div className="inline-flex p-2 rounded-lg bg-white/5 border border-white/5">
+              <Quote className="w-5 h-5 text-zinc-500" />
             </div>
           </motion.div>
 
-          {/* Testimonial Text */}
           <motion.p
-            className="text-gray-200 text-base sm:text-lg leading-relaxed mb-6 flex-grow italic"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: delay + 0.2 }}
+            className="text-zinc-200 text-base sm:text-lg leading-relaxed mb-6 flex-grow italic"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: delay + 0.2 }}
             style={{ fontFamily: "var(--font-body)" }}
           >
-            "{testimonial.text}"
+            &ldquo;{testimonial.text}&rdquo;
           </motion.p>
 
-          {/* Author Info */}
           <motion.div
-            className="flex items-start gap-4 pt-4 border-t border-[#262626]/50"
-            initial={{ opacity: 0, x: -20 }}
+            className="flex items-start gap-4 pt-4 border-t border-white/5"
+            initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4, delay: delay + 0.3 }}
+            transition={{ duration: 0.3, delay: delay + 0.3 }}
           >
-            {/* Avatar */}
             <TestimonialAvatar
               name={testimonial.name}
               linkedinUrl={testimonial.linkedinUrl}
@@ -99,12 +80,11 @@ function TestimonialCard({
               size="md"
             />
 
-            {/* Name, Title, and Relationship */}
             <div className="flex-1 min-w-0">
               <p className="text-white font-semibold text-base truncate">
                 {testimonial.name}
               </p>
-              <p className="text-gray-400 text-sm mb-2 truncate">
+              <p className="text-zinc-500 text-sm mb-2 truncate">
                 {testimonial.title}
               </p>
               <span
@@ -118,10 +98,6 @@ function TestimonialCard({
             </div>
           </motion.div>
         </div>
-
-        {/* Decorative elements */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none -mr-16 -mt-16"></div>
-        <div className="absolute bottom-0 left-0 w-24 h-24 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none -ml-12 -mb-12"></div>
       </motion.div>
     </motion.div>
   )

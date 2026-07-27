@@ -66,7 +66,7 @@ export default function TimelineEventCard({
       onClick={onClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`${emotionalArcBorderOnly[event.emotionalArc]} relative w-full p-6 rounded-lg bg-gradient-to-r from-zinc-900/50 to-transparent backdrop-blur-sm cursor-pointer transition-all duration-150 ease-out hover:scale-105 hover:from-zinc-800/50 group`}
+      className={`${emotionalArcBorderOnly[event.emotionalArc]} relative w-full p-6 rounded-lg bg-gradient-to-r bg-[#111111] backdrop-blur-sm cursor-pointer transition-all duration-150 ease-out hover:scale-105 hover:from-white/10 group`}
       style={{
         minHeight: '160px',
       }}
@@ -99,14 +99,14 @@ export default function TimelineEventCard({
           </h3>
 
           {/* Description preview */}
-          <p className="text-sm md:text-base text-gray-400 line-clamp-2 mb-4">
+          <p className="text-sm md:text-base text-zinc-400 line-clamp-2 mb-4">
             {event.description}
           </p>
         </div>
 
         {/* Expanded preview (on hover) */}
         {isHovered && (
-          <div className="space-y-3 pt-4 border-t border-zinc-700/30">
+          <div className="space-y-3 pt-4 border-t border-white/5">
             {/* Quote */}
             <div className="text-sm text-amber-300/80 italic">
               "{event.quote}"

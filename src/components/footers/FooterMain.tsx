@@ -20,29 +20,18 @@ function Footer() {
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 15 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 },
+      transition: { duration: 0.4 },
     },
   }
 
   return (
-    <footer className="relative w-screen -mx-[calc((100vw-100%)/2)] bg-gradient-to-b from-[#0a0a0a] via-black to-black">
-      {/* Enhanced background elements */}
-      <div className="absolute top-0 left-1/4 w-1/2 h-1/3 bg-cyan-500/8 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDuration: '6s' }}></div>
-      <div className="absolute bottom-1/3 right-0 w-2/5 h-2/5 bg-indigo-500/6 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDuration: '7s', animationDelay: '1s' }}></div>
+    <footer className="relative w-screen -mx-[calc((100vw-100%)/2)] bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#0a0a0a]">
+      <div className="absolute top-0 left-1/4 w-1/2 h-1/3 bg-blue-500/3 rounded-full blur-3xl pointer-events-none"></div>
 
-      {/* Grid overlay */}
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(90deg, #06b6d4 1px, transparent 1px), linear-gradient(0deg, #06b6d4 1px, transparent 1px)`,
-          backgroundSize: '40px 40px'
-        }}
-      ></div>
-
-      {/* Main Footer Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12"
@@ -51,13 +40,11 @@ function Footer() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {/* Column 1: Logo & About */}
           <motion.div className="space-y-6" variants={itemVariants}>
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <motion.div
-                  className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center"
-                  whileHover={{ scale: 1.05, rotate: 5 }}
+                  className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center"
                   transition={{ type: "spring", stiffness: 400 }}
                 >
                   <span className="text-white font-bold text-lg" style={{ fontFamily: 'var(--font-display)' }}>AD</span>
@@ -65,14 +52,13 @@ function Footer() {
                 <h3 className="text-xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>Artag Dev</h3>
               </div>
 
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Full-stack developer and automation enthusiast. I build scalable systems, design clean architecture, and automate the tedious stuff.
+              <p className="text-zinc-500 text-sm leading-relaxed">
+                I connect services, automate workflows, and build tools that save you time. Based in Pereira, Colombia.
               </p>
             </div>
 
-            {/* Social Links with glow */}
             <div className="space-y-3">
-              <p className="text-xs uppercase tracking-widest text-cyan-500/70">Connect</p>
+              <p className="text-xs uppercase tracking-widest text-zinc-600">Connect</p>
               <div className="flex flex-wrap gap-3">
                 {socialLinksFooter.map((social, index) => {
                   const Icon = social.icon
@@ -82,17 +68,15 @@ function Footer() {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.15, y: -5 }}
-                      whileTap={{ scale: 0.95 }}
-                      initial={{ opacity: 0, y: 10 }}
+                      whileHover={{ y: -2 }}
+                      initial={{ opacity: 0, y: 8 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
                       viewport={{ once: true }}
-                      className="group relative inline-flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-[#262626] hover:border-cyan-500/50 transition-all duration-300"
+                      className="group relative inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 border border-white/5 hover:border-white/10 transition-all duration-200"
                       aria-label={social.name}
                     >
-                      <Icon className="h-5 w-5 text-gray-400 group-hover:text-cyan-400 transition-colors" />
-                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-indigo-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur"></div>
+                      <Icon className="h-5 w-5 text-zinc-500 transition-colors" />
                     </motion.a>
                   )
                 })}
@@ -100,36 +84,25 @@ function Footer() {
             </div>
           </motion.div>
 
-          {/* Column 2: Quick Links */}
           <motion.div className="space-y-6" variants={itemVariants}>
             <div>
-              <h3 className="text-white font-semibold mb-4 text-base relative inline-block">
+              <h3 className="text-white font-semibold mb-4 text-base">
                 Quick Links
-                <motion.span
-                  className="absolute -bottom-2 left-0 h-0.5 bg-gradient-to-r from-cyan-500 to-transparent"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  viewport={{ once: true }}
-                ></motion.span>
               </h3>
               <ul className="space-y-3 mt-6">
                 {navLinks.map((link, index) => (
                   <motion.li
                     key={link.name}
-                    initial={{ opacity: 0, x: -10 }}
+                    initial={{ opacity: 0, x: -8 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
                     viewport={{ once: true }}
                   >
                     <Link
                       href={link.href}
-                      className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 flex items-center group text-sm"
+                      className="text-zinc-500 hover:text-white transition-colors duration-200 flex items-center group text-sm"
                     >
-                      <motion.span
-                        className="w-1.5 h-1.5 rounded-full bg-gray-700 group-hover:bg-cyan-500 mr-2 transition-colors"
-                        whileHover={{ scale: 1.3 }}
-                      ></motion.span>
+                      <span className="w-1 h-1 rounded-full bg-zinc-700 group-hover:bg-white mr-2 transition-colors"></span>
                       {link.name}
                       <ExternalLink className="h-3 w-3 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
@@ -139,36 +112,25 @@ function Footer() {
             </div>
           </motion.div>
 
-          {/* Column 3: Services */}
           <motion.div className="space-y-6" variants={itemVariants}>
             <div>
-              <h3 className="text-white font-semibold mb-4 text-base relative inline-block">
+              <h3 className="text-white font-semibold mb-4 text-base">
                 What I Do
-                <motion.span
-                  className="absolute -bottom-2 left-0 h-0.5 bg-gradient-to-r from-indigo-500 to-transparent"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  viewport={{ once: true }}
-                ></motion.span>
               </h3>
               <ul className="space-y-3 mt-6">
                 {services.slice(0, 6).map((service, index) => (
                   <motion.li
                     key={service}
-                    initial={{ opacity: 0, x: -10 }}
+                    initial={{ opacity: 0, x: -8 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
                     viewport={{ once: true }}
                   >
                     <Link
                       href="#contact"
-                      className="text-gray-400 hover:text-indigo-400 transition-colors duration-300 flex items-center group text-sm"
+                      className="text-zinc-500 hover:text-white transition-colors duration-200 flex items-center group text-sm"
                     >
-                      <motion.span
-                        className="w-1.5 h-1.5 rounded-full bg-gray-700 group-hover:bg-indigo-500 mr-2 transition-colors"
-                        whileHover={{ scale: 1.3 }}
-                      ></motion.span>
+                      <span className="w-1 h-1 rounded-full bg-zinc-700 group-hover:bg-white mr-2 transition-colors"></span>
                       {service}
                     </Link>
                   </motion.li>
@@ -177,29 +139,20 @@ function Footer() {
             </div>
           </motion.div>
 
-          {/* Column 4: Contact CTA */}
           <motion.div className="space-y-6" variants={itemVariants}>
             <div>
-              <h3 className="text-white font-semibold mb-4 text-base relative inline-block">
+              <h3 className="text-white font-semibold mb-4 text-base">
                 Let&apos;s Talk
-                <motion.span
-                  className="absolute -bottom-2 left-0 h-0.5 bg-gradient-to-r from-cyan-500 to-transparent"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  viewport={{ once: true }}
-                ></motion.span>
               </h3>
 
-              <p className="text-gray-400 text-sm mb-6 mt-6 leading-relaxed">
-                Have a project in mind or just want to chat? I&apos;m always open to new opportunities and conversations.
+              <p className="text-zinc-500 text-sm mb-6 mt-6 leading-relaxed">
+                Have something in mind? I&apos;m always open to new collaborations, ideas, and conversations.
               </p>
 
               <motion.a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-medium rounded-lg text-sm transition-all"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-2 px-5 py-3 bg-white/10 hover:bg-white/15 text-white font-medium rounded-lg text-sm transition-all duration-200 border border-white/10"
+                whileTap={{ scale: 0.97 }}
               >
                 <Mail className="h-4 w-4" />
                 Get in touch
@@ -209,21 +162,19 @@ function Footer() {
         </motion.div>
       </div>
 
-      {/* Divider */}
-      <div className="relative z-10 border-t border-[#262626]"></div>
+      <div className="relative z-10 border-t border-white/5"></div>
 
-      {/* Bottom Footer */}
       <motion.div
         className="relative z-10 py-8 sm:py-10"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.5 }}
         viewport={{ once: true }}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
-            <motion.p className="text-gray-600 text-xs sm:text-sm text-center sm:text-left">
-              © {currentYear} Artag Dev. All rights reserved.
+            <motion.p className="text-zinc-600 text-xs sm:text-sm text-center sm:text-left">
+              &copy; {currentYear} Artag Dev. All rights reserved.
             </motion.p>
 
             <motion.div
@@ -235,31 +186,26 @@ function Footer() {
             >
               <motion.a
                 href="#"
-                className="text-gray-600 hover:text-cyan-400 text-xs sm:text-sm transition-colors duration-300"
+                className="text-zinc-600 hover:text-white text-xs sm:text-sm transition-colors duration-200"
                 variants={itemVariants}
               >
                 Privacy Policy
               </motion.a>
-              <span className="text-gray-800">•</span>
+              <span className="text-zinc-800">&bull;</span>
               <motion.a
                 href="#"
-                className="text-gray-600 hover:text-cyan-400 text-xs sm:text-sm transition-colors duration-300"
+                className="text-zinc-600 hover:text-white text-xs sm:text-sm transition-colors duration-200"
                 variants={itemVariants}
               >
                 Terms of Service
               </motion.a>
-              <span className="text-gray-800">•</span>
+              <span className="text-zinc-800">&bull;</span>
               <motion.div
-                className="text-gray-600 text-xs sm:text-sm flex items-center gap-1"
+                className="text-zinc-600 text-xs sm:text-sm flex items-center gap-1"
                 variants={itemVariants}
               >
                 Made with
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                >
-                  <Heart className="h-3 w-3 fill-cyan-500 text-cyan-500" />
-                </motion.div>
+                <Heart className="h-3 w-3 fill-white/40 text-white/40" />
                 in Pereira
               </motion.div>
             </motion.div>
@@ -267,8 +213,7 @@ function Footer() {
         </div>
       </motion.div>
 
-      {/* Decorative line at bottom */}
-      <div className="relative z-10 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
+      <div className="relative z-10 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
     </footer>
   )
 }

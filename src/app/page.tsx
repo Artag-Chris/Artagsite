@@ -17,7 +17,7 @@ import { N8N_CHAT_CONFIG } from "@/config/n8n-chat.config";
 export default function Home() {
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-zinc-950 text-zinc-100 overflow-hidden">
+      <div className="min-h-screen bg-[#0a0a0a] text-zinc-100 overflow-hidden">
         <HeaderMain />
         <main className="w-full max-w-[100vw]">
           <Hero />

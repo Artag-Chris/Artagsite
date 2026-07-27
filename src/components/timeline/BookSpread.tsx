@@ -30,7 +30,7 @@ export default function BookSpread({ events, spreadIndex, isInView = false }: Bo
 
     // Add subtle glow effect when page comes into view
     gsap.to(spreadRef.current, {
-      boxShadow: "inset 0 0 60px rgba(16, 185, 129, 0.1)",
+      boxShadow: "inset 0 0 60px rgba(6, 182, 212, 0.1)",
       duration: 0.8,
       ease: "power2.out",
     })
@@ -71,7 +71,7 @@ export default function BookSpread({ events, spreadIndex, isInView = false }: Bo
       className="w-full min-h-screen flex relative"
       style={{
         perspective: "1200px",
-        background: "linear-gradient(to bottom, #18181b, #09090b)",
+        background: "linear-gradient(to bottom, #0a0a0a, #111111)",
       }}
     >
       {/* Left page background */}
@@ -120,7 +120,7 @@ export default function BookSpread({ events, spreadIndex, isInView = false }: Bo
         </div>
       ) : (
         // Empty right page if only one event
-        <div className="relative w-1/2 overflow-hidden bg-gradient-to-b from-zinc-900 to-zinc-950" />
+        <div className="relative w-1/2 overflow-hidden bg-gradient-to-b from-[#0a0a0a] to-[#111111]" />
       )}
     </div>
   )

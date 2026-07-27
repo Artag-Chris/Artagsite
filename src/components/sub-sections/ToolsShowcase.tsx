@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { useInViewOnReady } from "@/hooks/useInViewOnReady"
-import { toolsData } from "@/data/skillsData"
+import { toolsData, Tool } from "@/data/skillsData"
 
 interface ToolsShowcaseProps {
   showLabel?: boolean
@@ -15,11 +15,22 @@ const headerContainer = {
 
 const headerItem = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
+  visible: { opacity: 1, transition: { duration: 0.5, ease: "easeOut" } },
+}
+
+function groupByCategory(tools: Tool[]): { category: string; items: Tool[] }[] {
+  const map = new Map<string, Tool[]>()
+  for (const tool of tools) {
+    const arr = map.get(tool.category) || []
+    arr.push(tool)
+    map.set(tool.category, arr)
+  }
+  return Array.from(map.entries()).map(([category, items]) => ({ category, items }))
 }
 
 export function ToolsShowcase({ showLabel = true }: ToolsShowcaseProps) {
   const { ref: headerInViewRef, isReady: headerReady } = useInViewOnReady<HTMLDivElement>({ amount: 0.3 })
+  const grouped = groupByCategory(toolsData)
 
   return (
     <div className="w-full">
@@ -32,7 +43,7 @@ export function ToolsShowcase({ showLabel = true }: ToolsShowcaseProps) {
           animate={headerReady ? "visible" : "hidden"}
         >
           <motion.div className="inline-block" variants={headerItem}>
-            <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-cyan-500/70 bg-cyan-500/10 border border-cyan-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full backdrop-blur-sm">
+            <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-amber-400/70 bg-amber-500/10 border border-amber-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">
               Tech Stack
             </span>
           </motion.div>
@@ -41,41 +52,64 @@ export function ToolsShowcase({ showLabel = true }: ToolsShowcaseProps) {
             style={{ fontFamily: 'var(--font-display)' }}
             variants={headerItem}
           >
-            Technologies & <span className="text-cyan-400 drop-shadow-lg" style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Tools</span>
+            Technologies & <span className="text-blue-400">Tools</span>
           </motion.h2>
           <motion.p
-            className="text-gray-300 text-base sm:text-lg max-w-3xl leading-relaxed"
+            className="text-zinc-400 text-base sm:text-lg max-w-3xl leading-relaxed"
             variants={headerItem}
           >
-            Here's the full toolkit I use to bring these solutions to life. Each technology is carefully selected and mastered for specific use cases.
+            The full toolkit I use to bring solutions to life — from languages and frameworks to cloud infrastructure and monitoring.
           </motion.p>
         </motion.div>
       )}
 
-      {/* Tools grid - Compact display */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
-        {toolsData.map((tool, index) => {
-          const Icon = tool.icon
-          return (
-            <motion.div
-              key={tool.name}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
-              viewport={{ once: true, margin: "-50px" }}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="group flex flex-col items-center gap-2 p-4 rounded-xl bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-[#262626] hover:border-cyan-500/40 transition-all duration-300 cursor-default"
-            >
-              <div className="relative p-2 rounded-lg bg-gradient-to-br from-[#262626] to-[#1a1a1a] border border-[#404040] group-hover:border-cyan-500/40 transition-all duration-300">
-                <Icon className={`h-6 w-6 md:h-7 md:w-7 ${tool.color} transition-transform duration-300 group-hover:scale-110`} />
-              </div>
-              <span className="text-xs md:text-sm font-medium text-gray-300 text-center group-hover:text-cyan-300 transition-colors duration-300">
-                {tool.name}
+      <div className="space-y-10 sm:space-y-12">
+        {grouped.map((group, groupIdx) => (
+          <motion.div
+            key={group.category}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: groupIdx * 0.08 }}
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <div className="flex items-center gap-3 mb-4 sm:mb-5">
+              <h3 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-zinc-500">
+                {group.category}
+              </h3>
+              <div className="flex-1 h-px bg-white/[0.04]" />
+              <span className="text-[10px] font-mono text-zinc-600">
+                {group.items.length}
               </span>
-              <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300 bg-gradient-to-br from-cyan-500/20 via-transparent to-indigo-500/10 blur-xl pointer-events-none" />
-            </motion.div>
-          )
-        })}
+            </div>
+
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
+              {group.items.map((tool, index) => {
+                const Icon = tool.icon
+                return (
+                  <motion.div
+                    key={tool.name}
+                    initial={{ opacity: 0, y: 6 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25, delay: index * 0.03 }}
+                    viewport={{ once: true, margin: "-30px" }}
+                    whileHover={{ y: -2, transition: { duration: 0.15 } }}
+                    className="group flex flex-col items-center gap-2 p-3 sm:p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.04] transition-all duration-300 cursor-default"
+                  >
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-blue-500/5 rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="relative p-2 rounded-lg bg-white/[0.03] transition-all duration-200">
+                        <Icon className={`h-5 w-5 sm:h-6 sm:w-6 ${tool.color} transition-transform duration-200 group-hover:scale-110`} />
+                      </div>
+                    </div>
+                    <span className="text-[11px] sm:text-xs font-medium text-zinc-500 group-hover:text-zinc-300 text-center transition-colors duration-200 leading-tight">
+                      {tool.name}
+                    </span>
+                  </motion.div>
+                )
+              })}
+            </div>
+          </motion.div>
+        ))}
       </div>
     </div>
   )

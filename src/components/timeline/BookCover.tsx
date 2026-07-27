@@ -62,7 +62,7 @@ export default function BookCover({ onAnimationComplete }: BookCoverProps) {
   return (
     <div
       ref={coverRef}
-      className="relative w-full h-screen min-h-[600px] flex items-center justify-center bg-gradient-to-br from-zinc-900 via-emerald-900/20 to-zinc-900 overflow-hidden"
+      className="relative w-full h-screen min-h-[600px] flex items-center justify-center bg-gradient-to-br from-[#0a0a0a] via-cyan-500/5 to-[#0a0a0a] overflow-hidden"
       style={{ perspective: "1200px" }}
     >
       {/* Decorative background stars */}
@@ -70,7 +70,7 @@ export default function BookCover({ onAnimationComplete }: BookCoverProps) {
         {[...Array(15)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-emerald-400 rounded-full opacity-30"
+            className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-20"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -88,8 +88,8 @@ export default function BookCover({ onAnimationComplete }: BookCoverProps) {
       >
         {/* Book icon */}
         <div className="flex justify-center mb-8">
-          <div className="p-4 rounded-full bg-emerald-500/10 border border-emerald-500/30">
-            <BookOpen className="w-16 h-16 md:w-20 md:h-20 text-emerald-400" />
+          <div className="p-4 rounded-full bg-cyan-500/10 border border-cyan-500/30">
+            <BookOpen className="w-16 h-16 md:w-20 md:h-20 text-cyan-400" />
           </div>
         </div>
 
@@ -99,7 +99,7 @@ export default function BookCover({ onAnimationComplete }: BookCoverProps) {
         </h1>
 
         {/* Subtitle */}
-        <p className="text-xl md:text-2xl text-emerald-300 mb-8 font-serif italic">
+        <p className="text-xl md:text-2xl text-cyan-300 mb-8 font-serif italic">
           A Tale of Growth & Purpose
         </p>
 
@@ -117,7 +117,7 @@ export default function BookCover({ onAnimationComplete }: BookCoverProps) {
             {[...Array(3)].map((_, i) => (
               <div
                 key={i}
-                className="w-1 h-4 bg-emerald-400 rounded-full opacity-60"
+                className="w-1 h-4 bg-cyan-400 rounded-full opacity-60"
                 style={{
                   animation: `pulse 1.5s ease-in-out infinite`,
                   animationDelay: `${i * 0.2}s`,

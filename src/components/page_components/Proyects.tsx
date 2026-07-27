@@ -58,19 +58,11 @@ function Projects() {
   return (
     <section
       id="projects"
-      className="relative w-screen -mx-[calc((100vw-100%)/2)] bg-gradient-to-b from-black via-[#0a0a0a] to-black py-20 sm:py-28 lg:py-32 overflow-hidden"
+      className="relative w-screen -mx-[calc((100vw-100%)/2)] bg-gradient-to-b from-[#0a0a0a] via-[#080808] to-[#0a0a0a] py-20 sm:py-28 lg:py-32 overflow-hidden"
     >
-      {/* Enhanced background elements */}
-      <div className="absolute top-0 right-1/4 w-1/2 h-1/3 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDuration: '6s' }}></div>
-      <div className="absolute bottom-1/4 left-0 w-2/5 h-2/5 bg-cyan-500/8 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDuration: '7s', animationDelay: '1s' }}></div>
-
-      {/* Grid overlay */}
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(90deg, #06b6d4 1px, transparent 1px), linear-gradient(0deg, #06b6d4 1px, transparent 1px)`,
-          backgroundSize: '40px 40px'
-        }}
-      ></div>
+      {/* Subtle background glows */}
+      <div className="absolute top-0 right-1/4 w-1/2 h-1/3 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-1/4 left-0 w-2/5 h-2/5 bg-cyan-500/3 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -82,14 +74,14 @@ function Projects() {
           className="text-center mb-16 sm:mb-20"
         >
           <div className="inline-block mb-4">
-            <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-cyan-500/70 bg-cyan-500/10 border border-cyan-500/20 px-4 py-2 rounded-full backdrop-blur-sm">
+            <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-indigo-400/70 bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-full">
               Portfolio
             </span>
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-            Featured <span className="text-cyan-400 drop-shadow-lg" style={{ textShadow: '0 0 30px rgba(6, 182, 212, 0.4)' }}>Projects</span>
+            Featured <span className="text-cyan-400">Projects</span>
           </h2>
-          <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
+          <p className="text-zinc-400 text-base sm:text-lg max-w-2xl mx-auto">
             Explore a curated selection of my work. From personal projects to enterprise solutions, each showcasing expertise in automation, architecture, and modern development.
           </p>
         </motion.div>
@@ -103,15 +95,14 @@ function Projects() {
           className="mb-8 sm:mb-12"
         >
           <div className="relative group max-w-md mx-auto">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-lg opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 blur"></div>
-            <div className="relative flex items-center bg-[#0a0a0a] border border-[#262626] rounded-lg">
-              <Search className="absolute left-4 h-5 w-5 text-cyan-500/50" />
+            <div className="relative flex items-center bg-[#111111] border border-white/10 rounded-lg focus-within:border-white/20 transition-colors duration-200">
+              <Search className="absolute left-4 h-5 w-5 text-zinc-600" />
               <input
                 type="text"
                 placeholder="Search projects by name or tech..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 bg-transparent border-none text-white placeholder:text-gray-600 pl-12 pr-10 py-3 focus:outline-none text-sm sm:text-base"
+                className="flex-1 bg-transparent border-none text-white placeholder:text-zinc-600 pl-12 pr-10 py-3 focus:outline-none text-sm sm:text-base"
               />
               {searchQuery && (
                 <motion.button
@@ -136,17 +127,17 @@ function Projects() {
           viewport={{ once: true }}
           className="flex flex-wrap items-center justify-center gap-3 mb-12 sm:mb-16"
         >
-          <Filter className="h-4 w-4 text-cyan-500/60" />
+          <Filter className="h-4 w-4 text-zinc-600" />
           {(["all", "personal", "featured"] as const).map((category) => (
             <motion.button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium text-sm sm:text-base transition-all duration-300 ${
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium text-sm sm:text-base transition-all duration-200 ${
                 selectedCategory === category
-                  ? "bg-gradient-to-r from-cyan-500 to-cyan-600 text-white shadow-lg shadow-cyan-500/50"
-                  : "bg-[#141414] border border-[#262626] text-gray-400 hover:border-cyan-500/30 hover:text-cyan-400"
+                  ? "bg-white/10 text-white border border-white/20"
+                  : "bg-[#111111] border border-white/5 text-zinc-500 hover:border-white/10 hover:text-zinc-300"
               }`}
             >
               {category.charAt(0).toUpperCase() + category.slice(1).replace("-", " ")}
@@ -236,7 +227,7 @@ function Projects() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="p-4 sm:p-6 rounded-xl bg-gradient-to-br from-cyan-500/10 to-indigo-500/10 border border-cyan-500/20 text-center"
+              className="p-4 sm:p-6 rounded-xl bg-white/5 border border-white/5 text-center"
             >
               <motion.div
                 className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-2"

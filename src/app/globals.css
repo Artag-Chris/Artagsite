@@ -13,22 +13,22 @@ html {
     --font-body: var(--font-inter), 'Inter', system-ui, sans-serif;
     --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-    /* Techonic Precision Palette */
+    /* Premium Palette */
     --indigo-primary: #6366f1;
     --indigo-bright: #818cf8;
     --indigo-dark: #4f46e5;
-    --cyan-accent: #06b6d4;
-    --cyan-light: #22d3ee;
+    --cyan-accent: #22d3ee;
+    --cyan-light: #67e8f9;
     
     /* Neutral System - Deep Blacks */
-    --black-pure: #000000;
-    --black-90: #141414;
-    --gray-80: #262626;
-    --gray-60: #404040;
-    --gray-40: #737373;
-    --gray-20: #b0b0b0;
+    --black-pure: #0a0a0a;
+    --black-90: #111111;
+    --gray-80: #1e1e1e;
+    --gray-60: #3a3a3a;
+    --gray-40: #6b6b6b;
+    --gray-20: #a0a0a0;
     --white-pure: #ffffff;
-    --white-95: #f2f2f2;
+    --white-95: #f0f0f0;
 
     /* Animation Variables */
     --start: 0;
@@ -43,10 +43,10 @@ html {
     --color-mode: light;
 
     /* Shadows with intention */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.6);
+    --shadow-glow: 0 0 15px rgba(99, 102, 241, 0.15);
 
     /* Legacy ShadCN vars for compatibility */
     --background: 240 10% 3.9%;
@@ -93,16 +93,16 @@ html {
     --ring: 160 84% 39%;
   }
 
-  /* Base body styling for Techonic Precision */
+  /* Base body styling */
   body {
-    @apply bg-[#000000] text-[#f2f2f2];
+    @apply bg-[#0a0a0a] text-[#ededed];
     font-family: var(--font-body);
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: 700;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
   }
 
   code, pre, .mono {
@@ -203,13 +203,13 @@ html {
   }
 }
 
-/* Glow pulse */
+/* Glow pulse - subtle */
 @keyframes glowPulse {
   0%, 100% {
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.3), 0 0 20px rgba(6, 182, 212, 0.1);
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.15), 0 0 15px rgba(34, 211, 238, 0.05);
   }
   50% {
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.5), 0 0 30px rgba(6, 182, 212, 0.2);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.25), 0 0 25px rgba(34, 211, 238, 0.1);
   }
 }
 
@@ -237,18 +237,17 @@ html {
 .spacing-lg { @apply p-6; }
 .spacing-xl { @apply p-8; }
 
-/* Tech card with inky borders */
+/* Premium card with glass morphism */
 .tech-card {
-  @apply bg-[#141414] border border-[#262626] rounded-lg p-6;
-  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  @apply bg-zinc-900/60 backdrop-blur-sm border border-zinc-800 rounded-xl p-6;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tech-card:hover {
-  @apply border-[#6366f1] bg-[#0f0f0f];
-  box-shadow: var(--shadow-glow);
+  @apply border-zinc-700 bg-zinc-900/80;
 }
 
-/* Glow overlay styles */
+/* Glow overlay styles - subtle */
 .glow {
     position: absolute;
     top: -50%;
@@ -257,18 +256,18 @@ html {
     height: 200%;
     background: conic-gradient(
             from calc(var(--start, 0) * 1deg),
-            #10b981 /* emerald-500 */,
-            #34d399 /* emerald-400 */,
-            #6ee7b7 /* emerald-300 */,
-            #10b981 /* emerald-500 */
+            #6366f1,
+            #818cf8,
+            #22d3ee,
+            #6366f1
     );
-    filter: blur(60px); /* Increased blur for softer effect */
-    opacity: 0; /* Start with no opacity */
+    filter: blur(80px);
+    opacity: 0;
     pointer-events: none;
-    mix-blend-mode: soft-light; /* Softer blend mode */
+    mix-blend-mode: soft-light;
     transition: opacity 0.4s ease;
-     transform: scale(0.8);
-   }
+    transform: scale(0.8);
+}
 
 @layer base {
   * {
@@ -276,6 +275,15 @@ html {
   }
   body {
     @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))];
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 /* Clases personalizadas para navegación horizontal con scroll */
@@ -304,7 +312,7 @@ html {
   width: 3rem;
   height: 3rem;
   border-radius: 9999px;
-  border: 2px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -316,8 +324,7 @@ html {
 .hs-step-indicator.hs-active {
   background-color: white;
   color: black;
-  transform: scale(1.1);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
 }
 
 /* Indicadores de paso tipo punto */
@@ -325,15 +332,14 @@ html {
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 9999px;
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   background-color: transparent;
   transition: all 0.3s ease;
 }
 
 .hs-step-dot.hs-active {
   background-color: white;
-  transform: scale(1.2);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transform: scale(1.15);
 }
 
 /* Barra de progreso */

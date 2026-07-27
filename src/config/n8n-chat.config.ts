@@ -20,15 +20,15 @@ export const N8N_CHAT_CONFIG = {
 
   // Optional: Initial messages displayed in the chat
 initialMessages: [
-  "Hello! I'm Braska, your AI agent. 👋",
-  "I can answer questions about ArtagDev and Christian. What would you like to know? 🤔",
+  "Hey! I'm Braska, Christian's AI assistant 👋",
+  "I can tell you about his projects, skills, or how to get in touch. What interests you?",
 ],
 
   // Optional: Clickable suggestion buttons (auto-send message on click)
   clickableSuggestions: [
-    "Tell me about Christian's background",
-    "What kind of projects does ArtagDev build?",
-    "How can I contact Christian?",
+    "What does Christian do?",
+    "Show me some projects",
+    "How can I contact him?",
   ],
 
   // Optional: Key for chat input in the workflow
@@ -45,26 +45,26 @@ initialMessages: [
 
   // Optional: Internationalization configuration
 i18nConfig: {
-  title: "Hi there! 👋",
-  subtitle: "I'm Braska — ask me anything about Christian's work",
+  title: "Hey! 👋",
+  subtitle: "Ask me anything about Christian's work",
   footer: "",
   getStarted: "New Chat",
-  inputPlaceholder: "Ask me about Christian...",
+  inputPlaceholder: "Ask me something...",
 },
 
   // Optional: Custom CSS variables for styling
   customCSSVariables: {
-    primaryColor: "#4f46e5", // Indigo oscuro - para el botón flotante
-    primaryDark: "#4338ca",
-    primaryLight: "#818cf8",
-    secondaryColor: "#6366f1", // Indigo
-    secondaryDark: "#4f46e5",
-    bgColor: "#18181b", // Zinc-900
-    bgLight: "#27272a", // Zinc-800
-    bgLighter: "#3f3f46", // Zinc-700
+    primaryColor: "#3b82f6", // Blue
+    primaryDark: "#2563eb",
+    primaryLight: "#60a5fa",
+    secondaryColor: "#f59e0b", // Amber
+    secondaryDark: "#d97706",
+    bgColor: "#0c1222", // Dark navy
+    bgLight: "#1e293b", // Slate-800
+    bgLighter: "#334155", // Slate-700
     textColor: "#fafafa", // Zinc-50
     textSecondary: "#d4d4d8", // Zinc-300
-    borderColor: "#3f3f46", // Zinc-700
+    borderColor: "#334155", // Slate-700
   },
 }
 

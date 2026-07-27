@@ -52,7 +52,7 @@ export default function Epilogue({ isVisible = false }: EpilogueProps) {
   return (
     <div
       ref={epilogueRef}
-      className="relative w-full min-h-screen flex items-center justify-center px-4 py-12 md:py-20 bg-gradient-to-b from-zinc-900 to-zinc-950"
+      className="relative w-full min-h-screen flex items-center justify-center px-4 py-12 md:py-20 bg-gradient-to-b from-[#0a0a0a] to-[#111111]"
       style={{ perspective: "1200px" }}
     >
       {/* Decorative background stars */}
@@ -60,7 +60,7 @@ export default function Epilogue({ isVisible = false }: EpilogueProps) {
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-emerald-400 rounded-full opacity-20"
+            className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-20"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -80,8 +80,8 @@ export default function Epilogue({ isVisible = false }: EpilogueProps) {
       <div ref={contentRef} className="relative z-10 max-w-xl text-center">
         {/* Icon */}
         <div className="flex justify-center mb-8">
-          <div className="p-4 rounded-full bg-emerald-500/10 border border-emerald-500/30">
-            <Sparkles className="w-12 h-12 md:w-16 md:h-16 text-emerald-400" />
+          <div className="p-4 rounded-full bg-cyan-500/10 border border-cyan-500/30">
+            <Sparkles className="w-12 h-12 md:w-16 md:h-16 text-cyan-400" />
           </div>
         </div>
 
@@ -116,7 +116,7 @@ export default function Epilogue({ isVisible = false }: EpilogueProps) {
             {[...Array(3)].map((_, i) => (
               <div
                 key={i}
-                className="w-1 h-3 bg-emerald-400 rounded-full opacity-60"
+                className="w-1 h-3 bg-cyan-400 rounded-full opacity-60"
                 style={{
                   animation: `pulse 1.5s ease-in-out infinite`,
                   animationDelay: `${i * 0.2}s`,
