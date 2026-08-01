@@ -67,6 +67,12 @@
       "skillPath": "skills/gsap-framer-scroll-animation/SKILL.md",
       "computedHash": "e6a4caf23b818ffc5185d51339e941ca783944b6693da877fc1206693b2dff66"
     },
+    "hallmark": {
+      "source": "nutlope/hallmark",
+      "sourceType": "github",
+      "skillPath": "skills/hallmark/SKILL.md",
+      "computedHash": "d3a20aae61e43793d74932c92b63bcad5882e73ec1c8545b858910fd95b25136"
+    },
     "internal-comms": {
       "source": "anthropics/skills",
       "sourceType": "github",
