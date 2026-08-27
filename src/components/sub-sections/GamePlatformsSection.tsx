@@ -4,11 +4,13 @@ import { useRef } from "react"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useTranslations } from "next-intl"
 import { ExternalLink, Gamepad2 } from "lucide-react"
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function GamePlatformsSection() {
+  const t = useTranslations("games.platforms")
   const containerRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
@@ -99,9 +101,9 @@ export default function GamePlatformsSection() {
     <div ref={containerRef} className="my-20">
       {/* Section Title */}
       <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Connect with Me on Gaming Platforms</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t("title")}</h2>
         <p className="text-zinc-300 max-w-2xl mx-auto">
-          Find me on Steam and Epic Games to see my gaming activity, achievements, and join me for some gaming!
+          {t("subtitle")}
         </p>
       </div>
 
@@ -117,7 +119,7 @@ export default function GamePlatformsSection() {
               <div className={`text-4xl`}>{platform.icon}</div>
               <div>
                 <h3 className="text-2xl font-bold text-white">{platform.name}</h3>
-                <p className="text-sm text-zinc-400">Gaming Platform</p>
+                <p className="text-sm text-zinc-400">{t("gamingPlatform")}</p>
               </div>
             </div>
 
@@ -146,7 +148,7 @@ export default function GamePlatformsSection() {
               rel="noopener noreferrer"
               className={`visit-profile-btn w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r ${platform.color} text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105`}
             >
-              Visit {platform.name} Profile
+              {t("profile", { name: platform.name })}
               <ExternalLink className="w-5 h-5" />
             </a>
           </div>

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { useState } from "react"
 
 interface FAQItem {
@@ -9,51 +10,28 @@ interface FAQItem {
   answer: string
 }
 
-const faqItems: FAQItem[] = [
-  {
-    question: "What exactly do you do?",
-    answer:
-      "I help people connect the tools they already use. WhatsApp to Slack, spreadsheets to web apps, manual processes to automated workflows. If you have services that don't talk to each other, I make them talk. I also build custom tools and dashboards when off-the-shelf solutions don't cut it.",
-  },
-  {
-    question: "I'm not technical — can I still work with you?",
-    answer:
-      "Absolutely. Most of my clients aren't developers. You tell me what's broken or what's slowing you down, and I figure out the best way to fix it. I handle all the technical stuff — you just see things working.",
-  },
-  {
-    question: "What integrations do you work with?",
-    answer:
-      "WhatsApp Business API, Discord, Instagram, Slack, email services, Google Sheets, CRMs, payment processors, databases, custom APIs — basically anything with a webhook or an API. I've built microservices architecture connecting 12+ services.",
-  },
-  {
-    question: "How does pricing work?",
-    answer:
-      "It depends on the project. Simple automations can be quick and affordable. Bigger systems with multiple integrations take more planning. I'm transparent about costs before we start — no surprises. Let's chat about what you need and I'll give you a real number.",
-  },
-  {
-    question: "Can you build a full app, not just automations?",
-    answer:
-      "Yes. I build web apps, dashboards, internal tools, and client-facing products. React, Next.js, Node.js, databases — the full stack. Some people come to me for an automation and end up with a whole system. That's totally fine.",
-  },
-  {
-    question: "How do we get started?",
-    answer:
-      "Send me a message here or reach out on WhatsApp/Discord. Tell me what you're trying to do, and I'll let you know if I can help. Usually we hop on a quick call, I ask a few questions, and we go from there. No formal proposals unless you want one.",
-  },
-]
-
 export function FAQ() {
+  const t = useTranslations("faq")
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
+
+  const faqItems: FAQItem[] = [
+    { question: t("items.0.q"), answer: t("items.0.a") },
+    { question: t("items.1.q"), answer: t("items.1.a") },
+    { question: t("items.2.q"), answer: t("items.2.a") },
+    { question: t("items.3.q"), answer: t("items.3.a") },
+    { question: t("items.4.q"), answer: t("items.4.a") },
+    { question: t("items.5.q"), answer: t("items.5.a") },
+  ]
 
   return (
     <section className="py-16 sm:py-20 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/50 to-[#0a0a0a]">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4" style={{ fontFamily: "var(--font-display)" }}>
-            Frequently Asked <span className="text-blue-400">Questions</span>
+            {t("title")}<span className="text-blue-400">{t("titleAccent")}</span>
           </h2>
           <p className="text-zinc-500 max-w-2xl mx-auto">
-            Answers to common questions about working with me.
+            {t("subtitle")}
           </p>
         </div>
 

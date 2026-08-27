@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useTranslations } from "next-intl"
 import gsap from "gsap"
 import { TimelineEvent, timelineEvents } from "@/components/timeline/timelineData/timelineEvents"
 import Image from "next/image"
@@ -35,6 +36,7 @@ export default function TimelineEventModal({
   onNextEvent,
   onPreviousEvent,
 }: TimelineEventModalProps) {
+  const t = useTranslations("timeline.modal")
   const backdropRef = useRef<HTMLDivElement>(null)
   const modalRef = useRef<HTMLDivElement>(null)
   const currentEventIndex = event ? timelineEvents.findIndex((e) => e.id === event.id) : -1
@@ -113,7 +115,7 @@ export default function TimelineEventModal({
           <button
             onClick={onClose}
             className="p-2 rounded-lg hover:bg-[#111111]/50 transition-colors duration-150 text-zinc-400 hover:text-white"
-            aria-label="Close modal"
+            aria-label={t("close")}
           >
             <X className="w-5 h-5" />
           </button>
@@ -176,7 +178,7 @@ export default function TimelineEventModal({
               {/* Setup */}
               <div className="bg-gradient-to-r from-white/5 to-transparent border-l-2 border-blue-400/40 p-6 rounded-lg">
                 <h3 className="text-sm font-mono text-blue-400/70 uppercase tracking-widest mb-3">
-                  The Setup
+                  {t("setup")}
                 </h3>
                 <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                   {event.narrative.setup}
@@ -186,7 +188,7 @@ export default function TimelineEventModal({
               {/* Conflict */}
               <div className="bg-gradient-to-r from-white/5 to-transparent border-l-2 border-amber-400/40 p-6 rounded-lg">
                 <h3 className="text-sm font-mono text-amber-400/70 uppercase tracking-widest mb-3">
-                  The Challenge
+                  {t("challenge")}
                 </h3>
                 <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                   {event.narrative.conflict}
@@ -196,7 +198,7 @@ export default function TimelineEventModal({
               {/* Resolution */}
               <div className="bg-gradient-to-r from-white/5 to-transparent border-l-2 border-cyan-400/40 p-6 rounded-lg">
                 <h3 className="text-sm font-mono text-cyan-400/70 uppercase tracking-widest mb-3">
-                  The Insight
+                  {t("insight")}
                 </h3>
                 <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                   {event.narrative.resolution}
@@ -214,7 +216,7 @@ export default function TimelineEventModal({
             {/* Timeline visualization */}
             <div className="bg-white/5 border border-white/5 rounded-lg p-4 md:p-6">
               <p className="text-xs md:text-sm font-mono text-zinc-500 uppercase tracking-widest mb-4">
-                Timeline Position
+                {t("timelinePosition")}
               </p>
               <div className="flex items-center justify-between gap-2">
                 {/* Mini timeline dots */}
@@ -232,7 +234,7 @@ export default function TimelineEventModal({
                 </div>
               </div>
               <p className="text-xs text-zinc-500 mt-3">
-                Event {currentEventIndex + 1} of {timelineEvents.length}
+                {t("eventOf", { current: currentEventIndex + 1, total: timelineEvents.length })}
               </p>
             </div>
           </div>
@@ -246,7 +248,7 @@ export default function TimelineEventModal({
             disabled={!hasPreviousEvent}
             className="px-4 py-2 rounded-lg border border-white/10 text-zinc-400 hover:text-white hover:border-cyan-400/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-150 text-sm md:text-base"
           >
-            ← Previous
+            ← {t("previous")}
           </button>
 
           {/* Next button */}
@@ -255,7 +257,7 @@ export default function TimelineEventModal({
             disabled={!hasNextEvent}
             className="px-4 py-2 rounded-lg border border-cyan-400/50 bg-cyan-400/5 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400/80 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-150 text-sm md:text-base"
           >
-            Next →
+            {t("next")} →
           </button>
         </div>
       </div>

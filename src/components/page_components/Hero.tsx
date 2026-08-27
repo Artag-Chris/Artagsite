@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
+import { useTranslations } from "next-intl"
 import { Badge } from "@/components/ui/badge"
 import TypingAnimation from "../animations/typingAnimation"
 import RandomLoader from "../loading/random-loader"
@@ -11,6 +12,7 @@ import { Sparkles } from "lucide-react"
 import HeroTerminal from "../sub-sections/HeroTerminal"
 
 function Hero() {
+  const t = useTranslations("hero")
   const videoContainerRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const isMobileRef = useRef(false)
@@ -79,12 +81,12 @@ function Hero() {
   }, [h1Done])
 
   const bioChunks: { text: string; bold: boolean }[] = [
-    { text: "I'm Christian — I connect services, automate workflows, and build tools that save you time. From ", bold: false },
-    { text: "WhatsApp to Slack", bold: true },
-    { text: ", from ", bold: false },
-    { text: "spreadsheets to full apps", bold: true },
-    { text: ", I make things work together so you don't have to. ", bold: false },
-    { text: "Based in Pereira, Colombia 🇨🇴", bold: false },
+    { text: t("bioIntro"), bold: false },
+    { text: t("bioBold1"), bold: true },
+    { text: t("bioMid"), bold: false },
+    { text: t("bioBold2"), bold: true },
+    { text: t("bioOutro"), bold: false },
+    { text: t("bioLocation"), bold: false },
   ]
 
   // Handle video load and play
@@ -159,7 +161,7 @@ function Hero() {
         >
           <Image
             src="/technology.webp"
-            alt="Technology background"
+            alt={t("alt")}
             fill
             priority
             className="object-cover"
@@ -199,7 +201,7 @@ function Hero() {
            <div className="max-w-2xl" style={{ animation: 'fadeInUp 0.8s ease-out 0.2s backwards' }}>
                <Badge className="mb-4 bg-amber-500/10 text-amber-400 hover:bg-amber-500/15 transition-all border border-amber-500/20 backdrop-blur-sm">
                 <TypingAnimation
-                    phrases={["I connect what's broken", "I automate what's boring", "Let's build something cool"]}
+                    phrases={[t("badge.0"), t("badge.1"), t("badge.2")]}
                   typeSpeed={80}
                   eraseSpeed={40}
                   delayBetweenPhrases={1500}
@@ -216,15 +218,15 @@ function Hero() {
                 animate={showCityLoader ? { opacity: 0.2 } : { opacity: 1 }}
                 transition={{ duration: 1.8, delay: 0, ease: "linear" }}
               >
-                <span className="block">I Connect Stuff.</span>
+                <span className="block">{t("h1line1")}</span>
                 <span className="block">
                   <span
                     className="text-blue-400"
                   >
-                    I Automate the Boring.
+                    {t("h1line2")}
                   </span>
                 </span>
-                <span className="block text-zinc-400">Let&apos;s Build Something.</span>
+                <span className="block text-zinc-400">{t("h1line3")}</span>
               </motion.h1>
              <AnimatePresence>
                {h1Done && (
@@ -280,7 +282,7 @@ function Hero() {
                       y: { duration: 0.5, ease: "easeOut" },
                     }}
                   >
-                   <CTAButton text={"Got something in mind?"} icon={<Sparkles />} />
+                   <CTAButton text={t("cta")} icon={<Sparkles />} />
                  </motion.div>
                )}
              </AnimatePresence>

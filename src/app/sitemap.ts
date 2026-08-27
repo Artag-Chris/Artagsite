@@ -4,43 +4,43 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.artagdev.com.co'
 
   const routes = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/about-me`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/currentStudies`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/my-faith`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/favorites`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/private-servers`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.3,
-    },
+    { path: '', changeFrequency: 'weekly' as const, priority: 1.0 },
+    { path: 'about-me', changeFrequency: 'monthly' as const, priority: 0.8 },
+    { path: 'currentStudies', changeFrequency: 'weekly' as const, priority: 0.7 },
+    { path: 'my-faith', changeFrequency: 'monthly' as const, priority: 0.3 },
+    { path: 'favorites', changeFrequency: 'monthly' as const, priority: 0.3 },
+    { path: 'private-servers', changeFrequency: 'monthly' as const, priority: 0.3 },
   ]
 
-  return routes
+  return routes.flatMap(({ path, changeFrequency, priority }) => {
+    const enUrl = path ? `${baseUrl}/${path}` : baseUrl
+    const esUrl = path ? `${baseUrl}/es/${path}` : `${baseUrl}/es`
+
+    return [
+      {
+        url: enUrl,
+        lastModified: new Date(),
+        changeFrequency,
+        priority,
+        alternates: {
+          languages: {
+            en: enUrl,
+            es: esUrl,
+          },
+        },
+      },
+      {
+        url: esUrl,
+        lastModified: new Date(),
+        changeFrequency,
+        priority,
+        alternates: {
+          languages: {
+            en: enUrl,
+            es: esUrl,
+          },
+        },
+      },
+    ]
+  })
 }

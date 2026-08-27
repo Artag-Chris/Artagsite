@@ -2,6 +2,7 @@
 
 import React from "react"
 import { motion } from "framer-motion"
+import { useTranslations } from "next-intl"
 import { Quote } from "lucide-react"
 import TestimonialAvatar from "./TestimonialAvatar"
 import { Testimonial } from "@/data/contactData"
@@ -21,6 +22,7 @@ function TestimonialCard({
   onHoverEnd,
   delay = 0,
 }: TestimonialCardProps) {
+  const t = useTranslations("testimonials.relationship")
   const relationshipColors = {
     colleague: "bg-blue-500/10 text-blue-400/80 border-blue-500/20",
     manager: "bg-purple-500/10 text-purple-400/80 border-purple-500/20",
@@ -92,8 +94,7 @@ function TestimonialCard({
                   relationshipColors[testimonial.relationship]
                 }`}
               >
-                {testimonial.relationship.charAt(0).toUpperCase() +
-                  testimonial.relationship.slice(1)}
+                {t(testimonial.relationship)}
               </span>
             </div>
           </motion.div>

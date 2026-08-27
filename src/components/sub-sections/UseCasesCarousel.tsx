@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useTranslations } from "next-intl"
 import { useState, useRef, useEffect, useCallback } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { UseCase } from "@/data/skillsData"
@@ -29,6 +30,7 @@ function animateScrollLeft(el: HTMLElement, targetLeft: number, duration = 600) 
 }
 
 export function UseCasesCarousel({ useCases, onSelectUseCase }: UseCasesCarouselProps) {
+  const t = useTranslations("skills.carousel")
   const [currentIndex, setCurrentIndex] = useState(0)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
@@ -149,7 +151,7 @@ export function UseCasesCarousel({ useCases, onSelectUseCase }: UseCasesCarousel
               className="p-2.5 rounded-xl bg-white/[0.04] backdrop-blur-sm border border-white/[0.06] hover:bg-white/[0.08] hover:border-white/[0.12] transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              aria-label="Scroll left"
+              aria-label={t("scrollLeft")}
             >
               <ChevronLeft className="w-4 h-4 text-zinc-400" />
             </motion.button>
@@ -159,7 +161,7 @@ export function UseCasesCarousel({ useCases, onSelectUseCase }: UseCasesCarousel
               className="p-2.5 rounded-xl bg-white/[0.04] backdrop-blur-sm border border-white/[0.06] hover:bg-white/[0.08] hover:border-white/[0.12] transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              aria-label="Scroll right"
+              aria-label={t("scrollRight")}
             >
               <ChevronRight className="w-4 h-4 text-zinc-400" />
             </motion.button>

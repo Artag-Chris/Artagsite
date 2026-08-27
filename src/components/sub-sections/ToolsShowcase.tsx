@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useTranslations } from "next-intl"
 import { useInViewOnReady } from "@/hooks/useInViewOnReady"
 import { toolsData, Tool } from "@/data/skillsData"
 
@@ -29,6 +30,7 @@ function groupByCategory(tools: Tool[]): { category: string; items: Tool[] }[] {
 }
 
 export function ToolsShowcase({ showLabel = true }: ToolsShowcaseProps) {
+  const t = useTranslations("skills.tools")
   const { ref: headerInViewRef, isReady: headerReady } = useInViewOnReady<HTMLDivElement>({ amount: 0.3 })
   const grouped = groupByCategory(toolsData)
 
@@ -44,7 +46,7 @@ export function ToolsShowcase({ showLabel = true }: ToolsShowcaseProps) {
         >
           <motion.div className="inline-block" variants={headerItem}>
             <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-amber-400/70 bg-amber-500/10 border border-amber-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">
-              Tech Stack
+              {t("badge")}
             </span>
           </motion.div>
           <motion.h2
@@ -52,13 +54,13 @@ export function ToolsShowcase({ showLabel = true }: ToolsShowcaseProps) {
             style={{ fontFamily: 'var(--font-display)' }}
             variants={headerItem}
           >
-            Technologies & <span className="text-blue-400">Tools</span>
+            {t("title")}<span className="text-blue-400">{t("titleAccent")}</span>
           </motion.h2>
           <motion.p
             className="text-zinc-400 text-base sm:text-lg max-w-3xl leading-relaxed"
             variants={headerItem}
           >
-            The full toolkit I use to bring solutions to life — from languages and frameworks to cloud infrastructure and monitoring.
+            {t("description")}
           </motion.p>
         </motion.div>
       )}
@@ -74,7 +76,7 @@ export function ToolsShowcase({ showLabel = true }: ToolsShowcaseProps) {
           >
             <div className="flex items-center gap-3 mb-4 sm:mb-5">
               <h3 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-zinc-500">
-                {group.category}
+                {t(`categories.${group.category}`)}
               </h3>
               <div className="flex-1 h-px bg-white/[0.04]" />
               <span className="text-[10px] font-mono text-zinc-600">

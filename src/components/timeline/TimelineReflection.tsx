@@ -1,10 +1,12 @@
 "use client"
 
 import { useRef, useEffect } from "react"
+import { useTranslations } from "next-intl"
 import gsap from "gsap"
 import Link from "next/link"
 
 export default function TimelineReflection() {
+  const t = useTranslations("timeline.reflection")
   const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -38,12 +40,12 @@ export default function TimelineReflection() {
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 md:mb-8 leading-tight"
           style={{ fontFamily: 'var(--font-display)' }}
         >
-          The Journey <span className="text-cyan-400">Continues</span>
+          {t("title")}<span className="text-cyan-400">{t("titleAccent")}</span>
         </h2>
 
         {/* Main reflection */}
         <p className="text-lg md:text-xl text-zinc-400 leading-relaxed mb-8 md:mb-10">
-          This is not an ending, but a chapter in a much larger story. Every day brings new challenges to overcome, new skills to master, and new opportunities to make a meaningful impact.
+          {t("paragraph")}
         </p>
 
         {/* Divider */}
@@ -52,25 +54,25 @@ export default function TimelineReflection() {
         {/* Key themes */}
         <div className="mb-12">
           <p className="text-sm font-mono text-cyan-400/70 uppercase tracking-widest mb-6">
-            Guiding Principles
+            {t("principles")}
           </p>
           <ul className="space-y-3 text-left md:text-center max-w-xl mx-auto">
             <li className="flex items-start md:items-center gap-3">
               <span className="text-cyan-400 mt-1 md:mt-0">▪</span>
               <span className="text-zinc-400">
-                <strong className="text-white">Resilience through adversity</strong> — Every challenge is an opportunity to grow stronger
+                <strong className="text-white">{t("principle1")}</strong>
               </span>
             </li>
             <li className="flex items-start md:items-center gap-3">
               <span className="text-cyan-400 mt-1 md:mt-0">▪</span>
               <span className="text-zinc-400">
-                <strong className="text-white">Growth driven by purpose</strong> — Clear purpose transforms struggle into progress
+                <strong className="text-white">{t("principle2")}</strong>
               </span>
             </li>
             <li className="flex items-start md:items-center gap-3">
               <span className="text-cyan-400 mt-1 md:mt-0">▪</span>
               <span className="text-zinc-400">
-                <strong className="text-white">Continuous learning as path</strong> — Mastery requires dedication, curiosity, and humility
+                <strong className="text-white">{t("principle3")}</strong>
               </span>
             </li>
           </ul>
@@ -78,27 +80,27 @@ export default function TimelineReflection() {
 
         {/* Closing statement */}
         <p className="text-base md:text-lg text-zinc-400 italic mb-12 md:mb-16 leading-relaxed">
-          I'm committed to continuous learning, deeper skill mastery, and leveraging technology to create positive change. Whether through mentoring others, building innovative solutions, or supporting my family—the best chapters are yet to come.
+          {t("closing")}
         </p>
 
         {/* CTA Section */}
         <div className="space-y-6">
           <div>
             <p className="text-xs md:text-sm font-mono text-cyan-400/70 uppercase tracking-widest mb-6">
-              What's Next?
+              {t("whatsNext")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/#skills"
                 className="px-6 py-3 rounded-lg border border-cyan-400/50 bg-cyan-400/5 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400/80 transition-all duration-150 font-medium text-sm md:text-base"
               >
-                Explore My Work
+                {t("exploreWork")}
               </Link>
               <Link
                 href="/#contact"
                 className="px-6 py-3 rounded-lg border border-zinc-600 text-white hover:border-cyan-400/50 hover:bg-cyan-400/5 transition-all duration-150 font-medium text-sm md:text-base"
               >
-                Get in Touch
+                {t("getInTouch")}
               </Link>
             </div>
           </div>
@@ -107,7 +109,7 @@ export default function TimelineReflection() {
         {/* Closing accent */}
         <div className="mt-12 md:mt-16 pt-12 md:pt-16 border-t border-white/5">
           <p className="text-xs md:text-sm text-zinc-600 font-mono">
-            "The story is still being written, each line a new chapter of growth, each page a fresh beginning."
+            "{t("finalQuote")}"
           </p>
         </div>
       </div>

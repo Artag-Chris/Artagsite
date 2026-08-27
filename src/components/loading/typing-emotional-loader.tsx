@@ -1,5 +1,6 @@
 "use client"
 
+import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -8,14 +9,11 @@ interface TypingEmotionalLoaderProps {
   minDisplayTime?: number
 }
 
-export default function TypingEmotionalLoader({
-  onLoadingComplete,
-  minDisplayTime = 1800,
-}: TypingEmotionalLoaderProps) {
+export default function TypingEmotionalLoader({ onLoadingComplete, minDisplayTime = 2000 }: TypingEmotionalLoaderProps) {
+  const t = useTranslations("loaders.emotional")
+  const phrases = [t("phrases.0"), t("phrases.1"), t("phrases.2")]
   const [currentPhrase, setCurrentPhrase] = useState(0)
   const [isVisible, setIsVisible] = useState(true)
-
-  const phrases = ["Designing emotion…", "Engineering impact…", "Loading your experience…"]
 
   useEffect(() => {
     // Cycle through phrases faster

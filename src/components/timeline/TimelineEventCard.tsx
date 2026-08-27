@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
+import { useTranslations } from "next-intl"
 import gsap from "gsap"
 import { TimelineEvent } from "@/components/timeline/timelineData/timelineEvents"
 import Image from "next/image"
@@ -32,6 +33,7 @@ export default function TimelineEventCard({
   onClick,
   isVisible = false,
 }: TimelineEventCardProps) {
+  const t = useTranslations("timeline.card")
   const cardRef = useRef<HTMLDivElement>(null)
   const [isHovered, setIsHovered] = useState(false)
 
@@ -126,7 +128,7 @@ export default function TimelineEventCard({
 
             {/* CTA */}
             <div className="text-sm text-cyan-400 font-medium flex items-center gap-1 pt-2">
-              Read full story →
+              {t("readFullStory")} →
             </div>
           </div>
         )}
@@ -134,7 +136,7 @@ export default function TimelineEventCard({
         {/* Fallback CTA when not hovering */}
         {!isHovered && (
           <div className="text-sm text-cyan-400/60 font-medium">
-            › Click for story
+            › {t("clickForStory")}
           </div>
         )}
       </div>

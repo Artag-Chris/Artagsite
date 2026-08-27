@@ -1,22 +1,24 @@
 "use client"
 
 import { useDeferredValue, useMemo, useState } from "react"
+import { useTranslations } from "next-intl"
 import { Search, X } from "lucide-react"
 import type { Study } from "@/data/currentstudies/currentStudiesData"
 import { StudyCard } from "./StudyCard"
 
 type Filter = "active" | "completed" | "all"
 
-const TABS: { id: Filter; label: string }[] = [
-  { id: "active", label: "Active" },
-  { id: "completed", label: "Completed" },
-  { id: "all", label: "All" },
-]
-
 export function StudiesFilterableGrid({ studies }: { studies: Study[] }) {
+  const t = useTranslations("studies")
   const [activeFilter, setActiveFilter] = useState<Filter>("active")
   const [searchQuery, setSearchQuery] = useState("")
   const deferredQuery = useDeferredValue(searchQuery)
+
+  const TABS: { id: Filter; label: string }[] = [
+    { id: "active", label: t("statusActive") },
+    { id: "completed", label: t("statusCompleted") },
+    { id: "all", label: t("statusAll") },
+  ]
 
   const filtered = useMemo(() => {
     const q = deferredQuery.trim().toLowerCase()
@@ -40,25 +42,25 @@ export function StudiesFilterableGrid({ studies }: { studies: Study[] }) {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-500 pointer-events-none" />
           <input
             type="text"
-            placeholder="Search studies, skills, categories..."
+            placeholder={t("searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-10 py-3 rounded-lg bg-zinc-800/50 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-colors"
-            aria-label="Search studies"
+            aria-label={t("searchPlaceholder")}
           />
           {searchQuery && (
             <button
               type="button"
               onClick={() => setSearchQuery("")}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition-colors"
-              aria-label="Clear search"
+              aria-label={t("clearFilters")}
             >
               <X className="h-5 w-5" />
             </button>
           )}
         </div>
 
-        <div className="flex gap-2" role="tablist" aria-label="Filter by status">
+        <div className="flex gap-2" role="tablist" aria-label={t("filterByStatus")}>
           {TABS.map((tab) => {
             const isActive = activeFilter === tab.id
             return (
@@ -92,9 +94,9 @@ export function StudiesFilterableGrid({ studies }: { studies: Study[] }) {
           <div className="w-16 h-16 rounded-full bg-zinc-800/50 flex items-center justify-center mx-auto mb-4">
             <Search className="h-8 w-8 text-zinc-600" />
           </div>
-          <h3 className="text-xl font-bold text-white mb-2">No studies found</h3>
+          <h3 className="text-xl font-bold text-white mb-2">{t("noStudies")}</h3>
           <p className="text-zinc-400 mb-6">
-            Try adjusting your search or filter. You can search by name, skills, categories, and more.
+            {t("noStudiesHint")}
           </p>
           <button
             type="button"
@@ -104,7 +106,7 @@ export function StudiesFilterableGrid({ studies }: { studies: Study[] }) {
             }}
             className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-medium hover:from-blue-500 hover:to-cyan-400 transition-colors"
           >
-            Clear Filters
+            {t("clearFilters")}
           </button>
         </div>
       )}

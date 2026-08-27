@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server"
 import {
   ArrowDown,
   Award,
@@ -5,58 +6,49 @@ import {
   Layers,
 } from "lucide-react"
 
-type Highlight = {
-  icon: typeof GraduationCap
-  iconClass: string
-  borderClass: string
-  bgClass: string
-  title: string
-  subtitle: string
-  jumpHref: string
-  jumpLabel: string
-}
+export async function AtAGlance() {
+  const t = await getTranslations("studies")
 
-const HIGHLIGHTS: Highlight[] = [
-  {
-    icon: GraduationCap,
-    iconClass: "text-amber-300",
-    borderClass: "border-amber-500/30 hover:border-amber-400/60",
-    bgClass: "bg-amber-500/15",
-    title: "Misión TIC 2022 — UNAB",
-    subtitle: "Government scholarship · 5.0 / 5.0 every semester",
-    jumpHref: "#formal-education",
-    jumpLabel: "Formal Education",
-  },
-  {
-    icon: Layers,
-    iconClass: "text-blue-300",
-    borderClass: "border-blue-500/30 hover:border-blue-400/60",
-    bgClass: "bg-blue-500/15",
-    title: "13 microservices shipped",
-    subtitle: "TypeScript org · artag-services · production",
-    jumpHref: "#active-studies",
-    jumpLabel: "Active Studies",
-  },
-  {
-    icon: Award,
-    iconClass: "text-cyan-300",
-    borderClass: "border-cyan-500/30 hover:border-cyan-400/60",
-    bgClass: "bg-cyan-500/15",
-    title: "5 verified certifications",
-    subtitle: "Fernando Herrera · top-5 Spanish Udemy instructor",
-    jumpHref: "#certifications",
-    jumpLabel: "Certifications",
-  },
-]
+  const HIGHLIGHTS = [
+    {
+      icon: GraduationCap,
+      iconClass: "text-amber-300",
+      borderClass: "border-amber-500/30 hover:border-amber-400/60",
+      bgClass: "bg-amber-500/15",
+      title: "Misión TIC 2022 — UNAB",
+      subtitle: t("atAGlance.misionSub"),
+      jumpHref: "#formal-education",
+      jumpLabel: t("atAGlance.formalEducation"),
+    },
+    {
+      icon: Layers,
+      iconClass: "text-blue-300",
+      borderClass: "border-blue-500/30 hover:border-blue-400/60",
+      bgClass: "bg-blue-500/15",
+      title: t("atAGlance.microservices"),
+      subtitle: t("atAGlance.microservicesSub"),
+      jumpHref: "#active-studies",
+      jumpLabel: t("atAGlance.activeStudies"),
+    },
+    {
+      icon: Award,
+      iconClass: "text-cyan-300",
+      borderClass: "border-cyan-500/30 hover:border-cyan-400/60",
+      bgClass: "bg-cyan-500/15",
+      title: t("atAGlance.certifications"),
+      subtitle: t("atAGlance.certificationsSub"),
+      jumpHref: "#certifications",
+      jumpLabel: t("atAGlance.certifications"),
+    },
+  ]
 
-export function AtAGlance() {
   return (
     <section
       aria-label="Credentials at a glance"
       className="max-w-5xl mx-auto mb-10"
     >
       <div className="text-xs uppercase tracking-[0.2em] text-zinc-500 text-center mb-4">
-        At a glance
+        {t("atAGlance")}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">

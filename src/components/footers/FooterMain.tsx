@@ -2,10 +2,13 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { useTranslations } from "next-intl"
 import { Mail, Heart, Github, Linkedin, ExternalLink } from "lucide-react"
 import { navLinks, services, socialLinksFooter } from "@/data/footerData"
+import LanguageSwitcher from "@/components/LanguageSwitcher"
 
 function Footer() {
+  const t = useTranslations("footer")
   const currentYear = new Date().getFullYear()
 
   const containerVariants = {
@@ -53,12 +56,12 @@ function Footer() {
               </div>
 
               <p className="text-zinc-500 text-sm leading-relaxed">
-                I connect services, automate workflows, and build tools that save you time. Based in Pereira, Colombia.
+                {t("tagline")}
               </p>
             </div>
 
             <div className="space-y-3">
-              <p className="text-xs uppercase tracking-widest text-zinc-600">Connect</p>
+              <p className="text-xs uppercase tracking-widest text-zinc-600">{t("connect")}</p>
               <div className="flex flex-wrap gap-3">
                 {socialLinksFooter.map((social, index) => {
                   const Icon = social.icon
@@ -87,12 +90,12 @@ function Footer() {
           <motion.div className="space-y-6" variants={itemVariants}>
             <div>
               <h3 className="text-white font-semibold mb-4 text-base">
-                Quick Links
+                {t("quickLinks")}
               </h3>
               <ul className="space-y-3 mt-6">
                 {navLinks.map((link, index) => (
                   <motion.li
-                    key={link.name}
+                    key={link.id}
                     initial={{ opacity: 0, x: -8 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
@@ -103,7 +106,7 @@ function Footer() {
                       className="text-zinc-500 hover:text-white transition-colors duration-200 flex items-center group text-sm"
                     >
                       <span className="w-1 h-1 rounded-full bg-zinc-700 group-hover:bg-white mr-2 transition-colors"></span>
-                      {link.name}
+                      {t(`nav.${link.id}`)}
                       <ExternalLink className="h-3 w-3 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
                   </motion.li>
@@ -115,7 +118,7 @@ function Footer() {
           <motion.div className="space-y-6" variants={itemVariants}>
             <div>
               <h3 className="text-white font-semibold mb-4 text-base">
-                What I Do
+                {t("whatIDo")}
               </h3>
               <ul className="space-y-3 mt-6">
                 {services.slice(0, 6).map((service, index) => (
@@ -131,7 +134,7 @@ function Footer() {
                       className="text-zinc-500 hover:text-white transition-colors duration-200 flex items-center group text-sm"
                     >
                       <span className="w-1 h-1 rounded-full bg-zinc-700 group-hover:bg-white mr-2 transition-colors"></span>
-                      {service}
+                      {t(`services.${service}`)}
                     </Link>
                   </motion.li>
                 ))}
@@ -142,11 +145,11 @@ function Footer() {
           <motion.div className="space-y-6" variants={itemVariants}>
             <div>
               <h3 className="text-white font-semibold mb-4 text-base">
-                Let&apos;s Talk
+                {t("letsTalk")}
               </h3>
 
               <p className="text-zinc-500 text-sm mb-6 mt-6 leading-relaxed">
-                Have something in mind? I&apos;m always open to new collaborations, ideas, and conversations.
+                {t("paragraph")}
               </p>
 
               <motion.a
@@ -155,7 +158,7 @@ function Footer() {
                 whileTap={{ scale: 0.97 }}
               >
                 <Mail className="h-4 w-4" />
-                Get in touch
+                {t("getInTouch")}
               </motion.a>
             </div>
           </motion.div>
@@ -174,8 +177,12 @@ function Footer() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
             <motion.p className="text-zinc-600 text-xs sm:text-sm text-center sm:text-left">
-              &copy; {currentYear} Artag Dev. All rights reserved.
+              &copy; {currentYear} Artag Dev. {t("rights")}
             </motion.p>
+
+            <div className="flex items-center gap-4">
+              <LanguageSwitcher />
+            </div>
 
             <motion.div
               className="flex items-center gap-4 sm:gap-6"
@@ -189,7 +196,7 @@ function Footer() {
                 className="text-zinc-600 hover:text-white text-xs sm:text-sm transition-colors duration-200"
                 variants={itemVariants}
               >
-                Privacy Policy
+                {t("privacy")}
               </motion.a>
               <span className="text-zinc-800">&bull;</span>
               <motion.a
@@ -197,16 +204,15 @@ function Footer() {
                 className="text-zinc-600 hover:text-white text-xs sm:text-sm transition-colors duration-200"
                 variants={itemVariants}
               >
-                Terms of Service
+                {t("terms")}
               </motion.a>
               <span className="text-zinc-800">&bull;</span>
               <motion.div
                 className="text-zinc-600 text-xs sm:text-sm flex items-center gap-1"
                 variants={itemVariants}
               >
-                Made with
+                {t("madeWith")}
                 <Heart className="h-3 w-3 fill-white/40 text-white/40" />
-                in Pereira
               </motion.div>
             </motion.div>
           </div>

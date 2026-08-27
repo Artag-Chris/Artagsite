@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { useTranslations } from "next-intl"
 import gsap from "gsap"
 
 interface TimelineHeroProps {
@@ -10,6 +11,7 @@ interface TimelineHeroProps {
 }
 
 export default function TimelineHero({ eventCount, yearStart, yearEnd }: TimelineHeroProps) {
+  const t = useTranslations("timeline.hero")
   const heroRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
 
@@ -45,12 +47,12 @@ export default function TimelineHero({ eventCount, yearStart, yearEnd }: Timelin
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight"
           style={{ fontFamily: 'var(--font-display)' }}
         >
-          The Architect's <span className="text-cyan-400">Ledger</span>
+          {t("title")}<span className="text-cyan-400">{t("titleAccent")}</span>
         </h1>
 
         {/* Subtitle */}
         <p className="text-lg md:text-xl text-zinc-400 mb-8 md:mb-10 leading-relaxed max-w-2xl">
-          A journey from uncertainty to mastery. Seven transformative milestones that shaped who I am today.
+          {t("subtitle")}
         </p>
 
         {/* Divider line */}
@@ -60,37 +62,37 @@ export default function TimelineHero({ eventCount, yearStart, yearEnd }: Timelin
         <div className="flex flex-col sm:flex-row gap-8 md:gap-12">
           <div>
             <div className="text-sm font-mono text-cyan-400/70 uppercase tracking-widest mb-2">
-              Time Span
+              {t("timeSpan")}
             </div>
             <p className="text-xl md:text-2xl font-mono text-white">
               {yearStart} — {yearEnd}
             </p>
             <p className="text-xs md:text-sm text-zinc-500 mt-1">
-              {totalYears} years of growth
+              {t("yearsOfGrowth", { count: totalYears })}
             </p>
           </div>
 
           <div>
             <div className="text-sm font-mono text-cyan-400/70 uppercase tracking-widest mb-2">
-              Milestones
+              {t("milestones")}
             </div>
             <p className="text-xl md:text-2xl font-mono text-white">
-              {eventCount} chapters
+              {t("chapters", { count: eventCount })}
             </p>
             <p className="text-xs md:text-sm text-zinc-500 mt-1">
-              Major life events
+              {t("majorLifeEvents")}
             </p>
           </div>
 
           <div>
             <div className="text-sm font-mono text-cyan-400/70 uppercase tracking-widest mb-2">
-              Emotional Arcs
+              {t("emotionalArcs")}
             </div>
             <p className="text-xl md:text-2xl font-mono text-white">
-              4 themes
+              {t("themes")}
             </p>
             <p className="text-xs md:text-sm text-zinc-500 mt-1">
-              Challenge, Triumph, Transformation, Discovery
+              {t("arcNames")}
             </p>
           </div>
         </div>

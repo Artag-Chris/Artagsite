@@ -1,6 +1,9 @@
 import { Award, FileText, GraduationCap, Palette } from "lucide-react"
+import { getTranslations } from "next-intl/server"
 
-export function FormalEducation() {
+export async function FormalEducation() {
+  const t = await getTranslations("studies")
+
   return (
     <section
       id="formal-education"
@@ -13,7 +16,7 @@ export function FormalEducation() {
           id="formal-education-heading"
           className="text-2xl md:text-3xl font-bold text-white"
         >
-          Formal Education
+          {t("formalEducation")}
         </h2>
       </div>
 
@@ -30,12 +33,12 @@ export function FormalEducation() {
             </div>
             <div>
               <h3 className="text-lg font-bold text-white leading-tight">
-                Misión TIC 2022 — Software Development
+                {t("misionTitle")}
               </h3>
               <p className="text-sm text-amber-300/90 font-medium">
-                Universidad Autónoma de Bucaramanga (UNAB)
+                {t("misionSchool")}
               </p>
-              <p className="text-xs text-zinc-400">Colombia · 2021 – 2022</p>
+              <p className="text-xs text-zinc-400">{t("misionPeriod")}</p>
             </div>
           </div>
 
@@ -45,10 +48,7 @@ export function FormalEducation() {
                 •
               </span>
               <span>
-                Full government scholarship —{" "}
-                <span className="text-amber-300">
-                  Programa Misión TIC 2022, Ministerio TIC de Colombia
-                </span>
+                {t("misionScholarship")}
               </span>
             </li>
             <li className="flex gap-2">
@@ -56,8 +56,8 @@ export function FormalEducation() {
                 •
               </span>
               <span>
-                <span className="text-amber-300 font-semibold">5.0 / 5.0</span> in
-                every semester (Colombian grading scale, top mark)
+                <span className="text-amber-300 font-semibold">5.0 / 5.0</span>{" "}
+                {t("misionGrades")}
               </span>
             </li>
             <li className="flex gap-2">
@@ -65,8 +65,7 @@ export function FormalEducation() {
                 •
               </span>
               <span>
-                Web application development — fundamentals, JavaScript /
-                TypeScript, frontend &amp; backend
+                {t("misionWebDev")}
               </span>
             </li>
           </ul>
@@ -78,13 +77,13 @@ export function FormalEducation() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 text-sm font-medium transition-colors"
           >
             <FileText className="h-4 w-4" />
-            View official certificate (PDF)
+            {t("viewCertPdf")}
           </a>
         </article>
 
         <article className="relative p-6 rounded-2xl bg-zinc-800/40 border border-zinc-700/60">
           <div className="absolute -top-3 -right-3 px-3 py-1 rounded-full bg-zinc-700 text-zinc-300 text-xs font-medium border border-zinc-600">
-            Program cancelled
+            {t("programCancelled")}
           </div>
 
           <div className="flex items-start gap-3 mb-3">
@@ -93,22 +92,20 @@ export function FormalEducation() {
             </div>
             <div>
               <h3 className="text-lg font-bold text-white leading-tight">
-                Web Design
+                {t("webDesign")}
               </h3>
               <p className="text-sm text-pink-300/90 font-medium">
-                SENA — Servicio Nacional de Aprendizaje
+                {t("webDesignSchool")}
               </p>
-              <p className="text-xs text-zinc-400">Colombia · 2023</p>
+              <p className="text-xs text-zinc-400">{t("webDesignPeriod")}</p>
             </div>
           </div>
 
           <p className="text-sm text-zinc-300 mb-2">
-            Enrolled out of personal interest in the aesthetic side of the craft
-            — visual design, UI fundamentals, layout.
+            {t("webDesignDesc")}
           </p>
           <p className="text-sm text-zinc-400">
-            The program was cancelled by SENA due to a platform migration and
-            low enrolment. The interest stuck — visible across my UI work.
+            {t("webDesignCancelled")}
           </p>
         </article>
       </div>

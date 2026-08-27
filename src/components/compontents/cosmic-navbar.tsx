@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Menu, X } from "lucide-react"
+import LanguageSwitcher from "@/components/LanguageSwitcher"
 
 interface NavLink {
   href: string
@@ -148,7 +149,8 @@ const CosmicNavbar = ({ links, currentPath = "" }: CosmicNavbarProps) => {
         <div className="relative border-b border-white/10 shadow-2xl shadow-purple-500/10">
           <div className="container mx-auto px-4 py-5">
             {/* Mobile menu button */}
-            <div className="md:hidden flex justify-end">
+            <div className="md:hidden flex justify-between items-center px-4">
+              <LanguageSwitcher />
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="text-white focus:outline-none hover:text-purple-300 transition-colors"
@@ -160,51 +162,56 @@ const CosmicNavbar = ({ links, currentPath = "" }: CosmicNavbarProps) => {
             </div>
 
             {/* Desktop menu */}
-            <ul className="hidden md:flex space-x-6 justify-center items-center py-3">
-              {links.map((link) => {
-                const isActive = currentPath === link.href
-                return (
-                  <li
-                    key={link.href}
-                    className="group relative"
-                    onMouseEnter={() => setHoveredLink(link.href)}
-                    onMouseLeave={() => setHoveredLink(null)}
-                  >
-                    <Link
-                      href={link.href}
-                      className={`relative text-xs font-medium transition-colors duration-200 ${
-                        isActive ? "text-white" : "text-purple-200 hover:text-white"
-                      } flex items-center gap-2 px-3 py-2 rounded-lg`}
+            <div className="hidden md:flex space-x-6 justify-center items-center py-3">
+              <ul className="flex space-x-6 items-center">
+                {links.map((link) => {
+                  const isActive = currentPath === link.href
+                  return (
+                    <li
+                      key={link.href}
+                      className="group relative"
+                      onMouseEnter={() => setHoveredLink(link.href)}
+                      onMouseLeave={() => setHoveredLink(null)}
                     >
-                      {!isActive && (
-                        <span className="absolute -inset-2 rounded-lg bg-gradient-to-br from-purple-500/10 to-violet-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                      <Link
+                        href={link.href}
+                        className={`relative text-xs font-medium transition-colors duration-200 ${
+                          isActive ? "text-white" : "text-purple-200 hover:text-white"
+                        } flex items-center gap-2 px-3 py-2 rounded-lg`}
+                      >
+                        {!isActive && (
+                          <span className="absolute -inset-2 rounded-lg bg-gradient-to-br from-purple-500/10 to-violet-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                        )}
+
+                        <span className="relative z-10 flex items-center justify-center w-4 h-4">{link.icon}</span>
+
+                        <span className="relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 max-w-0 group-hover:max-w-xs overflow-hidden whitespace-nowrap">
+                          {link.shortLabel || link.label}
+                        </span>
+
+                        {isActive && (
+                          <motion.span
+                            className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-400 to-violet-400"
+                            layoutId="navbar-indicator"
+                            transition={{ type: "spring", duration: 0.5 }}
+                          />
+                        )}
+                      </Link>
+
+                      {hoveredLink === link.href && (
+                        <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-2 py-1 bg-purple-900/90 text-purple-100 text-xs rounded whitespace-nowrap pointer-events-none animate-in fade-in-0 slide-in-from-bottom-1 duration-200">
+                          {link.label}
+                          <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-l-transparent border-r-transparent border-t-purple-900/90" />
+                        </div>
                       )}
-
-                      <span className="relative z-10 flex items-center justify-center w-4 h-4">{link.icon}</span>
-
-                      <span className="relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 max-w-0 group-hover:max-w-xs overflow-hidden whitespace-nowrap">
-                        {link.shortLabel || link.label}
-                      </span>
-
-                      {isActive && (
-                        <motion.span
-                          className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-400 to-violet-400"
-                          layoutId="navbar-indicator"
-                          transition={{ type: "spring", duration: 0.5 }}
-                        />
-                      )}
-                    </Link>
-
-                    {hoveredLink === link.href && (
-                      <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-2 py-1 bg-purple-900/90 text-purple-100 text-xs rounded whitespace-nowrap pointer-events-none animate-in fade-in-0 slide-in-from-bottom-1 duration-200">
-                        {link.label}
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-l-transparent border-r-transparent border-t-purple-900/90" />
-                      </div>
-                    )}
-                  </li>
-                )
-              })}
-            </ul>
+                    </li>
+                  )
+                })}
+              </ul>
+              <div className="ml-6">
+                <LanguageSwitcher />
+              </div>
+            </div>
           </div>
 
           {/* Mobile menu drawer */}

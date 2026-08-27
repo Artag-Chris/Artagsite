@@ -33,6 +33,7 @@ import {
   SiGrafana,
   SiPrometheus,
 } from "react-icons/si"
+import { useCasesDataEs } from "./skillsData.es"
 
 
 // ============ TOOLS DATA (For optional secondary display) ============
@@ -742,3 +743,9 @@ export const useCasesData: UseCase[] = [
 
 
 export const skills = ["I Connect Things", "I Automate Workflows", "I Build Tools", "Let's Collaborate", "I Save You Time"]
+
+// Localized use cases map. Select by locale: useCasesByLocale[locale]
+export const useCasesByLocale: Record<"en" | "es", UseCase[]> = {
+  en: useCasesData,
+  es: useCasesDataEs,
+}

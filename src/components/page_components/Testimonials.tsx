@@ -2,11 +2,15 @@
 
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useLocale, useTranslations } from "next-intl"
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react"
-import { testimonials } from "@/data/contactData"
+import { testimonialsByLocale } from "@/data/contactData"
 import FeaturedTestimonials from "@/components/sub-sections/FeaturedTestimonials"
 
 function Testimonials() {
+  const t = useTranslations("testimonials")
+  const locale = useLocale()
+  const testimonials = testimonialsByLocale[locale as "en" | "es"] ?? testimonialsByLocale.en
   const [currentIndex, setCurrentIndex] = useState(0)
   const [autoPlay, setAutoPlay] = useState(true)
   const [direction, setDirection] = useState(0)
@@ -68,14 +72,14 @@ function Testimonials() {
         >
           <div className="inline-block mb-4">
             <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-indigo-400/70 bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-full">
-              Real Collaborations
+              {t("badge")}
             </span>
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-            Trusted by <span className='text-cyan-400'>Developers</span>
+            {t("title")}<span className='text-cyan-400'>{t("titleAccent")}</span>
           </h2>
           <p className="text-zinc-400 text-base sm:text-lg max-w-2xl mx-auto">
-            Hear directly from developers I&apos;ve collaborated with on real projects. Their insights reflect the impact of clean architecture, thoughtful code, and genuine partnerships.
+            {t("description")}
           </p>
         </motion.div>
 
@@ -98,10 +102,10 @@ function Testimonials() {
             viewport={{ once: true }}
           >
             <h3 className="text-xl sm:text-2xl font-semibold text-zinc-100">
-              All Testimonials
+              {t("all")}
             </h3>
             <p className="text-sm text-zinc-500">
-              Rotate to see more from my collaborators
+              {t("rotate")}
             </p>
           </motion.div>
           
@@ -198,7 +202,7 @@ function Testimonials() {
               whileHover={{ x: -3 }}
               whileTap={{ scale: 0.97 }}
               className="p-3 rounded-full border border-white/5 bg-white/5 hover:border-white/10 hover:bg-white/8 transition-all duration-200"
-              aria-label="Previous testimonial"
+              aria-label={t("prev")}
             >
               <ChevronLeft className="w-6 h-6 text-zinc-400" />
             </motion.button>
@@ -217,7 +221,7 @@ function Testimonials() {
                       ? "w-6 bg-white/60"
                       : "w-2 bg-white/15 hover:bg-white/25"
                   }`}
-                  aria-label={`Go to testimonial ${index + 1}`}
+                  aria-label={t("goto", { index: index + 1 })}
                 />
               ))}
             </div>
@@ -227,7 +231,7 @@ function Testimonials() {
               whileHover={{ x: 3 }}
               whileTap={{ scale: 0.97 }}
               className="p-3 rounded-full border border-white/5 bg-white/5 hover:border-white/10 hover:bg-white/8 transition-all duration-200"
-              aria-label="Next testimonial"
+              aria-label={t("next")}
             >
               <ChevronRight className="w-6 h-6 text-zinc-400" />
             </motion.button>
@@ -241,9 +245,9 @@ function Testimonials() {
             viewport={{ once: true }}
           >
             {autoPlay ? (
-              <p>Auto-rotating testimonials &bull; Click to control</p>
+              <p>{t("autoRotating")}</p>
             ) : (
-              <p>Auto-play paused &bull; Click arrows or dots to navigate</p>
+              <p>{t("autoPaused")}</p>
             )}
           </motion.div>
         </div>

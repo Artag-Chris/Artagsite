@@ -1,3 +1,6 @@
+"use client"
+
+import { useTranslations } from "next-intl"
 import {
   Award,
   Brain,
@@ -62,6 +65,7 @@ function StatusIcon({ status }: { status: StudyStatus }) {
 }
 
 export function StudyCard({ study, index = 0 }: { study: Study; index?: number }) {
+  const t = useTranslations("studies")
   const Icon = ICON_MAP[study.iconName]
   const delay = `${Math.min(index, 8) * 60}ms`
 
@@ -96,7 +100,7 @@ export function StudyCard({ study, index = 0 }: { study: Study; index?: number }
 
         <div className="flex items-center justify-center">
           <span className={`px-3 py-1 rounded-full text-xs font-medium ${CONFIDENCE_COLOR[study.confidence]}`}>
-            {study.confidence.charAt(0).toUpperCase() + study.confidence.slice(1)}
+            {t(`confidenceLevels.${study.confidence}`)}
           </span>
         </div>
 
@@ -107,7 +111,7 @@ export function StudyCard({ study, index = 0 }: { study: Study; index?: number }
 
         {study.usedIn && (
           <p className="text-xs text-zinc-400 mt-2 px-2 leading-relaxed">
-            <span className="text-blue-300 font-medium">Used in:</span>{" "}
+            <span className="text-blue-300 font-medium">{t("usedIn")}</span>{" "}
             {study.usedIn}
           </p>
         )}
@@ -120,7 +124,7 @@ export function StudyCard({ study, index = 0 }: { study: Study; index?: number }
             className="relative z-[70] inline-flex items-center gap-1.5 mt-2 px-3 py-1.5 rounded-full bg-blue-500/15 hover:bg-blue-500/25 border border-blue-500/30 text-blue-300 text-xs font-medium transition-colors"
           >
             <Github className="h-3 w-3" />
-            {study.proofLabel ?? "View proof"}
+            {study.proofLabel ?? t("viewProof")}
           </a>
         )}
       </div>
@@ -129,7 +133,7 @@ export function StudyCard({ study, index = 0 }: { study: Study; index?: number }
         <p className="text-sm text-zinc-300 mb-3">{study.description}</p>
 
         <div className="space-y-2">
-          <div className="text-xs text-zinc-500">Skills:</div>
+          <div className="text-xs text-zinc-500">{t("skills")}:</div>
           <div className="flex flex-wrap gap-1">
             {study.skills.map((skill) => (
               <span key={skill} className="px-2 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs">
@@ -155,7 +159,7 @@ export function StudyCard({ study, index = 0 }: { study: Study; index?: number }
             className="text-blue-400 hover:text-blue-300 text-xs flex items-center gap-1 transition-colors"
           >
             <Globe className="h-3 w-3" />
-            Official Documentation
+            {t("officialDocs")}
           </a>
         </div>
       </div>

@@ -2,37 +2,35 @@
 
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-
-const lines = [
-  { prompt: "christian@artagdev", command: "curl https://n8n.artagdev.com.co/health", delay: 0 },
-  {
-    output: [
-      "✓ WhatsApp API — connected",
-      "✓ Discord Bot — online",
-      "✓ Instagram webhook — listening",
-    ],
-    delay: 600,
-  },
-  { prompt: "christian@artagdev", command: "cat integrations.json | jq '.count'", delay: 1800 },
-  {
-    output: ['"12 active services"'],
-    delay: 2400,
-  },
-  { prompt: "christian@artagdev", command: "whoami --passion", delay: 3800 },
-  {
-    output: ["Connecting things that weren't talking", "Automating what people do manually", "Building tools that save real time"],
-    delay: 4400,
-    highlight: true,
-  },
-]
+import { useTranslations } from "next-intl"
 
 type Line =
   | { prompt: string; command: string; delay: number; output?: never; highlight?: never }
   | { output: string[]; delay: number; prompt?: never; command?: never; highlight?: boolean }
 
 export default function HeroTerminal() {
+  const t = useTranslations("hero.terminal")
   const [visibleLines, setVisibleLines] = useState<number[]>([])
   const [typedCommand, setTypedCommand] = useState<Record<number, string>>({})
+
+  const lines: Line[] = [
+    { prompt: "christian@artagdev", command: t("line1"), delay: 0 },
+    {
+      output: [t("out1"), t("out2"), t("out3")],
+      delay: 600,
+    },
+    { prompt: "christian@artagdev", command: t("line2"), delay: 1800 },
+    {
+      output: [t("out4")],
+      delay: 2400,
+    },
+    { prompt: "christian@artagdev", command: t("line3"), delay: 3800 },
+    {
+      output: [t("out5"), t("out6"), t("out7")],
+      delay: 4400,
+      highlight: true,
+    },
+  ]
 
   useEffect(() => {
     lines.forEach((line, i) => {
@@ -50,6 +48,7 @@ export default function HeroTerminal() {
         }
       }, line.delay)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -66,10 +65,10 @@ export default function HeroTerminal() {
             <div className="w-3 h-3 rounded-full bg-red-500/80" />
             <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
             <div className="w-3 h-3 rounded-full bg-green-500/80" />
-            <span className="ml-3 text-xs text-zinc-500 font-mono">christian@artagdev — zsh</span>
+            <span className="ml-3 text-xs text-zinc-500 font-mono">{t("windowTitle")}</span>
             <div className="ml-auto flex items-center gap-1.5">
               <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-xs text-zinc-500 font-mono">live</span>
+              <span className="text-xs text-zinc-500 font-mono">{t("live")}</span>
             </div>
           </div>
 
@@ -146,7 +145,7 @@ export default function HeroTerminal() {
           className="absolute -bottom-4 -right-4 bg-[#111111] border border-white/5 rounded-xl px-4 py-2 flex items-center gap-2"
         >
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          <span className="text-xs text-zinc-400 font-mono font-medium">Available to collaborate</span>
+          <span className="text-xs text-zinc-400 font-mono font-medium">{t("badge")}</span>
         </motion.div>
       </div>
     </motion.div>

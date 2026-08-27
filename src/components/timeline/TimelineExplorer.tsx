@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import { useTranslations } from "next-intl"
 import { timelineEvents, TimelineEvent } from "@/components/timeline/timelineData/timelineEvents"
 import TimelineEventCard from "./TimelineEventCard"
 
@@ -9,6 +10,7 @@ interface TimelineExplorerProps {
 }
 
 export default function TimelineExplorer({ onSelectEvent }: TimelineExplorerProps) {
+  const t = useTranslations("timeline.explorer")
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set())
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -68,10 +70,10 @@ export default function TimelineExplorer({ onSelectEvent }: TimelineExplorerProp
         <div className="mt-16 md:mt-20 pt-12 border-t border-zinc-800/50">
           <div className="text-center">
             <p className="text-sm md:text-base text-zinc-500 font-mono">
-              End of chapter
+              {t("endOfChapter")}
             </p>
             <p className="text-xs text-zinc-600 mt-2">
-              {timelineEvents.length} milestones documented
+              {timelineEvents.length} {t("milestonesDocumented")}
             </p>
           </div>
         </div>

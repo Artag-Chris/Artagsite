@@ -1,10 +1,12 @@
 import { Award, BookOpen, ExternalLink, Star } from "lucide-react"
+import { getTranslations } from "next-intl/server"
 import {
   courseCertifications,
   getCourseStats,
 } from "@/data/currentstudies/courseCertificationsData"
 
-export function CourseCertifications() {
+export async function CourseCertifications() {
+  const t = await getTranslations("studies")
   const stats = getCourseStats()
   const hasHours = stats.totalHours > 0
 
@@ -20,29 +22,28 @@ export function CourseCertifications() {
           id="course-certs-heading"
           className="text-2xl md:text-3xl font-bold text-white"
         >
-          Online Courses &amp; Certifications
+          {t("coursesTitle")}
         </h2>
       </div>
 
       <p className="text-sm text-zinc-400 mb-6 leading-relaxed">
-        Trained primarily through{" "}
+        {t("coursesIntroStart")}
         <a
           href="https://fernando-herrera.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-cyan-300 hover:text-cyan-200 font-medium underline underline-offset-2 decoration-cyan-500/40"
         >
-          Fernando Herrera (DevTalles)
-        </a>{" "}
-        — top-5 Spanish-speaking instructor on Udemy, 4.8+ avg rating, 19+ years
-        in production. Every certificate below is publicly verifiable on Udemy.
+          {t("coursesInstructor")}
+        </a>
+        {t("coursesIntroEnd")}
       </p>
 
       <div className="flex flex-wrap gap-6 mb-6 pb-6 border-b border-zinc-700/60">
         <div>
           <div className="text-2xl font-bold text-cyan-300">{stats.total}</div>
           <div className="text-xs text-zinc-500 uppercase tracking-wider">
-            Certifications
+            {t("certCount")}
           </div>
         </div>
         {hasHours && (
@@ -51,7 +52,7 @@ export function CourseCertifications() {
               {stats.totalHours}+
             </div>
             <div className="text-xs text-zinc-500 uppercase tracking-wider">
-              Hours studied
+              {t("hoursStudied")}
             </div>
           </div>
         )}
@@ -61,7 +62,7 @@ export function CourseCertifications() {
             <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
           </div>
           <div className="text-xs text-zinc-500 uppercase tracking-wider">
-            Instructor rating
+            {t("instructorRating")}
           </div>
         </div>
       </div>
@@ -102,15 +103,14 @@ export function CourseCertifications() {
               aria-label={`Verify certificate for ${course.title}`}
             >
               <ExternalLink className="h-3 w-3" />
-              Verify cert
+              {t("verifyCert")}
             </a>
           </li>
         ))}
       </ul>
 
       <p className="text-xs text-zinc-500 mt-6 italic">
-        More certifications from Fernando Herrera and other platforms — listed
-        here as the strongest signals; full transcript available on request.
+        {t("coursesFooter")}
       </p>
     </section>
   )

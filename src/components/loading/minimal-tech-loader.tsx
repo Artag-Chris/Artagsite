@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useTranslations } from "next-intl"
 
 interface MinimalTechLoaderProps {
   onLoadingComplete?: () => void
@@ -9,14 +10,15 @@ interface MinimalTechLoaderProps {
 }
 
 export default function MinimalTechLoader({ onLoadingComplete, minDisplayTime = 1800 }: MinimalTechLoaderProps) {
+  const t = useTranslations("loaders.minimal")
   const [currentPhrase, setCurrentPhrase] = useState(0)
   const [isVisible, setIsVisible] = useState(true)
   const [progress, setProgress] = useState(0)
 
   const phrases = [
-    { text: "Initializing", subtext: "System startup" },
-    { text: "Crafting", subtext: "User experience" },
-    { text: "Ready", subtext: "Let's create" },
+    { text: t("initializing"), subtext: t("systemStartup") },
+    { text: t("crafting"), subtext: t("userExperience") },
+    { text: t("ready"), subtext: t("letsCreate") },
   ]
 
   useEffect(() => {
@@ -182,7 +184,7 @@ export default function MinimalTechLoader({ onLoadingComplete, minDisplayTime = 
               </div>
 
               <div className="flex justify-between text-xs text-gray-600">
-                <span>Loading</span>
+                <span>{t("loading")}</span>
                 <span>{Math.round(progress)}%</span>
               </div>
             </div>

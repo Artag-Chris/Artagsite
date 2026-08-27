@@ -1,3 +1,5 @@
+import { projectsDataEs } from "./proyectData.es";
+
 export interface ProjectProps {
   id: string
   title: string
@@ -490,3 +492,10 @@ export const projectsData: ProjectProps[] = [
   //   endDate: null,
   // },
 ]
+
+// Localized project data map. Select by locale: projectsByLocale[locale]
+export const projectsByLocale: Record<"en" | "es", ProjectProps[]> = {
+  en: projectsData,
+  es: projectsDataEs,
+}
+

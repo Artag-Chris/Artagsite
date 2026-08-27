@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { useInViewOnReady } from "@/hooks/useInViewOnReady";
 import { socialLinks } from "@/data/socialLinks";
 
@@ -14,7 +15,6 @@ const titleItem = {
   hidden: { opacity: 0, y: 8 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
-import { skills } from "@/data/skillsData";
 import MoreAboutmeButton from "../compontents/MoreAboutmeButton";
 import { handleResumeDownload } from "@/functions/handleResumenDownload";
 import ImageFrame from "../sub-sections/ImageFrame";
@@ -23,6 +23,8 @@ import ExperEduAchiComponent from "../sub-sections/ExperEduAchiComponent";
 import ProfileStats from "../sub-sections/ProfileStats";
 
 function About() {
+  const t = useTranslations("about");
+  const taglines = [t("skills.0"), t("skills.1"), t("skills.2"), t("skills.3"), t("skills.4")];
   const [currentSkill, setCurrentSkill] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [activeTab, setActiveTab] = useState("experience");
@@ -34,10 +36,10 @@ function About() {
   // Rotate through skills
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSkill((prev) => (prev + 1) % skills.length);
+      setCurrentSkill((prev) => (prev + 1) % taglines.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [taglines.length]);
 
   return (
     <div>
@@ -86,13 +88,13 @@ function About() {
                     className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 w-full text-left leading-tight"
                     style={{ fontFamily: 'var(--font-display)' }}
                   >
-                    About <span className="text-blue-400">Me</span>
+                    {t("title")}<span className="text-blue-400">{t("titleAccent")}</span>
                   </motion.h2>
 
                   {/* Subtitle badge */}
                   <motion.div className="inline-block mt-3" variants={titleItem}>
                     <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-amber-400/70 bg-amber-500/10 border border-amber-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">
-                      I connect things. I automate workflows. Let&apos;s build together.
+                      {t("badge")}
                     </span>
                   </motion.div>
                 </div>
@@ -107,7 +109,7 @@ function About() {
                     transition={{ duration: 0.5 }}
                     className="text-blue-400 font-bold text-lg sm:text-xl tracking-wide"
                   >
-                    {skills[currentSkill]}
+                    {taglines[currentSkill]}
                   </motion.div>
                 </div>
 

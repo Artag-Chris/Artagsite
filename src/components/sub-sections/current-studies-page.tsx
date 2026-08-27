@@ -1,4 +1,5 @@
 import { BookOpen } from "lucide-react"
+import { getTranslations } from "next-intl/server"
 import {
   currentStudies,
   getCategoriesWithCounts,
@@ -35,13 +36,14 @@ const studiesJsonLd = {
 }
 
 const CONFIDENCE_LEGEND = [
-  { icon: "🌱", label: "Beginner", className: "text-orange-400" },
-  { icon: "📚", label: "Intermediate", className: "text-yellow-400" },
-  { icon: "💪", label: "Confident", className: "text-blue-400" },
-  { icon: "🚀", label: "Expert", className: "text-emerald-400" },
+  { icon: "🌱", key: "beginner", className: "text-orange-400" },
+  { icon: "📚", key: "intermediate", className: "text-yellow-400" },
+  { icon: "💪", key: "confident", className: "text-blue-400" },
+  { icon: "🚀", key: "expert", className: "text-emerald-400" },
 ] as const
 
-export default function CurrentStudiesPage() {
+export default async function CurrentStudiesPage() {
+  const t = await getTranslations("studies")
   const stats = getStudyStats()
   const categoriesWithCounts = getCategoriesWithCounts()
 
@@ -56,17 +58,15 @@ export default function CurrentStudiesPage() {
       <div className="container mx-auto px-4 py-10 pt-32 md:pt-40 relative z-10">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Full-Stack Developer{" "}
+            {t("title")}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">
-              Learning Journey
+              {t("titleAccent")}
             </span>
           </h1>
           <p className="text-xl text-zinc-300 max-w-2xl mx-auto mb-4">
-            Current studies and continuous learning of a Colombian full-stack developer — software architecture,
-            microservices, React Native, Docker, GraphQL, advanced TypeScript, serverless and system scalability. Each
-            topic is rated by my real confidence level and — where possible — linked to the actual code where I use it.
+            {t("intro")}
           </p>
-          <p className="text-xs text-zinc-500 mb-8">Last updated: {LAST_UPDATED}</p>
+          <p className="text-xs text-zinc-500 mb-8">{t("lastUpdated", { date: LAST_UPDATED })}</p>
         </div>
 
         <AtAGlance />
@@ -75,27 +75,27 @@ export default function CurrentStudiesPage() {
           <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-8">
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-400">{stats.total}</div>
-              <div className="text-sm text-zinc-400">Topics Tracked</div>
+              <div className="text-sm text-zinc-400">{t("topicsTracked")}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-emerald-400">{stats.confident}</div>
-              <div className="text-sm text-zinc-400">Confident In</div>
+              <div className="text-sm text-zinc-400">{t("confidentIn")}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-400">{stats.active}</div>
-              <div className="text-sm text-zinc-400">Active Right Now</div>
+              <div className="text-sm text-zinc-400">{t("activeRightNow")}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-amber-400">13</div>
-              <div className="text-sm text-zinc-400">Microservices Shipped</div>
+              <div className="text-sm text-zinc-400">{t("microservicesShipped")}</div>
             </div>
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-8">
             {CONFIDENCE_LEGEND.map((item) => (
-              <div key={item.label} className="flex items-center gap-2 text-sm">
+              <div key={item.key} className="flex items-center gap-2 text-sm">
                 <span className="text-lg">{item.icon}</span>
-                <span className={item.className}>{item.label}</span>
+                <span className={item.className}>{t(`confidenceLegend.${item.key}`)}</span>
               </div>
             ))}
           </div>
@@ -104,7 +104,7 @@ export default function CurrentStudiesPage() {
         <FormalEducation />
 
         <div className="max-w-4xl mx-auto mb-8 p-6 rounded-xl bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20">
-          <div className="text-sm font-semibold text-blue-300 mb-4">📚 Category Breakdown</div>
+          <div className="text-sm font-semibold text-blue-300 mb-4">📚 {t("categoryBreakdown")}</div>
           <div className="flex flex-wrap gap-4">
             {categoriesWithCounts.map(([category, count]) => (
               <div
@@ -128,10 +128,9 @@ export default function CurrentStudiesPage() {
           <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500/20 to-cyan-400/20 flex items-center justify-center mx-auto mb-4">
             <BookOpen className="h-8 w-8 text-blue-400" />
           </div>
-          <h3 className="text-2xl font-bold mb-4 text-white">Learning Never Stops</h3>
+          <h3 className="text-2xl font-bold mb-4 text-white">{t("learningNeverStops")}</h3>
           <p className="text-zinc-300 max-w-md mx-auto">
-            Knowledge is power, and I&apos;m committed to staying at the forefront of technology through continuous
-            learning and hands-on practice.
+            {t("closing")}
           </p>
         </div>
       </div>

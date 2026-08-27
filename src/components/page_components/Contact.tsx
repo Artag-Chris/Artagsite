@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react"
 import { motion } from "framer-motion"
+import { useTranslations } from "next-intl"
 import {
   Send,
   Mail,
@@ -22,6 +23,7 @@ import { useMetaPixel } from "@/hooks/useMetaPixel"
 import { useInViewOnReady } from "@/hooks/useInViewOnReady"
 
 function Contact() {
+  const t = useTranslations("contact")
   const {
     formData,
     isSubmitting,
@@ -82,14 +84,14 @@ function Contact() {
           >
             <div className="inline-block mb-4">
               <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-amber-400/70 bg-amber-500/10 border border-amber-500/20 px-4 py-2 rounded-full">
-                Let&apos;s Connect
+                {t("badge")}
               </span>
             </div>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-              Got an idea? Need help?{" "}<span className="text-blue-400">Let&apos;s Talk.</span>
+              {t("title")}<span className="text-blue-400">{t("titleAccent")}</span>
             </h2>
             <p className="text-zinc-400 text-base sm:text-lg max-w-2xl mx-auto">
-              Whether you need something automated, connected, or built from scratch — I&apos;m one message away.
+              {t("description")}
             </p>
           </motion.div>
 
@@ -120,14 +122,14 @@ function Contact() {
                         <div className="space-y-4">
                           <div>
                             <Label htmlFor="name" className="text-gray-300 mb-1 block text-sm font-medium">
-                              Your Name
+                              {t("name")}
                             </Label>
                             <Input
                               id="name"
                               name="name"
                               value={formData.name}
                               onChange={handleChange}
-                              placeholder="John Doe"
+                              placeholder={t("namePlaceholder")}
                               required
                               className="mt-1 bg-[#0a0a0a]/50 border-white/10 text-white placeholder:text-zinc-600 focus:border-white/20 focus:ring-white/20 rounded-lg transition-all duration-200"
                             />
@@ -135,7 +137,7 @@ function Contact() {
 
                           <div>
                             <Label htmlFor="email" className="text-gray-300 mb-1 block text-sm font-medium">
-                              Email Address
+                              {t("email")}
                             </Label>
                             <Input
                               id="email"
@@ -143,7 +145,7 @@ function Contact() {
                               type="email"
                               value={formData.email}
                               onChange={handleChange}
-                              placeholder="you@example.com"
+                              placeholder={t("emailPlaceholder")}
                               required
                               className="mt-1 bg-[#0a0a0a]/50 border-white/10 text-white placeholder:text-zinc-600 focus:border-white/20 focus:ring-white/20 rounded-lg transition-all duration-200"
                             />
@@ -151,32 +153,32 @@ function Contact() {
 
                           <div>
                             <Label htmlFor="projectType" className="text-gray-300 mb-1 block text-sm font-medium">
-                              What's this about?
+                              {t("topic")}
                             </Label>
                             <Select value={formData.projectType} onValueChange={handleSelectChange}>
                               <SelectTrigger className="mt-1 bg-[#0a0a0a]/50 border-white/10 text-white focus:border-white/20 focus:ring-white/20 rounded-lg transition-all duration-200">
-                                <SelectValue placeholder="Select a topic" />
+                                <SelectValue placeholder={t("selectPlaceholder")} />
                               </SelectTrigger>
                               <SelectContent className="bg-[#111111] border-white/10 text-white">
-                                <SelectItem value="collaboration">Collaboration</SelectItem>
-                                <SelectItem value="question">Question or Idea</SelectItem>
-                                <SelectItem value="feedback">Feedback</SelectItem>
-                                <SelectItem value="just-saying-hi">Just saying hi</SelectItem>
-                                <SelectItem value="other">Other</SelectItem>
+                                <SelectItem value="collaboration">{t("topics.collaboration")}</SelectItem>
+                                <SelectItem value="question">{t("topics.question")}</SelectItem>
+                                <SelectItem value="feedback">{t("topics.feedback")}</SelectItem>
+                                <SelectItem value="just-saying-hi">{t("topics.hi")}</SelectItem>
+                                <SelectItem value="other">{t("topics.other")}</SelectItem>
                               </SelectContent>
                             </Select>
                           </div>
 
                           <div>
                             <Label htmlFor="message" className="text-gray-300 mb-1 block text-sm sm:text-base font-medium">
-                              Your Message
+                              {t("message")}
                             </Label>
                             <Textarea
                               id="message"
                               name="message"
                               value={formData.message}
                               onChange={handleChange}
-                              placeholder="What's on your mind? The more detail, the better I can respond."
+                              placeholder={t("messagePlaceholder")}
                               required
                               className="mt-1 min-h-[100px] sm:min-h-[120px] text-sm sm:text-base bg-[#0a0a0a]/50 border-white/10 text-white placeholder:text-zinc-600 focus:border-white/20 focus:ring-white/20 rounded-lg transition-all duration-200"
                             />
@@ -203,12 +205,12 @@ function Contact() {
                             className="w-full bg-white/10 hover:bg-white/15 text-white font-semibold py-3 sm:py-4 text-sm sm:text-base transition-all duration-200 relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed rounded-lg border border-white/10 hover:border-white/20"
                           >
                             <span className="relative z-10 flex items-center justify-center gap-2">
-                               {isSubmitting ? "Sending..." : (
+                               {isSubmitting ? t("sending") : (
                                  <>
                                     <span className="hidden sm:inline">
-                                      Send message
+                                      {t("send")}
                                     </span>
-                                   <span className="sm:hidden">Send</span>
+                                   <span className="sm:hidden">{t("commonSend")}</span>
                                  </>
                                )}
                                <Send className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -225,9 +227,9 @@ function Contact() {
                         transition={{ duration: 0.3 }}
                       >
                         <CheckCircle2 className="h-16 w-16 text-blue-500 mb-4" />
-                        <h3 className="text-xl font-bold text-white mb-2">Message sent successfully!</h3>
+                        <h3 className="text-xl font-bold text-white mb-2">{t("success")}</h3>
                         <p className="text-gray-300">
-                          Thanks for reaching out. I'll get back to you soon.
+                          {t("successSub")}
                         </p>
                       </motion.div>
                     )}
@@ -250,13 +252,13 @@ function Contact() {
                  <div className="relative bg-[#111111]/80 backdrop-blur-sm border border-white/5 group-hover:border-white/10 rounded-xl w-full transition-all duration-200">
                   {/* Grid overlay */}
                   <div className="p-6 sm:p-8 relative">
-                    <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-white" style={{ fontFamily: 'var(--font-display)' }}>Contact Information</h3>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-white" style={{ fontFamily: 'var(--font-display)' }}>{t("info")}</h3>
 
                     <div className="space-y-5 sm:space-y-6">
                       {[
-                        { Icon: Mail, label: "Email", value: "info@artagdev.com.co", href: "mailto:info@artagdev.com.co" },
-                        { Icon: Phone, label: "Phone", value: "+57 320 571 1428", href: "tel:+573205711428" },
-                        { Icon: MapPin, label: "Location", value: "Pereira, Risaralda, Colombia", href: null }
+                        { Icon: Mail, label: t("emailLabel"), value: t("emailValue"), href: "mailto:info@artagdev.com.co" },
+                        { Icon: Phone, label: t("phone"), value: t("phoneValue"), href: "tel:+573205711428" },
+                        { Icon: MapPin, label: t("location"), value: t("locationValue"), href: null }
                       ].map((item, index) => {
                         const Icon = item.Icon;
                         return (
@@ -295,7 +297,7 @@ function Contact() {
                        animate={{ opacity: 1 }}
                                transition={{ duration: 0.3, delay: 0.8 }}
                              >
-                               <p className="text-zinc-400 font-semibold mb-4 text-sm tracking-wide">Connect on Social Media</p>
+                                <p className="text-zinc-400 font-semibold mb-4 text-sm tracking-wide">{t("social")}</p>
                                <div className="flex gap-3 flex-wrap">
                                  {socialLinksContact.map((social, index) => {
                                    const Icon = social.icon
@@ -339,15 +341,15 @@ function Contact() {
             >
               <div className="inline-block mb-6">
                 <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-amber-400/70 bg-amber-500/10 border border-amber-500/20 px-4 py-2 rounded-full">
-                  No Pressure
+                  {t("finalBadge")}
                 </span>
               </div>
               <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-                Ready to start?{" "}
-                <span className="text-blue-400">Let&apos;s go.</span>
+                {t("finalTitle")}
+                <span className="text-blue-400">{t("finalAccent")}</span>
               </h3>
               <p className="text-zinc-400 max-w-2xl mx-auto text-lg">
-                I&apos;m based in Pereira, Colombia 🇨🇴. Timezone is UTC-5. I usually reply within 24 hours.
+                {t("finalDescription")}
               </p>
             </motion.div>
         </div>

@@ -1,4 +1,5 @@
 import { Github, Linkedin, Twitter, Instagram, Youtube,} from '@styled-icons/simple-icons'
+import { testimonialsEs } from './contactData.es'
 
 export const socialLinksContact = [
     {
@@ -85,3 +86,9 @@ export const testimonials: Testimonial[] = [
     featured: true,
   },
 ]
+
+// Localized testimonials map. Select by locale: testimonialsByLocale[locale]
+export const testimonialsByLocale: Record<"en" | "es", Testimonial[]> = {
+  en: testimonials,
+  es: testimonialsEs,
+}

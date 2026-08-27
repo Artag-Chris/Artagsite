@@ -1,6 +1,7 @@
 "use client"
 
 import { Gamepad2, ExternalLink, Users, Trophy, Flame } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { useRef } from "react"
 import gsap from "gsap"
@@ -12,6 +13,7 @@ import GamePlatformsSection from "./GamePlatformsSection"
 gsap.registerPlugin(ScrollTrigger)
 
 export default function FavoriteGamesPage() {
+  const t = useTranslations("games")
   const containerRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
@@ -109,29 +111,28 @@ export default function FavoriteGamesPage() {
           {/* Header */}
           <div className="text-center mb-16">
           <h1 className="page-title text-4xl md:text-6xl font-bold mb-6">
-            My{" "}
+            {t("title")}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
-              Favorite Games
+              {t("titleAccent")}
             </span>
           </h1>
           <p className="text-xl text-zinc-300 max-w-2xl mx-auto mb-8">
-            A curated collection of the games that have shaped my gaming journey and provided countless hours of
-            entertainment.
+            {t("intro")}
           </p>
 
           {/* Stats */}
           <div className="flex justify-center gap-8 mb-12">
             <div className="game-stat text-center">
               <div className="text-3xl font-bold text-pink-400">{favoriteGames.length}</div>
-              <div className="text-sm text-zinc-400">Games</div>
+              <div className="text-sm text-zinc-400">{t("games")}</div>
             </div>
             <div className="game-stat text-center">
               <div className="text-3xl font-bold text-pink-400">{totalHours}+</div>
-              <div className="text-sm text-zinc-400">Hours Played</div>
+              <div className="text-sm text-zinc-400">{t("hoursPlayed")}</div>
             </div>
             <div className="game-stat text-center">
               <div className="text-3xl font-bold text-pink-400">{averageRating}</div>
-              <div className="text-sm text-zinc-400">Avg Rating</div>
+              <div className="text-sm text-zinc-400">{t("avgRating")}</div>
             </div>
           </div>
         </div>
@@ -151,9 +152,9 @@ export default function FavoriteGamesPage() {
           <div className="w-16 h-16 rounded-full bg-gradient-to-r from-pink-500/20 to-purple-500/20 flex items-center justify-center mx-auto mb-4">
             <Gamepad2 className="h-8 w-8 text-pink-400" />
           </div>
-          <h3 className="text-2xl font-bold mb-4 text-white">Gaming Never Stops</h3>
+          <h3 className="text-2xl font-bold mb-4 text-white">{t("gamingNeverStops")}</h3>
           <p className="text-zinc-300 max-w-md mx-auto">
-            Always on the lookout for the next great adventure. What game should I play next?
+            {t("gamingClosing")}
           </p>
         </div>
       </div>

@@ -1,11 +1,12 @@
 "use client"
-import { useRef, useState } from "react"
+import { useRef, useState, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useLocale, useTranslations } from "next-intl"
 import { useInViewOnReady } from "@/hooks/useInViewOnReady"
 import { UseCasesCarousel } from "../sub-sections/UseCasesCarousel"
 import { UseCaseModal } from "../sub-sections/UseCaseModal"
 import { ToolsShowcase } from "../sub-sections/ToolsShowcase"
-import { UseCase, useCasesData } from "@/data/skillsData"
+import { UseCase, useCasesByLocale } from "@/data/skillsData"
 import { Users, Code2 } from "lucide-react"
 
 const headerContainer = {
@@ -20,26 +21,33 @@ const headerItem = {
 
 type Tab = "everyone" | "developer"
 
-const tabs: { id: Tab; label: string; icon: React.ElementType; description: string }[] = [
-  {
-    id: "everyone",
-    label: "For Everyone",
-    icon: Users,
-    description: "I connect your tools, automate the boring stuff, and build what you need — no tech jargon required.",
-  },
-  {
-    id: "developer",
-    label: "For Developers",
-    icon: Code2,
-    description: "Technical deep dives — architecture decisions, performance metrics, and the stack behind the solutions.",
-  },
-]
-
 function Skills() {
+  const t = useTranslations("skills")
+  const locale = useLocale()
   const sectionRef = useRef<HTMLDivElement>(null)
   const [selectedUseCase, setSelectedUseCase] = useState<UseCase | null>(null)
   const [activeTab, setActiveTab] = useState<Tab>("everyone")
   const { ref: headerInViewRef, isReady: headerReady } = useInViewOnReady<HTMLDivElement>({ amount: 0.3 })
+
+  const useCasesData = useMemo(
+    () => useCasesByLocale[locale as "en" | "es"] ?? useCasesByLocale.en,
+    [locale]
+  )
+
+  const tabs: { id: Tab; label: string; icon: React.ElementType; description: string }[] = [
+    {
+      id: "everyone",
+      label: t("tabs.everyone.label"),
+      icon: Users,
+      description: t("tabs.everyone.description"),
+    },
+    {
+      id: "developer",
+      label: t("tabs.developer.label"),
+      icon: Code2,
+      description: t("tabs.developer.description"),
+    },
+  ]
 
   const filteredUseCases = useCasesData.filter((uc) => uc.tab === activeTab)
 
@@ -63,7 +71,7 @@ function Skills() {
             >
               <motion.div className="inline-block" variants={headerItem}>
                 <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-amber-400/70 bg-amber-500/10 border border-amber-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">
-                  What I Do
+                  {t("badge")}
                 </span>
               </motion.div>
               <motion.h2
@@ -71,7 +79,7 @@ function Skills() {
                 style={{ fontFamily: 'var(--font-display)' }}
                 variants={headerItem}
               >
-                How I Can <span className='text-blue-400'>Help</span>
+                {t("title")}<span className='text-blue-400'>{t("titleAccent")}</span>
               </motion.h2>
             </motion.div>
           </div>

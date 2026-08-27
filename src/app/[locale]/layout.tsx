@@ -1,12 +1,16 @@
-import './globals.css'
+import '../globals.css'
 import { Inter, Space_Grotesk, IBM_Plex_Mono } from 'next/font/google'
 import type { Metadata } from 'next'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages, setRequestLocale } from 'next-intl/server'
+import { notFound } from 'next/navigation'
 import ThemeProvider from '@/components/theme-provider'
 import { GoogleTagManager } from '@/components/google/GoogleTagManager'
 import GTMPageView from '@/components/google/GTMPageView'
 import { MetaPixel } from '@/components/meta/MetaPixel'
 import { TikTokPixel } from '@/components/tiktok/TikTokPixel'
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { routing } from '@/i18n/routing'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -28,95 +32,82 @@ const ibmPlexMono = IBM_Plex_Mono({
   weight: ['400', '500', '600'],
 })
 
-export const metadata: Metadata = {
-  // Main title (50-60 characters) - AI-optimized with keywords
-  title: "Artag | Full-Stack Developer & Software Architect",
-  // Alternates for SEO
-  alternates: {
-    canonical: "https://www.artagdev.com.co",
-  },
-  // Optimized description (150-160 characters) - With concrete metrics for AI extraction
-  description:
-    "Full-stack software architect. Specialist in scalable systems, zero-downtime migrations, and process automation. 32K+ users, 99.99% uptime.",
-  // Enhanced keywords - More specific, intent-driven
-  keywords: [
-    "full-stack developer",
-    "software architect",
-    "microservices architecture",
-    "real-time web applications",
-    "process automation",
-    "n8n automation",
-    "zero-downtime deployment",
-    "payment gateway integration",
-    "Node.js developer",
-    "React developer",
-    "TypeScript developer",
-    "AWS cloud architecture",
-    "database migrations",
-    "web developer",
-    "app developer",
-    "Pereira Colombia",
-    "software developer portfolio",
-    "Artag Dev",
-  ],
-  // Open Graph for social media
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://www.artagdev.com.co",
-    title: "Artag | Software Architecture & Development",
-    description:
-      "Full-stack architect specializing in scalable systems, zero-downtime migrations, and enterprise automation.",
-    siteName: "Artag",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Artag - Software architecture and full-stack development",
-      },
-    ],
-  },
-  // Twitter Card
-  twitter: {
-    card: "summary_large_image",
-    title: "Artag | Full-Stack Software Developer & Architect",
-    description:
-      "Scalable systems, real-time features, and process automation. Nearshore software development.",
-    images: ["/twitter-image.png"],
-    site: "@artagdev",
-    creator: "@artagdev",
-  },
-  // Icons
-  icons: {
-    icon: [
-      { url: "/logosinfondo.png", type: "image/png" },
-      { url: "/logosinfondo.ico", sizes: "any" },
-    ],
-    apple: [
-      { url: "/apple-icon.png", sizes: "180x180" },
-    ],
-  },
-  // Contact information and branding
-  authors: [{ name: "Artag Dev", url: "https://www.artagdev.com.co" }],
-  generator: "Next.js",
-  applicationName: "Artag",
-  referrer: "origin-when-cross-origin",
-  creator: "Artag",
-  publisher: "Artag",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  category: "technology",
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
 }
 
-export default function RootLayout({
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const baseUrl = "https://www.artagdev.com.co"
+
+  return {
+    title:
+      locale === "es"
+        ? "Artag | Desarrollador Full-Stack & Arquitecto de Software"
+        : "Artag | Full-Stack Developer & Software Architect",
+    alternates: {
+      canonical: locale === "es" ? `${baseUrl}/es` : baseUrl,
+      languages: {
+        en: baseUrl,
+        es: `${baseUrl}/es`,
+      },
+    },
+    description:
+      locale === "es"
+        ? "Arquitecto de software full-stack. Especialista en sistemas escalables, migraciones sin downtime y automatización de procesos. 32K+ usuarios, 99.99% uptime."
+        : "Full-stack software architect. Specialist in scalable systems, zero-downtime migrations, and process automation. 32K+ users, 99.99% uptime.",
+    openGraph: {
+      type: "website",
+      locale: locale === "es" ? "es_CO" : "en_US",
+      url: locale === "es" ? `${baseUrl}/es` : baseUrl,
+      siteName: "Artag",
+    },
+    icons: {
+      icon: [
+        { url: "/logosinfondo.png", type: "image/png" },
+        { url: "/logosinfondo.ico", sizes: "any" },
+      ],
+      apple: [
+        { url: "/apple-icon.png", sizes: "180x180" },
+      ],
+    },
+    authors: [{ name: "Artag Dev", url: "https://www.artagdev.com.co" }],
+    generator: "Next.js",
+    applicationName: "Artag",
+    referrer: "origin-when-cross-origin",
+    creator: "Artag",
+    publisher: "Artag",
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
+    category: "technology",
+  }
+}
+
+export default async function LocaleLayout({
   children,
+  params,
 }: {
   children: React.ReactNode
+  params: Promise<{ locale: string }>
 }) {
+  const { locale } = await params
+
+  // Validate that the incoming `locale` parameter is valid
+  if (!routing.locales.includes(locale as "en" | "es")) {
+    notFound()
+  }
+
+  setRequestLocale(locale)
+
+  const messages = await getMessages()
+
   // Organization Schema Markup for Google Knowledge Panel
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -168,26 +159,28 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body className={`${inter.className} ${spaceGrotesk.variable} ${ibmPlexMono.variable}`}>
-        <ThemeProvider>
-          <SpeedInsights />
-          <GoogleTagManager />
-          <GTMPageView />
-          <MetaPixel />
-          <TikTokPixel />
-          {/* Organization Schema */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-          />
-          {/* Person Schema */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-          />
-          {children}
-        </ThemeProvider>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider>
+            <SpeedInsights />
+            <GoogleTagManager />
+            <GTMPageView />
+            <MetaPixel />
+            <TikTokPixel />
+            {/* Organization Schema */}
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+            />
+            {/* Person Schema */}
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+            />
+            {children}
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

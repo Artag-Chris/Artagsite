@@ -58,21 +58,21 @@ export const socialLinksFooter = [
     },
   ]
   
-  // Navigation links
+  // Navigation links (keys resolved via footer.nav translations)
   export const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
+    { id: "home", name: "Home", href: "#home" },
+    { id: "about", name: "About", href: "#about" },
+    { id: "skills", name: "Skills", href: "#skills" },
+    { id: "projects", name: "Projects", href: "#projects" },
+    { id: "contact", name: "Contact", href: "#contact" },
   ]
   
-  // Specialties
+  // Specialties (keys resolved via footer.services translations)
   export const services = [
-    "Full-Stack Development",
-    "System Architecture",
-    "Process Automation",
-    "API Design",
-    "Performance Optimization",
-    "Cloud Infrastructure",
+    "fullstack",
+    "architecture",
+    "automation",
+    "api",
+    "performance",
+    "cloud",
   ]

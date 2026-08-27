@@ -2,8 +2,9 @@
 
 import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
+import { useLocale, useTranslations } from "next-intl"
 import { Filter, Search, X } from "lucide-react"
-import { projectsData } from "@/data/proyectData"
+import { projectsByLocale } from "@/data/proyectData"
 import { EnhancedProjectCard } from "../compontents/EnhancedProjectCard"
 import { ProjectModal } from "../sub-sections/ProjectModal"
 import { useInViewOnReady } from "@/hooks/useInViewOnReady"
@@ -11,9 +12,15 @@ import { useInViewOnReady } from "@/hooks/useInViewOnReady"
 type CategoryFilter = "all" | "personal" | "featured"
 
 function Projects() {
+  const t = useTranslations("projects")
+  const locale = useLocale()
+  const projectsData = useMemo(
+    () => projectsByLocale[locale as "en" | "es"] ?? projectsByLocale.en,
+    [locale]
+  )
   const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>("all")
   const [searchQuery, setSearchQuery] = useState("")
-  const [selectedProject, setSelectedProject] = useState(projectsData[0])
+  const [selectedProject, setSelectedProject] = useState(projectsByLocale.en[0])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { ref: headerInViewRef, isReady: headerReady } = useInViewOnReady<HTMLDivElement>({ amount: 0.3 })
 
@@ -75,14 +82,14 @@ function Projects() {
         >
           <div className="inline-block mb-4">
             <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-indigo-400/70 bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-full">
-              Portfolio
+              {t("badge")}
             </span>
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-            Featured <span className="text-cyan-400">Projects</span>
+            {t("title")}<span className="text-cyan-400">{t("titleAccent")}</span>
           </h2>
           <p className="text-zinc-400 text-base sm:text-lg max-w-2xl mx-auto">
-            Explore a curated selection of my work. From personal projects to enterprise solutions, each showcasing expertise in automation, architecture, and modern development.
+            {t("description")}
           </p>
         </motion.div>
 
@@ -99,7 +106,7 @@ function Projects() {
               <Search className="absolute left-4 h-5 w-5 text-zinc-600" />
               <input
                 type="text"
-                placeholder="Search projects by name or tech..."
+                placeholder={t("searchPlaceholder")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="flex-1 bg-transparent border-none text-white placeholder:text-zinc-600 pl-12 pr-10 py-3 focus:outline-none text-sm sm:text-base"
@@ -110,7 +117,7 @@ function Projects() {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setSearchQuery("")}
                   className="absolute right-4 p-1 text-gray-500 hover:text-gray-300 transition-colors"
-                  aria-label="Clear search"
+                  aria-label={t("clearSearch")}
                 >
                   <X className="h-4 w-4" />
                 </motion.button>
@@ -140,7 +147,7 @@ function Projects() {
                   : "bg-[#111111] border border-white/5 text-zinc-500 hover:border-white/10 hover:text-zinc-300"
               }`}
             >
-              {category.charAt(0).toUpperCase() + category.slice(1).replace("-", " ")}
+              {t(`filters.${category}`)}
             </motion.button>
           ))}
         </motion.div>
@@ -152,7 +159,9 @@ function Projects() {
             animate={{ opacity: 1 }}
             className="text-center mb-6 text-sm text-gray-400"
           >
-            Found <span className="text-cyan-400 font-semibold">{filteredProjects.length}</span> project{filteredProjects.length !== 1 ? "s" : ""}
+            {filteredProjects.length === 1
+              ? t("found", { count: filteredProjects.length })
+              : t("foundPlural", { count: filteredProjects.length })}
           </motion.div>
         )}
 
@@ -188,8 +197,8 @@ function Projects() {
               <Search className="h-12 w-12 mx-auto text-gray-600" />
               <p className="text-gray-400 text-lg">
                 {searchQuery
-                  ? `No projects found matching "${searchQuery}"`
-                  : "No projects found in this category."}
+                  ? t("emptySearch", { query: searchQuery })
+                  : t("emptyCategory")}
               </p>
               {searchQuery && (
                 <motion.button
@@ -200,7 +209,7 @@ function Projects() {
                   }}
                   className="mt-4 px-4 py-2 rounded-lg bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 hover:text-cyan-100 transition-colors text-sm"
                 >
-                  Clear filters
+                  {t("clearFilters")}
                 </motion.button>
               )}
             </div>
@@ -216,10 +225,10 @@ function Projects() {
           className="mt-16 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"
         >
           {[
-            { label: "Projects", value: projectsData.length.toString() },
-            { label: "Live", value: projectsData.filter(p => p.status === "live").length.toString() },
-            { label: "Personal", value: projectsData.filter(p => p.category === "personal").length.toString() },
-            { label: "Built", value: projectsData.filter(p => p.category === "personal" || p.category === "featured").length.toString() },
+            { label: t("stats.projects"), value: projectsData.length.toString() },
+            { label: t("stats.live"), value: projectsData.filter(p => p.status === "live").length.toString() },
+            { label: t("stats.personal"), value: projectsData.filter(p => p.category === "personal").length.toString() },
+            { label: t("stats.built"), value: projectsData.filter(p => p.category === "personal" || p.category === "featured").length.toString() },
           ].map((stat, index) => (
             <motion.div
               key={index}

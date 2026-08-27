@@ -1,34 +1,36 @@
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { Code2, Zap, Users, Award } from "lucide-react";
 
-const stats = [
-  {
-    label: "Years Building",
-    value: "5+",
-    icon: Zap,
-    color: "from-blue-500 to-blue-400",
-  },
-  {
-    label: "Projects Shipped",
-    value: "15+",
-    icon: Code2,
-    color: "from-amber-500 to-amber-400",
-  },
-  {
-    label: "Services Connected",
-    value: "12+",
-    icon: Users,
-    color: "from-blue-500 to-blue-400",
-  },
-  {
-    label: "Workflows Automated",
-    value: "50+",
-    icon: Award,
-    color: "from-amber-500 to-amber-400",
-  },
-];
-
 function ProfileStats() {
+  const t = useTranslations("about.stats");
+
+  const stats = [
+    {
+      label: t("years"),
+      value: "5+",
+      icon: Zap,
+      color: "from-blue-500 to-blue-400",
+    },
+    {
+      label: t("projects"),
+      value: "15+",
+      icon: Code2,
+      color: "from-amber-500 to-amber-400",
+    },
+    {
+      label: t("services"),
+      value: "12+",
+      icon: Users,
+      color: "from-blue-500 to-blue-400",
+    },
+    {
+      label: t("workflows"),
+      value: "50+",
+      icon: Award,
+      color: "from-amber-500 to-amber-400",
+    },
+  ];
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}

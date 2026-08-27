@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { useEffect, useRef } from "react"
 import type { UseCase } from "@/data/skillsData"
 
@@ -12,6 +13,7 @@ interface UseCaseModalProps {
 }
 
 export function UseCaseModal({ useCase, isOpen, onClose }: UseCaseModalProps) {
+  const t = useTranslations("skills.useCase")
   const modalRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -99,7 +101,7 @@ export function UseCaseModal({ useCase, isOpen, onClose }: UseCaseModalProps) {
                       transition={{ delay: 0.15 }}
                       className="text-zinc-500 text-xs sm:text-sm font-mono mt-2 uppercase tracking-widest"
                     >
-                      Use Case Overview
+                      {t("overview")}
                     </motion.p>
                   </div>
                 </div>
@@ -110,7 +112,7 @@ export function UseCaseModal({ useCase, isOpen, onClose }: UseCaseModalProps) {
                   transition={{ delay: 0.15 }}
                   onClick={onClose}
                   className="flex-shrink-0 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all duration-200 border border-white/5"
-                  aria-label="Close modal"
+                  aria-label={t("close")}
                 >
                   <X className="w-5 h-5 sm:w-6 sm:h-6" />
                 </motion.button>
@@ -123,7 +125,7 @@ export function UseCaseModal({ useCase, isOpen, onClose }: UseCaseModalProps) {
                   transition={{ delay: 0.2 }}
                 >
                   <h3 className="text-xs sm:text-sm font-mono text-zinc-500 mb-3 uppercase tracking-wider">
-                    Problem
+                    {t("problem")}
                   </h3>
                   <p className="text-sm sm:text-base text-zinc-200 leading-relaxed">{useCase.problem}</p>
                 </motion.div>
@@ -134,7 +136,7 @@ export function UseCaseModal({ useCase, isOpen, onClose }: UseCaseModalProps) {
                   transition={{ delay: 0.25 }}
                 >
                   <h3 className="text-xs sm:text-sm font-mono text-zinc-500 mb-3 uppercase tracking-wider">
-                    Solution
+                    {t("solution")}
                   </h3>
                   <p className="text-sm sm:text-base text-zinc-200 leading-relaxed">{useCase.solution}</p>
                 </motion.div>
@@ -146,7 +148,7 @@ export function UseCaseModal({ useCase, isOpen, onClose }: UseCaseModalProps) {
                     transition={{ delay: 0.3 }}
                   >
                     <h3 className="text-xs sm:text-sm font-mono text-zinc-500 mb-3 uppercase tracking-wider">
-                      Key Capabilities
+                      {t("capabilities")}
                     </h3>
                     <ul className="space-y-2">
                       {useCase.capabilities.map((capability, idx) => (
@@ -172,7 +174,7 @@ export function UseCaseModal({ useCase, isOpen, onClose }: UseCaseModalProps) {
                     transition={{ delay: 0.35 }}
                   >
                     <h3 className="text-xs sm:text-sm font-mono text-zinc-500 mb-4 uppercase tracking-wider">
-                      Impact Metrics
+                      {t("metrics")}
                     </h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                       {useCase.metrics.map((metric, idx) => (
@@ -198,7 +200,7 @@ export function UseCaseModal({ useCase, isOpen, onClose }: UseCaseModalProps) {
                     transition={{ delay: 0.4 }}
                   >
                     <h3 className="text-xs sm:text-sm font-mono text-zinc-500 mb-3 uppercase tracking-wider">
-                      Technology Stack
+                      {t("techStack")}
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {useCase.techStack.map((tech, idx) => (
@@ -223,7 +225,7 @@ export function UseCaseModal({ useCase, isOpen, onClose }: UseCaseModalProps) {
                     transition={{ delay: 0.45 }}
                   >
                     <h3 className="text-xs sm:text-sm font-mono text-zinc-500 mb-3 uppercase tracking-wider">
-                      Process
+                      {t("process")}
                     </h3>
                     <ol className="space-y-2">
                       {useCase.process.map((step, idx) => (
@@ -249,7 +251,7 @@ export function UseCaseModal({ useCase, isOpen, onClose }: UseCaseModalProps) {
                     transition={{ delay: 0.5 }}
                   >
                     <h3 className="text-xs sm:text-sm font-mono text-zinc-500 mb-3 uppercase tracking-wider">
-                      Real-World Example
+                      {t("example")}
                     </h3>
                     <p className="text-sm sm:text-base text-zinc-200 leading-relaxed italic">{useCase.example}</p>
                   </motion.div>

@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useRef } from "react"
 import Image from "next/image"
+import { useTranslations } from "next-intl"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -15,6 +16,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 
 export default function ResourcesPage() {
+  const t = useTranslations("servers")
   const containerRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
@@ -91,10 +93,9 @@ export default function ResourcesPage() {
         <div className="max-w-7xl mx-auto space-y-20">
         {/* Page intro */}
         <div className="text-center mb-8 px-4">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">Resources & Infrastructure</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">{t("title")}</h1>
           <p className="text-zinc-300 max-w-3xl mx-auto text-base">
-            A curated collection of useful websites and tools, plus my personal server infrastructure projects. Everything
-            I use to build, deploy, and maintain modern applications.
+            {t("intro")}
           </p>
         </div>
 
@@ -103,10 +104,10 @@ export default function ResourcesPage() {
           <div className="section-header text-center mb-10">
             <div className="flex items-center justify-center gap-3 mb-3">
               <Server className="h-7 w-7 text-emerald-400" />
-              <h2 className="text-2xl md:text-3xl font-bold text-white">Personal Infrastructure</h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-white">{t("personalTitle")}</h2>
             </div>
             <p className="text-zinc-400 max-w-2xl mx-auto text-sm">
-              My personal infrastructure projects and self-hosted services
+              {t("personalSub")}
             </p>
           </div>
 
@@ -130,7 +131,7 @@ export default function ResourcesPage() {
                     />
                     <div className="absolute top-3 right-3 z-20">
                       <span className="px-2 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 text-xs font-medium rounded-full">
-                        🟢 Live
+                        🟢 {t("live")}
                       </span>
                     </div>
                   </div>
@@ -152,7 +153,7 @@ export default function ResourcesPage() {
 
                     <div className="space-y-2 mb-4">
                       <div>
-                        <h4 className="text-xs font-medium text-emerald-400 mb-1">Tech</h4>
+                        <h4 className="text-xs font-medium text-emerald-400 mb-1">{t("tech")}</h4>
                         <div className="flex flex-wrap gap-1">
                           {server.technologies.slice(0, 3).map((tech) => (
                             <span key={tech} className="px-2 py-0.5 bg-emerald-500/10 text-emerald-300 text-xs rounded">
@@ -170,11 +171,11 @@ export default function ResourcesPage() {
                         rel="noopener noreferrer"
                         className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500/20 to-emerald-600/10 hover:from-emerald-500/30 hover:to-emerald-600/20 border border-emerald-500/30 text-emerald-300 hover:text-emerald-200 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-300"
                       >
-                        Access Server <ExternalLink className="h-3 w-3" />
+                        {t("accessServer")} <ExternalLink className="h-3 w-3" />
                       </a>
                     ) : (
                       <button className="w-full px-3 py-2 bg-zinc-700/50 text-zinc-400 rounded-lg text-xs font-medium cursor-default">
-                        Coming Soon
+                        {t("comingSoon")}
                       </button>
                     )}
                   </div>
@@ -185,7 +186,7 @@ export default function ResourcesPage() {
           {/* Other Status Servers */}
           {serverCards.some((s) => s.status !== "live") && (
             <div>
-              <h3 className="text-lg font-bold text-zinc-300 mb-4 ml-1">Other Projects</h3>
+              <h3 className="text-lg font-bold text-zinc-300 mb-4 ml-1">{t("otherProjects")}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {serverCards
                   .filter((server) => server.status !== "live")
@@ -211,7 +212,7 @@ export default function ResourcesPage() {
                                 : "bg-purple-500/20 text-purple-300 border-purple-500/30"
                             }`}
                           >
-                            {server.status === "development" ? "🔨 Dev" : "📋 Planning"}
+                            {server.status === "development" ? `🔨 ${t("dev")}` : `📋 ${t("planning")}`}
                           </span>
                         </div>
                       </div>
@@ -233,7 +234,7 @@ export default function ResourcesPage() {
 
                         <div className="space-y-2">
                           <div>
-                            <h4 className="text-xs font-medium text-purple-400 mb-1">Tech</h4>
+                            <h4 className="text-xs font-medium text-purple-400 mb-1">{t("tech")}</h4>
                             <div className="flex flex-wrap gap-1">
                               {server.technologies.slice(0, 3).map((tech) => (
                                 <span key={tech} className="px-2 py-0.5 bg-purple-500/10 text-purple-300 text-xs rounded">
@@ -256,10 +257,10 @@ export default function ResourcesPage() {
           <div className="section-header text-center mb-10">
             <div className="flex items-center justify-center gap-3 mb-3">
               <Globe className="h-7 w-7 text-purple-400" />
-              <h2 className="text-2xl md:text-3xl font-bold text-white">Useful Websites</h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-white">{t("websitesTitle")}</h2>
             </div>
             <p className="text-zinc-400 max-w-2xl mx-auto text-sm">
-              Essential tools and platforms that power my development workflow
+              {t("websitesSub")}
             </p>
           </div>
 
@@ -309,7 +310,7 @@ export default function ResourcesPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-purple-400 hover:text-purple-300 transition-colors text-xs font-medium"
                   >
-                    Visit <ExternalLink className="h-3 w-3" />
+                    {t("visit")} <ExternalLink className="h-3 w-3" />
                   </a>
                 </div>
               </div>
@@ -322,10 +323,9 @@ export default function ResourcesPage() {
           <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center mx-auto mb-4">
             <Network className="h-6 w-6 text-purple-400" />
           </div>
-          <h3 className="text-lg font-bold mb-2 text-white">Infrastructure in Growth</h3>
+          <h3 className="text-lg font-bold mb-2 text-white">{t("ctaTitle")}</h3>
           <p className="text-zinc-300 text-sm">
-            These resources and infrastructure projects represent my commitment to continuous learning and building robust, scalable
-            solutions. Always exploring new technologies and expanding my infrastructure.
+            {t("ctaText")}
           </p>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useTranslations } from "next-intl"
 
 interface TerminalLoaderProps {
   onLoadingComplete?: () => void
@@ -9,14 +10,15 @@ interface TerminalLoaderProps {
 }
 
 export default function TerminalLoader({ onLoadingComplete, minDisplayTime = 2000 }: TerminalLoaderProps) {
+  const t = useTranslations("loaders.terminal")
   const [lines, setLines] = useState<string[]>([])
   const [isVisible, setIsVisible] = useState(true)
 
   const commands = [
-    "$ initializing artag.system...",
-    "$ loading emotional_design.module",
-    "$ compiling impact.engine",
-    "$ ready to create experiences",
+    t("line1"),
+    t("line2"),
+    t("line3"),
+    t("line4"),
   ]
 
   useEffect(() => {
@@ -91,7 +93,7 @@ export default function TerminalLoader({ onLoadingComplete, minDisplayTime = 200
                 <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
                 <div className="w-3 h-3 rounded-full bg-indigo-500/60" />
               </div>
-              <span className="text-xs text-gray-500 ml-4 font-mono">artag@terminal</span>
+              <span className="text-xs text-gray-500 ml-4 font-mono">{t("title")}</span>
             </div>
 
             {/* Terminal content */}

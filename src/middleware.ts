@@ -1,5 +1,7 @@
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import createMiddleware from "next-intl/middleware";
+import { routing } from "@/i18n/routing";
 
 /**
  * Scalable Analytics & Third-Party Services Configuration
@@ -84,13 +86,16 @@ function generateCSPHeader(): string {
   return cspHeader.replace(/\n/g, "").replace(/\s+/g, " ").trim()
 }
 
+// next-intl middleware: detects locale from the browser (Accept-Language)
+// and rewrites / to /es for Spanish browsers (localePrefix: "as-needed")
+const intlMiddleware = createMiddleware(routing)
+
 export function middleware(request: NextRequest) {
-  const response = NextResponse.next()
+  // 1. Let next-intl handle locale detection/redirection first
+  const response = intlMiddleware(request)
 
-  // Set CSP header
+  // 2. Apply security headers on the response (CSP + security headers)
   response.headers.set("Content-Security-Policy", generateCSPHeader())
-
-  // Additional security headers
   response.headers.set("X-Content-Type-Options", "nosniff")
   response.headers.set("X-Frame-Options", "SAMEORIGIN")
   response.headers.set("X-XSS-Protection", "1; mode=block")

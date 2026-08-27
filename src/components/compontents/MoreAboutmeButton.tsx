@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion'
 import { Sparkles } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import React from 'react'
 import AnimatedButton from '../ui/animated-button'
 
 function MoreAboutmeButton() {
+    const t = useTranslations('about')
     return (
         <div>
             {/* Special "More About Me" Button */}
@@ -20,7 +22,7 @@ function MoreAboutmeButton() {
                         icon={<Sparkles className="h-5 w-5" />}
                         className="font-medium text-base"
                     >
-                        Discover My Journey
+                        {t("moreButton")}
                     </AnimatedButton>
 
                     {/* Floating particles */}

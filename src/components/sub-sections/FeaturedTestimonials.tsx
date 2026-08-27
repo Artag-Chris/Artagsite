@@ -2,13 +2,16 @@
 
 import React, { useState } from "react"
 import { motion } from "framer-motion"
+import { useLocale } from "next-intl"
 import TestimonialCard from "./TestimonialCard"
-import { testimonials } from "@/data/contactData"
+import { testimonialsByLocale } from "@/data/contactData"
 
 function FeaturedTestimonials() {
+  const locale = useLocale()
   const [hoveredId, setHoveredId] = useState<number | null>(null)
 
   // Filter featured testimonials
+  const testimonials = testimonialsByLocale[locale as "en" | "es"] ?? testimonialsByLocale.en
   const featured = testimonials.filter((t) => t.featured)
 
   const containerVariants = {

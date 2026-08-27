@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useTranslations } from "next-intl"
 import type { UseCase } from "@/data/skillsData"
 import { ArrowRight } from "lucide-react"
 
@@ -12,6 +13,7 @@ interface UseCaseCardProps {
 }
 
 export function UseCaseCard({ useCase, index, isCarousel = false, onSelect }: UseCaseCardProps) {
+  const t = useTranslations("skills.useCase")
   const Icon = useCase.icon
 
   const cardWidthClass = isCarousel ? "w-[85vw] sm:w-[70vw] md:w-[400px] lg:w-[440px] flex-shrink-0" : "w-full"
@@ -100,10 +102,10 @@ export function UseCaseCard({ useCase, index, isCarousel = false, onSelect }: Us
           {/* CTA row */}
           <div className="flex items-center justify-between">
             <span className="text-[11px] text-zinc-600 font-mono uppercase tracking-widest">
-              Use Case
+              {t("label")}
             </span>
             <div className="flex items-center gap-1.5 text-xs text-zinc-500 group-hover:text-blue-400 transition-colors duration-300">
-              <span className="font-medium">Explore</span>
+              <span className="font-medium">{t("explore")}</span>
               <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform duration-300" />
             </div>
           </div>

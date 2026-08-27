@@ -1,5 +1,6 @@
 import { tabs } from "@/data/aboutInfo";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 import React from "react";
 
 function ExperEduAchiComponent({
@@ -9,6 +10,7 @@ function ExperEduAchiComponent({
   setActiveTab: any;
   activeTab: any;
 }) {
+  const t = useTranslations("about.tabs");
   return (
     <div className="mb-4 sm:mb-6">
       <div className="flex border-b border-zinc-800 mb-4 overflow-x-auto scrollbar-hide">
@@ -25,7 +27,7 @@ function ExperEduAchiComponent({
               }`}
             >
               <Icon className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-              {tab.label}
+              {t(tab.id)}
               {activeTab === tab.id && (
                 <motion.div
                   className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan-400"

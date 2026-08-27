@@ -2,9 +2,11 @@
 
 import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
+import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { Download, Menu, X, User, Code2, Rocket, Mail, BookOpen } from "lucide-react"
 import { handleResumeDownload } from "@/functions/handleResumenDownload"
+import LanguageSwitcher from "@/components/LanguageSwitcher"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
@@ -13,6 +15,7 @@ if (typeof window !== "undefined") {
 }
 
 function HeaderMain() {
+  const t = useTranslations("nav")
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -58,14 +61,14 @@ function HeaderMain() {
   }, [])
 
   const navLinks = [
-    { href: "#about", label: "About", icon: User },
-    { href: "#skills", label: "What I Do", icon: Code2 },
-    { href: "#projects", label: "Projects", icon: Rocket },
-    { href: "#contact", label: "Let's Talk", icon: Mail },
+    { href: "#about", label: t("about"), icon: User },
+    { href: "#skills", label: t("whatIDo"), icon: Code2 },
+    { href: "#projects", label: t("projects"), icon: Rocket },
+    { href: "#contact", label: t("letsTalk"), icon: Mail },
   ]
 
   const externalNavLinks = [
-    { href: "/currentStudies", label: "Studies", icon: BookOpen },
+    { href: "/currentStudies", label: t("studies"), icon: BookOpen },
   ]
 
   return (
@@ -118,13 +121,15 @@ function HeaderMain() {
                  })}
               </div>
 
+              <LanguageSwitcher className="hidden md:inline-flex mr-2" />
+
               <Button
                 variant="ghost"
                 className="hidden md:flex items-center gap-2 text-zinc-500 hover:text-white transition-colors duration-200 px-4 py-2 rounded-lg text-sm border border-transparent hover:border-white/10 hover:bg-white/5"
                 onClick={handleResumeDownload}
               >
                 <Download className="w-4 h-4" />
-                <span>Resume</span>
+                <span>{t("resume")}</span>
               </Button>
 
               <Button
@@ -191,8 +196,12 @@ function HeaderMain() {
                  }}
                >
                  <Download className="w-4 h-4" />
-                 <span className="font-medium">Download Resume</span>
+                 <span className="font-medium">{t("downloadResume")}</span>
                </Button>
+
+               <div className="mt-3 flex justify-center">
+                 <LanguageSwitcher />
+               </div>
              </div>
            </div>
         </div>
@@ -263,7 +272,7 @@ function HeaderMain() {
                 onClick={handleResumeDownload}
               >
                 <Download className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Resume</span>
+                <span className="hidden sm:inline">{t("resume")}</span>
               </Button>
             </nav>
           </div>

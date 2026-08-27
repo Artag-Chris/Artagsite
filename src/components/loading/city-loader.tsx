@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useTranslations } from "next-intl"
 
 interface CityLoaderProps {
   onLoadingComplete?: () => void
@@ -9,6 +10,7 @@ interface CityLoaderProps {
 }
 
 export default function CityLoader({ onLoadingComplete, minDisplayTime = 3000 }: CityLoaderProps) {
+  const t = useTranslations("loaders.city")
   const [colorPhase, setColorPhase] = useState(0)
   const [showBlimp, setShowBlimp] = useState(false)
   const [showMotorcycle, setShowMotorcycle] = useState(false)
@@ -271,7 +273,7 @@ export default function CityLoader({ onLoadingComplete, minDisplayTime = 3000 }:
               }}
               transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
             >
-              ARTAG SITE
+              {t("brand")}
             </motion.div>
 
             {/* Progress bar */}
@@ -290,7 +292,7 @@ export default function CityLoader({ onLoadingComplete, minDisplayTime = 3000 }:
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              Loading experience...
+              {t("loading")}
             </motion.p>
           </div>
         </motion.div>

@@ -1,5 +1,8 @@
+"use client"
+
 import { Trophy, Gamepad2, Heart, Star, Calendar, Zap } from "lucide-react";
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 export interface Game {
@@ -147,6 +150,7 @@ export const favoriteGames: Game[] = [
 ];
 
 export const GameCard = ({ game, index }: { game: Game; index: number }) => {
+  const t = useTranslations("games.card");
   const cardRef = useRef<HTMLDivElement>(null);
 
   const getStatusColor = (status: string) => {
@@ -201,7 +205,7 @@ export const GameCard = ({ game, index }: { game: Game; index: number }) => {
           )} backdrop-blur-sm flex items-center gap-1`}
         >
           {getStatusIcon(game.status)}
-          {game.status.charAt(0).toUpperCase() + game.status.slice(1)}
+          {t(game.status)}
         </div>
 
         {/* Rating */}
@@ -243,13 +247,13 @@ export const GameCard = ({ game, index }: { game: Game; index: number }) => {
 
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <div className="text-xs text-zinc-500">Genre</div>
+            <div className="text-xs text-zinc-500">{t("genre")}</div>
             <div className="text-sm font-medium text-pink-300">
               {game.genre}
             </div>
           </div>
           <div className="space-y-1 text-right">
-            <div className="text-xs text-zinc-500">Platform</div>
+            <div className="text-xs text-zinc-500">{t("platform")}</div>
             <div className="text-sm font-medium text-pink-300">
               {game.platform}
             </div>
@@ -259,7 +263,7 @@ export const GameCard = ({ game, index }: { game: Game; index: number }) => {
         {/* Progress bar */}
         <div className="space-y-2">
           <div className="flex justify-between text-xs text-zinc-500">
-            <span>Achievements</span>
+            <span>{t("achievements")}</span>
             <span>{game.achievements}%</span>
           </div>
           <div className="w-full bg-zinc-700 rounded-full h-2">
