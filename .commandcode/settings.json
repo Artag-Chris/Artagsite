@@ -53,7 +53,10 @@
       "Shell(taskkill /pid 2552 /f /t 2>nul & netstat -ano | findstr \":3000\" | findstr \"LISTENING\")",
       "Shell(curl -s http://localhost:3000/es -o es_home2.html)",
       "Shell(node C:\\Users\\scris\\AppData\\Local\\Temp\\commandcode\\C--Users-scris-OneDrive-Escritorio-code-Artagsite\\9d9bcc7b-a283-4bb0-be2c-a73abeb3f902\\scratchpad\\check_es.cjs 2 > nul)",
-      "Shell(node -e const fs=require('fs'); const html=fs.readFileSync('es_home2.html','utf8'); const checks={ 'Acerca de': html.includes('Acerca de'), 'About bad': html.includes('About <'), 'Conecto Cosas': html.includes('Conecto Cosas'), 'Construyo Herramientas': html.includes('Construyo Herramientas'), 'I Build Tools bad': html.includes('I Build Tools'), 'Lenguajes y Frameworks': html.includes('Lenguajes y Frameworks'), 'Bots de WhatsApp': html.includes('Bots de WhatsApp') }; console.log(JSON.stringify(checks)))"
+      "Shell(node -e const fs=require('fs'); const html=fs.readFileSync('es_home2.html','utf8'); const checks={ 'Acerca de': html.includes('Acerca de'), 'About bad': html.includes('About <'), 'Conecto Cosas': html.includes('Conecto Cosas'), 'Construyo Herramientas': html.includes('Construyo Herramientas'), 'I Build Tools bad': html.includes('I Build Tools'), 'Lenguajes y Frameworks': html.includes('Lenguajes y Frameworks'), 'Bots de WhatsApp': html.includes('Bots de WhatsApp') }; console.log(JSON.stringify(checks)))",
+      "Shell(for:*)",
+      "Shell(netstat -ano ^| findstr \":3000\" ^| findstr \"LISTENING\":*)",
+      "Shell(do:*)"
     ],
     "deny": [],
     "defaultMode": "default"

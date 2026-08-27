@@ -15,6 +15,8 @@ const ANALYTICS_CONFIG = {
     domains: [
       "https://www.googletagmanager.com",
       "https://www.google-analytics.com",
+      "https://analytics.google.com",
+      "https://www.google.com",
       "https://googleads.g.doubleclick.net",
     ],
   },
@@ -48,6 +50,13 @@ const ANALYTICS_CONFIG = {
   vercel: {
     domains: [
       "https://vitals.vercel-analytics.com",
+    ],
+  },
+
+  // n8n chat webhook (connect-src for the chat widget)
+  n8n: {
+    domains: [
+      "https://n8n.artagdev.com.co",
     ],
   },
 
@@ -106,7 +115,10 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Match all routes except API and Next.js internals
-    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml).*)",
+    // Match all request paths except:
+    // - API routes and Next.js internals
+    // - Static files with extensions (.webp, .mp4, .png, .ico, etc.)
+    //   so next-intl never rewrites them to /es/...
+    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|.*\\..*).*)",
   ],
 }
