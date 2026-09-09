@@ -1,0 +1,42 @@
+# Artag Dev — AI-Friendly Site Summary
+
+> Full-stack software architect specializing in scalable systems, zero-downtime migrations, and process automation. Based in Colombia, available globally.
+
+## What I Do
+
+- **Full-Stack Development**: React, Next.js, TypeScript, Node.js, Python
+- **System Architecture**: Microservices, event-driven systems, database optimization
+- **Process Automation**: Workflow automation, API integrations, data pipelines
+- **Cloud Infrastructure**: Docker, Kubernetes, AWS, Vercel
+- **Payment Integration**: Stripe, payment gateways, subscription systems
+
+## Key Facts
+
+- 32K+ users served across projects
+- 99.99% uptime maintained
+- Self-taught developer since 2019
+- Based in Pereira, Colombia
+- Available for remote work worldwide
+
+## Site Pages
+
+- `/` — Home: skills, projects, contact
+- `/about-me` — Personal developer journey timeline (2006-2024)
+- `/currentStudies` — Current learning: microservices, React Native, Docker, GraphQL
+- `/favorites` — Favorite games and personal interests
+- `/my-faith` — Faith and values that shape my work
+- `/private-servers` — Game server administration guides
+
+## Contact
+
+- Website: https://www.artagdev.com.co
+- LinkedIn: https://linkedin.com/in/artag
+- GitHub: https://github.com/artag
+
+## Technical Stack
+
+Frontend: React, Next.js, TypeScript, Tailwind CSS, Framer Motion
+Backend: Node.js, Python, REST APIs, GraphQL, WebSockets
+Database: PostgreSQL, MongoDB, Redis
+DevOps: Docker, Kubernetes, CI/CD, Vercel
+Other: Payment systems, real-time applications, process automation

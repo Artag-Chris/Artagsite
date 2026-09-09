@@ -11,6 +11,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const es = locale === "es"
+  const baseUrl = "https://www.artagdev.com.co"
 
   return {
     title: es
@@ -48,6 +49,7 @@ export async function generateMetadata({
       type: "website",
       siteName: "Artag",
       locale: es ? "es_CO" : "en_US",
+      images: [{ url: `${baseUrl}/og-studies.png`, width: 1200, height: 630, alt: "Artag — Learning Journey" }],
     },
     twitter: {
       card: "summary_large_image",
@@ -57,6 +59,9 @@ export async function generateMetadata({
       description: es
         ? "Arquitectura de software, React Native, Docker, GraphQL, TypeScript avanzado y más — mira lo que estoy estudiando actualmente."
         : "Software architecture, React Native, Docker, GraphQL, advanced TypeScript and more — see what I'm currently studying.",
+      images: [`${baseUrl}/og-studies.png`],
+      site: "@artagdev",
+      creator: "@artagdev",
     },
     robots: { index: true, follow: true },
   }

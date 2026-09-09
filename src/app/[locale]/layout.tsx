@@ -1,6 +1,6 @@
 import '../globals.css'
 import { Inter, Space_Grotesk, IBM_Plex_Mono } from 'next/font/google'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
@@ -61,10 +61,40 @@ export async function generateMetadata({
         ? "Arquitecto de software full-stack. Especialista en sistemas escalables, migraciones sin downtime y automatización de procesos. 32K+ usuarios, 99.99% uptime."
         : "Full-stack software architect. Specialist in scalable systems, zero-downtime migrations, and process automation. 32K+ users, 99.99% uptime.",
     openGraph: {
+      title:
+        locale === "es"
+          ? "Artag | Desarrollador Full-Stack & Arquitecto de Software"
+          : "Artag | Full-Stack Developer & Software Architect",
+      description:
+        locale === "es"
+          ? "Arquitecto de software full-stack. Especialista en sistemas escalables, migraciones sin downtime y automatización de procesos. 32K+ usuarios, 99.99% uptime."
+          : "Full-stack software architect. Specialist in scalable systems, zero-downtime migrations, and process automation. 32K+ users, 99.99% uptime.",
       type: "website",
       locale: locale === "es" ? "es_CO" : "en_US",
       url: locale === "es" ? `${baseUrl}/es` : baseUrl,
       siteName: "Artag",
+      images: [
+        {
+          url: `${baseUrl}/og-home.png`,
+          width: 1200,
+          height: 630,
+          alt: "Artag — Full-Stack Developer & Software Architect",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title:
+        locale === "es"
+          ? "Artag | Desarrollador Full-Stack & Arquitecto de Software"
+          : "Artag | Full-Stack Developer & Software Architect",
+      description:
+        locale === "es"
+          ? "Arquitecto de software full-stack. Especialista en sistemas escalables, migraciones sin downtime y automatización de procesos."
+          : "Full-stack software architect. Specialist in scalable systems, zero-downtime migrations, and process automation.",
+      images: [`${baseUrl}/og-home.png`],
+      site: "@artagdev",
+      creator: "@artagdev",
     },
     icons: {
       icon: [
@@ -107,15 +137,18 @@ export default async function LocaleLayout({
   setRequestLocale(locale)
 
   const messages = await getMessages()
+  const isEs = locale === "es"
 
-  // Organization Schema Markup for Google Knowledge Panel
+  // Organization Schema Markup for Google Knowledge Panel (locale-aware)
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Artag",
     url: "https://www.artagdev.com.co",
     logo: "https://www.artagdev.com.co/logosinfondo.png",
-    description: "Full-stack software development and digital architecture services",
+    description: isEs
+      ? "Servicios de desarrollo de software full-stack y arquitectura digital"
+      : "Full-stack software development and digital architecture services",
     sameAs: [
       "https://linkedin.com/in/artag",
       "https://github.com/artag",
@@ -128,30 +161,45 @@ export default async function LocaleLayout({
     },
   }
 
-  // Person Schema Markup for Professional Profile
+  // Person Schema Markup for Professional Profile (locale-aware)
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Artag Dev",
     url: "https://www.artagdev.com.co",
     image: "https://www.artagdev.com.co/logosinfondo.png",
-    jobTitle: "Full-Stack Software Architect",
-    description: "Specialist in scalable systems, zero-downtime migrations, and enterprise automation",
+    jobTitle: isEs
+      ? "Arquitecto de Software Full-Stack"
+      : "Full-Stack Software Architect",
+    description: isEs
+      ? "Especialista en sistemas escalables, migraciones sin downtime y automatización empresarial"
+      : "Specialist in scalable systems, zero-downtime migrations, and enterprise automation",
     sameAs: [
       "https://linkedin.com/in/artag",
       "https://github.com/artag",
       "https://twitter.com/artagdev",
     ],
-    knowsAbout: [
-      "Full-Stack Development",
-      "Microservices Architecture",
-      "Process Automation",
-      "Real-Time Web Applications",
-      "Zero-Downtime Deployment",
-      "Payment Integration",
-      "Cloud Infrastructure",
-      "Database Optimization",
-    ],
+    knowsAbout: isEs
+      ? [
+          "Desarrollo Full-Stack",
+          "Arquitectura de Microservicios",
+          "Automatización de Procesos",
+          "Aplicaciones Web en Tiempo Real",
+          "Despliegue sin Downtime",
+          "Integración de Pagos",
+          "Infraestructura Cloud",
+          "Optimización de Bases de Datos",
+        ]
+      : [
+          "Full-Stack Development",
+          "Microservices Architecture",
+          "Process Automation",
+          "Real-Time Web Applications",
+          "Zero-Downtime Deployment",
+          "Payment Integration",
+          "Cloud Infrastructure",
+          "Database Optimization",
+        ],
     worksFor: {
       "@type": "Organization",
       name: "Artag",
@@ -161,6 +209,15 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`${inter.className} ${spaceGrotesk.variable} ${ibmPlexMono.variable}`}>
+        {/* Structured data rendered as early as possible in DOM (before child content) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <SpeedInsights />
@@ -168,20 +225,17 @@ export default async function LocaleLayout({
             <GTMPageView />
             <MetaPixel />
             <TikTokPixel />
-            {/* Organization Schema */}
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-            />
-            {/* Person Schema */}
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-            />
             {children}
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
   )
+}
+
+// Theme color for mobile browsers + consistent status bar
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
+  width: "device-width",
+  initialScale: 1,
 }

@@ -23,9 +23,6 @@ User-agent: PerplexityBot
 Allow: /
 
 # Anthropic (Claude)
-User-agent: Claude-Web
-Allow: /
-
 User-agent: ClaudeBot
 Allow: /
 
@@ -44,12 +41,6 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 
-User-agent: Bingbot
-Allow: /
-
-User-agent: Slurp
-Allow: /
-
 User-agent: DuckDuckBot
 Allow: /
 
@@ -59,13 +50,6 @@ Disallow: /
 
 User-agent: AmazonBot
 Disallow: /
-
-User-agent: anthropic-ai
-Disallow: /
-
-# Crawl delay for aggressive crawlers
-User-agent: *
-Crawl-delay: 1
 
 # Sitemap location
 Sitemap: https://www.artagdev.com.co/sitemap.xml
