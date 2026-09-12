@@ -298,7 +298,7 @@ export const projectsData: ProjectProps[] = [
       "CV Harness is an event-driven harness that monitors vacancies on configurable job boards, evaluates them against your profile with hybrid AI + semantic matching (0.65·AI + 0.35·pgvector cosine), measures ATS fit with a deterministic score, and generates a tailored resume plus cover letter in ATS-compatible PDF — all managed from a web dashboard with a stateless Rust scraper and Redis Streams.",
     shortDescription: "Event-driven job search: Rust scraper + hybrid AI match + ATS-aware PDF",
     category: "featured",
-    status: "in-progress",
+    status: "live",
     tech: [
       "NestJS",
       "TypeScript",
