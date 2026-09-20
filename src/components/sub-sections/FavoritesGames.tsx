@@ -1,13 +1,13 @@
 "use client"
 
-import { Gamepad2, ExternalLink, Users, Trophy, Flame } from "lucide-react"
+import { Gamepad2 } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { useRef } from "react"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { favoriteGames, GameCard } from "@/data/games/gamesData"
+import GameLibrary from "@/components/games/GameLibrary"
 import GamePlatformsSection from "./GamePlatformsSection"
 
 gsap.registerPlugin(ScrollTrigger)
@@ -18,56 +18,7 @@ export default function FavoriteGamesPage() {
 
   useGSAP(
     () => {
-      // Subtle entrance animation for cards
-      gsap.utils.toArray(".game-card").forEach((card, index) => {
-
-        // Subtle entrance animation - cards fade in from top
-        gsap.from(card as Element, {
-          y: 30,
-          opacity: 0,
-          scale: 0.95,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: card as Element,
-            start: "top 85%",
-          },
-          delay: index * 0.08,
-        })
-
-        // Subtle hover effect - scale and shadow only
-        const cardElement = card as HTMLElement
-        cardElement.addEventListener("mouseenter", () => {
-          gsap.to(card as Element, {
-            scale: 1.02,
-            duration: 0.3,
-            ease: "power2.out",
-          })
-        })
-
-        cardElement.addEventListener("mouseleave", () => {
-          gsap.to(card as Element, {
-            scale: 1,
-            duration: 0.3,
-            ease: "power2.out",
-          })
-        })
-      })
-
-      // Animate achievement bars
-      gsap.utils.toArray(".achievement-bar").forEach((bar) => {
-        gsap.from(bar as Element, {
-          width: "0%",
-          duration: 1.5,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: bar as Element,
-            start: "top 80%",
-          },
-        })
-      })
-
-      // Title animation
+      // Title entrance
       gsap.from(".page-title", {
         y: 50,
         opacity: 0,
@@ -75,85 +26,54 @@ export default function FavoriteGamesPage() {
         ease: "power2.out",
       })
 
-      // Stagger animation for stats
-      gsap.from(".game-stat", {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power2.out",
-        delay: 0.5,
-      })
-
-      // Animate platform links
-      gsap.from(".platform-link", {
-        y: 20,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power2.out",
-        delay: 0.3,
+      // Section titles as they scroll in
+      gsap.utils.toArray(".section-title").forEach((title) => {
+        gsap.from(title as Element, {
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: title as Element,
+            start: "top 90%",
+          },
+        })
       })
     },
     { scope: containerRef },
   )
 
-  const totalHours = favoriteGames.reduce((acc, game) => {
-    const hours = Number.parseInt(game.hours.replace("+", ""))
-    return acc + hours
-  }, 0)
-
-  const averageRating = (favoriteGames.reduce((acc, game) => acc + game.rating, 0) / favoriteGames.length).toFixed(1)
-
   return (
-    <main ref={containerRef} className="bg-zinc-900 min-h-screen">
-       <div className="container mx-auto px-4 py-10 pt-32 md:pt-40">
-          {/* Header */}
-          <div className="text-center mb-16">
-          <h1 className="page-title text-4xl md:text-6xl font-bold mb-6">
+    <main ref={containerRef} className="min-h-screen bg-zinc-950">
+      <div className="container mx-auto px-4 py-10 pt-32 md:pt-40">
+        {/* Header */}
+        <div className="mb-16 text-center">
+          <h1 className="page-title mb-6 text-4xl font-bold md:text-6xl">
             {t("title")}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
+            <span className="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
               {t("titleAccent")}
             </span>
           </h1>
-          <p className="text-xl text-zinc-300 max-w-2xl mx-auto mb-8">
+          <p className="mx-auto mb-12 max-w-2xl text-xl text-zinc-300">
             {t("intro")}
           </p>
-
-          {/* Stats */}
-          <div className="flex justify-center gap-8 mb-12">
-            <div className="game-stat text-center">
-              <div className="text-3xl font-bold text-pink-400">{favoriteGames.length}</div>
-              <div className="text-sm text-zinc-400">{t("games")}</div>
-            </div>
-            <div className="game-stat text-center">
-              <div className="text-3xl font-bold text-pink-400">{totalHours}+</div>
-              <div className="text-sm text-zinc-400">{t("hoursPlayed")}</div>
-            </div>
-            <div className="game-stat text-center">
-              <div className="text-3xl font-bold text-pink-400">{averageRating}</div>
-              <div className="text-sm text-zinc-400">{t("avgRating")}</div>
-            </div>
-          </div>
         </div>
+
+        {/* Unified library — Steam live + curated Epic/GOG via RAWG */}
+        <GameLibrary />
 
         {/* Gaming Platforms Section */}
         <GamePlatformsSection />
 
-        {/* Games Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {favoriteGames.map((game, index) => (
-            <GameCard key={game.id} game={game} index={index} />
-          ))}
-        </div>
-
         {/* Footer */}
-        <div className="text-center mt-16 py-8">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-r from-pink-500/20 to-purple-500/20 flex items-center justify-center mx-auto mb-4">
-            <Gamepad2 className="h-8 w-8 text-pink-400" />
+        <div className="mt-16 py-8 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500/20 to-indigo-500/20">
+            <Gamepad2 className="h-8 w-8 text-cyan-400" />
           </div>
-          <h3 className="text-2xl font-bold mb-4 text-white">{t("gamingNeverStops")}</h3>
-          <p className="text-zinc-300 max-w-md mx-auto">
+          <h3 className="section-title mb-4 text-2xl font-bold text-white">
+            {t("gamingNeverStops")}
+          </h3>
+          <p className="mx-auto max-w-md text-zinc-300">
             {t("gamingClosing")}
           </p>
         </div>

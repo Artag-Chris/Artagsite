@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { getLocale } from "next-intl/server"
 import CosmicNavbar from "@/components/compontents/cosmic-navbar";
-import {navLinks} from "@/data/navlinks";
+import { navLinks } from "@/data/navlinks";
 import FavoriteGamesPage from "@/components/sub-sections/FavoritesGames";
 
 export async function generateMetadata({
@@ -15,20 +15,21 @@ export async function generateMetadata({
 
   return {
     title: es
-      ? "Juegos Favoritos — Mis Picks Personales | Artag"
-      : "Favorite Games — My Personal Picks | Artag",
+      ? "Mis Juegos — Librería Steam & Picks Personales | Artag"
+      : "My Games — Steam Library & Personal Picks | Artag",
     description: es
-      ? "Los juegos que más me han marcado como desarrollador y persona. Desde títulos indie hasta clásicos que definieron mi pasión por la tecnología."
-      : "The games that shaped me as a developer and person. From indie titles to classics that defined my passion for technology.",
+      ? "Mi librería de juegos sincronizada con Steam, más mis picks curados en Epic Games y GOG. Explorá los juegos que me marcaron como desarrollador y persona."
+      : "My game library, live-synced from Steam, plus curated picks from Epic Games and GOG. Explore the games that shaped me as a developer and person.",
     keywords: [
-      "favorite games",
+      "steam library",
       "gaming developer",
       "indie games",
       "video games colombia",
       "developer hobbies",
-      "juegos favoritos",
+      "biblioteca steam",
       "desarrollador gamer",
       "juegos indie",
+      "libreria de juegos",
     ],
     alternates: {
       canonical: es ? `${baseUrl}/es/favorites` : `${baseUrl}/favorites`,
@@ -36,23 +37,23 @@ export async function generateMetadata({
     },
     openGraph: {
       title: es
-        ? "Juegos Favoritos | Artag"
-        : "Favorite Games | Artag",
+        ? "Mis Juegos | Artag"
+        : "My Games | Artag",
       description: es
-        ? "Los juegos que más me han marcado como desarrollador y persona."
-        : "The games that shaped me as a developer and person.",
+        ? "Mi librería de juegos sincronizada con Steam y mis picks curados."
+        : "My Steam library and curated game picks.",
       url: es ? `${baseUrl}/es/favorites` : `${baseUrl}/favorites`,
       type: "website",
       siteName: "Artag",
       locale: es ? "es_CO" : "en_US",
-      images: [{ url: `${baseUrl}/og-favorites.png`, width: 1200, height: 630, alt: "Artag — Favorite Games" }],
+      images: [{ url: `${baseUrl}/og-favorites.png`, width: 1200, height: 630, alt: "Artag — My Games" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: es ? "Juegos Favoritos | Artag" : "Favorite Games | Artag",
+      title: es ? "Mis Juegos | Artag" : "My Games | Artag",
       description: es
-        ? "Los juegos que más me han marcado como desarrollador y persona."
-        : "The games that shaped me as a developer and person.",
+        ? "Mi librería de juegos sincronizada con Steam y mis picks curados."
+        : "My Steam library and curated game picks.",
       images: [`${baseUrl}/og-favorites.png`],
       site: "@artagdev",
       creator: "@artagdev",
@@ -66,16 +67,12 @@ export default async function Page() {
     const links = navLinks[locale as "en" | "es"] ?? navLinks.en
 
     return (
-        <main className="bg-zinc-900 min-h-screen">
+        <main className="bg-zinc-950 min-h-screen">
             {/* Cosmic Navbar */}
             <CosmicNavbar links={links} currentPath="/favorites" />
 
             <div className="container mx-auto px-4 py-10">
-                {/* Botón de regresar */}
-            
-                <div className="prose prose-lg prose-invert max-w-none prose-headings:text-emerald-400 prose-a:text-emerald-400">
-                    <FavoriteGamesPage />
-                </div>
+                <FavoriteGamesPage />
             </div>
         </main>
     )

@@ -5,9 +5,29 @@ import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useTranslations } from "next-intl"
-import { ExternalLink, Gamepad2 } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 
 gsap.registerPlugin(ScrollTrigger)
+
+interface PlatformStat {
+  key: string
+  labelKey: string
+}
+
+interface Platform {
+  name: string
+  icon: "🎮" | "⚔️" | "🕹️"
+  gradient: string
+  borderColor: string
+  hoverBorderColor: string
+  bgColor: string
+  hoverBgColor: string
+  hoverShadow: string
+  stats: PlatformStat[]
+  /** Empty string hides the "Visit profile" button (e.g. profile not linked yet) */
+  link: string
+  description: string
+}
 
 export default function GamePlatformsSection() {
   const t = useTranslations("games.platforms")
@@ -62,61 +82,86 @@ export default function GamePlatformsSection() {
     { scope: containerRef },
   )
 
-  const platforms = [
+  const platforms: Platform[] = [
     {
       name: "Steam",
       icon: "🎮",
-      color: "from-blue-600 to-blue-500",
-      borderColor: "border-blue-500/30",
-      hoverBorderColor: "hover:border-blue-500/70",
-      bgColor: "bg-blue-500/5",
-      hoverBgColor: "hover:bg-blue-500/10",
+      gradient: "from-cyan-500 to-cyan-400",
+      borderColor: "border-cyan-500/30",
+      hoverBorderColor: "hover:border-cyan-500/70",
+      bgColor: "bg-cyan-500/5",
+      hoverBgColor: "hover:bg-cyan-500/10",
+      hoverShadow: "hover:shadow-cyan-500/20",
       stats: [
-        { label: "100+", value: "Achievements" },
-        { label: "1000+", value: "Total Hours" },
-        { label: "Level 60", value: "Steam Level" },
+        { key: "Live", labelKey: "steamLive" },
+        { key: "Real", labelKey: "steamPlaytime" },
+        { key: "100%", labelKey: "steamAchieve" },
       ],
       link: "https://steamcommunity.com/id/Artag-chris/",
-      description: "Connect with me on my Steam profile to see all my games, achievements, and gaming activity.",
+      description:
+        "My real PC library, automatically synced with my Steam profile — hours played, achievements, and all the games I own.",
     },
     {
       name: "Epic Games",
       icon: "⚔️",
-      color: "from-purple-600 to-purple-500",
-      borderColor: "border-purple-500/30",
-      hoverBorderColor: "hover:border-purple-500/70",
-      bgColor: "bg-purple-500/5",
-      hoverBgColor: "hover:bg-purple-500/10",
+      gradient: "from-indigo-500 to-indigo-400",
+      borderColor: "border-indigo-500/30",
+      hoverBorderColor: "hover:border-indigo-500/70",
+      bgColor: "bg-indigo-500/5",
+      hoverBgColor: "hover:bg-indigo-500/10",
+      hoverShadow: "hover:shadow-indigo-500/20",
       stats: [
-        { label: "20+", value: "Games" },
-        { label: "Epic Member", value: "Since 2018" },
-        { label: "Active", value: "Player" },
+        { key: "2018", labelKey: "epicMember" },
+        { key: "Soon", labelKey: "epicPending" },
+        { key: "—", labelKey: "epicRawg" },
       ],
       link: "https://store.epicgames.com/en-US/u/f38fecb99ad44927ae569ec6b9549220",
-      description: "Follow me on Epic Games Store to see my library and connect on the Epic ecosystem.",
+      description:
+        "My Epic Games profile. Epic has no public library API, so my picks need a hand-maintained list — I'll bring them into the library once I can access the account.",
+    },
+    {
+      name: "GOG",
+      icon: "🕹️",
+      gradient: "from-zinc-500 to-zinc-400",
+      borderColor: "border-zinc-500/30",
+      hoverBorderColor: "hover:border-zinc-500/70",
+      bgColor: "bg-zinc-500/5",
+      hoverBgColor: "hover:bg-zinc-500/10",
+      hoverShadow: "hover:shadow-zinc-500/20",
+      stats: [
+        { key: "Soon", labelKey: "gogPending" },
+        { key: "DRM", labelKey: "gogClassics" },
+        { key: "—", labelKey: "gogRawg" },
+      ],
+      // ⚠️ Add your GOG profile URL here (https://www.gog.com/u/<username>) to show the button
+      link: "",
+      description:
+        "My GOG selection — DRM-free classics and indies. Same as Epic: no public library API, so it's a hand-maintained list I'll fill in as soon as I recover my account.",
     },
   ]
 
   return (
     <div ref={containerRef} className="my-20">
       {/* Section Title */}
-      <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t("title")}</h2>
-        <p className="text-zinc-300 max-w-2xl mx-auto">
+      <div className="mb-16 text-center">
+        <h2 className="section-title mb-4 text-3xl font-bold text-white md:text-4xl">
+          {t("title")}
+        </h2>
+        <p className="mx-auto max-w-2xl text-zinc-300">
           {t("subtitle")}
         </p>
       </div>
 
       {/* Platform Cards - Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto px-4">
+      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-4 md:grid-cols-3">
         {platforms.map((platform, index) => (
           <div
             key={platform.name}
-            className={`platform-card ${platform.bgColor} ${platform.hoverBgColor} border ${platform.borderColor} ${platform.hoverBorderColor} rounded-2xl p-8 transition-all duration-300 hover:shadow-lg hover:shadow-${platform.name === "Steam" ? "blue" : "purple"}-500/20`}
+            className={`platform-card ${platform.bgColor} ${platform.hoverBgColor} border ${platform.borderColor} ${platform.hoverBorderColor} ${platform.hoverShadow} rounded-2xl p-8 transition-all duration-300 hover:shadow-lg`}
           >
             {/* Platform Header */}
-            <div className="flex items-center gap-3 mb-6">
-              <div className={`text-4xl`}>{platform.icon}</div>
+            <div className="mb-6 flex items-center gap-3">
+              <div className="text-4xl">{platform.icon}</div>
               <div>
                 <h3 className="text-2xl font-bold text-white">{platform.name}</h3>
                 <p className="text-sm text-zinc-400">{t("gamingPlatform")}</p>
@@ -124,33 +169,41 @@ export default function GamePlatformsSection() {
             </div>
 
             {/* Description */}
-            <p className="text-zinc-300 text-sm md:text-base leading-relaxed mb-6">{platform.description}</p>
+            <p className="mb-6 text-sm leading-relaxed text-zinc-300 md:text-base">
+              {platform.description}
+            </p>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-3 gap-4 mb-8">
+            <div className="mb-8 grid grid-cols-3 gap-4">
               {platform.stats.map((stat, statIndex) => (
                 <div
                   key={statIndex}
-                  className={`platform-stat text-center ${platform.bgColor} border ${platform.borderColor} rounded-lg p-4 transition-all duration-300`}
+                  className={`platform-stat ${platform.bgColor} border ${platform.borderColor} rounded-lg p-4 text-center transition-all duration-300`}
                 >
-                  <p className={`text-xl md:text-2xl font-bold bg-gradient-to-r ${platform.color} text-transparent bg-clip-text`}>
-                    {stat.label}
+                  <p
+                    className={`bg-gradient-to-r ${platform.gradient} bg-clip-text text-sm font-bold text-transparent md:text-base`}
+                  >
+                    {stat.key}
                   </p>
-                  <p className="text-xs text-zinc-400 mt-1">{stat.value}</p>
+                  <p className="mt-1 text-[11px] text-zinc-400">
+                    {t(stat.labelKey)}
+                  </p>
                 </div>
               ))}
             </div>
 
             {/* Visit Profile Button */}
-            <a
-              href={platform.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`visit-profile-btn w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r ${platform.color} text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105`}
-            >
-              {t("profile", { name: platform.name })}
-              <ExternalLink className="w-5 h-5" />
-            </a>
+            {platform.link && (
+              <a
+                href={platform.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`visit-profile-btn inline-flex w-full transform items-center justify-center gap-2 bg-gradient-to-r ${platform.gradient} rounded-lg px-6 py-3 font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg`}
+              >
+                {t("profile", { name: platform.name })}
+                <ExternalLink className="h-5 w-5" />
+              </a>
+            )}
           </div>
         ))}
       </div>

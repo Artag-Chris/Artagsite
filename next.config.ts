@@ -22,6 +22,23 @@ const nextConfig: NextConfig = {
                 protocol: 'https',
                 hostname: 'res.cloudinary.com',
             },
+            // Gaming library images (RAWG enrichment + Steam CDN)
+            {
+                protocol: 'https',
+                hostname: 'media.rawg.io',
+            },
+            {
+                protocol: 'https',
+                hostname: 'media.steampowered.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'cdn.akamai.steamstatic.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'shared.fastly.steamstatic.com',
+            },
         ],
     },
     eslint: {
