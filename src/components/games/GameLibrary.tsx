@@ -6,6 +6,7 @@ import { Gamepad2, Info, RefreshCw } from "lucide-react"
 import type { LibraryResponse, PlatformFilter, SortOption } from "@/lib/games/types"
 import { LibraryTabs } from "./LibraryTabs"
 import { SortControl } from "./SortControl"
+import { SearchControl } from "./SearchControl"
 import { GameCard } from "./GameCard"
 import { Pagination } from "./Pagination"
 
@@ -17,6 +18,8 @@ export default function GameLibrary() {
   const [sort, setSort] = useState<SortOption>("playtime")
   const [page, setPage] = useState(1)
   const [refreshKey, setRefreshKey] = useState(0)
+  const [search, setSearch] = useState("")
+  const [debouncedSearch, setDebouncedSearch] = useState("")
   const [data, setData] = useState<LibraryResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -30,15 +33,31 @@ export default function GameLibrary() {
     setSort(s)
     setPage(1)
   }, [])
+  const changeSearch = useCallback((v: string) => {
+    setSearch(v)
+    setPage(1)
+  }, [])
+
+  // Debounce the query so fetching only happens once the user pauses typing
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      setDebouncedSearch(search.trim())
+    }, 350)
+    return () => window.clearTimeout(id)
+  }, [search])
 
   useEffect(() => {
     const controller = new AbortController()
     setLoading(true)
     setError(false)
 
-    fetch(`/api/games?platform=${platform}&sort=${sort}&page=${page}&perPage=${libraryPerPage}`, {
-      signal: controller.signal,
-    })
+    const query = debouncedSearch
+      ? `&q=${encodeURIComponent(debouncedSearch)}`
+      : ""
+    fetch(
+      `/api/games?platform=${platform}&sort=${sort}&page=${page}&perPage=${libraryPerPage}${query}`,
+      { signal: controller.signal }
+    )
       .then((res) => {
         if (!res.ok) throw new Error("fetch-failed")
         return res.json() as Promise<LibraryResponse>
@@ -50,7 +69,7 @@ export default function GameLibrary() {
       .finally(() => setLoading(false))
 
     return () => controller.abort()
-  }, [platform, sort, page, refreshKey])
+  }, [platform, sort, page, refreshKey, debouncedSearch])
 
   const usingFallback = data?.status.usingFallback ?? false
 
@@ -65,11 +84,7 @@ export default function GameLibrary() {
         <div className="mx-auto mb-12 grid max-w-xl grid-cols-3 gap-4">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 text-center backdrop-blur-sm">
             <p className="text-3xl font-bold tabular-nums text-cyan-400">
-              {usingFallback
-                ? data.totals.games
-                : data.sourceCounts.steam +
-                  data.sourceCounts.epic +
-                  data.sourceCounts.gog}
+              {data.total}
             </p>
             <p className="mt-1 text-xs uppercase tracking-widest text-zinc-400">
               {t("totalGames")}
@@ -115,14 +130,23 @@ export default function GameLibrary() {
       )}
 
       {/* Controls */}
-      {!usingFallback && data && (
-        <div className="mb-10 flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <LibraryTabs
-            active={platform}
-            counts={data.sourceCounts}
-            onChange={changePlatform}
+      {data && (
+        <div className="mb-10 space-y-4">
+          <SearchControl
+            value={search}
+            onChange={changeSearch}
+            resultCount={debouncedSearch.trim() ? data.total : null}
           />
-          <SortControl value={sort} onChange={changeSort} />
+          {!usingFallback && (
+            <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+              <LibraryTabs
+                active={platform}
+                counts={data.sourceCounts}
+                onChange={changePlatform}
+              />
+              <SortControl value={sort} onChange={changeSort} />
+            </div>
+          )}
         </div>
       )}
 
@@ -165,8 +189,12 @@ export default function GameLibrary() {
       ) : (
         <div className="mx-auto flex max-w-md flex-col items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900/40 px-8 py-12 text-center">
           <Gamepad2 className="h-8 w-8 text-zinc-500" />
-          <p className="text-zinc-300">{t("empty")}</p>
-          <p className="text-sm text-zinc-500">{t("emptyHint")}</p>
+          <p className="text-zinc-300">
+            {debouncedSearch.trim() ? t("noResults") : t("empty")}
+          </p>
+          <p className="text-sm text-zinc-500">
+            {debouncedSearch.trim() ? t("noResultsHint") : t("emptyHint")}
+          </p>
         </div>
       )}
     </section>

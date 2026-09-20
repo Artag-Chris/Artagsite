@@ -1,14 +1,17 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getUnifiedLibrary } from "@/lib/games/merge"
+import { PLATFORM_ORDER } from "@/lib/games/platforms"
 import type { PlatformFilter, SortOption } from "@/lib/games/types"
 
-const VALID_PLATFORMS = ["all", "steam", "epic", "gog"] as const
+const VALID_PLATFORMS = ["all", ...PLATFORM_ORDER] as const
 const VALID_SORTS = ["playtime", "rating", "title"] as const
 const MAX_PER_PAGE = 50
+const MAX_QUERY_LENGTH = 100
 
 /**
- * GET /api/games?platform=all|steam|epic|gog&sort=playtime|rating|title&page=1&perPage=12
+ * GET /api/games?platform=all|steam|epic|gog&sort=playtime|rating|title&q=<text>&page=1&perPage=12
  * Unified, paginated, sortable game library (Steam live + curated Epic/GOG via RAWG).
+ * `q` performs a case/diacritics-insensitive match over title + genres.
  * CDN-cached 15 min; upstreams are in-memory cached as well (see src/lib/games/cache.ts).
  */
 export async function GET(request: NextRequest) {
@@ -32,8 +35,9 @@ export async function GET(request: NextRequest) {
     MAX_PER_PAGE,
     Math.max(1, parseInt(params.get("perPage") ?? "12", 10) || 12)
   )
+  const query = (params.get("q") ?? "").trim().slice(0, MAX_QUERY_LENGTH)
 
-  const data = await getUnifiedLibrary({ platform, sort, page, perPage })
+  const data = await getUnifiedLibrary({ platform, sort, page, perPage, query })
 
   return NextResponse.json(data, {
     headers: {

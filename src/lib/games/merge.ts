@@ -24,6 +24,8 @@ export interface LibraryOptions {
   sort?: SortOption
   page?: number
   perPage?: number
+  /** Case/diacritics-insensitive, tokenized full-text filter over title + genres */
+  query?: string
 }
 
 function steamToGame(g: {
@@ -106,6 +108,46 @@ function sortGames(list: Game[], sort: SortOption): Game[] {
   }
 }
 
+/** Lowercase + strip diacritics so "Pokémon" matches "pokemon". */
+function normalizeForSearch(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+}
+
+/** Remove punctuation/whitespace for "yugioh" → "Yu-Gi-Oh!" style matching. */
+function compactForSearch(value: string): string {
+  return value.replace(/[^a-z0-9]/g, "")
+}
+
+/**
+ * Two-tier search:
+ *   1. Compact substring — "yugioh" matches "Yu-Gi-Oh!", "pokemon" → "Pokémon"
+ *   2. Token AND — every query word must appear in title or genres
+ *      (e.g. "monster wilds" needs both words, in any order)
+ */
+function applySearchFilter(list: Game[], query: string): Game[] {
+  const trimmed = query.trim().slice(0, 100)
+  if (!trimmed) return list
+
+  const normalized = normalizeForSearch(trimmed)
+  const queryCompact = compactForSearch(normalized)
+  if (!queryCompact) return list
+
+  const tokens = normalized.split(/\s+/).filter(Boolean)
+
+  return list.filter((g) => {
+    const haystackRaw = [g.title, ...g.genres].join(" ")
+    const haystack = normalizeForSearch(haystackRaw)
+    if (queryCompact.length > 0 && compactForSearch(haystack).includes(queryCompact)) {
+      return true
+    }
+    return tokens.every((token) => haystack.includes(token))
+  })
+}
+
 export async function getUnifiedLibrary(
   options: LibraryOptions = {}
 ): Promise<LibraryResponse> {
@@ -163,7 +205,8 @@ export async function getUnifiedLibrary(
 
   const filtered =
     platform === "all" ? games : games.filter((g) => g.source === platform)
-  const sorted = sortGames(filtered, sort)
+  const searched = applySearchFilter(filtered, options.query ?? "")
+  const sorted = sortGames(searched, sort)
 
   const total = sorted.length
   const totalPages = Math.max(1, Math.ceil(total / perPage))
