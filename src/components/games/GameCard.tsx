@@ -4,10 +4,10 @@ import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { Clock, Star, Trophy } from "lucide-react"
 import type { Game } from "@/lib/games/types"
+import { AchievementsExpand } from "./AchievementsExpand"
 
 interface GameCardProps {
   game: Game
-  onOpenDetails?: (game: Game) => void
 }
 
 const SOURCE_STYLES: Record<Game["source"], string> = {
@@ -32,7 +32,7 @@ function formatHours(minutes?: number): string | null {
     : `${Math.round(hours * 10) / 10}h`
 }
 
-export function GameCard({ game, onOpenDetails }: GameCardProps) {
+export function GameCard({ game }: GameCardProps) {
   const t = useTranslations("games.library")
 
   const hours = formatHours(game.playtimeMinutes)
@@ -142,6 +142,7 @@ export function GameCard({ game, onOpenDetails }: GameCardProps) {
 
         {/* Actions */}
         <div className="mt-2 flex items-center gap-2">
+          {game.hasDetails && <AchievementsExpand game={game} />}
           {game.storeUrl && (
             <a
               href={game.storeUrl}
@@ -151,14 +152,6 @@ export function GameCard({ game, onOpenDetails }: GameCardProps) {
             >
               {t("openStore")}
             </a>
-          )}
-          {game.hasDetails && onOpenDetails && (
-            <button
-              onClick={() => onOpenDetails(game)}
-              className="flex-1 rounded-lg bg-gradient-to-r from-cyan-500 to-indigo-500 px-3 py-1.5 text-xs font-semibold text-white shadow transition-all hover:shadow-lg hover:shadow-cyan-500/25"
-            >
-              {t("viewAchievements")}
-            </button>
           )}
         </div>
       </div>

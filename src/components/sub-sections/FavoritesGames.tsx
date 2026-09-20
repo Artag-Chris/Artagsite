@@ -54,9 +54,21 @@ export default function FavoriteGamesPage() {
               {t("titleAccent")}
             </span>
           </h1>
-          <p className="mx-auto mb-12 max-w-2xl text-xl text-zinc-300">
+          <p className="mx-auto mb-8 max-w-2xl text-xl text-zinc-300">
             {t("intro")}
           </p>
+          <button
+            type="button"
+            onClick={() =>
+              document
+                .getElementById("game-library")
+                ?.scrollIntoView({ behavior: "smooth", block: "start" })
+            }
+            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-cyan-500/30"
+          >
+            <Gamepad2 className="h-4 w-4" />
+            {t("exploreLibrary")}
+          </button>
         </div>
 
         {/* Unified library — Steam live + curated Epic/GOG via RAWG */}

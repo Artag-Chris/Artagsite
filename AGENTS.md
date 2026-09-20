@@ -52,7 +52,7 @@ Unified, paginated game library — Steam **live** + curated Epic/GOG enriched v
 - `src/app/api/games/route.ts` — `GET /api/games?platform=all|steam|epic|gog&sort=playtime|rating|title&page=1&perPage=12`. CDN-cached 15 min via response header
 - `src/app/api/games/achievements/route.ts` — `GET /api/games/achievements?appid=X` (on-demand, cached 30 min)
 - `src/lib/games/` — `types.ts` (shared types), `config.ts` (env + curated lists), `cache.ts` (in-memory TTL cache with in-flight dedupe), `steam.ts` (Steam Web API), `rawg.ts` (RAWG enrichment), `merge.ts` (aggregate → sort → paginate)
-- `src/components/games/` — client components: `GameLibrary.tsx` (orchestrator + fetch), `LibraryTabs`, `SortControl`, `GameCard`, `Pagination`, `AchievementsModal`
+- `src/components/games/` — client components: `GameLibrary.tsx` (orchestrator + fetch), `LibraryTabs`, `SortControl`, `GameCard`, `Pagination`, `AchievementsExpand`
 - Curated Epic/GOG lists live in `src/lib/games/config.ts` (RAWG slugs — user-maintained, since Epic/GOG have no public library API). **Current state: empty (Steam-only)** — the Epic/GOG tabs auto-hide until slugs are added
 - Static fallback: `src/data/games/gamesDataCore.ts` (server-safe; `gamesData.tsx` re-exports it + keeps the legacy `GameCard`). Used when no API keys are set
 - Steam images come from Steam CDNs, curated images from `media.rawg.io` — all whitelisted in `next.config.ts` `images.remotePatterns`
@@ -61,7 +61,7 @@ Unified, paginated game library — Steam **live** + curated Epic/GOG enriched v
 
 - **Honesty**: Steam data is real (playtime, achievements). Epic/GOG cards are curated picks — the status pill switches to `steamOnlyNote` ("Live-synced from Steam") when Epic/GOG are empty
 - Adding a new platform (e.g. PlayStation): add a source union to `types.ts`, a client in `src/lib/games/`, wire it in `merge.ts`, and a tab in `LibraryTabs.tsx` + `SourceCounts`
-- Steam library load can be heavy for large accounts — never fetch per-game achievements for the whole library; only on-demand (modal)
+- Steam library load can be heavy for large accounts — never fetch per-game achievements for the whole library; only on-demand (inline expand in the card)
 - In-memory cache (like `rateLimit.ts`) is per-instance — acceptable for low traffic; swap for Upstash/Redis before scaling
 
 ### Path Alias

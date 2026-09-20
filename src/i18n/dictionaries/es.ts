@@ -395,6 +395,7 @@ const es = {
     avgRating: "Rating Promedio",
     gamingNeverStops: "El juego nunca para",
     gamingClosing: "Siempre en busca de la próxima gran aventura. ¿Qué juego debería jugar después?",
+    exploreLibrary: "Explorar mi librería",
     platforms: {
       title: "Conecta conmigo en Plataformas de Gaming",
       subtitle: "Encuéntrame en las plataformas donde paso mi tiempo de juego.",
@@ -463,6 +464,8 @@ const es = {
       unlocked: "{unlocked} de {total} desbloqueados",
       unlockedOn: "Desbloqueado el {date}",
       close: "Cerrar",
+      show: "Ver logros",
+      hide: "Ocultar logros",
       none: "No hay logros registrados para este juego.",
       error: "No se pudieron cargar los logros.",
     },

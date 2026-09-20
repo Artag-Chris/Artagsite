@@ -395,6 +395,7 @@ const en = {
     avgRating: "Avg Rating",
     gamingNeverStops: "Gaming Never Stops",
     gamingClosing: "Always on the lookout for the next great adventure. What game should I play next?",
+    exploreLibrary: "Explore my library",
     platforms: {
       title: "Connect with Me on Gaming Platforms",
       subtitle: "Find me on the platforms where I spend my gaming time.",
@@ -463,6 +464,8 @@ const en = {
       unlocked: "{unlocked} of {total} unlocked",
       unlockedOn: "Unlocked {date}",
       close: "Close",
+      show: "Show achievements",
+      hide: "Hide achievements",
       none: "No achievements tracked for this game.",
       error: "Couldn't load achievements.",
     },

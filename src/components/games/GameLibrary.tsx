@@ -3,17 +3,11 @@
 import { useCallback, useEffect, useState } from "react"
 import { useTranslations } from "next-intl"
 import { Gamepad2, Info, RefreshCw } from "lucide-react"
-import type {
-  Game,
-  LibraryResponse,
-  PlatformFilter,
-  SortOption,
-} from "@/lib/games/types"
+import type { LibraryResponse, PlatformFilter, SortOption } from "@/lib/games/types"
 import { LibraryTabs } from "./LibraryTabs"
 import { SortControl } from "./SortControl"
 import { GameCard } from "./GameCard"
 import { Pagination } from "./Pagination"
-import { AchievementsModal } from "./AchievementsModal"
 
 export const libraryPerPage = 12
 
@@ -26,7 +20,6 @@ export default function GameLibrary() {
   const [data, setData] = useState<LibraryResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const [selectedGame, setSelectedGame] = useState<Game | null>(null)
 
   // Changing the active tab or sort resets to page 1
   const changePlatform = useCallback((p: PlatformFilter) => {
@@ -62,7 +55,11 @@ export default function GameLibrary() {
   const usingFallback = data?.status.usingFallback ?? false
 
   return (
-    <section aria-label={t("label")} className="w-full">
+    <section
+      id="game-library"
+      aria-label={t("label")}
+      className="w-full scroll-mt-28"
+    >
       {/* Stats row */}
       {data && (
         <div className="mx-auto mb-12 grid max-w-xl grid-cols-3 gap-4">
@@ -154,11 +151,7 @@ export default function GameLibrary() {
         <>
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {data.items.map((game) => (
-              <GameCard
-                key={game.id}
-                game={game}
-                onOpenDetails={setSelectedGame}
-              />
+              <GameCard key={game.id} game={game} />
             ))}
           </div>
           <div className="mt-12">
@@ -176,8 +169,6 @@ export default function GameLibrary() {
           <p className="text-sm text-zinc-500">{t("emptyHint")}</p>
         </div>
       )}
-
-      <AchievementsModal game={selectedGame} onClose={() => setSelectedGame(null)} />
     </section>
   )
 }
