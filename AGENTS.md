@@ -17,8 +17,11 @@ npm run lint     # next lint (ESLint v9). NOTE: disabled in builds via next.conf
 
 - `npm run build` can hang indefinitely if `.next` cache is deleted and no previous cache exists
 - Fix: kill stuck node processes, then rebuild (warm cache builds in ~20s)
+- **Never run `npm run build` while `npm run dev` is running** — both write to `.next`, and the build clobbers dev artifacts (missing `vendor-chunks/*`, phantom `MISSING_MESSAGE` errors after i18n edits, 500s on every route). If that happens: kill the node process on port 3000, delete `.next`, restart `npm run dev`
 - ESLint is skipped during builds (`eslint.ignoreDuringBuilds: true` in `next.config.ts`) — a build passing does not mean lint is clean. Run `npm run lint` separately
+- Field note: `npm run lint` currently crashes in ESLint 9 with "Converting circular structure to JSON" during config validation (before analyzing files). Pre-existing, not caused by component changes
 - `package.json` declares `"type": "commonjs"` even though the project ships ESM Next.js code. Don't "fix" this unless you've verified scripts under `scripts/` and the postcss configs still load
+- next-intl: `t("missing.key")` renders the raw namespace path (`studies.foo.bar`) to users — after renaming/moving message keys, grep the component's `t(...)` paths against the dictionaries before assuming a rename took effect
 
 ## Architecture
 
