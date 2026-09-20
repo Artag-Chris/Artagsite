@@ -379,6 +379,8 @@ const en = {
     skills: "Skills:",
     officialDocs: "Official Documentation",
     viewProof: "View proof",
+    viewDetails: "View details",
+    closeDetails: "Close details",
     confidenceLevels: {
       beginner: "Beginner",
       intermediate: "Intermediate",
