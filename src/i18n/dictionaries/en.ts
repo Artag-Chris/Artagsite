@@ -333,8 +333,8 @@ const en = {
     categoryBreakdown: "Category Breakdown",
     learningNeverStops: "Learning Never Stops",
     closing: "Knowledge is power, and I'm committed to staying at the forefront of technology through continuous learning and hands-on practice.",
-    atAGlance: "At a glance",
-    atAGlanceSub: {
+    atAGlance: {
+      title: "At a glance",
       misionSub: "Government scholarship · 5.0 / 5.0 every semester",
       microservices: "13 microservices shipped",
       microservicesSub: "TypeScript org · artag-services · production",

@@ -333,8 +333,8 @@ const es = {
     categoryBreakdown: "Desglose por Categoría",
     learningNeverStops: "El Aprendizaje Nunca Se Detiene",
     closing: "El conocimiento es poder, pero la curiosidad lo hace divertido. Aprendo porque me gusta, y me gusta porque funciona.",
-    atAGlance: "De un vistazo",
-    atAGlanceSub: {
+    atAGlance: {
+      title: "De un vistazo",
       misionSub: "Beca del gobierno · 5.0 / 5.0 cada semestre",
       microservices: "13 microservicios entregados",
       microservicesSub: "Organización TypeScript · artag-services · producción",

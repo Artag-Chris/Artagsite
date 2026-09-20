@@ -48,7 +48,7 @@ export async function AtAGlance() {
       className="max-w-5xl mx-auto mb-10"
     >
       <div className="text-xs uppercase tracking-[0.2em] text-zinc-500 text-center mb-4">
-        {t("atAGlance")}
+        {t("atAGlance.title")}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -58,16 +58,16 @@ export async function AtAGlance() {
             <a
               key={h.title}
               href={h.jumpHref}
-              className={`group flex items-center gap-3 p-4 rounded-xl bg-zinc-900/40 border ${h.borderClass} transition-colors`}
+              className={`group flex items-center gap-3 p-4 rounded-xl bg-zinc-900/40 border ${h.borderClass} transition-all duration-300`}
             >
               <div
-                className={`shrink-0 w-10 h-10 rounded-lg ${h.bgClass} flex items-center justify-center`}
+                className={`shrink-0 w-10 h-10 rounded-lg ${h.bgClass} flex items-center justify-center transition-transform duration-300 group-hover:scale-105`}
               >
                 <Icon className={`h-5 w-5 ${h.iconClass}`} />
               </div>
 
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-semibold text-white leading-tight">
+                <div className="text-sm font-semibold text-white leading-tight transition-colors group-hover:opacity-90">
                   {h.title}
                 </div>
                 <div className="text-xs text-zinc-400 mt-0.5 leading-snug">
@@ -77,7 +77,7 @@ export async function AtAGlance() {
 
               <div className="shrink-0 flex items-center gap-1 text-xs text-zinc-500 group-hover:text-white transition-colors">
                 <span className="hidden sm:inline">{h.jumpLabel}</span>
-                <ArrowDown className="h-3.5 w-3.5" />
+                <ArrowDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5 group-hover:text-white" />
               </div>
             </a>
           )
