@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react"
+import { motion } from "framer-motion"
 import { useTranslations } from "next-intl"
 import { Gamepad2, Info, RefreshCw } from "lucide-react"
 import type { LibraryResponse, PlatformFilter, SortOption } from "@/lib/games/types"
@@ -9,6 +10,7 @@ import { SortControl } from "./SortControl"
 import { SearchControl } from "./SearchControl"
 import { GameCard } from "./GameCard"
 import { Pagination } from "./Pagination"
+import GamesLoader from "./GamesLoader"
 
 export const libraryPerPage = 12
 
@@ -154,50 +156,59 @@ export default function GameLibrary() {
 
       {/* Grid */}
       {loading ? (
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: libraryPerPage }).map((_, i) => (
-            <div
-              key={i}
-              className="h-[380px] animate-pulse rounded-2xl border border-zinc-800 bg-zinc-900/40"
-            />
-          ))}
-        </div>
-      ) : error ? (
-        <div className="mx-auto flex max-w-md flex-col items-center gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/40 px-8 py-12 text-center">
-          <RefreshCw className="h-8 w-8 text-zinc-500" />
-          <p className="text-zinc-300">{t("loadError")}</p>
-          <button
-            onClick={() => setRefreshKey((k) => k + 1)}
-            className="rounded-lg bg-gradient-to-r from-cyan-500 to-indigo-500 px-5 py-2 text-sm font-semibold text-white transition-shadow hover:shadow-lg hover:shadow-cyan-500/25"
-          >
-            {t("retry")}
-          </button>
-        </div>
-      ) : data && data.items.length > 0 ? (
-        <>
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {data.items.map((game) => (
-              <GameCard key={game.id} game={game} />
-            ))}
-          </div>
-          <div className="mt-12">
-            <Pagination
-              page={data.page}
-              totalPages={data.totalPages}
-              onChange={setPage}
-            />
-          </div>
-        </>
+        <motion.div
+          key="games-loader"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <GamesLoader />
+        </motion.div>
       ) : (
-        <div className="mx-auto flex max-w-md flex-col items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900/40 px-8 py-12 text-center">
-          <Gamepad2 className="h-8 w-8 text-zinc-500" />
-          <p className="text-zinc-300">
-            {debouncedSearch.trim() ? t("noResults") : t("empty")}
-          </p>
-          <p className="text-sm text-zinc-500">
-            {debouncedSearch.trim() ? t("noResultsHint") : t("emptyHint")}
-          </p>
-        </div>
+        <motion.div
+          key="games-content"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          {error ? (
+            <div className="mx-auto flex max-w-md flex-col items-center gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/40 px-8 py-12 text-center">
+              <RefreshCw className="h-8 w-8 text-zinc-500" />
+              <p className="text-zinc-300">{t("loadError")}</p>
+              <button
+                onClick={() => setRefreshKey((k) => k + 1)}
+                className="rounded-lg bg-gradient-to-r from-cyan-500 to-indigo-500 px-5 py-2 text-sm font-semibold text-white transition-shadow hover:shadow-lg hover:shadow-cyan-500/25"
+              >
+                {t("retry")}
+              </button>
+            </div>
+          ) : data && data.items.length > 0 ? (
+            <>
+              <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {data.items.map((game) => (
+                  <GameCard key={game.id} game={game} />
+                ))}
+              </div>
+              <div className="mt-12">
+                <Pagination
+                  page={data.page}
+                  totalPages={data.totalPages}
+                  onChange={setPage}
+                />
+              </div>
+            </>
+          ) : (
+            <div className="mx-auto flex max-w-md flex-col items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900/40 px-8 py-12 text-center">
+              <Gamepad2 className="h-8 w-8 text-zinc-500" />
+              <p className="text-zinc-300">
+                {debouncedSearch.trim() ? t("noResults") : t("empty")}
+              </p>
+              <p className="text-sm text-zinc-500">
+                {debouncedSearch.trim() ? t("noResultsHint") : t("emptyHint")}
+              </p>
+            </div>
+          )}
+        </motion.div>
       )}
     </section>
   )
