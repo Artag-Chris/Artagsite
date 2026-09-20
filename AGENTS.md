@@ -45,21 +45,21 @@ Static content lives in `src/data/*.tsx` (e.g. `proyectData.ts`, `skillsData.tsx
 
 ## Gaming Library (`/favorites`)
 
-Unified, paginated game library — Steam **live** + curated Epic/GOG enriched via RAWG.
+Unified, paginated game library — Steam + Epic **live** + curated GOG enriched via RAWG.
 
 ### Architecture (modular & expandable)
 
 - `src/app/api/games/route.ts` — `GET /api/games?platform=all|steam|epic|gog&sort=playtime|rating|title&q=<text>&page=1&perPage=12`. `q` = case/diacritics-insensitive search over title + genres (compact substring + token AND). CDN-cached 15 min via response header
 - `src/app/api/games/achievements/route.ts` — `GET /api/games/achievements?appid=X` (on-demand, cached 30 min)
-- `src/lib/games/` — `types.ts` (shared types), `config.ts` (env + curated lists), `platforms.ts` (**platform registry** — `PLATFORM_ORDER` + `PLATFORM_LABEL_KEYS` drive the API route validation and `LibraryTabs`), `cache.ts` (in-memory TTL cache with in-flight dedupe), `steam.ts` (Steam Web API), `rawg.ts` (RAWG enrichment), `merge.ts` (aggregate → search → sort → paginate)
+- `src/lib/games/` — `types.ts` (shared types), `config.ts` (env + curated lists), `platforms.ts` (**platform registry** — `PLATFORM_ORDER` + `PLATFORM_LABEL_KEYS` drive the API route validation and `LibraryTabs`), `cache.ts` (in-memory TTL cache with in-flight dedupe), `steam.ts` (Steam Web API), `epic.ts` (**Epic owned-library via unofficial launcher API** — needs `EPIC_REFRESH_TOKEN`, see docs/epic-integration.md; no playtime), `rawg.ts` (RAWG enrichment), `merge.ts` (aggregate → search → sort → paginate)
 - `src/components/games/` — client components: `GameLibrary.tsx` (orchestrator + fetch), `LibraryTabs`, `SortControl`, `SearchControl`, `GameCard`, `Pagination`, `AchievementsExpand`
-- Curated Epic/GOG lists live in `src/lib/games/config.ts` (RAWG slugs — user-maintained, since Epic/GOG have no public library API). **Current state: empty (Steam-only)** — the Epic/GOG tabs auto-hide until slugs are added
+- Curated lists in `src/lib/games/config.ts` (RAWG slugs — user-maintained, for stores without a live source). **Current state: GOG empty (no account access); Epic curated list unused while the live Epic client is active.** Empty tabs auto-hide
 - Static fallback: `src/data/games/gamesDataCore.ts` (server-safe; `gamesData.tsx` re-exports it + keeps the legacy `GameCard`). Used when no API keys are set
-- Steam images come from Steam CDNs, curated images from `media.rawg.io` — all whitelisted in `next.config.ts` `images.remotePatterns`
+- Steam images come from Steam CDNs, curated images from `media.rawg.io`, Epic store art from `cdn*.epicgames.com` — all whitelisted in `next.config.ts` `images.remotePatterns`
 
 ### Embedding rules
 
-- **Honesty**: Steam data is real (playtime, achievements). Epic/GOG cards are curated picks — the status pill switches to `steamOnlyNote` ("Live-synced from Steam") when Epic/GOG are empty
+- **Honesty**: Steam is real (playtime, achievements). Epic is real (owned library via unofficial API) but has **no playtime** and no achievements yet. GOG cards remain curated picks. The status pill switches between `steamOnlyNote` (steam live only), `steamEpicLiveNote` (steam + epic live), `liveNote` (live + curated GOG), and `fallbackNote` (nothing configured)
 - Adding a new platform (e.g. PlayStation): add a source union to `types.ts`, a client in `src/lib/games/`, wire it in `merge.ts`, register it in `platforms.ts` (`PLATFORM_ORDER` + `PLATFORM_LABEL_KEYS`), and add a label under `games.platforms` in both dictionaries — tabs and API validation pick it up automatically
 - Steam library load can be heavy for large accounts — never fetch per-game achievements for the whole library; only on-demand (inline expand in the card)
 - In-memory cache (like `rateLimit.ts`) is per-instance — acceptable for low traffic; swap for Upstash/Redis before scaling

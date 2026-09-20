@@ -1,6 +1,7 @@
 # Epic Games Integration — Feasibility Study
 
-**Status:** researched (2026-09) · **not implemented** · blocked on Epic account access
+**Status:** partially implemented (2026-09) — library client `src/lib/games/epic.ts` wired into
+the aggregator; **pending**: your `EPIC_REFRESH_TOKEN` to validate live + achievements (GraphQL).
 **Verdict:** It *is* possible to show your real Epic library, but **there is no official public API**. The only working path is Epic's **private launcher endpoints** (the same ones the community tools Legendary, Heroic and Playnite use). Unofficial = can break without notice and a minor ToS gray zone, though it's read-only metadata for personal use.
 
 ---
@@ -77,44 +78,44 @@ Unofficial endpoints rotate — any of the hostnames/numerations can change with
 
 ---
 
-## How it would plug into the current architecture (zero-churn)
+## How it plugs into the current architecture (done)
 
-The platform registry we just added (`src/lib/games/platforms.ts`) makes this a 4-step add:
+Built with the platform registry (`src/lib/games/platforms.ts`) as designed:
 
-1. **`src/lib/games/epic.ts`** — new client (mirrors `steam.ts`):
-   - `refreshAccessToken()` from `EPIC_REFRESH_TOKEN` (env) → access token
-   - `getOwnedGames()` → `library/api/public/items` records → map to `Game[]` (source `"epic"`, `hasDetails: true`, no playtime)
-   - cache via existing `cache.ts` (e.g. 24h TTL — library changes rarely)
-2. **`src/lib/games/merge.ts`** — call `epic.ts` alongside `steam.ts` when `EPIC_REFRESH_TOKEN` set
-3. **`src/lib/games/config.ts`** — remove the "Epic unsupported" gate (keep curated list as *fallback* when no token, which is the current `steamOnly` behavior)
-4. **UI labels** — Epic tab already comes back automatically once `items` are non-empty (registry-driven tabs/counts); add an honest label like `epicLiveNote` ("Sincronizado en vivo con Epic") vs `epicPending` ("Esperando acceso a la cuenta") vs `epicCurated`
+1. **`src/lib/games/epic.ts`** — client mirroring `steam.ts`:
+   - `getEpicAccessToken()` mints short-lived access tokens from `EPIC_REFRESH_TOKEN` (cached under Epic's TTL)
+   - `getEpicOwnedGames()` → paginates `library/api/public/items` (cursor) → maps to `Game[]`, games-only, covers picked from preferred keyImage types → cached 24h
+2. **`src/lib/games/merge.ts`** — calls `epic.ts` when the token is set; curated Epic list now only used as fallback when Epic isn't live
+3. **`src/lib/games/config.ts`** — `epic` section (token + overrideable unofficially-public launcher client + endpoints)
+4. **UI labels** — registry-driven: the Epic tab reappears automatically once items are non-empty; status pill distinguishes `steamEpicLiveNote` (Steam + Epic live) from `liveNote` (live + curated GOG) from `steamOnlyNote`
+5. **Images** — `**.epicgames.com` whitelisted in `next.config.ts` `images.remotePatterns`
 
 ### Integrity rules
 - **No playtime** → the playtime stat on Epic cards is hidden (Epic has no public playtime)
-- Achievements only shown when the GraphQL call succeeds; silent fallback to "–"
+- Achievements (GraphQL) are **not wired yet** → Epic cards show no achievements button until then
 - UI still says exactly what the data is: *live-synced* vs *curated*
 
 ---
 
 ## Risks & caveats (be honest with yourself)
 
-- **Unofficial APIs can break without notice** — mitigations: in-memory caching + the curated list stays as automatic fallback whenever the Epic fetch throws. Worst case the site shows "pending" instead of dying.
+- **Unofficial APIs can break without notice** — mitigations: in-memory caching + token failures return empty and the merge layer falls back gracefully. Worst case the Epic tab just hides.
 - **ToS gray zone** — it's *your own* library, read-only, no scraping/anonymizing. Legendary/Heroic/Playnite have run this same pattern for 5+ years. Acceptable for a personal site, but it's a judgment call.
-- **Token expiry** — refresh tokens last a long time but do eventually expire; you'd re-run `legendary auth` occasionally. Leaf refresh handling (retry once, then drop to curated).
+- **Token expiry** — refresh tokens last a long time but do eventually expire; re-run `legendary auth` occasionally. Epic rejects it cleanly (no crash, Epic just hides).
 - **No playtime** — inherent limitation, not a bug.
 
 ---
 
 ## Prerequisites / block on
 
-Currently blocked because (a) the Epic account itself needs to be accessible again (password recovery → EGS login → `legendary auth`) and (b) it's a ~1-day build that only makes sense once (a) is unblocked. The curated-list approach stays as-is until then.
+**Unblocked as of 2026-09.** Library client is implemented and merged. The only pending item is
+your **`EPIC_REFRESH_TOKEN`** in `.env.local` / Vercel (see `docs/gaming-library-keys.md` section 3)
+to validate live — plus the achievements step below as a follow-up.
 
 ---
 
-## Recommended order of work (when unblocked)
+## Remaining work
 
-1. Recover Epic account access + run `legendary auth` → capture `EPIC_REFRESH_TOKEN`/`EPIC_ACCOUNT_ID`
-2. Build `epic.ts` client (auth → library → cache), verify with a throwaway script
-3. Wire into `merge.ts` + registry, add `epicLiveNote` label
-4. Achievements GraphQL → `AchievementsExpand` reuse
-5. Test happy path + fallback (kill token → curated kicks in)
+1. ✅ Provide `EPIC_REFRESH_TOKEN` (`.env.local` + Vercel env) and restart the dev server → validate live Epic library
+2. **Achievements GraphQL** (`launcher.store.epicgames.com/graphql`, `egl_game_achievements_user_query`) → reuse `AchievementsExpand` (the achievements route will dispatch by source: Steam `appid` / Epic `namespace`)
+3. Test happy path + fallback (kill token → Epic tab hides, nothing breaks)

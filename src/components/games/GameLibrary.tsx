@@ -122,9 +122,11 @@ export default function GameLibrary() {
             <Info className="h-3.5 w-3.5" />
             {usingFallback
               ? t("fallbackNote")
-              : data.sourceCounts.epic + data.sourceCounts.gog > 0
+              : data.sourceCounts.gog > 0
                 ? t("liveNote")
-                : t("steamOnlyNote")}
+                : data.sourceCounts.epic > 0
+                  ? t("steamEpicLiveNote")
+                  : t("steamOnlyNote")}
           </p>
         </div>
       )}

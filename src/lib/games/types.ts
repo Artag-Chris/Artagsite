@@ -44,9 +44,10 @@ export interface LibraryTotals {
 }
 
 export interface LibraryStatus {
-  /** At least one live source (Steam/RAWG) was configured */
+  /** At least one live source (Steam/Epic/RAWG) was configured */
   live: boolean
   steam: boolean
+  epic: boolean
   rawg: boolean
   /** Response is backed by the static fallback list */
   usingFallback: boolean

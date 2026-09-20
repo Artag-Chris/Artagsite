@@ -456,7 +456,8 @@ const es = {
       emptyHint: "Probá otro filtro u orden.",
       noResults: "No hay juegos que coincidan con tu búsqueda.",
       noResultsHint: "Probá otro nombre o limpiá la búsqueda.",
-      liveNote: "Sincronizado en vivo con Steam · curado en Epic y GOG",
+      liveNote: "Sincronizado en vivo con Steam y Epic · curado en GOG",
+      steamEpicLiveNote: "Sincronizado en vivo con Steam y Epic",
       steamOnlyNote: "Sincronizado en vivo con Steam",
       fallbackNote: "La sincronización en vivo no está conectada todavía — mostrando mis picks personales.",
       pagination: {

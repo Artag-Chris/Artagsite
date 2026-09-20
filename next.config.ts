@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
                 protocol: 'https',
                 hostname: 'res.cloudinary.com',
             },
-            // Gaming library images (RAWG enrichment + Steam CDN)
+            // Gaming library images (RAWG enrichment, Steam CDN, Epic store art)
             {
                 protocol: 'https',
                 hostname: 'media.rawg.io',
@@ -38,6 +38,11 @@ const nextConfig: NextConfig = {
             {
                 protocol: 'https',
                 hostname: 'shared.fastly.steamstatic.com',
+            },
+            {
+                // Epic store covers (cdn1/cdn2.epicgames.com, cdn.fortnite.com, …)
+                protocol: 'https',
+                hostname: '**.epicgames.com',
             },
         ],
     },

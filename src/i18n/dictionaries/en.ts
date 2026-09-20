@@ -456,7 +456,8 @@ const en = {
       emptyHint: "Try a different platform or sort order.",
       noResults: "No games match your search.",
       noResultsHint: "Try a different name or clear the search.",
-      liveNote: "Live-synced from Steam · curated on Epic & GOG",
+      liveNote: "Live-synced from Steam & Epic · curated on GOG",
+      steamEpicLiveNote: "Live-synced from Steam & Epic",
       steamOnlyNote: "Live-synced from Steam",
       fallbackNote: "Live sync isn't connected yet — showing my personal picks.",
       pagination: {
