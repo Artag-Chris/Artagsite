@@ -85,7 +85,8 @@ function epicToGame(g: EpicOwnedGame): Game {
     coverUrl: g.coverUrl,
     genres: [],
     // Epic exposes no playtime; achievements (GraphQL) not wired yet → no details button.
-    storeUrl: `https://store.epicgames.com/p/${g.catalogItemId}`,
+    // storeUrl intentionally omitted: Epic product pages need a productSlug that the
+    // catalog-item endpoint doesn't expose, so we'd only be able to emit broken links.
   }
 }
 

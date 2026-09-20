@@ -1,7 +1,9 @@
 # Epic Games Integration — Feasibility Study
 
-**Status:** partially implemented (2026-09) — library client `src/lib/games/epic.ts` wired into
-the aggregator; **pending**: your `EPIC_REFRESH_TOKEN` to validate live + achievements (GraphQL).
+**Status:** ✅ **live & validated (2026-09-20)** — the library client in `src/lib/games/epic.ts`
+is wired into the aggregator and confirmed against a real account (401 raw entitlements →
+351 real owned games after catalog enrichment + product dedupe). **Pending:** achievements
+(GraphQL), which is the last Epic feature left.
 **Verdict:** It *is* possible to show your real Epic library, but **there is no official public API**. The only working path is Epic's **private launcher endpoints** (the same ones the community tools Legendary, Heroic and Playnite use). Unofficial = can break without notice and a minor ToS gray zone, though it's read-only metadata for personal use.
 
 ---
@@ -11,10 +13,11 @@ the aggregator; **pending**: your `EPIC_REFRESH_TOKEN` to validate live + achiev
 | Data | Available? | Source |
 |---|---|---|
 | Owned game list (entitlements) | ✅ Yes | Private EPIC API |
-| Title + cover art + description | ✅ Yes | `library/api/public/items` returns full metadata |
-| Achievements (per-user, per game) | ✅ Yes | `launcher.store.epicgames.com/graphql` (`egl_game_achievements_user_query`) |
+| Title + cover art | ✅ Yes | Catalog API (store metadata, bearer auth) |
+| Game-vs-DLC classification | ✅ Yes | Catalog `categories` (`games` vs `addons`/`digitalextras`) |
+| Achievements (per-user, per game) | ✅ Yes | `launcher.store.epicgames.com/graphql` (`egl_game_achievements_user_query`) — not wired yet |
 | Playtime | ❌ **No** | Epic doesn't expose it anywhere (private or public) |
-| Library *screenshots* / background art | ⚠️ Partial | Catalog metadata includes key images |
+| Store page link | ❌ **No (for now)** | Product pages need a `productSlug` that the catalog-item endpoint doesn't expose; a storeUrl we can't build right would be a broken link |
 
 > This is better than expected: you get a **live Epic library *with* achievements**. The only thing missing is playtime (Epic simply doesn't track it publicly), so Epic cards would show ~0h and hide the hours stat — same honest handling we already do for the "curated" rows.
 
@@ -37,30 +40,49 @@ token_type=eg1
 The easiest way to obtain a refresh token is to run the open-source CLI **Legendary** once on your PC:
 
 ```bash
-pip install legendary
-legendary auth          # opens Epic login in browser
-legendary auth --status  # after login, shows account_id + token info
+pip install legendary-gl       # or grab the standalone legendary.exe from GitHub releases
+legendary auth                 # opens Epic login in browser
+legendary status               # after login, shows authenticated account
 # token lives at ~/.config/legendary/user.json  (refresh_token + account_id)
 ```
 
-Then set in `.env.local` / Vercel:
+Set in `.env.local` / Vercel:
 
 ```
-EPIC_REFRESH_TOKEN=...        # from user.json (for now quote it if it has /
-EPIC_ACCOUNT_ID=...
+EPIC_REFRESH_TOKEN=...        # from user.json (it's a year-long credential — treat it like a password;
+                              # expires ~2027-09, then re-run `legendary auth`)
 ```
 
 Our server uses the refresh token to mint a short-lived access token on demand (cached), exactly like `steam.ts` caches Steam responses.
 
-### 2. Fetch the library
+### 2. Fetch the library (two stages — verified live)
 
 ```
-GET https://library-service.live.use1a.on.epicgames.com/library/api/public/items?includeMetadata=true
+# Stage 1 — bare entitlement records (NO playable title inside!)
+GET https://library-service.live.use1a.on.epicgames.com/library/api/public/items
 Authorization: bearer <access_token>
 # paginated via responseMetadata.nextCursor
+
+# Each record carries only: namespace, catalogItemId, productId, sandboxName
+# (human product name), appName (internal codename — "Boga" for Death Stranding,
+# UUIDs for DLC). There is no `offer`/`metadata` payload with a title anymore.
+
+# Stage 2 — enrich each record with store metadata (real title, cover, categories)
+GET https://catalog-public-service-prod06.ol.epicgames.com/catalog/api/shared/namespace/{ns}/items/{catalogItemId}?country=CO&locale=en-US
+Authorization: bearer <access_token>
+# returns title, keyImages (DieselGameBoxTall = cover), categories incl. "games"
 ```
 
-Each record includes `title`, `namespace`, `catalogItemId`, and `offer` metadata with `keyImages` (covers) — enough to build a card without extra calls. Fallback source if this rotates: `GET entitlement-public-service-prod08.ol.epicgames.com/entitlement/api/account/{accountId}/entitlements?start=0&count=1000` (raw entitlements, no metadata → then resolve via `catalog-public-service-prod06.../catalog/api/shared/namespace/{ns}/bulk/items?id=...`).
+The pipeline in `epic.ts`:
+1. Paginate all records, dedupe by `namespace/catalogItemId`
+2. Enrich concurrently (pool of 10, ~4s for 400 items) via the catalog endpoint
+3. Keep only items with a `games` category (drops `addons`, `digitalextras`, etc.)
+4. Group the survivors by `productId` and pick the best representative — skips
+   bundled OSTs / art books / wallpapers / beta builds and collapses multi-item
+   products (Death Stranding's 5 entitlements → 1 card)
+5. Whole result is cached 24h (in-memory) + 15 min via the API response header
+
+Fallback source if this rotates: `GET entitlement-public-service-prod08.ol.epicgames.com/entitlement/api/account/{accountId}/entitlements?start=0&count=1000` (raw entitlements, no metadata → then resolve via the catalog endpoint above).
 
 ### 3. Achievements (optional)
 
@@ -84,7 +106,7 @@ Built with the platform registry (`src/lib/games/platforms.ts`) as designed:
 
 1. **`src/lib/games/epic.ts`** — client mirroring `steam.ts`:
    - `getEpicAccessToken()` mints short-lived access tokens from `EPIC_REFRESH_TOKEN` (cached under Epic's TTL)
-   - `getEpicOwnedGames()` → paginates `library/api/public/items` (cursor) → maps to `Game[]`, games-only, covers picked from preferred keyImage types → cached 24h
+   - `getEpicOwnedGames()` → paginates `library/api/public/items` (cursor) → enriches each item via the catalog endpoint (title/cover/categories, ~4s for 400 games with a pool of 10) → games-only filter → dedupes by `productId` picking the base-game card → cached 24h
 2. **`src/lib/games/merge.ts`** — calls `epic.ts` when the token is set; curated Epic list now only used as fallback when Epic isn't live
 3. **`src/lib/games/config.ts`** — `epic` section (token + overrideable unofficially-public launcher client + endpoints)
 4. **UI labels** — registry-driven: the Epic tab reappears automatically once items are non-empty; status pill distinguishes `steamEpicLiveNote` (Steam + Epic live) from `liveNote` (live + curated GOG) from `steamOnlyNote`
@@ -93,6 +115,7 @@ Built with the platform registry (`src/lib/games/platforms.ts`) as designed:
 ### Integrity rules
 - **No playtime** → the playtime stat on Epic cards is hidden (Epic has no public playtime)
 - Achievements (GraphQL) are **not wired yet** → Epic cards show no achievements button until then
+- **No store link** → Epic product pages need a slug the catalog API doesn't give us; emitting a broken link would be worse than none
 - UI still says exactly what the data is: *live-synced* vs *curated*
 
 ---
@@ -108,14 +131,17 @@ Built with the platform registry (`src/lib/games/platforms.ts`) as designed:
 
 ## Prerequisites / block on
 
-**Unblocked as of 2026-09.** Library client is implemented and merged. The only pending item is
-your **`EPIC_REFRESH_TOKEN`** in `.env.local` / Vercel (see `docs/gaming-library-keys.md` section 3)
-to validate live — plus the achievements step below as a follow-up.
+**All unblocked.** `EPIC_REFRESH_TOKEN` is set in `.env.local` and the live library is
+**validated** (see below). Remaining work is the optional achievements step.
 
 ---
 
 ## Remaining work
 
-1. ✅ Provide `EPIC_REFRESH_TOKEN` (`.env.local` + Vercel env) and restart the dev server → validate live Epic library
+1. ✅ `EPIC_REFRESH_TOKEN` provided (`.env.local` + Vercel env) → live library validated
+   **Live validation summary (2026-09-20):** 401 raw entitlements → 351 real game cards,
+   real titles ("Death Stranding", "Fallout: New Vegas", "Apex Legends™", …), DLC/OST/artbook
+   duplicates collapsed, covers served from Epic CDNs. `status.epic: true`, Epic tab auto-shows.
+   First cold load ~6s (enrichment); afterwards cached 24h.
 2. **Achievements GraphQL** (`launcher.store.epicgames.com/graphql`, `egl_game_achievements_user_query`) → reuse `AchievementsExpand` (the achievements route will dispatch by source: Steam `appid` / Epic `namespace`)
 3. Test happy path + fallback (kill token → Epic tab hides, nothing breaks)

@@ -57,31 +57,32 @@ Para que la API devuelva tu librería, tu perfil debe ser **público**:
 ## 3️⃣ Epic Games — refresh token (librería real, sin horas)
 
 Epic **no tiene API pública** de librería. El sitio usa los endpoints internos del launcher
-(los mismos que Legendary/Heroic/Playnite). Para obtener el token necesitas Python + Legendary
-una sola vez:
+(los mismos que Legendary/Heroic/Playnite). Para obtener el token necesitas Legendary una sola vez.
 
 ### Pasos (Windows)
-1. **Instala Python** desde la Microsoft Store (búscalo como *"Python 3"* → *"Get"*).
-   Reabre la terminal para que tome el PATH.
-2. Instala Legendary:
-   ```powershell
-   pip install legendary
-   ```
-3. Inicia sesión (abre el navegador para loguear con tu cuenta de Epic):
+1. **Consigue Legendary** (cualquiera de las dos):
+   - Con Python: `pip install legendary-gl`
+   - Sin Python: bajás `legendary_windows_x64.exe` de https://github.com/legendary-gl/legendary/releases/latest,
+     lo movés a una carpeta estable (ej. `C:\legendary\legendary.exe`) y la agregás al PATH del usuario.
+2. Inicia sesión (abre el navegador para loguear con tu cuenta de Epic):
    ```powershell
    legendary auth
    ```
-4. Copia el token. En Windows está en:
+   ⚠️ El `authorizationCode` que muestra el navegador **caduca en ~10 segundos** — pegalo en la
+   terminal al instante. Si vence (`authorization_code_not_found`), corré `legendary auth` de nuevo.
+   💡 Bonus: si tenés el Epic Games Launcher instalado, `legendary auth --import` importa la sesión
+   directamente, sin navegador.
+3. Copia el token. En Windows está en:
    ```
    %USERPROFILE%\.config\legendary\user.json
    ```
    Abrí ese archivo y copiá el valor de **`refresh_token`** (entre comillas, no hagas caso a
    `access_token`).
-5. Agrégalo a tu `.env.local`:
+4. Agrégalo a tu `.env.local`:
    ```env
    EPIC_REFRESH_TOKEN=pega_aqui_tu_refresh_token
    ```
-6. Reinicia el dev server (`npm run dev`).
+5. Reinicia el dev server (`npm run dev`).
 
 ### Notas honestas
 - ⚠️ **Trátalo como una contraseña**: ese token da acceso a tu cuenta de Epic.

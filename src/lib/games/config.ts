@@ -46,6 +46,10 @@ export const GAMES_CONFIG = {
     libraryBaseUrl:
       process.env.EPIC_LIBRARY_BASE_URL ||
       "https://library-service.live.use1a.on.epicgames.com",
+    /** Store metadata (titles, covers, categories) — used to enrich library records. */
+    catalogBaseUrl:
+      process.env.EPIC_CATALOG_BASE_URL ||
+      "https://catalog-public-service-prod06.ol.epicgames.com",
   },
   curated: {
     // ⚠️ CURRENT STATE: Steam + Epic live. GOG empty (account not accessible).
