@@ -1,10 +1,6 @@
 import { BookOpen } from "lucide-react"
 import { getTranslations } from "next-intl/server"
-import {
-  currentStudies,
-  getCategoriesWithCounts,
-  getStudyStats,
-} from "@/data/currentstudies/currentStudiesData"
+import { currentStudies } from "@/data/currentstudies/currentStudiesData"
 import { AtAGlance } from "./current-studies/AtAGlance"
 import { CourseCertifications } from "./current-studies/CourseCertifications"
 import { FormalEducation } from "./current-studies/FormalEducation"
@@ -35,17 +31,8 @@ const studiesJsonLd = {
   })),
 }
 
-const CONFIDENCE_LEGEND = [
-  { icon: "🌱", key: "beginner", className: "text-orange-400" },
-  { icon: "📚", key: "intermediate", className: "text-yellow-400" },
-  { icon: "💪", key: "confident", className: "text-blue-400" },
-  { icon: "🚀", key: "expert", className: "text-emerald-400" },
-] as const
-
 export default async function CurrentStudiesPage() {
   const t = await getTranslations("studies")
-  const stats = getStudyStats()
-  const categoriesWithCounts = getCategoriesWithCounts()
 
   return (
     <main className="bg-zinc-900 min-h-screen relative overflow-hidden">
@@ -57,70 +44,23 @@ export default async function CurrentStudiesPage() {
 
       <div className="container mx-auto px-4 py-10 pt-32 md:pt-40 relative z-10">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
             {t("title")}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">
-              {t("titleAccent")}
-            </span>
+            <span className="block text-cyan-400">{t("titleAccent")}</span>
           </h1>
           <p className="text-xl text-zinc-300 max-w-2xl mx-auto mb-4">
             {t("intro")}
           </p>
-          <p className="text-xs text-zinc-500 mb-8">{t("lastUpdated", { date: LAST_UPDATED })}</p>
+          <p className="text-xs text-zinc-400 mb-8">{t("lastUpdated", { date: LAST_UPDATED })}</p>
         </div>
 
         <AtAGlance />
 
-        <div className="text-center mb-12">
-          <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-8">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-blue-400">{stats.total}</div>
-              <div className="text-sm text-zinc-400">{t("topicsTracked")}</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-emerald-400">{stats.confident}</div>
-              <div className="text-sm text-zinc-400">{t("confidentIn")}</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-blue-400">{stats.active}</div>
-              <div className="text-sm text-zinc-400">{t("activeRightNow")}</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-amber-400">13</div>
-              <div className="text-sm text-zinc-400">{t("microservicesShipped")}</div>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-8">
-            {CONFIDENCE_LEGEND.map((item) => (
-              <div key={item.key} className="flex items-center gap-2 text-sm">
-                <span className="text-lg">{item.icon}</span>
-                <span className={item.className}>{t(`confidenceLegend.${item.key}`)}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <FormalEducation />
-
-        <div className="max-w-4xl mx-auto mb-8 p-6 rounded-xl bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20">
-          <div className="text-sm font-semibold text-blue-300 mb-4">📚 {t("categoryBreakdown")}</div>
-          <div className="flex flex-wrap gap-4">
-            {categoriesWithCounts.map(([category, count]) => (
-              <div
-                key={category}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/30 transition-colors"
-              >
-                <span className="text-sm font-medium text-blue-300">{category}</span>
-                <span className="text-xs text-zinc-400 bg-zinc-800/50 px-2 py-0.5 rounded-full">{count}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
         <div id="active-studies" className="scroll-mt-24">
           <StudiesFilterableGrid studies={currentStudies} />
         </div>
+
+        <FormalEducation />
 
         <CourseCertifications />
 

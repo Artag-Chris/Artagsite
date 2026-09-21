@@ -48,16 +48,9 @@ const PRIORITY_COLOR: Record<StudyPriority, string> = {
 
 const CONFIDENCE_COLOR: Record<StudyConfidence, string> = {
   expert: "text-indigo-400 bg-indigo-500/20",
-  confident: "text-blue-400 bg-blue-500/20",
+  confident: "text-cyan-400 bg-cyan-500/20",
   intermediate: "text-yellow-400 bg-yellow-500/20",
   beginner: "text-orange-400 bg-orange-500/20",
-}
-
-const CONFIDENCE_ICON: Record<StudyConfidence, string> = {
-  expert: "🚀",
-  confident: "💪",
-  intermediate: "📚",
-  beginner: "🌱",
 }
 
 function StatusIcon({ status }: { status: StudyStatus }) {
@@ -67,7 +60,15 @@ function StatusIcon({ status }: { status: StudyStatus }) {
   return <Target className="h-4 w-4" />
 }
 
-export function StudyCard({ study, index = 0 }: { study: Study; index?: number }) {
+export function StudyCard({
+  study,
+  index = 0,
+  featured = false,
+}: {
+  study: Study
+  index?: number
+  featured?: boolean
+}) {
   const t = useTranslations("studies")
   const Icon = ICON_MAP[study.iconName]
   const delay = `${Math.min(index, 8) * 60}ms`
@@ -98,52 +99,46 @@ export function StudyCard({ study, index = 0 }: { study: Study; index?: number }
       onKeyDown={(e) => {
         if (e.key === "Escape") setOpen(false)
       }}
-      className="study-card group relative flex flex-col items-center p-6 bg-zinc-800/30 rounded-3xl border border-zinc-700/50 transition-[border-color,transform,box-shadow] duration-300 cursor-pointer hover:border-blue-400/50 hover:shadow-lg hover:shadow-blue-500/10 motion-safe:hover:scale-[1.02] hover:z-50 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-500 motion-safe:fill-mode-both"
+      className={`study-card group relative flex flex-col p-6 rounded-3xl bg-zinc-800/30 border border-zinc-700/50 transition-[border-color,background-color] duration-300 cursor-pointer hover:border-cyan-500/40 hover:bg-zinc-800/45 hover:z-50 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-500 motion-safe:fill-mode-both ${
+        featured ? "md:col-span-2 lg:col-span-2" : ""
+      }`}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl pointer-events-none" />
-
-      <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 flex items-center justify-center">
+      <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 flex items-center justify-center">
         <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${PRIORITY_COLOR[study.priority]}`} />
       </div>
 
-      <div className="absolute -top-2 -left-2 w-8 h-8 rounded-full bg-zinc-800 border-2 border-blue-400 flex items-center justify-center text-blue-400">
+      <div className="absolute -top-2 -left-2 w-8 h-8 rounded-full bg-zinc-800 border-2 border-cyan-400 flex items-center justify-center text-cyan-400">
         <StatusIcon status={study.status} />
       </div>
 
       {/* Card face — always within its own cell */}
-      <div className="flex flex-col items-center flex-1 w-full">
-        <div className="relative mb-4">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-400/20 flex items-center justify-center text-blue-400 group-hover:text-blue-300 transition-colors duration-300">
-            <Icon className="h-8 w-8" />
-          </div>
-          <div className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-zinc-800 border-2 border-zinc-600 flex items-center justify-center text-sm">
-            {CONFIDENCE_ICON[study.confidence]}
-          </div>
+      <div className="flex flex-col flex-1 w-full min-w-0">
+        <div className="flex items-center gap-3 mb-2 pr-8 min-w-0">
+          <Icon className="h-5 w-5 text-cyan-400 shrink-0" />
+          <h3 className="text-lg font-bold text-white leading-snug group-hover:text-cyan-300 transition-colors [overflow-wrap:anywhere] min-w-0">
+            {study.title}
+          </h3>
         </div>
 
-        <div className="text-center space-y-2">
-          <h3 className="text-lg font-bold text-white group-hover:text-blue-300 transition-colors">{study.title}</h3>
-          <p className="text-sm text-blue-400 font-medium">{study.category}</p>
-          <p className="text-xs text-zinc-400">{study.provider}</p>
+        <p className="text-sm text-cyan-400/90 font-medium">{study.category}</p>
+        <p className="text-xs text-zinc-400 mt-0.5">{study.provider}</p>
 
-          <div className="flex items-center justify-center">
-            <span className={`px-3 py-1 rounded-full text-xs font-medium ${CONFIDENCE_COLOR[study.confidence]}`}>
-              {t(`confidenceLevels.${study.confidence}`)}
-            </span>
-          </div>
-
-          <div className="flex items-center justify-center gap-2 text-xs text-zinc-500">
-            <Calendar className="h-3 w-3" />
-            <span>{study.startDate}</span>
-          </div>
-
-          {study.usedIn && (
-            <p className="text-xs text-zinc-400 mt-2 px-2 leading-relaxed">
-              <span className="text-blue-300 font-medium">{t("usedIn")}</span>{" "}
-              {study.usedIn}
-            </p>
-          )}
+        <div className="flex flex-wrap items-center gap-2 mt-3">
+          <span className={`px-3 py-1 rounded-full text-xs font-medium ${CONFIDENCE_COLOR[study.confidence]}`}>
+            {t(`confidenceLevels.${study.confidence}`)}
+          </span>
+          <span className="inline-flex items-center gap-1 text-xs text-zinc-400 tabular-nums">
+            <Calendar className="h-3 w-3 text-zinc-400" />
+            {study.startDate}
+          </span>
         </div>
+
+        {study.usedIn && (
+          <p className="text-xs text-zinc-400 mt-3 px-0 leading-relaxed">
+            <span className="text-cyan-300 font-medium">{t("usedIn")}</span>{" "}
+            {study.usedIn}
+          </p>
+        )}
 
         <div className="mt-auto pt-4">
           <button
@@ -153,9 +148,9 @@ export function StudyCard({ study, index = 0 }: { study: Study; index?: number }
               e.stopPropagation()
               toggleOpen()
             }}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-700/40 hover:bg-zinc-700/70 border border-zinc-600/60 hover:border-blue-400/40 text-zinc-300 hover:text-blue-200 text-xs font-medium transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 hover:border-cyan-400/50 text-cyan-200 text-xs font-medium transition-colors"
           >
-            <ChevronDown className={`h-3.5 w-3.5 text-blue-400 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
+            <ChevronDown className={`h-3.5 w-3.5 text-cyan-400 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
             {t("viewDetails")}
           </button>
         </div>
@@ -167,10 +162,10 @@ export function StudyCard({ study, index = 0 }: { study: Study; index?: number }
         aria-hidden={!open}
         inert={!open}
         style={{ opacity: open ? 1 : 0, pointerEvents: open ? "auto" : "none" }}
-        className="absolute inset-0 z-10 flex flex-col rounded-3xl bg-zinc-800/95 backdrop-blur-sm border border-blue-400/20 p-5 shadow-2xl shadow-black/60 transition-opacity duration-300 overflow-y-auto"
+        className="absolute inset-0 z-10 flex flex-col rounded-3xl bg-zinc-800/95 backdrop-blur-sm border border-cyan-400/20 p-5 shadow-2xl shadow-black/60 transition-opacity duration-300 overflow-y-auto"
       >
         <div className="flex items-center justify-between mb-3">
-          <span className="text-xs text-zinc-500 uppercase tracking-wide">{t("skills")}</span>
+          <span className="text-xs text-zinc-400 uppercase tracking-wide">{t("skills")}</span>
           <button
             type="button"
             aria-label={t("closeDetails")}
@@ -188,7 +183,7 @@ export function StudyCard({ study, index = 0 }: { study: Study; index?: number }
 
         <div className="flex flex-wrap gap-1.5 mt-4">
           {study.skills.map((skill) => (
-            <span key={skill} className="px-2.5 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs font-medium">
+            <span key={skill} className="px-2.5 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-xs font-medium">
               {skill}
             </span>
           ))}
@@ -199,7 +194,7 @@ export function StudyCard({ study, index = 0 }: { study: Study; index?: number }
             href={study.officialLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="block text-blue-400 hover:text-blue-300 text-xs flex items-center gap-1.5 transition-colors py-1"
+            className="block text-cyan-400 hover:text-cyan-300 text-xs flex items-center gap-1.5 transition-colors py-1"
           >
             <Globe className="h-3.5 w-3.5 shrink-0" />
             {t("officialDocs")}
@@ -209,7 +204,7 @@ export function StudyCard({ study, index = 0 }: { study: Study; index?: number }
               href={study.proofLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="block text-blue-400 hover:text-blue-300 text-xs flex items-center gap-1.5 transition-colors py-1"
+              className="block text-cyan-400 hover:text-cyan-300 text-xs flex items-center gap-1.5 transition-colors py-1"
             >
               <Github className="h-3.5 w-3.5 shrink-0" />
               {study.proofLabel ?? t("viewProof")}

@@ -49,7 +49,7 @@ export async function AtAGlance() {
       aria-label="Credentials at a glance"
       className="max-w-5xl mx-auto mb-10"
     >
-      <div className="text-xs uppercase tracking-[0.2em] text-zinc-500 text-center mb-4">
+      <div className="text-xs uppercase tracking-[0.2em] text-zinc-400 text-center mb-4">
         {t("atAGlance.title")}
       </div>
 
@@ -70,7 +70,7 @@ export async function AtAGlance() {
                 </div>
 
                 <div className="flex-1 min-w-0 pt-0.5">
-                  <div className="text-sm font-semibold text-white leading-tight">
+                  <div className="text-sm font-semibold text-white leading-tight tabular-nums">
                     {h.title}
                   </div>
                   <div className="text-xs text-zinc-400 mt-1 leading-snug">
@@ -79,7 +79,7 @@ export async function AtAGlance() {
                 </div>
               </div>
 
-              <div className="mt-auto flex items-center justify-between gap-2 pt-3 border-t border-zinc-700/60 text-xs text-zinc-500 group-hover:text-white transition-colors">
+              <div className="mt-auto flex items-center justify-between gap-2 pt-3 border-t border-zinc-700/60 text-xs text-zinc-400 group-hover:text-white transition-colors">
                 <span>{h.jumpLabel}</span>
                 <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-zinc-700/40 border border-zinc-600/50 text-zinc-400 group-hover:bg-blue-500/20 group-hover:border-blue-400/30 group-hover:text-blue-300 transition-colors">
                   <ArrowDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />

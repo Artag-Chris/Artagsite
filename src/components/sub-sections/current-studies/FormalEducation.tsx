@@ -21,8 +21,8 @@ export async function FormalEducation() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <article className="relative p-6 rounded-2xl bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/30 hover:border-amber-400/60 transition-colors">
-          <div className="absolute -top-3 -right-3 flex items-center gap-1 px-3 py-1 rounded-full bg-amber-500 text-zinc-900 text-xs font-bold shadow-lg shadow-amber-500/30">
+        <article className="relative p-6 rounded-2xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-400/60 transition-colors">
+          <div className="absolute -top-3 -right-3 flex items-center gap-1 px-3 py-1 rounded-full bg-amber-500 text-zinc-900 text-xs font-bold shadow-lg shadow-black/30 tabular-nums">
             <Award className="h-3 w-3" />
             5.0 / 5.0
           </div>
@@ -87,14 +87,14 @@ export async function FormalEducation() {
           </div>
 
           <div className="flex items-start gap-3 mb-3">
-            <div className="w-12 h-12 rounded-xl bg-pink-500/15 border border-pink-500/30 flex items-center justify-center shrink-0">
-              <Palette className="h-6 w-6 text-pink-300" />
+            <div className="w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0">
+              <Palette className="h-6 w-6 text-cyan-300" />
             </div>
             <div>
               <h3 className="text-lg font-bold text-white leading-tight">
                 {t("webDesign")}
               </h3>
-              <p className="text-sm text-pink-300/90 font-medium">
+              <p className="text-sm text-cyan-300/90 font-medium">
                 {t("webDesignSchool")}
               </p>
               <p className="text-xs text-zinc-400">{t("webDesignPeriod")}</p>

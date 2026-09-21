@@ -74,9 +74,7 @@ export default async function Page() {
   return (
     <>
       <CosmicNavbar links={links} currentPath="/currentStudies" />
-      <div className="prose prose-lg prose-invert max-w-none prose-headings:text-emerald-400 prose-a:text-emerald-400">
-        <CurrentStudiesPage />
-      </div>
+      <CurrentStudiesPage />
     </>
   )
 }

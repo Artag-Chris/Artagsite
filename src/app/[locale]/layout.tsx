@@ -207,8 +207,8 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body className={`${inter.className} ${spaceGrotesk.variable} ${ibmPlexMono.variable}`}>
+    <html lang={locale} className={`${inter.variable} ${spaceGrotesk.variable} ${ibmPlexMono.variable}`} suppressHydrationWarning>
+      <body className={inter.className}>
         {/* Structured data rendered as early as possible in DOM (before child content) */}
         <script
           type="application/ld+json"

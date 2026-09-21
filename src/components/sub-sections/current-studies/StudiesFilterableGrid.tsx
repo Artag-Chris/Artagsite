@@ -6,7 +6,7 @@ import { Search, X } from "lucide-react"
 import type { Study } from "@/data/currentstudies/currentStudiesData"
 import { StudyCard } from "./StudyCard"
 
-type Filter = "active" | "completed" | "all"
+type Filter = "active" | "completed" | "upcoming" | "all"
 
 export function StudiesFilterableGrid({ studies }: { studies: Study[] }) {
   const t = useTranslations("studies")
@@ -17,6 +17,7 @@ export function StudiesFilterableGrid({ studies }: { studies: Study[] }) {
   const TABS: { id: Filter; label: string }[] = [
     { id: "active", label: t("statusActive") },
     { id: "completed", label: t("statusCompleted") },
+    { id: "upcoming", label: t("statusUpcoming") },
     { id: "all", label: t("statusAll") },
   ]
 
@@ -45,7 +46,7 @@ export function StudiesFilterableGrid({ studies }: { studies: Study[] }) {
             placeholder={t("searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-10 py-3 rounded-lg bg-zinc-800/50 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-colors"
+            className="w-full pl-10 pr-10 py-3 rounded-lg bg-zinc-800/50 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30 transition-colors"
             aria-label={t("searchPlaceholder")}
           />
           {searchQuery && (
@@ -69,10 +70,11 @@ export function StudiesFilterableGrid({ studies }: { studies: Study[] }) {
                 type="button"
                 role="tab"
                 aria-selected={isActive}
+                aria-controls="studies-panel"
                 onClick={() => setActiveFilter(tab.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
                   isActive
-                    ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white"
+                    ? "bg-gradient-to-r from-cyan-600 to-cyan-500 text-white"
                     : "text-zinc-400 bg-zinc-800/30 hover:bg-zinc-700/50"
                 }`}
               >
@@ -84,9 +86,13 @@ export function StudiesFilterableGrid({ studies }: { studies: Study[] }) {
       </div>
 
       {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto mb-16">
+        <div
+          id="studies-panel"
+          role="tabpanel"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto mb-16"
+        >
           {filtered.map((study, i) => (
-            <StudyCard key={study.id} study={study} index={i} />
+            <StudyCard key={study.id} study={study} index={i} featured={i === 0} />
           ))}
         </div>
       ) : (
@@ -104,7 +110,7 @@ export function StudiesFilterableGrid({ studies }: { studies: Study[] }) {
               setSearchQuery("")
               setActiveFilter("all")
             }}
-            className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-medium hover:from-blue-500 hover:to-cyan-400 transition-colors"
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-500 text-white font-medium hover:from-cyan-500 hover:to-cyan-400 transition-colors"
           >
             {t("clearFilters")}
           </button>

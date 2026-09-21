@@ -15,13 +15,13 @@ export async function CourseCertifications() {
     <section
       id="certifications"
       aria-labelledby="course-certs-heading"
-      className="max-w-5xl mx-auto mt-16 mb-12 p-6 md:p-8 rounded-2xl bg-gradient-to-br from-zinc-900/80 to-zinc-800/40 border border-zinc-700/60 scroll-mt-24"
+      className="max-w-5xl mx-auto mt-16 mb-12 scroll-mt-24"
     >
       <div className="flex items-center gap-3 mb-2">
         <Award className="h-6 w-6 text-cyan-400" />
         <h2
           id="course-certs-heading"
-          className="text-2xl md:text-3xl font-bold text-white"
+          className="text-2xl md:text-3xl font-bold text-white tracking-tight"
         >
           {t("coursesTitle")}
         </h2>
@@ -42,27 +42,27 @@ export async function CourseCertifications() {
 
       <div className="flex flex-wrap gap-6 mb-6 pb-6 border-b border-zinc-700/60">
         <div>
-          <div className="text-2xl font-bold text-cyan-300">{stats.total}</div>
-          <div className="text-xs text-zinc-500 uppercase tracking-wider">
+          <div className="text-2xl font-bold text-cyan-300 tabular-nums">{stats.total}</div>
+          <div className="text-xs text-zinc-400 uppercase tracking-wider">
             {t("certCount")}
           </div>
         </div>
         {hasHours && (
           <div>
-            <div className="text-2xl font-bold text-cyan-300">
+            <div className="text-2xl font-bold text-cyan-300 tabular-nums">
               {stats.totalHours}+
             </div>
-            <div className="text-xs text-zinc-500 uppercase tracking-wider">
+            <div className="text-xs text-zinc-400 uppercase tracking-wider">
               {t("hoursStudied")}
             </div>
           </div>
         )}
         <div>
-          <div className="text-2xl font-bold text-cyan-300 flex items-center gap-1">
+          <div className="text-2xl font-bold text-cyan-300 flex items-center gap-1 tabular-nums">
             4.8
             <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
           </div>
-          <div className="text-xs text-zinc-500 uppercase tracking-wider">
+          <div className="text-xs text-zinc-400 uppercase tracking-wider">
             {t("instructorRating")}
           </div>
         </div>
@@ -83,7 +83,7 @@ export async function CourseCertifications() {
                 <h3 className="text-base font-semibold text-white">
                   {course.title}
                 </h3>
-                <span className="text-xs text-zinc-500">
+                <span className="text-xs text-zinc-400">
                   · {course.instructor} · {course.platform} · {course.year}
                   {course.hours ? ` · ${course.hours}h` : ""}
                 </span>
@@ -110,7 +110,7 @@ export async function CourseCertifications() {
         ))}
       </ul>
 
-      <p className="text-xs text-zinc-500 mt-6 italic">
+      <p className="text-xs text-zinc-400 mt-6 italic">
         {t("coursesFooter")}
       </p>
 
@@ -140,7 +140,7 @@ export async function CourseCertifications() {
                   <h4 className="text-base font-semibold text-white">
                     {course.title}
                   </h4>
-                  <span className="text-xs text-zinc-500">
+                  <span className="text-xs text-zinc-400">
                     · {course.instructor} · {course.platform} · {course.topic}
                   </span>
                 </div>
