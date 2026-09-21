@@ -11,7 +11,7 @@ import { FormalEducation } from "./current-studies/FormalEducation"
 import { StudiesFilterableGrid } from "./current-studies/StudiesFilterableGrid"
 import { StudyParticles } from "./current-studies/StudyParticles"
 
-const LAST_UPDATED = "May 2026"
+const LAST_UPDATED = "September 2026"
 
 const studiesJsonLd = {
   "@context": "https://schema.org",

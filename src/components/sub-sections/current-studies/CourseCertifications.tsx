@@ -1,8 +1,9 @@
-import { Award, BookOpen, ExternalLink, Star } from "lucide-react"
+import { Award, BookOpen, Clock, ExternalLink, Star } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 import {
   courseCertifications,
   getCourseStats,
+  pendingCourses,
 } from "@/data/currentstudies/courseCertificationsData"
 
 export async function CourseCertifications() {
@@ -112,6 +113,47 @@ export async function CourseCertifications() {
       <p className="text-xs text-zinc-500 mt-6 italic">
         {t("coursesFooter")}
       </p>
+
+      <div className="mt-10 pt-8 border-t border-zinc-700/60">
+        <div className="flex items-center gap-3 mb-2">
+          <Clock className="h-5 w-5 text-cyan-400" />
+          <h3 className="text-lg md:text-xl font-bold text-white">
+            {t("pendingCoursesTitle")}
+          </h3>
+        </div>
+        <p className="text-sm text-zinc-400 mb-6 leading-relaxed">
+          {t("pendingCoursesIntro")}
+        </p>
+
+        <ul className="space-y-3">
+          {pendingCourses.map((course) => (
+            <li
+              key={course.id}
+              className="group flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 p-4 rounded-xl bg-zinc-800/20 border border-dashed border-zinc-700/60 hover:border-cyan-500/30 hover:bg-zinc-800/40 transition-colors"
+            >
+              <div className="shrink-0 w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
+                <Clock className="h-5 w-5 text-amber-300" />
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                  <h4 className="text-base font-semibold text-white">
+                    {course.title}
+                  </h4>
+                  <span className="text-xs text-zinc-500">
+                    · {course.instructor} · {course.platform} · {course.topic}
+                  </span>
+                </div>
+              </div>
+
+              <span className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-200 text-xs font-medium">
+                <Clock className="h-3 w-3" />
+                {t("plannedBadge", { year: course.year })}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }

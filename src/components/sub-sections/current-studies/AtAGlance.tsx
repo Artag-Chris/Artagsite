@@ -5,9 +5,11 @@ import {
   GraduationCap,
   Layers,
 } from "lucide-react"
+import { getCourseStats } from "@/data/currentstudies/courseCertificationsData"
 
 export async function AtAGlance() {
   const t = await getTranslations("studies")
+  const certCount = getCourseStats().total
 
   const HIGHLIGHTS = [
     {
@@ -35,10 +37,10 @@ export async function AtAGlance() {
       iconClass: "text-cyan-300",
       borderClass: "border-cyan-500/30 hover:border-cyan-400/60",
       bgClass: "bg-cyan-500/15",
-      title: t("atAGlance.certifications"),
+      title: t("atAGlance.certifications", { count: certCount }),
       subtitle: t("atAGlance.certificationsSub"),
       jumpHref: "#certifications",
-      jumpLabel: t("atAGlance.certifications"),
+      jumpLabel: t("atAGlance.certifications", { count: certCount }),
     },
   ]
 
