@@ -44,6 +44,16 @@ const nextConfig: NextConfig = {
                 protocol: 'https',
                 hostname: '**.epicgames.com',
             },
+            {
+                // GOG covers (images.gog.com, images-1..4.gog.com)
+                protocol: 'https',
+                hostname: '**.gog.com',
+            },
+            {
+                // GOG static assets (newer cover CDN)
+                protocol: 'https',
+                hostname: '**.gog-statics.com',
+            },
         ],
     },
     eslint: {

@@ -9,11 +9,14 @@
  *                          community tools Legendary/Heroic/Playnite use). Get the token once:
  *                          `pip install legendary && legendary auth`, then copy `refresh_token`
  *                          from ~/.config/legendary/user.json. See docs/epic-integration.md.
- *   - RAWG_API_KEY        → https://rawg.io/apidocs (free). Enriches curated games (GOG, etc.).
+ *   - GOG_REFRESH_TOKEN   → your GOG owned-games library. Unofficial interface (same one GOG
+ *                          Galaxy/Heroic/Minigalaxy use). Get the token once: `npm run gog:token`.
+ *                          See docs/gog-integration.md.
+ *   - RAWG_API_KEY        → https://rawg.io/apidocs (free). Enriches curated games.
  *
  * Curated lists contain the RAWG slugs of games you own on stores without a live integration.
- * GOG has no public "my library" API and the account isn't accessible — its list stays empty
- * for now (tab auto-hides).
+ * They act as a fallback: a curated store's list is only used when that store has no live token
+ * configured (Steam, Epic and GOG all have live integrations — the fallback is for future stores).
  * ⚠️ EDIT ME: replace/augment these slugs with YOUR games.
  * Find a slug: search https://rawg.io and copy it from the game URL, e.g. rawg.io/games/hades → "hades".
  */
@@ -51,10 +54,24 @@ export const GAMES_CONFIG = {
       process.env.EPIC_CATALOG_BASE_URL ||
       "https://catalog-public-service-prod06.ol.epicgames.com",
   },
+  gog: {
+    refreshToken: process.env.GOG_REFRESH_TOKEN || "",
+    /**
+     * Unofficial GOG Galaxy OAuth client (public in every GOG client / Heroic source).
+     * Can be overridden via env if GOG ever rotates them.
+     */
+    clientId: process.env.GOG_CLIENT_ID || "46899977096215655",
+    clientSecret:
+      process.env.GOG_CLIENT_SECRET ||
+      "9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9",
+    authBaseUrl: process.env.GOG_AUTH_BASE_URL || "https://auth.gog.com",
+    embedBaseUrl: process.env.GOG_EMBED_BASE_URL || "https://embed.gog.com",
+  },
   curated: {
-    // ⚠️ CURRENT STATE: Steam + Epic live. GOG empty (account not accessible).
-    // Reactivation: add your key to .env (docs/gaming-library-keys.md), then put the
-    // RAWG slugs of games you own on GOG here. The GOG tab re-enables automatically.
+    // ⚠️ CURRENT STATE: Steam + Epic + GOG all live. These lists stay empty and are
+    // only used as a fallback for stores with no live token. Reactivation: put the RAWG
+    // slugs of games you own on that store here (docs/gaming-library-keys.md); the
+    // store's tab re-enables automatically.
     epic: [],
     gog: [],
   },
@@ -66,6 +83,10 @@ export function isSteamConfigured(): boolean {
 
 export function isEpicConfigured(): boolean {
   return Boolean(GAMES_CONFIG.epic.refreshToken)
+}
+
+export function isGogConfigured(): boolean {
+  return Boolean(GAMES_CONFIG.gog.refreshToken)
 }
 
 export function isRawgConfigured(): boolean {

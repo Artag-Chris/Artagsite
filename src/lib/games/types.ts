@@ -1,6 +1,6 @@
 /**
  * Shared types for the unified game library
- * (Steam live + curated Epic/GOG enriched via RAWG).
+ * (Steam + Epic + GOG live, curated lists via RAWG as fallback).
  */
 
 export type PlatformSource = "steam" | "epic" | "gog"
@@ -44,10 +44,11 @@ export interface LibraryTotals {
 }
 
 export interface LibraryStatus {
-  /** At least one live source (Steam/Epic/RAWG) was configured */
+  /** At least one live source (Steam/Epic/GOG/RAWG) was configured */
   live: boolean
   steam: boolean
   epic: boolean
+  gog: boolean
   rawg: boolean
   /** Response is backed by the static fallback list */
   usingFallback: boolean

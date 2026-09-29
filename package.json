@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gog:token": "node scripts/gog-token.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

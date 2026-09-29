@@ -423,6 +423,14 @@ const en = {
       gogRawg: "Enriched via RAWG",
       gogClassics: "DRM-free",
       gogPending: "Library pending",
+      gogLive: "Live library",
+      gogSync: "Auto-synced",
+      steamCardDesc:
+        "My real PC library, synced with my Steam profile — hours played, achievements, and every game I own.",
+      epicCardDesc:
+        "My Epic Games collection, pulled straight from my account — every game I've claimed, free drops included.",
+      gogCardDesc:
+        "My GOG library, pulled straight from my account — DRM-free classics and indies, synced from the store.",
     },
     card: {
       genre: "Genre",
@@ -457,7 +465,7 @@ const en = {
       loading: "Loading your library…",
       loadingM1: "Syncing with Steam…",
       loadingM2: "Checking Epic library…",
-      loadingM3: "Curating GOG picks…",
+      loadingM3: "Syncing GOG…",
       loadingM4: "Polishing the collection…",
       loadError: "Couldn't load the library.",
       retry: "Try again",
@@ -465,8 +473,7 @@ const en = {
       emptyHint: "Try a different platform or sort order.",
       noResults: "No games match your search.",
       noResultsHint: "Try a different name or clear the search.",
-      liveNote: "Live-synced from Steam & Epic · curated on GOG",
-      steamEpicLiveNote: "Live-synced from Steam & Epic",
+      liveNote: "Live-synced from your connected stores.",
       steamOnlyNote: "Live-synced from Steam",
       fallbackNote: "Live sync isn't connected yet — showing my personal picks.",
       pagination: {

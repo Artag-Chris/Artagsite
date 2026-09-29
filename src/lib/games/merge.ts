@@ -3,15 +3,24 @@
  * Combines live sources into a single paginated, sortable response:
  *   - Steam  → real owned games + real playtime (official Web API)
  *   - Epic   → real owned games (unofficial launcher API; no playtime)
- *   - GOG    → curated slug list enriched via RAWG (no public API)
+ *   - GOG    → real owned games (unofficial storefront API; no playtime)
+ *   - Curated → RAWG slug lists, only for stores with no live token configured
  *   - Fallback → static favorites when no live source is configured/available
  */
 
 import { favoriteGames } from "@/data/games/gamesDataCore"
-import { isRawgConfigured, isSteamConfigured, isEpicConfigured, GAMES_CONFIG } from "./config"
+import {
+  isRawgConfigured,
+  isSteamConfigured,
+  isEpicConfigured,
+  isGogConfigured,
+  GAMES_CONFIG,
+} from "./config"
 import { getSteamOwnedGames } from "./steam"
 import { getEpicOwnedGames } from "./epic"
 import type { EpicOwnedGame } from "./epic"
+import { getGogOwnedGames } from "./gog"
+import type { GogOwnedGame } from "./gog"
 import { getRawgGamesBySlugs } from "./rawg"
 import type {
   Game,
@@ -87,6 +96,19 @@ function epicToGame(g: EpicOwnedGame): Game {
     // Epic exposes no playtime; achievements (GraphQL) not wired yet → no details button.
     // storeUrl intentionally omitted: Epic product pages need a productSlug that the
     // catalog-item endpoint doesn't expose, so we'd only be able to emit broken links.
+  }
+}
+
+function gogToGame(g: GogOwnedGame): Game {
+  return {
+    id: `gog:${g.id}`,
+    title: g.title,
+    source: "gog",
+    sourceId: g.id,
+    coverUrl: g.coverUrl,
+    genres: g.genres,
+    // GOG exposes no playtime/achievements through the storefront endpoint.
+    storeUrl: g.storeUrl,
   }
 }
 
@@ -176,6 +198,7 @@ export async function getUnifiedLibrary(
   const steamConfigured = isSteamConfigured()
   const rawgConfigured = isRawgConfigured()
   const epicConfigured = isEpicConfigured()
+  const gogConfigured = isGogConfigured()
 
   let games: Game[] = []
 
@@ -191,10 +214,18 @@ export async function getUnifiedLibrary(
     games.push(...owned.map(epicToGame))
   }
 
-  // 2b. Curated GOG (and Epic list as fallback when Epic isn't live) — via RAWG
+  // 2b. GOG — real owned library (unofficial storefront API, no playtime)
+  if (gogConfigured) {
+    const owned = await getGogOwnedGames().catch(() => [])
+    games.push(...owned.map(gogToGame))
+  }
+
+  // 2c. Curated fallback — only for stores without a live token, via RAWG
   if (rawgConfigured) {
-    const gog = await getRawgGamesBySlugs(GAMES_CONFIG.curated.gog)
-    games.push(...gog.map((g) => rawgToGame("gog", g)))
+    if (!gogConfigured) {
+      const gog = await getRawgGamesBySlugs(GAMES_CONFIG.curated.gog)
+      games.push(...gog.map((g) => rawgToGame("gog", g)))
+    }
 
     if (!epicConfigured) {
       const epicCurated = await getRawgGamesBySlugs(GAMES_CONFIG.curated.epic)
@@ -203,7 +234,7 @@ export async function getUnifiedLibrary(
   }
 
   // 3. Fallback — nothing live configured or everything returned empty
-  const live = steamConfigured || rawgConfigured || epicConfigured
+  const live = steamConfigured || rawgConfigured || epicConfigured || gogConfigured
   const usingFallback = games.length === 0
   if (usingFallback) {
     games = favoriteGames.map(fallbackToGame)
@@ -251,6 +282,7 @@ export async function getUnifiedLibrary(
       steam: steamConfigured,
       rawg: rawgConfigured,
       epic: epicConfigured,
+      gog: gogConfigured,
       usingFallback,
     },
   }

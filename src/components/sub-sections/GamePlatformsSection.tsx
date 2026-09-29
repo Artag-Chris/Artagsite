@@ -98,8 +98,7 @@ export default function GamePlatformsSection() {
         { key: "100%", labelKey: "steamAchieve" },
       ],
       link: "https://steamcommunity.com/id/Artag-chris/",
-      description:
-        "My real PC library, automatically synced with my Steam profile — hours played, achievements, and all the games I own.",
+      description: t("steamCardDesc"),
     },
     {
       name: "Epic Games",
@@ -116,8 +115,7 @@ export default function GamePlatformsSection() {
         { key: "—", labelKey: "epicRawg" },
       ],
       link: "https://store.epicgames.com/en-US/u/f38fecb99ad44927ae569ec6b9549220",
-      description:
-        "My Epic Games profile. Epic has no public library API, so my picks need a hand-maintained list — I'll bring them into the library once I can access the account.",
+      description: t("epicCardDesc"),
     },
     {
       name: "GOG",
@@ -129,14 +127,13 @@ export default function GamePlatformsSection() {
       hoverBgColor: "hover:bg-zinc-500/10",
       hoverShadow: "hover:shadow-zinc-500/20",
       stats: [
-        { key: "Soon", labelKey: "gogPending" },
+        { key: "Live", labelKey: "steamLive" },
         { key: "DRM", labelKey: "gogClassics" },
-        { key: "—", labelKey: "gogRawg" },
+        { key: "Sync", labelKey: "gogSync" },
       ],
       // ⚠️ Add your GOG profile URL here (https://www.gog.com/u/<username>) to show the button
       link: "",
-      description:
-        "My GOG selection — DRM-free classics and indies. Same as Epic: no public library API, so it's a hand-maintained list I'll fill in as soon as I recover my account.",
+      description: t("gogCardDesc"),
     },
   ]
 

@@ -423,6 +423,14 @@ const es = {
       gogRawg: "Enriquecido con RAWG",
       gogClassics: "Sin DRM",
       gogPending: "Librería pendiente",
+      gogLive: "Librería en vivo",
+      gogSync: "Auto-sincronizada",
+      steamCardDesc:
+        "Mi biblioteca real de PC, sincronizada con mi perfil de Steam — horas jugadas, logros y todos los juegos que tengo.",
+      epicCardDesc:
+        "Mi colección de Epic Games, tomada directo de mi cuenta — todos los juegos que reclamé, incluidos los gratis.",
+      gogCardDesc:
+        "Mi biblioteca de GOG, tomada directo de mi cuenta — clásicos e indies sin DRM, sincronizados desde la tienda.",
     },
     card: {
       genre: "Género",
@@ -457,7 +465,7 @@ const es = {
       loading: "Cargando tu biblioteca…",
       loadingM1: "Sincronizando con Steam…",
       loadingM2: "Revisando la librería de Epic…",
-      loadingM3: "Curando picks de GOG…",
+      loadingM3: "Sincronizando GOG…",
       loadingM4: "Puliendo la colección…",
       loadError: "No se pudo cargar la biblioteca.",
       retry: "Reintentar",
@@ -465,8 +473,7 @@ const es = {
       emptyHint: "Probá otro filtro u orden.",
       noResults: "No hay juegos que coincidan con tu búsqueda.",
       noResultsHint: "Probá otro nombre o limpiá la búsqueda.",
-      liveNote: "Sincronizado en vivo con Steam y Epic · curado en GOG",
-      steamEpicLiveNote: "Sincronizado en vivo con Steam y Epic",
+      liveNote: "Sincronizado en vivo desde tus tiendas conectadas.",
       steamOnlyNote: "Sincronizado en vivo con Steam",
       fallbackNote: "La sincronización en vivo no está conectada todavía — mostrando mis picks personales.",
       pagination: {
