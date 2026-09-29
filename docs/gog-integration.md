@@ -87,7 +87,7 @@ The pipeline in `gog.ts`:
 
 | Endpoint | Host | Purpose |
 |---|---|---|
-| `GET /userData.json` | `embed.gog.com` | `userId`, `username`, `avatar` → could power the profile button (`gog.com/u/<username>`) |
+| `GET /userData.json` | `embed.gog.com` | `userId`, `username`, `avatar` → used once to link the profile button (`gog.com/u/<username>`) |
 | `GET /user/data/games` | `embed.gog.com` | Bare owned product ids (no metadata) |
 | `GET /products/{id}?expand=...` | `api.gog.com` | Product detail / download metadata |
 | `GET /v1/{userId}/owned` | `galaxy-library.gog.com` | Galaxy library **with playtime** — undocumented and fragile |
@@ -130,6 +130,6 @@ Built with the platform registry (`src/lib/games/platforms.ts`) as designed:
 ## Remaining work
 
 1. **Provide `GOG_REFRESH_TOKEN`** (`.env.local` + Vercel env) → live library validates: `status.gog: true`, GOG tab auto-shows
-2. **Add your GOG profile URL** to `GamePlatformsSection` (`link`, currently `""`) — or wire `userData.json` to resolve it automatically
+2. ✅ **GOG profile linked** — `https://www.gog.com/u/Artag_Chris`, resolved once via `userData.json`. `GamePlatformsSection` now also shows live owned-game counts pulled from `/api/games`
 3. Optional: surface `worksOn` (Windows/Mac/Linux) on GOG cards
 4. Test happy path + fallback (kill the token → GOG tab hides, nothing breaks)

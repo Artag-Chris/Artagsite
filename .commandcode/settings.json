@@ -69,7 +69,9 @@
       "Shell(set:*)",
       "Shell(else:*)",
       "Shell(node \"C:\\Users\\scris\\AppData\\Local\\Temp\\commandcode\\C--Users-scris-OneDrive-Escritorio-code-Artagsite\\9d9bcc7b-a283-4bb0-be2c-a73abeb3f902\\scratchpad\\gog_dims.cjs\")",
-      "Shell(node \"C:\\Users\\scris\\AppData\\Local\\Temp\\commandcode\\C--Users-scris-OneDrive-Escritorio-code-Artagsite\\9d9bcc7b-a283-4bb0-be2c-a73abeb3f902\\scratchpad\\check_gog_img.cjs\")"
+      "Shell(node \"C:\\Users\\scris\\AppData\\Local\\Temp\\commandcode\\C--Users-scris-OneDrive-Escritorio-code-Artagsite\\9d9bcc7b-a283-4bb0-be2c-a73abeb3f902\\scratchpad\\check_gog_img.cjs\")",
+      "Shell(node \"C:\\Users\\scris\\AppData\\Local\\Temp\\commandcode\\C--Users-scris-OneDrive-Escritorio-code-Artagsite\\9d9bcc7b-a283-4bb0-be2c-a73abeb3f902\\scratchpad\\gog_user.cjs\")",
+      "Shell(node \"C:\\Users\\scris\\AppData\\Local\\Temp\\commandcode\\C--Users-scris-OneDrive-Escritorio-code-Artagsite\\9d9bcc7b-a283-4bb0-be2c-a73abeb3f902\\scratchpad\\check_card.cjs\")"
     ],
     "deny": [],
     "defaultMode": "default"

@@ -423,8 +423,8 @@ const en = {
       gogRawg: "Enriched via RAWG",
       gogClassics: "DRM-free",
       gogPending: "Library pending",
-      gogLive: "Live library",
-      gogSync: "Auto-synced",
+      ownedGames: "Owned games",
+      noPlaytime: "No playtime",
       steamCardDesc:
         "My real PC library, synced with my Steam profile — hours played, achievements, and every game I own.",
       epicCardDesc:

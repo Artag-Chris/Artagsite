@@ -1,11 +1,12 @@
 "use client"
 
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useTranslations } from "next-intl"
 import { ExternalLink } from "lucide-react"
+import type { SourceCounts } from "@/lib/games/types"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -32,6 +33,24 @@ interface Platform {
 export default function GamePlatformsSection() {
   const t = useTranslations("games.platforms")
   const containerRef = useRef<HTMLDivElement>(null)
+  const [counts, setCounts] = useState<SourceCounts | null>(null)
+
+  // Pull the real owned-game counts so each card shows numbers, not filler.
+  useEffect(() => {
+    let active = true
+    fetch("/api/games?platform=all&perPage=1")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (active && data?.sourceCounts) setCounts(data.sourceCounts)
+      })
+      .catch(() => {})
+    return () => {
+      active = false
+    }
+  }, [])
+
+  const count = (id: keyof SourceCounts) =>
+    counts ? String(counts[id]) : "—"
 
   useGSAP(
     () => {
@@ -93,8 +112,8 @@ export default function GamePlatformsSection() {
       hoverBgColor: "hover:bg-cyan-500/10",
       hoverShadow: "hover:shadow-cyan-500/20",
       stats: [
+        { key: count("steam"), labelKey: "ownedGames" },
         { key: "Live", labelKey: "steamLive" },
-        { key: "Real", labelKey: "steamPlaytime" },
         { key: "100%", labelKey: "steamAchieve" },
       ],
       link: "https://steamcommunity.com/id/Artag-chris/",
@@ -110,9 +129,9 @@ export default function GamePlatformsSection() {
       hoverBgColor: "hover:bg-indigo-500/10",
       hoverShadow: "hover:shadow-indigo-500/20",
       stats: [
-        { key: "2018", labelKey: "epicMember" },
-        { key: "Soon", labelKey: "epicPending" },
-        { key: "—", labelKey: "epicRawg" },
+        { key: count("epic"), labelKey: "ownedGames" },
+        { key: "Live", labelKey: "steamLive" },
+        { key: "—", labelKey: "noPlaytime" },
       ],
       link: "https://store.epicgames.com/en-US/u/f38fecb99ad44927ae569ec6b9549220",
       description: t("epicCardDesc"),
@@ -127,12 +146,11 @@ export default function GamePlatformsSection() {
       hoverBgColor: "hover:bg-zinc-500/10",
       hoverShadow: "hover:shadow-zinc-500/20",
       stats: [
-        { key: "Live", labelKey: "steamLive" },
+        { key: count("gog"), labelKey: "ownedGames" },
         { key: "DRM", labelKey: "gogClassics" },
-        { key: "Sync", labelKey: "gogSync" },
+        { key: "Live", labelKey: "steamLive" },
       ],
-      // ⚠️ Add your GOG profile URL here (https://www.gog.com/u/<username>) to show the button
-      link: "",
+      link: "https://www.gog.com/u/Artag_Chris",
       description: t("gogCardDesc"),
     },
   ]
