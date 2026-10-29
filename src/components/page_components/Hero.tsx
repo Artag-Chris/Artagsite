@@ -2,17 +2,21 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
+import { Link } from "@/i18n/navigation"
 import { Badge } from "@/components/ui/badge"
 import TypingAnimation from "../animations/typingAnimation"
 import RandomLoader from "../loading/random-loader"
 import CTAButton from "../compontents/CTABottom"
 import { motion, AnimatePresence } from "framer-motion"
 import { Sparkles } from "lucide-react"
+import { Download } from "lucide-react"
+import { trackEvent } from "@/lib/analytics"
 import HeroTerminal from "../sub-sections/HeroTerminal"
 
 function Hero() {
   const t = useTranslations("hero")
+  const locale = useLocale()
   const videoContainerRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const isMobileRef = useRef(false)
@@ -282,7 +286,28 @@ function Hero() {
                       y: { duration: 0.5, ease: "easeOut" },
                     }}
                   >
-                   <CTAButton text={t("cta")} icon={<Sparkles />} />
+                   <Link
+                      href="/projects"
+                      className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/10 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-white/15 border border-white/10 hover:border-white/20"
+                    >
+                      <Sparkles className="h-4 w-4" />
+                      {t("ctaProjects")}
+                    </Link>
+                    <a
+                      href="/resume.pdf"
+                      download="Christian_Resume.pdf"
+                      onClick={() =>
+                        trackEvent('cv_download', {
+                          location: 'hero',
+                          locale,
+                          file_name: 'Christian_Resume.pdf',
+                        })
+                      }
+                      className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-500/10 px-5 py-3 text-sm font-medium text-cyan-200 transition-colors hover:bg-cyan-500/20 border border-cyan-500/30"
+                    >
+                      <Download className="h-4 w-4" />
+                      {t("ctaResume")}
+                    </a>
                  </motion.div>
                )}
              </AnimatePresence>

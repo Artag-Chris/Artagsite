@@ -58,7 +58,7 @@ export async function generateMetadata({
       site: "@artagdev",
       creator: "@artagdev",
     },
-    robots: { index: true, follow: true },
+    robots: { index: false, follow: true },
   }
 }
 

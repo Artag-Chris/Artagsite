@@ -1,0 +1,473 @@
+[
+  {
+    "id": "atiende-whatsapp-ai-harness",
+    "slug": "atiende",
+    "title": "Atiende — Multi-Channel AI Agent",
+    "description": "A conversational AI system for WhatsApp, Instagram DM and Facebook Messenger. It answers customers with catalog-grounded RAG, creates orders, escalates to humans and controls LLM spend through multi-level caching.",
+    "shortDescription": "Catalog-grounded AI agent across WhatsApp, Instagram and Messenger",
+    "category": "featured",
+    "status": "in-use",
+    "availability": "offline",
+    "sourceDoc": "atiende readme.md",
+    "lastVerified": "2026-10-29",
+    "lastUpdated": "2026-10-29",
+    "featuredOnHome": true,
+    "proofPoints": [
+      { "value": "3", "label": "Meta messaging channels" },
+      { "value": "295", "label": "tests across 40 files" },
+      { "value": "~30%", "label": "lower LLM cost in project benchmarks" }
+    ],
+    "tech": ["NestJS", "TypeScript", "PostgreSQL", "pgvector", "Prisma", "BullMQ", "Redis", "Meta APIs", "Groq", "OpenAI", "Docker"],
+    "techTags": {
+      "Backend": ["NestJS 11", "TypeScript", "Hexagonal architecture"],
+      "Data": ["PostgreSQL 16", "pgvector", "Prisma 6"],
+      "AI": ["RAG", "Tool use", "LLM adapters", "Exact and semantic caching"],
+      "Reliability": ["BullMQ", "Redis", "Circuit breaker", "AES-256-GCM"]
+    },
+    "features": [
+      "Shared inbound pipeline for WhatsApp, Instagram DM and Messenger",
+      "Catalog retrieval with RAG and business-scoped responses",
+      "Conversational order creation and human escalation",
+      "Provider adapters with circuit breaker and fallback routing",
+      "Prompt, exact and semantic caching",
+      "Encrypted per-business channel credentials"
+    ],
+    "repositoryVisibility": "private",
+    "companyName": "LumenxLabs — built and used by my own company",
+    "role": "Team Lead & Full-Stack Developer building applied AI systems",
+    "achievements": [
+      "Operated three messaging channels through one AI pipeline",
+      "Built multi-channel human escalation and a unified dashboard",
+      "Validated the project with 295 tests",
+      "Measured approximately 30% lower conversation cost in project benchmarks"
+    ],
+    "caseStudy": {
+      "problem": "Small businesses lose sales when they cannot answer customers quickly across messaging channels. Fixed-response bots cannot handle natural conversations, and coupling the product to one LLM provider increases cost and operational risk.",
+      "solution": "I designed Atiende as a hexagonal orchestration layer between messaging channels, business tools and AI providers. Messages are persisted before queueing, processed asynchronously and routed through channel and LLM adapters. Catalog, order and escalation tools ground the conversation in business data, while layered caching reduces repeated model calls.",
+      "results": [
+        "Three operational channel integrations: WhatsApp, Instagram DM and Facebook Messenger.",
+        "A shared persist-before-enqueue pipeline with deduplication and idempotent processing.",
+        "295 tests across 40 files covering the core workflows.",
+        "Approximately 30% lower cost per conversation in project benchmarks using prompt, exact and semantic caches."
+      ],
+      "keyLearnings": [
+        "Portable behavior belongs behind a port; provider-specific behavior belongs in its adapter.",
+        "Persisting before asynchronous processing is more important than making a webhook wait for the model.",
+        "Semantic caching needs conservative thresholds, tenant isolation and bypass rules for private or stateful requests."
+      ],
+      "challenges": [
+        "Normalizing different Meta channel contracts without leaking channel-specific logic into the core.",
+        "Handling provider differences in tool calling and model parameters.",
+        "Reducing cache-related risk around personal data, prices and state-changing tools."
+      ],
+      "architecture": [
+        "Meta webhook → verification, persistence and deduplication",
+        "BullMQ → asynchronous inbound-message processing",
+        "Agent orchestration → catalog, order, knowledge and escalation tools",
+        "LLM router → primary provider, circuit breaker and fallback",
+        "Channel adapter → response delivery and dashboard escalation"
+      ],
+      "decisions": [
+        { "title": "Hexagonal boundaries", "description": "Channel and model integrations are interchangeable adapters, keeping business logic independent from vendor SDKs." },
+        { "title": "Persist before enqueue", "description": "The webhook acknowledges quickly while durable state and idempotency protect the asynchronous workflow." },
+        { "title": "Caching as a product feature", "description": "Exact and semantic caches sit alongside prompt caching, with business scoping and safeguards for stateful conversations." },
+        { "title": "Human escalation", "description": "The agent can hand a conversation to a person, who answers from the same multi-channel dashboard." }
+      ],
+      "limitations": [
+        "Temporarily offline after the physical server was retired; the case study remains available but there is no live demo claim.",
+        "Meta OAuth onboarding and long-lived production tokens are still on the roadmap.",
+        "The reported cost reduction comes from project benchmarks, not a published customer-wide production study."
+      ]
+    }
+  },
+  {
+    "id": "cv-harness",
+    "slug": "cv-harness",
+    "title": "CV Harness — Event-Driven Job Search",
+    "description": "An event-driven pipeline that collects vacancies, evaluates fit with hybrid AI and semantic matching, generates tailored resumes and cover letters, and measures ATS compatibility with a deterministic score.",
+    "shortDescription": "Rust + NestJS pipeline for AI job matching and ATS-aware resumes",
+    "category": "featured",
+    "status": "deployed",
+    "availability": "not-public",
+    "sourceDoc": "cv-harness.md",
+    "lastVerified": "2026-10-29",
+    "lastUpdated": "2026-10-29",
+    "featuredOnHome": true,
+    "proofPoints": [
+      { "value": "7", "label": "event-driven processing stages" },
+      { "value": "188", "label": "API tests documented" },
+      { "value": "65/35", "label": "AI and semantic match blend" }
+    ],
+    "tech": ["NestJS", "Rust", "TypeScript", "PostgreSQL", "pgvector", "Redis Streams", "BullMQ", "Next.js", "Prisma", "DeepSeek", "OpenAI", "Docker"],
+    "techTags": {
+      "Orchestration": ["NestJS 11", "BullMQ", "Redis Streams"],
+      "Worker": ["Rust", "tokio", "reqwest", "scraper"],
+      "AI and data": ["pgvector", "Hybrid matching", "DeepSeek", "OpenAI embeddings"],
+      "Frontend": ["Next.js", "@react-pdf/renderer"]
+    },
+    "features": [
+      "Configurable vacancy sources and selector recipes",
+      "Stateless Rust scraper connected through Redis Streams",
+      "Hybrid AI and pgvector profile matching",
+      "Deterministic and explainable ATS scoring",
+      "Tailored resume and cover-letter generation",
+      "Dashboard editing, interview preparation and notifications"
+    ],
+    "repositoryVisibility": "public",
+    "githubUrl": "https://github.com/Artag-Chris/CV-Harness",
+    "githubRepo": "Artag-Chris/CV-Harness",
+    "role": "AI Engineer & Full-Stack Developer — sole developer",
+    "achievements": [
+      "Built an idempotent pipeline across NestJS and Rust",
+      "Documented 188 API tests plus Rust scraper tests",
+      "Created an offline fixture for end-to-end verification",
+      "Built a deterministic ATS checker that catches PDF text regressions"
+    ],
+    "caseStudy": {
+      "problem": "Searching for a technical role means repeatedly reading vacancies, judging fit and rewriting a resume for each application. Automating that workflow requires structured extraction, reproducible scoring and resilience when a source or AI provider fails.",
+      "solution": "I built a seven-stage event-driven pipeline. BullMQ dispatches work, a Rust worker retrieves vacancies, NestJS validates and normalizes them, and each profile receives its own match result. AI extraction is combined with pgvector similarity, while resume generation and ATS checks remain separate, reviewable steps.",
+      "results": [
+        "Seven idempotent stages from dispatch to dashboard notification.",
+        "188 API tests documented, plus Rust tests and an offline E2E fixture.",
+        "A reproducible ATS score based on keywords, structure, contact data and format.",
+        "Selectable-text resumes and cover letters generated in the browser without server-side Chromium."
+      ],
+      "keyLearnings": [
+        "Deterministic job IDs and idempotent consumers make an AI pipeline recoverable.",
+        "Canonical facets are more reliable than filtering raw vacancy text.",
+        "A deterministic checker is better than an LLM guess for reproducible document rules."
+      ],
+      "challenges": [
+        "Keeping NestJS and Rust independent while preserving a reliable messaging contract.",
+        "Deduplicating the same vacancy across portals without deleting potentially useful records.",
+        "Detecting PDF styling choices that break text extraction and ATS section recognition."
+      ],
+      "architecture": [
+        "BullMQ scheduler → dispatch due vacancy sources",
+        "Redis Streams → Rust scraper request and result bridge",
+        "NestJS ingestion → validation and non-destructive deduplication",
+        "Normalize and match → structured AI fields plus pgvector similarity",
+        "Resume and notification → editable documents and dashboard inbox"
+      ],
+      "decisions": [
+        { "title": "Event-driven end to end", "description": "Each stage has an idempotent queue, deterministic job IDs, retries and recovery instead of one synchronous failure point." },
+        { "title": "Hybrid matching", "description": "The final score combines AI analysis with semantic similarity against the active resume rather than relying on either signal alone." },
+        { "title": "Deterministic ATS checks", "description": "Keywords, structure, contact information and formatting produce an explainable score that can be regression-tested." },
+        { "title": "Official APIs over bypasses", "description": "When a portal presents a WAF challenge, the preferred route is an official API/RSS feed or manual vacancy input." }
+      ],
+      "limitations": [
+        "The dashboard is not exposed as a public demo.",
+        "Per-user profile isolation is designed but still documented as pending in the source project.",
+        "Some job sources remain unavailable to automation and require official APIs or manual input."
+      ]
+    }
+  },
+  {
+    "id": "social-harness",
+    "slug": "social-harness",
+    "title": "Social Harness — Human-Guided AI Coach",
+    "description": "An event-driven social media coach that collects trend signals, evaluates them against each profile and produces ideas, calendars and on-demand drafts. The AI never publishes on its own.",
+    "shortDescription": "Trend-to-calendar AI coaching with human editorial control",
+    "category": "featured",
+    "status": "validated",
+    "availability": "not-public",
+    "sourceDoc": "docs/portfolio/social-harness.md",
+    "lastVerified": "2026-10-29",
+    "lastUpdated": "2026-10-29",
+    "featuredOnHome": false,
+    "proofPoints": [
+      { "value": "4", "label": "social networks supported" },
+      { "value": "5", "label": "configurable signal source types" },
+      { "value": "1", "label": "batched AI call per profile cycle" }
+    ],
+    "tech": ["NestJS", "TypeScript", "BullMQ", "Redis", "PostgreSQL", "pgvector", "Prisma", "Next.js", "DeepSeek", "Groq", "Docker"],
+    "techTags": {
+      "Pipeline": ["NestJS", "BullMQ", "Redis"],
+      "Data": ["PostgreSQL", "pgvector", "Prisma"],
+      "AI": ["DeepSeek", "Groq fallback", "Deterministic mock"],
+      "Product": ["Next.js", "Human-in-the-loop", "Usage tracking"]
+    },
+    "features": [
+      "Multiple profiles with accounts and measurable objectives",
+      "Five configurable trend-source types",
+      "Profile-specific relevance scoring and explanations",
+      "Content ideas, calendar and on-demand drafts",
+      "Manual and CSV performance analysis",
+      "AI usage tracking and per-profile cost gates"
+    ],
+    "repositoryVisibility": "private",
+    "role": "AI Engineer & Full-Stack Developer — sole developer",
+    "achievements": [
+      "Designed a multi-user signal-to-content pipeline",
+      "Built deterministic cost gates before AI calls",
+      "Kept publishing and expensive generation under explicit human control",
+      "Used catalogs and adapters to extend networks, formats and sources"
+    ],
+    "caseStudy": {
+      "problem": "Social content planning often means manually scanning trends, guessing formats and publishing without a clear connection to profile goals. Full automation can reduce cost of effort while also removing the human voice that the account needs.",
+      "solution": "I designed a pipeline that collects signals from configurable sources, deduplicates them and scores relevance separately for each profile. A deterministic prefilter runs before one batched AI call per profile. Ideas and calendars are generated from evidence, while drafts and performance reports remain explicit user actions.",
+      "results": [
+        "Four target networks and five source types in a shared ingestion pipeline.",
+        "Profile-specific relevance instead of a single generic trend feed.",
+        "One batched AI call per profile cycle after deterministic prefiltering.",
+        "No automatic publishing; editorial control stays with the user."
+      ],
+      "keyLearnings": [
+        "Human-in-the-loop is a product requirement when authenticity matters.",
+        "Cost controls are more reliable when they precede the model call.",
+        "A shared manual-input path lets useful work continue when an official integration is unavailable."
+      ],
+      "challenges": [
+        "Scoring the same trend differently for distinct profiles and objectives.",
+        "Avoiding duplicate signals without destroying the ability to revert false positives.",
+        "Supporting network and format differences without repeated database migrations."
+      ],
+      "architecture": [
+        "Official APIs, feeds, public pages and manual input → source adapters",
+        "Ingestion → canonical URLs, content fingerprints and deduplication",
+        "Deterministic prefilter → relevance and cost gates per profile",
+        "Batched AI analysis → ideas, calendar and explainable reasons",
+        "User action → draft, performance report or publication outside the system"
+      ],
+      "decisions": [
+        { "title": "No automatic publishing", "description": "The system advises and drafts, but a person decides what appears on the account." },
+        { "title": "Cost gates before generation", "description": "Free filtering, relevance thresholds and batching limit spend before expensive operations." },
+        { "title": "Multi-user from the start", "description": "Profiles are associated with owner and business identifiers rather than relying on a future authorization retrofit." },
+        { "title": "Catalogs over rigid enums", "description": "Networks and content formats can evolve through configuration without database migrations." }
+      ],
+      "limitations": [
+        "Server-side end-to-end verification is still pending.",
+        "Performance metrics currently require manual or CSV input while official connectors are pending.",
+        "There is no public demo or measured audience-growth claim."
+      ]
+    }
+  },
+  {
+    "id": "doc-harness",
+    "slug": "doc-harness",
+    "title": "Doc Harness — Structured AI Document Editing",
+    "description": "A document transformation system that rewrites, anonymizes, converts and generates Word, PDF and Excel files through an editable structured representation rather than repeated AI calls.",
+    "shortDescription": "Private document workflows with editable intermediate content",
+    "category": "featured",
+    "status": "validated",
+    "availability": "not-public",
+    "sourceDoc": "docs/portfolio/doc-harness.md",
+    "lastVerified": "2026-10-29",
+    "lastUpdated": "2026-10-29",
+    "featuredOnHome": false,
+    "proofPoints": [
+      { "value": "6", "label": "input document formats" },
+      { "value": "3", "label": "real output formats" },
+      { "value": "17/17", "label": "E2E checks in deterministic mock mode" }
+    ],
+    "tech": ["NestJS", "TypeScript", "Prisma", "BullMQ", "Redis", "Next.js", "DeepSeek", "Groq", "pdfkit", "docx", "exceljs"],
+    "techTags": {
+      "Backend": ["NestJS", "Prisma", "BullMQ"],
+      "Extraction": ["PDF", "DOCX", "XLSX", "CSV", "TXT", "Markdown"],
+      "Rendering": ["pdfkit", "docx", "exceljs"],
+      "AI": ["DeepSeek", "Groq fallback", "Deterministic mock"]
+    },
+    "features": [
+      "Rewrite, improve and generate documents from templates",
+      "Human-approved anonymization of personal data",
+      "Editable intermediate blocks for headings, paragraphs, lists and tables",
+      "DOCX, PDF and XLSX rendering without another AI call",
+      "ICONTEC, APA 7, IEEE and custom-style catalogs",
+      "Local storage abstraction prepared for alternative drivers"
+    ],
+    "repositoryVisibility": "private",
+    "role": "AI Engineer & Full-Stack Developer — sole developer",
+    "achievements": [
+      "Designed a format-neutral document content model",
+      "Separated AI transformation from deterministic file rendering",
+      "Passed 17/17 stack E2E checks in mock mode",
+      "Kept anonymization under explicit human approval"
+    ],
+    "caseStudy": {
+      "problem": "Documents are difficult to transform consistently across PDF, Word and Excel. Many tools require external accounts, and naïve AI workflows repeatedly resend the whole document even when the user only wants to edit or export it.",
+      "solution": "I built extractors that normalize documents into an editable intermediate structure. AI transforms that structure once, the user can review and edit it, and dedicated renderers export it to DOCX, PDF or XLSX without another model call. Anonymization is a separate scan-and-approve workflow with literal replacements.",
+      "results": [
+        "Six input formats and three output formats through one intermediate model.",
+        "Block-level editing and re-rendering without additional AI usage.",
+        "Seventeen of seventeen E2E checks passed against the real stack in deterministic mock mode.",
+        "Eleven backend tests documented in the source project."
+      ],
+      "keyLearnings": [
+        "A structured intermediate representation is the boundary between AI flexibility and deterministic output.",
+        "Human approval is safer than allowing a model to silently anonymize a document.",
+        "File rendering and AI transformation should scale and fail independently."
+      ],
+      "challenges": [
+        "Normalizing materially different document formats without pretending they have identical layout semantics.",
+        "Preserving useful editability while supporting multiple output renderers.",
+        "Making missing AI configuration produce an explicit test mode rather than fabricated success."
+      ],
+      "architecture": [
+        "Upload → format-specific extractor adapter",
+        "Normalized JSONB content → editable blocks or workbook content",
+        "AI or deterministic mock → requested transformation",
+        "Human review → block editing and anonymization approval",
+        "Renderer adapter → DOCX, PDF or XLSX download"
+      ],
+      "decisions": [
+        { "title": "Intermediate structured content", "description": "Editing and exporting reuse the normalized document instead of repeating the AI transformation." },
+        { "title": "Deterministic anonymization", "description": "AI proposes entities, but the user approves them and replacement is a literal operation." },
+        { "title": "Lightweight renderers", "description": "pdfkit, docx and exceljs avoid a Chromium dependency and isolate each output format behind a port." },
+        { "title": "Explicit failure modes", "description": "Mock mode is clearly separated from real provider behavior so a test without keys cannot be mistaken for production validation." }
+      ],
+      "limitations": [
+        "Generation with the real DeepSeek provider remains to be validated.",
+        "The 17/17 E2E result applies to deterministic mock mode, not a claim about every real-model output.",
+        "No public demo or universal layout-fidelity guarantee is claimed."
+      ]
+    }
+  },
+  {
+    "id": "whatsapp-automation-dual-deployment",
+    "slug": "whatsapp-operations-platform",
+    "title": "WhatsApp Operations Platform",
+    "description": "A real-time customer-service platform for companies in Colombia's Coffee Region, built to prevent lost conversations, coordinate agents and handle Meta rate limits.",
+    "shortDescription": "Real-time WhatsApp operations with Redis and WebSockets",
+    "category": "client",
+    "status": "in-use",
+    "availability": "not-public",
+    "lastUpdated": "2026-10-29",
+    "featuredOnHome": false,
+    "proofPoints": [
+      { "value": "1,000+", "label": "messages per day" },
+      { "value": "5", "label": "concurrent agents per company" },
+      { "value": "5–15 min", "label": "reported response time" }
+    ],
+    "gallery": ["/whatsapp flujo.png", "/visual.png"],
+    "youtubeUrl": "https://www.youtube.com/watch?v=-ofLY0GiPCQ",
+    "youtubeEmbedId": "-ofLY0GiPCQ",
+    "tech": ["Node.js", "TypeScript", "React", "MySQL", "WebSockets", "Redis", "WhatsApp Business API", "Docker", "PM2"],
+    "features": [
+      "Real-time Meta webhook and agent dashboard bridge",
+      "Atomic Redis chat assignment",
+      "Conversation persistence in MySQL",
+      "Rate-limit queues with retries and backoff",
+      "Multi-agent coordination without double assignment"
+    ],
+    "repositoryVisibility": "private",
+    "companyName": "Companies in Colombia's Coffee Region",
+    "role": "Solution Architect and Lead Developer — sole developer",
+    "achievements": [
+      "Replaced lost conversations with durable persistence",
+      "Reduced reported response times from more than 24 hours to minutes",
+      "Supported more than 1,000 daily messages with five concurrent agents"
+    ],
+    "startDate": "2024-01",
+    "endDate": "2024-06",
+    "caseStudy": {
+      "problem": "Two companies were losing WhatsApp conversations, responding after more than 24 hours and assigning the same chat to multiple agents. Existing workflows also handled Meta rate limits poorly.",
+      "solution": "I built a Node.js and TypeScript bridge between Meta webhooks and a React agent dashboard. Redis became the coordination layer for atomic chat assignment, MySQL persisted conversations and queued retries handled rate limits without blocking real-time responses.",
+      "results": [
+        "More than 1,000 messages processed daily.",
+        "Five concurrent agents per company with conflict-free assignment.",
+        "Reported response times reduced from more than 24 hours to approximately 5–15 minutes."
+      ],
+      "keyLearnings": [
+        "Redis can coordinate real-time ownership, not only cache reads.",
+        "Atomic assignment is essential when several agents act on the same incoming event.",
+        "Agent context and operational UX are as important as message delivery."
+      ],
+      "challenges": [
+        "Preventing duplicate assignment under concurrent agent actions.",
+        "Handling message bursts and provider rate limits.",
+        "Balancing durable persistence with responsive real-time updates."
+      ],
+      "architecture": [
+        "Meta webhook → Node.js ingestion",
+        "MySQL → durable conversation history",
+        "Redis → atomic assignment and recent-state coordination",
+        "WebSockets → real-time agent dashboard updates",
+        "Priority queues → provider-aware retries and backoff"
+      ],
+      "decisions": [
+        { "title": "Redis as coordination state", "description": "Atomic operations prevent two agents from taking the same conversation." },
+        { "title": "Real-time dashboard", "description": "WebSockets keep assignment and message state visible to every agent." },
+        { "title": "Provider-aware queues", "description": "Retries and backoff handle rate limits without discarding outbound messages." }
+      ],
+      "limitations": [
+        "The production dashboard and source code are private.",
+        "Results are reported project metrics, not a independently audited public benchmark."
+      ]
+    }
+  },
+  {
+    "id": "portfolio-2024",
+    "slug": "artag-portfolio",
+    "title": "Artag Dev — Personal Portfolio",
+    "description": "My bilingual personal site and engineering portfolio, built with Next.js, next-intl, TypeScript, Tailwind and Framer Motion.",
+    "shortDescription": "Bilingual Next.js portfolio with data-driven AI case studies",
+    "category": "personal",
+    "status": "live",
+    "availability": "online",
+    "sourceDoc": "README.md",
+    "lastVerified": "2026-10-29",
+    "lastUpdated": "2026-10-29",
+    "featuredOnHome": false,
+    "proofPoints": [
+      { "value": "2", "label": "languages with localized metadata" },
+      { "value": "4", "label": "applied AI case studies" },
+      { "value": "100%", "label": "static case-study content" }
+    ],
+    "thumbnail": "/firstScreen.png",
+    "gallery": ["/firstScreen.png", "/secondScreen.png", "/thirdScreen.png"],
+    "tech": ["Next.js", "React", "TypeScript", "next-intl", "Tailwind CSS", "Framer Motion"],
+    "features": [
+      "English and Spanish routes with next-intl",
+      "Static, indexable project case studies",
+      "Responsive motion and video hero",
+      "Data-driven project catalog",
+      "Contact pipeline and privacy-conscious analytics"
+    ],
+    "liveUrl": "https://www.artagdev.com.co",
+    "githubUrl": "https://github.com/Artag-Chris/Artagsite",
+    "githubRepo": "Artag-Chris/Artagsite",
+    "repositoryVisibility": "public",
+    "role": "Design and Full-Stack Development",
+    "achievements": [
+      "Built a bilingual component and content architecture",
+      "Created indexable case-study routes from shared data",
+      "Preserved an expressive visual identity alongside static content"
+    ],
+    "startDate": "2024-01",
+    "caseStudy": {
+      "problem": "A personal portfolio needs to communicate both technical depth and personality. Rich project content trapped inside client-side modals is difficult to share, index and measure.",
+      "solution": "I evolved the site into a bilingual, data-driven portfolio with static project routes, localized metadata and a reusable case-study template while retaining the original video and motion identity.",
+      "results": [
+        "Two localized site variants.",
+        "Four applied AI systems with dedicated case-study URLs.",
+        "Shared project data driving cards, metadata and sitemap entries."
+      ],
+      "keyLearnings": [
+        "Case studies work better as stable pages than as content hidden in modals.",
+        "Structured content makes translation and validation easier to maintain.",
+        "Visual identity and crawlable content do not have to conflict."
+      ],
+      "challenges": [
+        "Reorganizing legacy content without removing personal sections.",
+        "Keeping animations and third-party scripts from obscuring the core content.",
+        "Making availability and validation status explicit for every project."
+      ],
+      "architecture": [
+        "Localized project JSON → shared typed catalog",
+        "Next.js App Router → static index and detail pages",
+        "next-intl → English and Spanish content",
+        "Metadata and sitemap → project-specific search signals",
+        "GTM → focused professional conversion events"
+      ],
+      "decisions": [
+        { "title": "Stable project URLs", "description": "Every major project has a shareable and indexable case study instead of existing only in a modal." },
+        { "title": "Data-driven templates", "description": "Cards, details, metadata and sitemap entries consume the same localized project records." },
+        { "title": "Brand continuity", "description": "The video hero, typography and color system remain while content hierarchy becomes more professional." }
+      ],
+      "limitations": [
+        "Project videos and additional real screenshots will be added as they become available.",
+        "Analytics require ongoing bot and internal-traffic review before being used as a clean business baseline."
+      ]
+    }
+  }
+]

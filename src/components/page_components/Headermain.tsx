@@ -1,12 +1,15 @@
 "use client"
 
 import Link from "next/link"
+import { Link as LocaleLink } from "@/i18n/navigation"
 import { useState, useEffect, useRef } from "react"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 import { Button } from "@/components/ui/button"
-import { Download, Menu, X, User, Code2, Rocket, Mail, BookOpen } from "lucide-react"
+import { Download, Menu, X, User, Code2, Rocket, Mail, BookOpen, FolderGit2, FileText } from "lucide-react"
 import { handleResumeDownload } from "@/functions/handleResumenDownload"
+// removed unused import above (kept for reference)
 import LanguageSwitcher from "@/components/LanguageSwitcher"
+import { trackEvent } from "@/lib/analytics"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
@@ -16,6 +19,7 @@ if (typeof window !== "undefined") {
 
 function HeaderMain() {
   const t = useTranslations("nav")
+  const locale = useLocale()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -68,6 +72,8 @@ function HeaderMain() {
   ]
 
   const externalNavLinks = [
+    { href: "/projects", label: t("projects"), icon: FolderGit2 },
+    { href: "/engineering-notes", label: t("notes"), icon: FileText },
     { href: "/currentStudies", label: t("studies"), icon: BookOpen },
   ]
 
@@ -123,14 +129,21 @@ function HeaderMain() {
 
               <LanguageSwitcher className="hidden md:inline-flex mr-2" />
 
-              <Button
-                variant="ghost"
+              <a
+                href="/resume.pdf"
+                download="Christian_Resume.pdf"
+                onClick={() =>
+                  trackEvent('cv_download', {
+                    location: 'header',
+                    locale,
+                    file_name: 'Christian_Resume.pdf',
+                  })
+                }
                 className="hidden md:flex items-center gap-2 text-zinc-500 hover:text-white transition-colors duration-200 px-4 py-2 rounded-lg text-sm border border-transparent hover:border-white/10 hover:bg-white/5"
-                onClick={handleResumeDownload}
               >
                 <Download className="w-4 h-4" />
                 <span>{t("resume")}</span>
-              </Button>
+              </a>
 
               <Button
                 variant="ghost"
@@ -265,15 +278,21 @@ function HeaderMain() {
                  })}
               </div>
 
-              <Button
-                variant="ghost"
-                size="sm"
+              <a
+                href="/resume.pdf"
+                download="Christian_Resume.pdf"
+                onClick={() =>
+                  trackEvent('cv_download', {
+                    location: 'header_mobile',
+                    locale,
+                    file_name: 'Christian_Resume.pdf',
+                  })
+                }
                 className="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors duration-200 px-3 py-2 rounded-lg text-sm border border-transparent hover:border-white/10 hover:bg-white/5"
-                onClick={handleResumeDownload}
               >
                 <Download className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">{t("resume")}</span>
-              </Button>
+              </a>
             </nav>
           </div>
         </div>

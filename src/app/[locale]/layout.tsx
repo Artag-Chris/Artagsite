@@ -43,58 +43,47 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const baseUrl = "https://www.artagdev.com.co"
+  const isEs = locale === "es"
+
+  const title = isEs
+    ? "Christian Henao (Artag) — Desarrollador Full-Stack e IA"
+    : "Christian Henao (Artag) — Full-Stack Developer & AI Engineer"
+  const description = isEs
+    ? "Construyo sistemas de IA aplicados: agentes multicanal, pipelines RAG y backends event-driven. Cuatro casos de estudio con arquitectura, trade-offs y límites reales."
+    : "I build applied AI systems: multi-channel agents, RAG pipelines and event-driven backends. Four case studies with architecture, trade-offs and honest limits."
 
   return {
-    title:
-      locale === "es"
-        ? "Artag | Desarrollador Full-Stack & Arquitecto de Software"
-        : "Artag | Full-Stack Developer & Software Architect",
+    title,
     alternates: {
-      canonical: locale === "es" ? `${baseUrl}/es` : baseUrl,
+      canonical: isEs ? `${baseUrl}/es` : baseUrl,
       languages: {
         en: baseUrl,
         es: `${baseUrl}/es`,
+        "x-default": baseUrl,
       },
     },
-    description:
-      locale === "es"
-        ? "Arquitecto de software full-stack. Especialista en sistemas escalables, migraciones sin downtime y automatización de procesos. 32K+ usuarios, 99.99% uptime."
-        : "Full-stack software architect. Specialist in scalable systems, zero-downtime migrations, and process automation. 32K+ users, 99.99% uptime.",
+    description,
     openGraph: {
-      title:
-        locale === "es"
-          ? "Artag | Desarrollador Full-Stack & Arquitecto de Software"
-          : "Artag | Full-Stack Developer & Software Architect",
-      description:
-        locale === "es"
-          ? "Arquitecto de software full-stack. Especialista en sistemas escalables, migraciones sin downtime y automatización de procesos. 32K+ usuarios, 99.99% uptime."
-          : "Full-stack software architect. Specialist in scalable systems, zero-downtime migrations, and process automation. 32K+ users, 99.99% uptime.",
+      title,
+      description,
       type: "website",
-      locale: locale === "es" ? "es_CO" : "en_US",
-      url: locale === "es" ? `${baseUrl}/es` : baseUrl,
+      locale: isEs ? "es_CO" : "en_US",
+      url: isEs ? `${baseUrl}/es` : baseUrl,
       siteName: "Artag",
       images: [
         {
           url: `${baseUrl}/og-home.png`,
           width: 1200,
           height: 630,
-          alt: "Artag — Full-Stack Developer & Software Architect",
+          alt: "Christian Henao (Artag) — Full-Stack Developer & AI Engineer",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title:
-        locale === "es"
-          ? "Artag | Desarrollador Full-Stack & Arquitecto de Software"
-          : "Artag | Full-Stack Developer & Software Architect",
-      description:
-        locale === "es"
-          ? "Arquitecto de software full-stack. Especialista en sistemas escalables, migraciones sin downtime y automatización de procesos."
-          : "Full-stack software architect. Specialist in scalable systems, zero-downtime migrations, and process automation.",
+      title,
+      description,
       images: [`${baseUrl}/og-home.png`],
-      site: "@artagdev",
-      creator: "@artagdev",
     },
     icons: {
       icon: [
@@ -147,12 +136,13 @@ export default async function LocaleLayout({
     url: "https://www.artagdev.com.co",
     logo: "https://www.artagdev.com.co/logosinfondo.png",
     description: isEs
-      ? "Servicios de desarrollo de software full-stack y arquitectura digital"
-      : "Full-stack software development and digital architecture services",
+      ? "Desarrollo full-stack y sistemas de IA aplicados"
+      : "Full-stack development and applied AI systems",
     sameAs: [
-      "https://linkedin.com/in/artag",
-      "https://github.com/artag",
-      "https://twitter.com/artagdev",
+      "https://github.com/Artag-Chris",
+      "https://www.linkedin.com/in/artag/",
+      "https://www.youtube.com/@Artag888",
+      "https://www.instagram.com/artagdev/",
     ],
     contactPoint: {
       "@type": "ContactPoint",
@@ -165,40 +155,50 @@ export default async function LocaleLayout({
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Artag Dev",
+    name: "Christian Henao",
+    alternateName: "Artag",
     url: "https://www.artagdev.com.co",
     image: "https://www.artagdev.com.co/logosinfondo.png",
     jobTitle: isEs
-      ? "Arquitecto de Software Full-Stack"
-      : "Full-Stack Software Architect",
+      ? "Desarrollador Full-Stack e Ingeniero de IA"
+      : "Full-Stack Developer & AI Engineer",
     description: isEs
-      ? "Especialista en sistemas escalables, migraciones sin downtime y automatización empresarial"
-      : "Specialist in scalable systems, zero-downtime migrations, and enterprise automation",
+      ? "Desarrollador full-stack e ingeniero de IA. Construye agentes multicanal, pipelines RAG y backends event-driven con control de costos y supervisión humana."
+      : "Full-stack developer and AI engineer building multi-channel agents, RAG pipelines and event-driven backends with cost control and human oversight.",
     sameAs: [
-      "https://linkedin.com/in/artag",
-      "https://github.com/artag",
-      "https://twitter.com/artagdev",
+      "https://github.com/Artag-Chris",
+      "https://www.linkedin.com/in/artag/",
+      "https://www.youtube.com/@Artag888",
+      "https://www.instagram.com/artagdev/",
     ],
     knowsAbout: isEs
       ? [
           "Desarrollo Full-Stack",
-          "Arquitectura de Microservicios",
-          "Automatización de Procesos",
-          "Aplicaciones Web en Tiempo Real",
-          "Despliegue sin Downtime",
-          "Integración de Pagos",
-          "Infraestructura Cloud",
-          "Optimización de Bases de Datos",
+          "Ingeniería de IA aplicada",
+          "RAG y recuperación semántica",
+          "Agentes multicanal",
+          "Arquitectura event-driven",
+          "NestJS",
+          "TypeScript",
+          "Rust",
+          "Redis y BullMQ",
+          "PostgreSQL y pgvector",
+          "Control de costos de LLM",
+          "Seguridad y fiabilidad",
         ]
       : [
           "Full-Stack Development",
-          "Microservices Architecture",
-          "Process Automation",
-          "Real-Time Web Applications",
-          "Zero-Downtime Deployment",
-          "Payment Integration",
-          "Cloud Infrastructure",
-          "Database Optimization",
+          "Applied AI Engineering",
+          "RAG and semantic retrieval",
+          "Multi-channel agents",
+          "Event-driven architecture",
+          "NestJS",
+          "TypeScript",
+          "Rust",
+          "Redis and BullMQ",
+          "PostgreSQL and pgvector",
+          "LLM cost control",
+          "Security and reliability",
         ],
     worksFor: {
       "@type": "Organization",

@@ -3,9 +3,10 @@
 # Block only unnecessary crawlers
 
 # Default rule for all bots
+# NOTE: /private-servers is intentionally NOT disallowed here. It is public
+# but carries noindex, and a Disallow would prevent Google from reading that tag.
 User-agent: *
 Allow: /
-Disallow: /private-servers
 Disallow: /api/
 Disallow: /.next/
 Disallow: /node_modules/

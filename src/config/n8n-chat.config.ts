@@ -6,6 +6,10 @@
  */
 
 export const N8N_CHAT_CONFIG = {
+  // Master switch. The chat widget is hidden when the n8n backend is offline
+  // (default). Set NEXT_PUBLIC_N8N_ENABLED=true once the server is back up.
+  enabled: process.env.NEXT_PUBLIC_N8N_ENABLED === 'true',
+
   // Required: Your n8n webhook URL
   webhookUrl: process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || "https://n8n.artagdev.com.co/webhook/48210b65-68d1-4619-9d20-2a093348c133/chat",
 

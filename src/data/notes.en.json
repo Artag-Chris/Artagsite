@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "llm-semantic-cache-cost-reduction",
+    "title": "Exact and semantic caching for LLMs: how I cut conversation cost by ~30%",
+    "description": "A practical breakdown of the two caching layers I use in Atiende (exact cache keyed by normalized prompt + semantic cache keyed by embedding similarity), the conservative thresholds that keep them safe, and the measurement behind the ~30% cost reduction.",
+    "datePublished": "2026-10-29",
+    "dateModified": "2026-10-29",
+    "readingTime": 9,
+    "tags": ["LLM", "Caching", "Cost control", "RAG"],
+    "intro": "The short answer: I run two caches in front of the model. An exact cache handles repeated or near-identical prompts. A semantic cache handles paraphrases of questions that were already answered. Together they removed roughly 30% of model calls in Atiende's project benchmarks. The rest of this note is about the rules that keep those caches from serving the wrong answer.",
+    "sections": [
+      {
+        "heading": "When to cache, and when not to",
+        "body": "Caching only pays off when the same question shows up more than once and the answer does not depend on hidden state. In a customer-support agent that is true more often than people expect: catalog questions, shipping questions, opening hours, and 'do you have X in size Y' all repeat with small wording changes. It is false for anything stateful: order status, a cart that just changed, a conversation that already escalated to a human, or any request that contains personal data.",
+        "list": [
+          "Cache: catalog facts, FAQs, policy text, generic greetings.",
+          "Never cache: order status, carts, anything with a user identifier in the prompt, anything after an escalation.",
+          "Bypass cache when the tool call is state-changing (create order, update profile)."
+        ]
+      },
+      {
+        "heading": "Layer 1: exact cache",
+        "body": "The exact cache is the boring one and it does most of the work. I normalize the prompt (lowercase, collapse whitespace, strip filler tokens), hash it together with the tenant id and the active catalog version, and look it up in Redis with a TTL. A hit returns the stored response without touching the model. A miss calls the model and stores the result.",
+        "code": "// pseudo-code\nconst key = sha256(normalize(prompt) + tenantId + catalogVersion)\nconst cached = await redis.get(`exact:${key}`)\nif (cached) return JSON.parse(cached)\nconst answer = await llm.chat(messages)\nawait redis.set(`exact:${key}`, JSON.stringify(answer), 'EX', 3600)\nreturn answer"
+      },
+      {
+        "heading": "Layer 2: semantic cache",
+        "body": "The semantic cache catches the case that the exact cache misses: 'do you have red shoes in 42' vs 'any red sneakers size 42?'. I embed the normalized prompt, search the tenant's vector store for the nearest cached question, and reuse its answer only when the cosine similarity is above a conservative threshold AND the cached answer is still valid for the current catalog version.",
+        "list": [
+          "Threshold: 0.92 cosine similarity. Below that, I call the model. Paraphrases that are close but not identical still get a fresh answer.",
+          "Tenant isolation: embeddings are stored per tenant; a query from tenant A never reads tenant B's cache.",
+          "Catalog version is part of the key: when the catalog changes, old answers expire instead of being served as truth.",
+          "Bypass on stateful or personal requests: those never go through the semantic cache."
+        ]
+      },
+      {
+        "heading": "Cost gates before the call",
+        "body": "Caching is the second line of defense. The first is not calling the model at all when a deterministic path exists: intent classification with a small model or a rule, FAQ matching, and price lookups against the catalog. The expensive path runs only when none of those short-circuits fire. That ordering matters more than the cache itself, because a cache hit still costs an embedding call."
+      },
+      {
+        "heading": "How I measured the ~30%",
+        "body": "The number is not a guess. I logged, per conversation: whether it hit the exact cache, the semantic cache, or the model; the tokens billed; and the catalog version. I then compared a 2-week window with both caches enabled against a 2-week window with the semantic cache disabled (exact cache still on). The difference in billed tokens per conversation was ~30% in favor of both caches enabled. I treat that as a project benchmark, not a production-wide claim, because the traffic mix and catalog churn were specific to that period.",
+        "list": [
+          "Metric: billed tokens per conversation, not per request (a conversation has many turns).",
+          "Comparison window: 2 weeks on / 2 weeks off, same codebase, same catalog.",
+          "What I did not measure: latency impact, cache hit rate by tenant, or cost of the embedding calls themselves. All three are on the list."
+        ]
+      },
+      {
+        "heading": "What did not work",
+        "body": "Two things failed before the current design. First, a single global threshold for semantic similarity: 0.90 served wrong answers for short questions like 'price?'; 0.95 missed too many paraphrases. Per-intent thresholds fixed it. Second, caching the model's tool-call arguments: they look stable but encode tenant-specific IDs, so a 'hit' would replay another tenant's query. I now cache only the final user-facing answer, never intermediate tool payloads."
+      }
+    ],
+    "relatedProject": "atiende"
+  },
+  {
+    "slug": "whatsapp-ai-agent-architecture",
+    "title": "Architecture of a WhatsApp AI agent with RAG and human escalation",
+    "description": "How I structured Atiende: a persist-before-enqueue inbound pipeline, a tool-using agent grounded in the catalog, an LLM router with circuit breaker, and human escalation from the same multi-channel dashboard.",
+    "datePublished": "2026-10-29",
+    "dateModified": "2026-10-29",
+    "readingTime": 10,
+    "tags": ["Agents", "RAG", "WhatsApp", "Architecture", "Event-driven"],
+    "intro": "The short answer: the webhook does almost nothing. It verifies the signature, persists the message, deduplicates, and enqueues. Everything interesting happens asynchronously: a worker runs the agent, the agent calls tools against the catalog and orders, the LLM router picks a provider with a circuit breaker, and the channel adapter delivers the reply. A human can take over the same conversation from the dashboard. There is no live demo: Atiende is temporarily offline after the physical server was retired.",
+    "sections": [
+      {
+        "heading": "The inbound pipeline (persist before enqueue)",
+        "body": "The webhook's only job is to not lose the message. It verifies the Meta signature, writes the raw payload to the database, deduplicates by message id, and pushes a job to BullMQ. It returns 200 to Meta as fast as possible. Meta retries on timeout, so a slow webhook becomes duplicate processing; persisting first makes those retries idempotent.",
+        "list": [
+          "Verify signature → reject anything that fails.",
+          "Persist raw payload + dedupe key.",
+          "Enqueue a BullMQ job with a deterministic job id.",
+          "Acknowledge the webhook immediately."
+        ]
+      },
+      {
+        "heading": "The agent and its tools",
+        "body": "The worker loads the conversation, builds the message list, and runs an agent loop. The agent has four tools: catalog search (RAG over the tenant's products), order creation, knowledge lookup, and escalation to a human. Tools are the only way the model touches business data; the model never writes to the database directly. Each tool returns structured JSON that the agent feeds back into the next turn.",
+        "code": "// agent turn (simplified)\nconst reply = await agent.run({\n  messages,\n  tools: [catalogSearch, createOrder, knowledgeLookup, escalate],\n  maxSteps: 4,\n})\n// reply is either a final answer or an escalation handoff"
+      },
+      {
+        "heading": "RAG grounding",
+        "body": "Catalog search embeds the user's query, retrieves the top-k products for that tenant from pgvector, and injects them into the tool result. The model is instructed to answer only from retrieved catalog entries and to say so when nothing matches. Prices and stock come from the tool result, not from the model's memory, which is what makes 'it never invents prices' a property of the architecture rather than a prompt wish."
+      },
+      {
+        "heading": "LLM router and circuit breaker",
+        "body": "The router sits between the agent and the providers. It tries the primary provider, and on failure (timeout, 5xx, rate limit) opens a circuit breaker and falls back to a secondary provider. Provider-specific behavior (tool-calling format, parameter names) lives in adapters, so swapping a provider does not touch the agent logic. This is the difference between 'we use OpenAI' and 'we can survive OpenAI being down'."
+      },
+      {
+        "heading": "Caching layers",
+        "body": "Three caches, in order: prompt cache (provider-side, cheapest), exact cache (Redis, keyed by normalized prompt + tenant + catalog version), and semantic cache (pgvector, threshold 0.92). They are checked before the router is called, so a cache hit never reaches a provider. See the note on LLM caching for the thresholds and the measurement."
+      },
+      {
+        "heading": "Human escalation",
+        "body": "Escalation is a tool, not a special mode. When the agent calls escalate, the conversation is marked as handed off, the human's reply goes through the same channel adapter, and the agent stops answering until the human releases it. Both sides see the same thread in the dashboard, so there is no 'the bot said X, the human said Y' split."
+      },
+      {
+        "heading": "What I would change",
+        "body": "Two things. First, Meta OAuth onboarding and long-lived tokens are still on the roadmap; the current setup is manual and fragile. Second, the reported cost reduction is from project benchmarks, not a published production study. I would not quote it to a customer until it is measured across a longer window with real traffic churn."
+      }
+    ],
+    "relatedProject": "atiende"
+  }
+]

@@ -1,587 +1,86 @@
-import { projectsDataEs } from "./proyectData.es";
+import projectsEn from "./projects.en.json"
+import projectsEs from "./projects.es.json"
+
+export type ProjectStatus =
+  | "in-use"
+  | "deployed"
+  | "validated"
+  | "in-progress"
+  | "live"
+  | "archived"
+
+export type ProjectAvailability = "online" | "offline" | "not-public"
+
+export interface ProjectProofPoint {
+  value: string
+  label: string
+}
+
+export interface ProjectDecision {
+  title: string
+  description: string
+}
+
+export interface ProjectCaseStudy {
+  problem: string
+  solution: string
+  results: string[]
+  keyLearnings?: string[]
+  challenges?: string[]
+  architecture: string[]
+  decisions: ProjectDecision[]
+  limitations: string[]
+}
 
 export interface ProjectProps {
   id: string
+  slug: string
   title: string
   description: string
   shortDescription?: string
   category: "personal" | "client" | "featured"
-  status: "live" | "in-progress" | "archived"
-
-  // Media & Gallery
+  status: ProjectStatus
+  availability: ProjectAvailability
+  sourceDoc?: string
+  lastVerified?: string
+  lastUpdated: string
+  featuredOnHome: boolean
+  proofPoints: ProjectProofPoint[]
   image?: string
   thumbnail?: string
-  gallery?: string[] // Array of image URLs
-
-  // Video
+  gallery?: string[]
   youtubeUrl?: string
   youtubeEmbedId?: string
-
-  // Technologies
   tech: string[]
-  techTags?: {
-    [category: string]: string[] // e.g., { "Frontend": ["React"], "Backend": ["Node.js"] }
-  }
-
-  // Features list
+  techTags?: Record<string, string[]>
   features?: string[]
-
-  // Links
   liveUrl?: string
   githubUrl?: string
   repositoryVisibility?: "public" | "private"
-  githubRepo?: string // Format: "username/repo" for API integration
-
-  // Client info
+  githubRepo?: string
   companyName?: string
   role?: string
-
-  // Achievements
   achievements?: string[]
-
-  // Timeline
   startDate?: string
   endDate?: string | null
-
-  // Case Study
-  caseStudy?: {
-    problem: string
-    solution: string
-    results: string[]
-    keyLearnings?: string[]
-    challenges?: string[]
-  }
-
-  project?: any;
-  onHover?: (hovered: boolean) => void;
-  isHovered?: boolean;
+  caseStudy: ProjectCaseStudy
 }
 
-export const projectsData: ProjectProps[] = [
-  {
-    id: "portfolio-2024",
-    title: "Artag Portfolio",
-    description:
-      "My personal portfolio website showcasing my work, skills, and expertise. Built with modern technologies featuring smooth animations, interactive elements, and a premium design system (Techonic Precision).",
-    shortDescription: "Personal portfolio with Next.js & animations",
-    category: "personal",
-    status: "live",
-    thumbnail: "/firstScreen.png",
-    gallery: [
-      "/firstScreen.png",
-      "/secondScreen.png",
-      "/thirdScreen.png",
-    ],
-    youtubeUrl: "https://www.youtube.com/watch?v=LvsgCdWss4I&ab_channel=YourAverageTechBro",
-    youtubeEmbedId: "LvsgCdWss4I",
-    tech: ["Next.js", "React", "TailwindCSS", "Framer Motion", "TypeScript"],
-    techTags: {
-      "Frontend": ["Next.js", "React", "TailwindCSS", "Framer Motion"],
-      "Language": ["TypeScript"],
-    },
-    features: [
-      "Responsive design",
-      "Dark theme with Techonic Precision",
-      "Animated hero section",
-      "Smooth transitions",
-      "Contact form",
-      "Project showcase",
-      "Full-width sections",
-      "Performance optimized",
-    ],
-    liveUrl: "https://artagdev.com",
-    githubUrl: "https://github.com/Artag-Chris/Artagsite",
-    githubRepo: "Artag-Chris/Artagsite",
-    repositoryVisibility: "public",
-    role: "Solo Developer",
-    achievements: [
-      "Designed custom design system",
-      "Implemented advanced animations",
-      "Optimized for performance",
-      "Mobile-first approach",
-    ],
-    startDate: "2024-01",
-    endDate: "2024-03",
-    caseStudy: {
-      problem: "Needed a professional portfolio that stands out and showcases technical expertise with smooth interactions and modern design.",
-      solution: "Built a custom Next.js site with Techonic Precision design system featuring animated components, full-width sections, and advanced Framer Motion animations.",
-      results: [
-        "Created a memorable portfolio experience",
-        "Implemented 15+ animated components",
-        "Achieved 95+ Lighthouse score",
-        "Mobile-optimized for all devices",
-      ],
-      keyLearnings: [
-        "Creating reusable component systems",
-        "Advanced animation choreography with Framer Motion",
-        "Performance optimization techniques",
-        "Responsive design patterns",
-      ],
-      challenges: [
-        "Balancing animations with performance",
-        "Creating a unique design system",
-        "Optimizing video background playback",
-      ],
-    },
-  },
-  {
-    id: "whatsapp-automation-dual-deployment",
-    title: "Intelligent WhatsApp Management System for Colombian Coffee Region Companies",
-    description: "Complete WhatsApp automation architecture solving message loss, Meta blocks, and critical response times for mid-sized companies. Implementation with Node.js, custom WebSockets, and Redis as state manager.",
-    shortDescription: "WhatsApp platform with Node.js + React + Redis",
-    category: "featured",
-    status: "live",
-    companyName: "Mid-sized companies in Colombia's coffee region (retail and services sectors)",
-    youtubeUrl: "https://www.youtube.com/watch?v=-ofLY0GiPCQ",
-    youtubeEmbedId: "-ofLY0GiPCQ",
-    tech: [
-      "Node.js",
-      "TypeScript",
-      "React",
-      "Vite",
-      "MySQL",
-      "WebSockets",
-      "Redis",
-      "WhatsApp Business API",
-      "Docker",
-      "PM2"
-    ],
-    gallery: [
-      "/whatsapp flujo.png",
-      "/visual.png",
-    ],
-    techTags: {
-      "Backend": ["Node.js", "TypeScript", "Express", "Custom WebSockets"],
-      "Frontend": ["React", "Vite", "Tailwind", "Socket.io-client"],
-      "Database": ["MySQL", "Redis (assignment state and cache)"],
-      "Integrations": ["WhatsApp Business API", "Meta Cloud API"],
-      "Infrastructure": ["Private server", "Docker", "PM2", "Nginx"],
-      "Real-time": ["Custom WebSockets", "Redis Pub/Sub"],
-    },
-    features: [
-      "Bridge between Meta Webhook and agents via WebSockets",
-      "Real-time message receiving and sending",
-      "Redis as central 'who has whom assigned' manager",
-      "Automatic chat balancing across 5+ concurrent agents",
-      "Complete conversation persistence in MySQL",
-      "Anti-block system with intelligent rate limit handling",
-      "Recent message caching in Redis for quick responses",
-      "Real-time agent dashboard with React + Vite",
-      "Double-assignment prevention with atomic Redis locks",
-    ],
-    repositoryVisibility: "private",
-    role: "Solution Architect and Lead Developer (sole developer)",
-    achievements: [
-      "Designed and implemented complete architecture from scratch as sole developer",
-      "Eliminated 100% of message loss (previously entire conversations were lost)",
-      "Reduced response times from '24+ hours' to minutes",
-      "Support for 1000+ daily messages with 5 concurrent agents",
-      "Solved critical desynchronization issues using Redis as source of truth",
-      "Zero Meta blocks post-implementation thanks to intelligent rate limiting",
-    ],
-    startDate: "2024-01",
-    endDate: "2024-06",
-    caseStudy: {
-      problem: "Two mid-sized companies in Colombia's coffee region faced a customer service crisis on WhatsApp: they lost complete conversations because they couldn't keep up, response times exceeded 24 hours (causing Meta to close conversations), and account blocks were frequent due to poor rate limit handling. With 5 agents per company, they had no way to track who was handling which chat, causing duplicate responses or customers ignored for days.",
-      solution: "I designed a monolithic architecture with Node.js + TypeScript that acted as a bridge between Meta's webhooks and agents. I implemented custom WebSockets for bidirectional real-time communication: when a message arrived, the server persisted it to MySQL, updated state in Redis, and emitted it to the correct dashboard. Redis became the 'source of truth' for assignments: each agent had a Redis set with active chats, and atomic operations prevented two agents from taking the same chat. For rate limits, I implemented queues with exponential backoff that respected Meta's limits without losing messages.",
-      results: [
-        "Message loss: 100% eliminated (from lost conversations to complete persistence)",
-        "Response time: From '>24 hours' to 5-15 minutes (95%+ improvement)",
-        "Volume: System processes 1000+ daily messages without degradation",
-        "Concurrency: 5 simultaneous agents per company working conflict-free",
-        "Meta blocks: 0 incidents post-implementation (vs multiple before)",
-        "Customer satisfaction: Direct reports of happier customers due to fast responses",
-      ],
-      keyLearnings: [
-        "Redis isn't just for caching: as a real-time state manager it solved assignment desynchronization",
-        "Custom WebSockets give total control over 'who gets what' logic vs generic libraries",
-        "Redis atomic operations (SETNX, LPUSH, etc) are perfect for preventing race conditions",
-        "A well-organized monolithic architecture scales perfectly for medium volumes",
-        "The biggest risk isn't technical but agent experience design: they need complete context",
-      ],
-      challenges: [
-        "Critical desynchronization: Initially, multiple agents would see the same chat as 'available' and take it simultaneously, causing duplicate responses and confused customers. The solution was implementing Redis as the single source of truth: each chat when taken was marked with an atomic operation (SETNX) that only allowed one success. Then broadcasting via WebSockets to update all dashboards instantly.",
-        "Meta rate limits: Webhooks returned 429 errors when sending too many messages. I implemented priority queues: agent messages (replies) had higher priority than automatic messages, all with exponential backoff and persistent retries.",
-        "Traffic spikes: During peak hours, the server received message bursts. Redis caching for frequent queries (e.g., recent chat messages) reduced MySQL load. Also implemented connection pooling and optimized queries.",
-        "Persistence vs speed: Saving every message to MySQL before responding could block the flow. Solution: write to Redis first as a 'buffer' then persist asynchronously to MySQL with a worker.",
-        "Limited private server resources: Query optimization, MySQL indexes, and PM2 for backend clustering.",
-      ],
-    },
+export const projectsData = projectsEn as ProjectProps[]
+export const projectsDataEs = projectsEs as ProjectProps[]
 
-  },
-  {
-    id: "atiende-whatsapp-ai-harness",
-    title: "Atiende (LumenxLabs) — Multi-channel Autonomous AI Agent",
-    description:
-      "Atiende is an autonomous conversational AI agent operating on WhatsApp, Instagram DM, and Facebook Messenger, built as a provider-agnostic harness. It handles customers 24/7 in natural language, queries the catalog with RAG, creates conversational orders, escalates to humans when needed, and slashes cost with multi-level caching (prompt + exact + semantic).",
-    shortDescription: "Multi-channel AI agent (WhatsApp, IG, Messenger) for SMBs",
-    category: "featured",
-    status: "live",
-    companyName: "LumenxLabs — Latinoamerican SMBs (multi-tenant), retail and services sectors",
-    tech: [
-      "NestJS",
-      "TypeScript",
-      "Prisma",
-      "PostgreSQL",
-      "pgvector",
-      "BullMQ",
-      "Redis",
-      "WhatsApp Business API",
-      "Instagram Graph API",
-      "Messenger Platform",
-      "Groq",
-      "OpenAI",
-      "Gemini",
-      "Docker",
-    ],
-    techTags: {
-      "Backend": ["NestJS", "TypeScript", "Hexagonal Architecture (Ports & Adapters)"],
-      "Database": ["PostgreSQL 16", "pgvector", "Prisma 6", "AES-256-GCM encryption"],
-      "Queue & Real-time": ["BullMQ", "Redis"],
-      "AI Providers": ["Groq (llama-3.3-70b, primary)", "OpenAI", "Gemini", "Kimi K3", "Mock"],
-      "Embeddings": ["OpenAI text-embedding-3-small", "Semantic cache (pgvector)"],
-      "Channels": ["WhatsApp Business API", "Instagram DM", "Facebook Messenger", "ChannelRouterService"],
-      "Infrastructure": ["Docker", "Circuit breaker", "Health checks"],
-    },
-    features: [
-      "3 channels live: WhatsApp, Instagram DM, and Facebook Messenger via a shared incoming pipeline (persist + dedup + enqueue)",
-      "Verified Meta webhook (HMAC) answering 200 in < 200 ms",
-      "Persist-before-enqueue: zero message loss (at-least-once + idempotency)",
-      "RAG over the business catalog — never invents prices",
-      "Conversational order creation and automatic human escalation with multi-channel dashboard",
-      "LLM provider switching via feature flags — no code changes",
-      "Circuit breaker + automatic fallback routing (primary → CB → fallback)",
-      "Multi-level caching (prompt + exact Redis + semantic pgvector) cutting cost per conversation ~30%",
-      "Per-business credentials encrypted at rest (AES-256-GCM)",
-      "Scope guard, hallucination validation, per-conversation budget, and strict timeouts",
-    ],
-    repositoryVisibility: "private",
-    role: "Team Lead & Full Stack Developer (transitioning to AI Engineering)",
-    achievements: [
-      "3 channels operational (WhatsApp, Instagram, Messenger) with a complete AI pipeline",
-      "Multi-channel human escalation with dashboard, channel badges, and human reply in escalated conversations",
-      "295 tests (40 files) — full check suite green",
-      "Exact + semantic caching (Redis + pgvector) reducing cost per conversation ~30%",
-      "Encrypted per-business credentials (AES-256-GCM) for multi-tenant production",
-      "6 LLM adapters (Groq, OpenAI, Gemini, Kimi K3, Mock; Claude pending) without touching the core",
-    ],
-    caseStudy: {
-      problem: "Latinoamerican SMBs lose sales because they don't answer WhatsApp (and now Instagram/Messenger) in time, and fixed-response chatbots can't handle real conversations. Coupling the system to a single AI provider also creates vendor lock-in: switching models or the provider going down meant rewriting the core.",
-      solution: "I designed Atiende as a multi-channel harness: an orchestration layer between channels and models. A verified Meta webhook (HMAC) answers 200 in under 200 ms and persists the message before enqueueing (zero loss). BullMQ processes the turn without blocking the webhook: the AgentService builds the prompt, calls the LLM, executes tools (RAG catalog, orders, escalation) in a loop with an iteration limit, and validates the response. Every channel enters through ChannelProviderPort and a ChannelRouterService resolves the right adapter (WhatsApp, Instagram DM, Messenger) while sharing one incoming pipeline. Every LLM enters through a single contract (LLMProviderPort) with portable hints; a circuit breaker + router decides primary → fallback, and multi-level caching (prompt + exact Redis + semantic pgvector) serves a large share of traffic without calling the model.",
-      results: [
-        "3 channels operational (WhatsApp, Instagram, Messenger) with the full AI pipeline",
-        "Cost per conversation ~30% lower thanks to prompt + exact + semantic caching",
-        "Zero message loss: persist-before-enqueue + at-least-once + idempotency",
-        "Multi-channel human escalation with dashboard, channel badges, and human reply in escalated conversations",
-        "Per-business credentials encrypted at rest (AES-256-GCM) for multi-tenant production",
-        "295 tests (40 files) green — typecheck, lint, format, and tests as the pre-PR gate",
-      ],
-      keyLearnings: [
-        "Hexagonal architecture pays off: changing provider or channel never touches the core, only the adapter",
-        "Persist-before-enqueue is the key to zero loss: the webhook never waits for the LLM",
-        "Abstract only what is conceptually portable; provider-specific mechanics live inside the adapter",
-        "Multi-level caching (prompt + exact + semantic) is what makes cost viable, not the model itself",
-        "Multi-channel from day one: one shared incoming pipeline, one router, N channel adapters",
-      ],
-      challenges: [
-        "Groq: its native function-calling API fails with llama-3.3-70b → I implemented a plain-text tool-call parser (<function.NAME{json}></function>) as fallback, also applied to OpenAI as defense in depth",
-        "Kimi K3 always reasons: it uses max_completion_tokens (not max_tokens) and requires forwarding full reasoning_content + tool_calls between tool-loop iterations",
-        "Semantic cache without hallucinating: conservative similarity threshold (0.95), scope by business_id, bypass on PII or stateful tools, short TTL, event-driven invalidation",
-        "Multi-tenant security: per-business Meta tokens encrypted at rest (AES-256-GCM) instead of plain env vars in production",
-      ],
-    },
-},
-  {
-    id: "cv-harness",
-    title: "CV Harness — Event-Driven Job Search Pipeline",
-    description:
-      "CV Harness is an event-driven harness that monitors vacancies on configurable job boards, evaluates them against your profile with hybrid AI + semantic matching (0.65·AI + 0.35·pgvector cosine), measures ATS fit with a deterministic score, and generates a tailored resume plus cover letter in ATS-compatible PDF — all managed from a web dashboard with a stateless Rust scraper and Redis Streams.",
-    shortDescription: "Event-driven job search: Rust scraper + hybrid AI match + ATS-aware PDF",
-    category: "featured",
-    status: "live",
-    tech: [
-      "NestJS",
-      "TypeScript",
-      "zod",
-      "Rust",
-      "PostgreSQL",
-      "pgvector",
-      "Prisma",
-      "Redis Streams",
-      "BullMQ",
-      "Next.js",
-      "DeepSeek",
-      "OpenAI",
-      "Swagger",
-      "Docker",
-    ],
-    techTags: {
-      "Backend": ["NestJS 11", "TypeScript", "zod", "Swagger (/api/docs)"],
-      "Scraper": ["Rust", "tokio", "reqwest", "scraper", "redis-rs"],
-      "Database": ["PostgreSQL 16 + pgvector", "Prisma 6"],
-      "Messaging": ["Redis Streams (Nest ⇄ Rust)", "BullMQ (queues + cron)"],
-      "AI": ["DeepSeek (primary)", "Groq", "Deterministic mock"],
-      "Embeddings": ["OpenAI text-embedding-3-small", "pgvector cosine similarity"],
-      "Frontend": ["Next.js (atiende dashboard tab)", "@react-pdf/renderer"],
-      "Infrastructure": ["Docker Compose", "microservices-network", "Shared Redis/Postgres"],
-    },
-    features: [
-      "Event-driven pipeline end-to-end: cron → dispatcher → scraper → ingestion → normalize → match → resume → notification",
-      "Stateless Rust scraper with configurable CSS selector recipes; Nest ⇄ Rust bridge over Redis Streams",
-      "Hybrid match: final = 0.65·AI analysis + 0.35·semantic similarity (pgvector) against your real resume",
-      "Tailored resume + cover letter per vacancy, cloned from your original CV template",
-      "ATS meter: deterministic, explainable 0-100 score (keywords 45% · structure 20% · contact 15% · format 20%)",
-      "Browser PDF via @react-pdf/renderer with selectable text — one engine for both preview and download",
-      "Canva-style editor to reorder/rewrite sections; 'AI organizes the draft' without inventing facts",
-      "Canonical facets for modality/seniority (GIN index) while keeping the original portal text",
-      "True N:M model: one vacancy evaluated by several profiles, each with its own score, status and resume",
-      "'Paste a job' flow for non-scrapable portals (LinkedIn, login walls) feeding the same pipeline",
-      "Configurable sources from the UI: site probe + assisted selector recipe with preview before scraping",
-      "Profile-level cron cadence or manual 'search now'; polite scraping with respectRobots and per-source limits",
-    ],
-    repositoryVisibility: "public",
-    githubUrl: "https://github.com/Artag-Chris/CV-Harness",
-    githubRepo: "Artag-Chris/CV-Harness",
-    role: "AI Engineer & Full-Stack Developer (sole developer)",
-    achievements: [
-      "141 API tests (vitest) — full suite green as the pre-PR gate",
-      "E2E verified without internet: a local fixture with fake job boards drives the whole 7-stage pipeline",
-      "Deterministic ATS meter that catches real regressions — caught a PDF letterSpacing bug that split 'PROJECTS' into 'P R OJ EC TS' and broke ATS section detection",
-      "Hybrid AI + semantic match (0.65·AI + 0.35·pgvector) against the profile's active resume",
-      "Zero-manual boot: auto-creates the DB, runs prisma migrate deploy and an idempotent seed — docker compose up -d just works on an empty database",
-      "Reuses sibling infra (atiende): shared Redis/Postgres on microservices-network with QUEUE_PREFIX so queues never collide",
-    ],
-    caseStudy: {
-      problem: "Looking for a tech job by hand is repetitive and expensive in time: you hop from portal to portal, read dozens of listings, decide which ones actually fit, and rewrite your resume for every single application — on top of surviving the automatic filters of the ATS.",
-      solution: "I built CV Harness as a 7-stage event-driven pipeline: a BullMQ cron dispatches due sources, a stateless Rust scraper downloads listings using configurable CSS selector recipes, ingestion validates and dedupes by sha256(url), normalize extracts structured fields with an LLM (title, company, modality normalized to canonical values, seniority, skills), match scores fit 0-100 with a 0.65·AI + 0.35·semantic similarity blend against the profile's active resume, resume drafts a tailor-made CV plus cover letter, and notification delivers everything to the dashboard inbox. Every stage is an idempotent queue with deterministic jobIds, retries with backoff and self-recovery (a stray RAW vacancy gets re-enqueued).",
-      results: [
-        "Full pipeline verified end-to-end without internet: a local fixture with fake job boards, driven from a single API call, followed stage-by-stage in compose logs",
-        "141 API tests green (vitest) covering dispatch, ingestion, dedup, match scoring and resume generation",
-        "Deterministic, reproducible ATS score — caught the real letterSpacing regression that was splitting section headers and making resumes fail ATS parsing",
-        "Hybrid scoring (0.65·AI + 0.35·pgvector) grounds the LLM on your actual resume instead of trusting a vibe",
-        "Tailored resume + cover letter as selectable-text PDF, generated in the browser (no backend Chromium)",
-        "Multi-profile N:M — adding a second profile never duplicates data or rewrites the pipeline",
-      ],
-      keyLearnings: [
-        "Event-driven end-to-end makes the pipeline resumable, not just fast: an idempotent queue per stage means a failed LLM call never sinks the whole cycle",
-        "A stateless Rust worker with Redis Streams as the contract is the cleanest boundary between two services",
-        "Canonical facets + keeping the original text: filters stop being fragile ('semi senior' contains 'senior') without hiding what the portal actually says",
-        "A deterministic ATS meter beats an 'AI guess': reproducible, explainable, and it catches regressions you'd never eyeball",
-        "Sharing infra (Redis/Postgres/JWT) with a sibling project removes whole categories of operational work if you enforce prefixes and networks",
-      ],
-      challenges: [
-        "PDF letterSpacing bug: a letter-spacing on section titles split 'PROYECTOS' into 'P R OY EC TO S', so an ATS couldn't recognize sections — fixed with a dedicated ats:verify checker that runs on the build",
-        "Filtering vacancies by free text is fragile ('100% remote', 'Hybrid / Remote', 'semi senior' contains 'senior') — normalized to canonical values (REMOTE|HYBRID|ONSITE, SEMI_SENIOR…) with a GIN index for multi-value cases",
-        "LLM vendor lock-in — solved with an adapter pattern (LLMProviderPort + per-provider implementation + .env selector with auto resolution and fallbacks: DeepSeek, Groq, deterministic mock)",
-        "Sites that block scraping or require login — solved with the 'paste the job' flow feeding the same normalize → match → resume pipeline",
-      ],
-    },
-  },
-  // {
-  //   id: "fullstack-ecommerce",
-  //   title: "E-commerce Platform",
-  //   description:
-  //     "A full-featured e-commerce platform with comprehensive product management, advanced cart functionality, secure payment processing, and an intuitive admin dashboard for store operations.",
-  //   shortDescription: "Complete e-commerce solution",
-  //   category: "personal",
-  //   status: "live",
-  //   youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-  //   youtubeEmbedId: "dQw4w9WgXcQ",
-  //   tech: ["React", "Node.js", "MongoDB", "Stripe", "Redis"],
-  //   gallery: [
-  //     "https://images.unsplash.com/photo-1572883454114-1601a06fdf4d?w=800&h=600&fit=crop",
-  //     "https://images.unsplash.com/photo-1563062928-c3a4e62f3f6f?w=800&h=600&fit=crop",
-  //     "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=600&fit=crop",
-  //   ],
-  //   techTags: {
-  //     "Frontend": ["React", "Redux", "React Router"],
-  //     "Backend": ["Node.js", "Express", "Stripe API"],
-  //     "Database": ["MongoDB", "Redis"],
-  //   },
-  //   features: [
-  //     "User authentication",
-  //     "Advanced product search",
-  //     "Shopping cart with persistence",
-  //     "Secure payment processing",
-  //     "Order tracking system",
-  //     "Admin dashboard",
-  //     "Inventory management",
-  //     "Customer analytics",
-  //   ],
-  //   liveUrl: "https://ecommerce-example.com",
-  //   githubUrl: "https://github.com/yourusername/ecommerce",
-  //   githubRepo: "yourusername/ecommerce",
-  //   repositoryVisibility: "public",
-  //   role: "Full Stack Developer",
-  //   achievements: [
-  //     "Processed 1000+ orders",
-  //     "99.9% uptime",
-  //     "Optimized checkout flow",
-  //     "Integrated multiple payment methods",
-  //   ],
-  //   startDate: "2023-03",
-  //   endDate: "2023-09",
-  //   caseStudy: {
-  //     problem: "Businesses needed an affordable, scalable e-commerce solution with advanced features but without the complexity of major platforms.",
-  //     solution: "Developed a full-stack platform with modern tech stack featuring real-time inventory management, secure Stripe payment integration, and comprehensive admin analytics.",
-  //     results: [
-  //       "Successfully launched 50+ online stores",
-  //       "Average $50K+ monthly revenue per store",
-  //       "98% payment success rate",
-  //       "Mobile conversion rate: 35%",
-  //     ],
-  //     keyLearnings: [
-  //       "Payment processing best practices",
-  //       "Building scalable inventory systems",
-  //       "E-commerce UX optimization",
-  //       "Real-time analytics implementation",
-  //     ],
-  //     challenges: [
-  //       "Managing concurrent checkouts",
-  //       "Preventing fraudulent transactions",
-  //       "Optimizing large product catalogs",
-  //     ],
-  //   },
-  // },
-  // {
-  //   id: "task-management",
-  //   title: "Collaborative Task Manager",
-  //   description: "A modern productivity application for managing tasks and projects with real-time collaboration features, enabling teams to work efficiently together with shared workspaces.",
-  //   shortDescription: "Team productivity platform",
-  //   category: "personal",
-  //   status: "live",
-  //   youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-  //   youtubeEmbedId: "dQw4w9WgXcQ",
-  //   tech: ["TypeScript", "React", "Firebase", "TailwindCSS", "Socket.io"],
-  //   features: [
-  //     "Task creation & management",
-  //     "Project organization",
-  //     "Due date reminders",
-  //     "Real-time collaboration",
-  //     "Progress tracking",
-  //     "File attachments",
-  //     "Activity timeline",
-  //     "Team permissions",
-  //   ],
-  //   liveUrl: "https://tasks-example.com",
-  //   githubUrl: "https://github.com/yourusername/task-manager",
-  //   repositoryVisibility: "public",
-  //   role: "Full Stack Developer",
-  //   achievements: [
-  //     "Real-time sync across devices",
-  //     "Supports 100+ concurrent users",
-  //     "Optimized database queries",
-  //     "Mobile app available",
-  //   ],
-  //   startDate: "2022-12",
-  //   endDate: "2023-05",
-  // },
-  // {
-  //   id: "weather-dashboard",
-  //   title: "Weather Intelligence Dashboard",
-  //   description:
-  //     "A sophisticated real-time weather dashboard providing current conditions, detailed forecasts, and weather maps for locations worldwide with advanced data visualization.",
-  //   shortDescription: "Real-time weather analytics",
-  //   category: "personal",
-  //   status: "live",
-  //   youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-  //   youtubeEmbedId: "dQw4w9WgXcQ",
-  //   tech: ["JavaScript", "React", "OpenWeather API", "ChartJS", "Mapbox"],
-  //   features: [
-  //     "Location search & geolocation",
-  //     "Current weather conditions",
-  //     "5-day forecast",
-  //     "Weather maps & radar",
-  //     "Historical data analysis",
-  //     "Weather alerts",
-  //     "Multiple locations tracking",
-  //     "Climate trends",
-  //   ],
-  //   liveUrl: "https://weather-example.com",
-  //   githubUrl: "https://github.com/yourusername/weather-app",
-  //   repositoryVisibility: "public",
-  //   role: "Frontend Developer",
-  //   achievements: [
-  //     "10M+ weather data points",
-  //     "Fast API response times",
-  //     "Beautiful data visualization",
-  //     "Cross-platform compatible",
-  //   ],
-  //   startDate: "2022-08",
-  //   endDate: "2022-11",
-  // },
-  // {
-  //   id: "social-network",
-  //   title: "Social Network Platform",
-  //   description: "A modern social networking platform featuring user profiles, dynamic news feeds, real-time messaging, and community engagement tools for meaningful connections.",
-  //   shortDescription: "Community platform",
-  //   category: "personal",
-  //   status: "archived",
-  //   youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-  //   youtubeEmbedId: "dQw4w9WgXcQ",
-  //   tech: ["Next.js", "GraphQL", "PostgreSQL", "Socket.io", "Redis"],
-  //   features: [
-  //     "User profiles & customization",
-  //     "Dynamic news feed",
-  //     "Real-time chat",
-  //     "Post creation & sharing",
-  //     "Friend connections",
-  //     "Notifications system",
-  //     "Follow/unfollow",
-  //     "Media uploads",
-  //   ],
-  //   liveUrl: "https://social-example.com",
-  //   githubUrl: "https://github.com/yourusername/social-network",
-  //   repositoryVisibility: "public",
-  //   role: "Full Stack Developer",
-  //   achievements: [
-  //     "Scaled to 50K+ users",
-  //     "Real-time communication",
-  //     "Optimized database performance",
-  //     "Rich media support",
-  //   ],
-  //   startDate: "2022-01",
-  //   endDate: "2022-07",
-  // },
-  // {
-  //   id: "fitness-tracker",
-  //   title: "Fitness Tracker & Analytics",
-  //   description:
-  //     "A comprehensive fitness application for tracking workouts, monitoring nutrition, and visualizing progress with personalized fitness plans and detailed analytics.",
-  //   shortDescription: "Health & fitness platform",
-  //   category: "personal",
-  //   status: "in-progress",
-  //   youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-  //   youtubeEmbedId: "dQw4w9WgXcQ",
-  //   tech: ["React Native", "Redux", "Firebase", "D3.js", "TailwindCSS"],
-  //   features: [
-  //     "Workout logging",
-  //     "Nutrition tracking",
-  //     "Progress charts & graphs",
-  //     "Goal setting",
-  //     "Exercise library",
-  //     "Personalized plans",
-  //     "Wearable integration",
-  //     "Community challenges",
-  //   ],
-  //   liveUrl: "https://fitness-example.com",
-  //   githubUrl: "https://github.com/yourusername/fitness-tracker",
-  //   repositoryVisibility: "public",
-  //   role: "Mobile Developer",
-  //   achievements: [
-  //     "Cross-platform app",
-  //     "Real-time sync",
-  //     "Wearable device integration",
-  //     "Advanced analytics",
-  //   ],
-  //   startDate: "2023-10",
-  //   endDate: null,
-  // },
-]
-
-// Localized project data map. Select by locale: projectsByLocale[locale]
 export const projectsByLocale: Record<"en" | "es", ProjectProps[]> = {
   en: projectsData,
   es: projectsDataEs,
 }
 
+export const aiSystemSlugs = [
+  "atiende",
+  "cv-harness",
+  "social-harness",
+  "doc-harness",
+] as const
+
+export function getProjectBySlug(slug: string, locale: "en" | "es") {
+  return projectsByLocale[locale].find((project) => project.slug === slug)
+}

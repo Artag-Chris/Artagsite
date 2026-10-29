@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "llm-semantic-cache-cost-reduction",
+    "title": "Caché exacto y semántico para LLMs: cómo bajé el costo de conversación ~30%",
+    "description": "Desglose práctico de las dos capas de caché que uso en Atiende (caché exacto por prompt normalizado + caché semántico por similitud de embeddings), los umbrales conservadores que las mantienen seguras y la medición detrás de la reducción de ~30%.",
+    "datePublished": "2026-10-29",
+    "dateModified": "2026-10-29",
+    "readingTime": 9,
+    "tags": ["LLM", "Caché", "Control de costos", "RAG"],
+    "intro": "La respuesta corta: corro dos cachés delante del modelo. Un caché exacto maneja prompts repetidos o casi idénticos. Un caché semántico maneja paráfrasis de preguntas ya respondidas. Juntos eliminaron alrededor del 30% de las llamadas al modelo en los benchmarks del proyecto Atiende. El resto de esta nota trata de las reglas que evitan que esos cachés sirvan la respuesta equivocada.",
+    "sections": [
+      {
+        "heading": "Cuándo cachear y cuándo no",
+        "body": "El caché solo vale la pena cuando la misma pregunta aparece más de una vez y la respuesta no depende de estado oculto. En un agente de atención al cliente eso ocurre más de lo que la gente cree: preguntas de catálogo, envíos, horarios y '¿tienen X en talla Y?' se repiten con pequeñas variaciones de redacción. Es falso para todo lo que depende de estado: estado de un pedido, un carrito que acaba de cambiar, una conversación ya escalada a un humano, o cualquier solicitud con datos personales.",
+        "list": [
+          "Cachear: hechos del catálogo, FAQs, texto de políticas, saludos genéricos.",
+          "Nunca cachear: estado de pedidos, carritos, cualquier cosa con identificador de usuario en el prompt, cualquier cosa después de una escalación.",
+          "Omitir caché cuando la llamada a la herramienta cambia estado (crear pedido, actualizar perfil)."
+        ]
+      },
+      {
+        "heading": "Capa 1: caché exacto",
+        "body": "El caché exacto es el aburrido y hace la mayor parte del trabajo. Normalizo el prompt (minúsculas, colapsar espacios, quitar tokens de relleno), lo hasheo junto con el id del tenant y la versión activa del catálogo, y lo busco en Redis con un TTL. Un acierto devuelve la respuesta guardada sin tocar el modelo. Un fallo llama al modelo y guarda el resultado.",
+        "code": "// pseudo-código\nconst key = sha256(normalize(prompt) + tenantId + catalogVersion)\nconst cached = await redis.get(`exact:${key}`)\nif (cached) return JSON.parse(cached)\nconst answer = await llm.chat(messages)\nawait redis.set(`exact:${key}`, JSON.stringify(answer), 'EX', 3600)\nreturn answer"
+      },
+      {
+        "heading": "Capa 2: caché semántico",
+        "body": "El caché semántico atrapa el caso que el exacto deja pasar: '¿tienen zapatos rojos en 42?' vs '¿algún tenis rojo talla 42?'. Genero el embedding del prompt normalizado, busco en el almacén vectorial del tenant la pregunta cacheada más cercana, y reutilizo su respuesta solo cuando la similitud coseno supera un umbral conservador Y la respuesta cacheada sigue siendo válida para la versión actual del catálogo.",
+        "list": [
+          "Umbral: 0,92 de similitud coseno. Por debajo, llamo al modelo. Las paráfrasis cercanas pero no idénticas siguen obteniendo respuesta fresca.",
+          "Aislamiento por tenant: los embeddings se guardan por tenant; una consulta del tenant A nunca lee el caché del tenant B.",
+          "La versión del catálogo es parte de la clave: cuando el catálogo cambia, las respuestas antiguas expiran en lugar de servirse como verdad.",
+          "Omisión en solicitudes con estado o personales: esas nunca pasan por el caché semántico."
+        ]
+      },
+      {
+        "heading": "Barreras de costo antes de la llamada",
+        "body": "El caché es la segunda línea de defensa. La primera es no llamar al modelo cuando existe un camino determinista: clasificación de intención con un modelo pequeño o una regla, coincidencia de FAQ y consultas de precio contra el catálogo. El camino costoso solo se ejecuta cuando ninguno de esos atajos se activa. Ese orden importa más que el caché mismo, porque un acierto de caché sigue costando una llamada de embedding."
+      },
+      {
+        "heading": "Cómo medí el ~30%",
+        "body": "El número no es una suposición. Registré por conversación: si acertó en caché exacto, semántico o modelo; los tokens facturados; y la versión del catálogo. Luego comparé una ventana de 2 semanas con ambos cachés activos contra una ventana de 2 semanas con el caché semántico desactivado (exacto sigue activo). La diferencia en tokens facturados por conversación fue ~30% a favor de ambos activos. Lo trato como benchmark del proyecto, no como afirmación de producción, porque la mezcla de tráfico y el churn del catálogo fueron específicos de ese período.",
+        "list": [
+          "Métrica: tokens facturados por conversación, no por solicitud (una conversación tiene muchos turnos).",
+          "Ventana de comparación: 2 semanas encendido / 2 semanas apagado, mismo código, mismo catálogo.",
+          "Lo que no medí: impacto en latencia, tasa de acierto por tenant ni costo de las llamadas de embedding. Los tres están en la lista."
+        ]
+      },
+      {
+        "heading": "Lo que no funcionó",
+        "body": "Dos cosas fallaron antes del diseño actual. Primero, un único umbral global para la similitud semántica: 0,90 servía respuestas equivocadas para preguntas cortas como '¿precio?'; 0,95 perdía demasiadas paráfrasis. Los umbrales por intención lo arreglaron. Segundo, cachear los argumentos de las llamadas a herramientas: se ven estables pero codifican ids específicos del tenant, así que un 'acierto' reproduciría la consulta de otro tenant. Ahora solo cacheo la respuesta final para el usuario, nunca cargas intermedias de herramientas."
+      }
+    ],
+    "relatedProject": "atiende"
+  },
+  {
+    "slug": "whatsapp-ai-agent-architecture",
+    "title": "Arquitectura de un agente de IA para WhatsApp con RAG y escalación humana",
+    "description": "Cómo estructuré Atiende: pipeline de entrada que persiste antes de encolar, agente con herramientas basado en el catálogo, enrutador de LLM con circuit breaker y escalación humana desde el mismo dashboard multicanal.",
+    "datePublished": "2026-10-29",
+    "dateModified": "2026-10-29",
+    "readingTime": 10,
+    "tags": ["Agentes", "RAG", "WhatsApp", "Arquitectura", "Event-driven"],
+    "intro": "La respuesta corta: el webhook casi no hace nada. Verifica la firma, persiste el mensaje, desduplica y encola. Todo lo interesante ocurre de forma asíncrona: un worker ejecuta el agente, el agente llama herramientas contra el catálogo y los pedidos, el enrutador de LLM elige proveedor con circuit breaker y el adaptador de canal entrega la respuesta. Un humano puede tomar la misma conversación desde el dashboard. No hay demo en vivo: Atiende está temporalmente fuera de línea tras retirar el servidor físico.",
+    "sections": [
+      {
+        "heading": "El pipeline de entrada (persistir antes de encolar)",
+        "body": "El único trabajo del webhook es no perder el mensaje. Verifica la firma de Meta, escribe el payload crudo en la base de datos, desduplica por id de mensaje y empuja un job a BullMQ. Devuelve 200 a Meta lo más rápido posible. Meta reintenta con timeout, así que un webhook lento se convierte en procesamiento duplicado; persistir primero hace idempotentes esos reintentos.",
+        "list": [
+          "Verificar firma → rechazar todo lo que falle.",
+          "Persistir payload crudo + clave de desduplicación.",
+          "Encolar un job de BullMQ con id de job determinista.",
+          "Acusar recibo del webhook inmediatamente."
+        ]
+      },
+      {
+        "heading": "El agente y sus herramientas",
+        "body": "El worker carga la conversación, construye la lista de mensajes y ejecuta el bucle del agente. El agente tiene cuatro herramientas: búsqueda en catálogo (RAG sobre los productos del tenant), creación de pedidos, consulta de conocimiento y escalación a un humano. Las herramientas son la única forma en que el modelo toca los datos del negocio; el modelo nunca escribe directamente en la base de datos. Cada herramienta devuelve JSON estructurado que el agente reinyecta en el siguiente turno.",
+        "code": "// turno del agente (simplificado)\nconst reply = await agent.run({\n  messages,\n  tools: [catalogSearch, createOrder, knowledgeLookup, escalate],\n  maxSteps: 4,\n})\n// reply es una respuesta final o un traspaso por escalación"
+      },
+      {
+        "heading": "Grounding con RAG",
+        "body": "La búsqueda en catálogo genera el embedding de la consulta del usuario, recupera los top-k productos de ese tenant desde pgvector e los inyecta en el resultado de la herramienta. Al modelo se le instruye responder solo a partir de las entradas recuperadas del catálogo y decirlo cuando no hay coincidencia. Los precios y el stock vienen del resultado de la herramienta, no de la memoria del modelo, que es lo que hace que 'nunca inventa precios' sea una propiedad de la arquitectura y no un deseo del prompt."
+      },
+      {
+        "heading": "Enrutador de LLM y circuit breaker",
+        "body": "El enrutador se sitúa entre el agente y los proveedores. Intenta el proveedor primario y, ante un fallo (timeout, 5xx, límite de tasa), abre un circuit breaker y recurre a un proveedor secundario. El comportamiento específico del proveedor (formato de tool-calling, nombres de parámetros) vive en adaptadores, así que cambiar de proveedor no toca la lógica del agente. Esa es la diferencia entre 'usamos OpenAI' y 'podemos sobrevivir a que OpenAI se caiga'."
+      },
+      {
+        "heading": "Capas de caché",
+        "body": "Tres cachés, en orden: caché de prompt (del lado del proveedor, el más barato), caché exacto (Redis, por prompt normalizado + tenant + versión del catálogo) y caché semántico (pgvector, umbral 0,92). Se verifican antes de llamar al enrutador, así que un acierto de caché nunca llega a un proveedor. Ver la nota sobre caché de LLM para los umbrales y la medición."
+      },
+      {
+        "heading": "Escalación humana",
+        "body": "La escalación es una herramienta, no un modo especial. Cuando el agente llama a escalate, la conversación se marca como traspasada, la respuesta del humano pasa por el mismo adaptador de canal y el agente deja de responder hasta que el humano la libere. Ambas partes ven el mismo hilo en el dashboard, así que no hay división entre 'el bot dijo X, el humano dijo Y'."
+      },
+      {
+        "heading": "Lo que cambiaría",
+        "body": "Dos cosas. Primero, el onboarding de Meta OAuth y los tokens de larga duración siguen en la hoja de ruta; la configuración actual es manual y frágil. Segundo, la reducción de costos reportada viene de benchmarks del proyecto, no de un estudio de producción publicado. No la citaría a un cliente hasta medirla en una ventana más larga con churn de tráfico real."
+      }
+    ],
+    "relatedProject": "atiende"
+  }
+]

@@ -1,0 +1,473 @@
+[
+  {
+    "id": "atiende-whatsapp-ai-harness",
+    "slug": "atiende",
+    "title": "Atiende — Agente de IA Multicanal",
+    "description": "Sistema conversacional de IA para WhatsApp, Instagram DM y Facebook Messenger. Atiende clientes con RAG sobre el catálogo, crea órdenes, escala a humanos y controla el gasto de LLM mediante caché multinivel.",
+    "shortDescription": "Agente de IA con RAG para WhatsApp, Instagram y Messenger",
+    "category": "featured",
+    "status": "in-use",
+    "availability": "offline",
+    "sourceDoc": "atiende readme.md",
+    "lastVerified": "2026-10-29",
+    "lastUpdated": "2026-10-29",
+    "featuredOnHome": true,
+    "proofPoints": [
+      { "value": "3", "label": "canales de mensajería de Meta" },
+      { "value": "295", "label": "tests en 40 archivos" },
+      { "value": "~30 %", "label": "menor costo de LLM en benchmarks del proyecto" }
+    ],
+    "tech": ["NestJS", "TypeScript", "PostgreSQL", "pgvector", "Prisma", "BullMQ", "Redis", "APIs de Meta", "Groq", "OpenAI", "Docker"],
+    "techTags": {
+      "Backend": ["NestJS 11", "TypeScript", "Arquitectura hexagonal"],
+      "Datos": ["PostgreSQL 16", "pgvector", "Prisma 6"],
+      "IA": ["RAG", "Tool use", "Adaptadores LLM", "Caché exacta y semántica"],
+      "Fiabilidad": ["BullMQ", "Redis", "Circuit breaker", "AES-256-GCM"]
+    },
+    "features": [
+      "Pipeline entrante compartido para WhatsApp, Instagram DM y Messenger",
+      "Recuperación del catálogo con RAG y respuestas aisladas por negocio",
+      "Creación conversacional de órdenes y escalación humana",
+      "Adaptadores de proveedores con circuit breaker y fallback",
+      "Caché de prompt, exacta y semántica",
+      "Credenciales cifradas por negocio y canal"
+    ],
+    "repositoryVisibility": "private",
+    "companyName": "LumenxLabs — construido y utilizado por mi propia empresa",
+    "role": "Team Lead y desarrollador Full-Stack construyendo sistemas de IA aplicada",
+    "achievements": [
+      "Integración de tres canales sobre un único pipeline de IA",
+      "Escalación humana multicanal y dashboard unificado",
+      "Validación del proyecto con 295 tests",
+      "Reducción aproximada del 30 % en el costo por conversación en benchmarks del proyecto"
+    ],
+    "caseStudy": {
+      "problem": "Las pequeñas empresas pierden ventas cuando no responden a tiempo en sus canales de mensajería. Los bots de respuestas fijas no manejan conversaciones naturales y depender de un solo proveedor de IA aumenta el costo y el riesgo operativo.",
+      "solution": "Diseñé Atiende como una capa hexagonal de orquestación entre canales, herramientas del negocio y proveedores de IA. Los mensajes se persisten antes de encolarse, se procesan de forma asíncrona y pasan por adaptadores de canal y modelo. Las herramientas de catálogo, órdenes y escalación basan la conversación en datos reales, mientras el caché reduce llamadas repetidas.",
+      "results": [
+        "Tres integraciones operativas: WhatsApp, Instagram DM y Facebook Messenger.",
+        "Pipeline compartido de persistencia previa a la cola, deduplicación e idempotencia.",
+        "295 tests en 40 archivos para los flujos principales.",
+        "Aproximadamente 30 % menos costo por conversación en benchmarks del proyecto con caché de prompt, exacta y semántica."
+      ],
+      "keyLearnings": [
+        "El comportamiento portable pertenece a un puerto; los detalles del proveedor pertenecen a su adaptador.",
+        "Persistir antes del procesamiento asíncrono es más importante que hacer esperar al modelo dentro del webhook.",
+        "El caché semántico necesita umbrales conservadores, aislamiento por negocio y reglas de bypass para datos privados o acciones con estado."
+      ],
+      "challenges": [
+        "Normalizar contratos distintos de Meta sin filtrar lógica específica del canal al núcleo.",
+        "Manejar diferencias de tool calling y parámetros entre proveedores.",
+        "Reducir riesgos de caché relacionados con datos personales, precios y herramientas que modifican estado."
+      ],
+      "architecture": [
+        "Webhook de Meta → verificación, persistencia y deduplicación",
+        "BullMQ → procesamiento asíncrono del mensaje entrante",
+        "Orquestación del agente → catálogo, órdenes, conocimiento y escalación",
+        "Router LLM → proveedor principal, circuit breaker y fallback",
+        "Adaptador de canal → entrega de respuesta y escalación al dashboard"
+      ],
+      "decisions": [
+        { "title": "Fronteras hexagonales", "description": "Los canales y modelos son adaptadores intercambiables; la lógica del negocio no depende de SDKs externos." },
+        { "title": "Persistir antes de encolar", "description": "El webhook responde rápido mientras el estado durable y la idempotencia protegen el flujo asíncrono." },
+        { "title": "Caché como feature de producto", "description": "Las cachés exacta y semántica complementan el prompt cache, con aislamiento por negocio y protecciones para conversaciones con estado." },
+        { "title": "Escalación humana", "description": "El agente entrega la conversación a una persona, que responde desde el mismo dashboard multicanal." }
+      ],
+      "limitations": [
+        "Temporalmente offline tras retirar el servidor físico; el caso de estudio sigue disponible, pero no se anuncia una demo activa.",
+        "El onboarding mediante OAuth de Meta y los tokens de larga duración siguen en el roadmap.",
+        "La reducción de costo procede de benchmarks del proyecto, no de un estudio público de producción con clientes."
+      ]
+    }
+  },
+  {
+    "id": "cv-harness",
+    "slug": "cv-harness",
+    "title": "CV Harness — Búsqueda de Empleo Event-Driven",
+    "description": "Pipeline event-driven que recolecta vacantes, evalúa el encaje con IA y similitud semántica, genera hojas de vida y cartas personalizadas y mide compatibilidad ATS con un score determinístico.",
+    "shortDescription": "Pipeline Rust + NestJS para match laboral con IA y CV compatibles con ATS",
+    "category": "featured",
+    "status": "deployed",
+    "availability": "not-public",
+    "sourceDoc": "cv-harness.md",
+    "lastVerified": "2026-10-29",
+    "lastUpdated": "2026-10-29",
+    "featuredOnHome": true,
+    "proofPoints": [
+      { "value": "7", "label": "etapas de procesamiento por eventos" },
+      { "value": "188", "label": "tests de API documentados" },
+      { "value": "65/35", "label": "combinación de match IA y semántico" }
+    ],
+    "tech": ["NestJS", "Rust", "TypeScript", "PostgreSQL", "pgvector", "Redis Streams", "BullMQ", "Next.js", "Prisma", "DeepSeek", "OpenAI", "Docker"],
+    "techTags": {
+      "Orquestación": ["NestJS 11", "BullMQ", "Redis Streams"],
+      "Worker": ["Rust", "tokio", "reqwest", "scraper"],
+      "IA y datos": ["pgvector", "Match híbrido", "DeepSeek", "Embeddings de OpenAI"],
+      "Frontend": ["Next.js", "@react-pdf/renderer"]
+    },
+    "features": [
+      "Fuentes de vacantes y recetas de selectores configurables",
+      "Scraper Rust stateless conectado mediante Redis Streams",
+      "Match híbrido entre perfil, IA y pgvector",
+      "Score ATS determinístico y explicable",
+      "Generación de hoja de vida y carta personalizadas",
+      "Edición en dashboard, preparación de entrevistas y notificaciones"
+    ],
+    "repositoryVisibility": "public",
+    "githubUrl": "https://github.com/Artag-Chris/CV-Harness",
+    "githubRepo": "Artag-Chris/CV-Harness",
+    "role": "AI Engineer y desarrollador Full-Stack — desarrollador único",
+    "achievements": [
+      "Pipeline idempotente entre NestJS y Rust",
+      "188 tests de API documentados, además de tests del scraper Rust",
+      "Fixture offline para verificación end-to-end",
+      "Verificador ATS determinístico que detecta regresiones de texto en PDF"
+    ],
+    "caseStudy": {
+      "problem": "Buscar un rol técnico implica leer vacantes, juzgar el encaje y reescribir la hoja de vida repetidamente. Automatizar ese flujo exige extracción estructurada, scoring reproducible y resiliencia cuando falla una fuente o un proveedor de IA.",
+      "solution": "Construí un pipeline event-driven de siete etapas. BullMQ despacha trabajo, un worker Rust obtiene las vacantes y NestJS las valida y normaliza. Cada perfil recibe su propio resultado de match. La extracción con IA se combina con similitud pgvector, mientras la generación del CV y las comprobaciones ATS permanecen separadas y revisables.",
+      "results": [
+        "Siete etapas idempotentes desde el despacho hasta la notificación en dashboard.",
+        "188 tests de API documentados, tests de Rust y fixture E2E offline.",
+        "Score ATS reproducible basado en keywords, estructura, contacto y formato.",
+        "Hojas de vida y cartas con texto seleccionable generadas en el navegador, sin Chromium en el servidor."
+      ],
+      "keyLearnings": [
+        "Los job IDs determinísticos y consumidores idempotentes hacen recuperable un pipeline de IA.",
+        "Las facetas canónicas son más fiables que filtrar texto libre de las vacantes.",
+        "Un verificador determinístico supera a una estimación de LLM para reglas documentales reproducibles."
+      ],
+      "challenges": [
+        "Mantener NestJS y Rust independientes conservando un contrato de mensajería fiable.",
+        "Deduplicar la misma vacante entre portales sin borrar registros potencialmente útiles.",
+        "Detectar estilos de PDF que rompen la extracción de texto y el reconocimiento de secciones ATS."
+      ],
+      "architecture": [
+        "Scheduler BullMQ → despacho de fuentes pendientes",
+        "Redis Streams → puente de solicitudes y resultados con el scraper Rust",
+        "Ingesta NestJS → validación y deduplicación no destructiva",
+        "Normalización y match → campos estructurados con IA y similitud pgvector",
+        "CV y notificación → documentos editables y bandeja del dashboard"
+      ],
+      "decisions": [
+        { "title": "Event-driven de punta a punta", "description": "Cada etapa tiene cola idempotente, job IDs determinísticos, reintentos y recuperación en lugar de un único fallo síncrono." },
+        { "title": "Match híbrido", "description": "El score combina análisis de IA y similitud semántica contra la hoja de vida activa, sin depender de una sola señal." },
+        { "title": "Comprobaciones ATS determinísticas", "description": "Keywords, estructura, contacto y formato generan un score explicable que puede someterse a pruebas de regresión." },
+        { "title": "APIs oficiales antes que bypasses", "description": "Cuando un portal presenta un challenge WAF, la vía preferida es su API/RSS oficial o la entrada manual de la vacante." }
+      ],
+      "limitations": [
+        "El dashboard no está expuesto como demo pública.",
+        "El aislamiento de perfiles por usuario está diseñado, pero figura como pendiente en el proyecto fuente.",
+        "Algunas fuentes no permiten automatización y requieren APIs oficiales o entrada manual."
+      ]
+    }
+  },
+  {
+    "id": "social-harness",
+    "slug": "social-harness",
+    "title": "Social Harness — Coach de IA con Control Humano",
+    "description": "Coach de redes sociales event-driven que recolecta señales de tendencia, las evalúa para cada perfil y genera ideas, calendario y borradores bajo demanda. La IA nunca publica por su cuenta.",
+    "shortDescription": "De tendencias a calendario con IA y control editorial humano",
+    "category": "featured",
+    "status": "validated",
+    "availability": "not-public",
+    "sourceDoc": "docs/portfolio/social-harness.md",
+    "lastVerified": "2026-10-29",
+    "lastUpdated": "2026-10-29",
+    "featuredOnHome": false,
+    "proofPoints": [
+      { "value": "4", "label": "redes sociales soportadas" },
+      { "value": "5", "label": "tipos configurables de fuentes" },
+      { "value": "1", "label": "llamada IA agrupada por perfil y ciclo" }
+    ],
+    "tech": ["NestJS", "TypeScript", "BullMQ", "Redis", "PostgreSQL", "pgvector", "Prisma", "Next.js", "DeepSeek", "Groq", "Docker"],
+    "techTags": {
+      "Pipeline": ["NestJS", "BullMQ", "Redis"],
+      "Datos": ["PostgreSQL", "pgvector", "Prisma"],
+      "IA": ["DeepSeek", "Fallback Groq", "Mock determinístico"],
+      "Producto": ["Next.js", "Human-in-the-loop", "Registro de consumo"]
+    },
+    "features": [
+      "Perfiles múltiples con cuentas y objetivos medibles",
+      "Cinco tipos configurables de fuentes de tendencia",
+      "Score de relevancia y explicaciones por perfil",
+      "Ideas de contenido, calendario y borradores bajo demanda",
+      "Análisis de rendimiento manual y por CSV",
+      "Registro de consumo de IA y frenos de costo por perfil"
+    ],
+    "repositoryVisibility": "private",
+    "role": "AI Engineer y desarrollador Full-Stack — desarrollador único",
+    "achievements": [
+      "Diseño de pipeline multiusuario desde señales hasta contenido",
+      "Frenos de costo determinísticos antes de llamar a la IA",
+      "Publicación y generación costosa bajo control humano explícito",
+      "Catálogos y adaptadores para extender redes, formatos y fuentes"
+    ],
+    "caseStudy": {
+      "problem": "Planificar contenido suele implicar revisar tendencias manualmente, adivinar formatos y publicar sin una conexión clara con los objetivos del perfil. Automatizarlo todo puede reducir trabajo, pero también eliminar la voz humana que la cuenta necesita.",
+      "solution": "Diseñé un pipeline que recolecta señales de fuentes configurables, las deduplica y calcula su relevancia por perfil. Un prefiltro determinístico se ejecuta antes de una llamada de IA agrupada por perfil. Las ideas y el calendario surgen de esa evidencia; los borradores y reportes requieren una acción explícita del usuario.",
+      "results": [
+        "Cuatro redes objetivo y cinco tipos de fuente en un pipeline compartido.",
+        "Relevancia específica por perfil en lugar de un feed genérico de tendencias.",
+        "Una llamada de IA agrupada por perfil y ciclo después del prefiltro.",
+        "Sin publicación automática: el control editorial permanece en el usuario."
+      ],
+      "keyLearnings": [
+        "Human-in-the-loop es un requisito de producto cuando importa la autenticidad.",
+        "Los controles de costo funcionan mejor cuando se aplican antes de llamar al modelo.",
+        "Un flujo manual compartido permite continuar cuando no existe una integración oficial disponible."
+      ],
+      "challenges": [
+        "Evaluar la misma tendencia de forma distinta según perfil y objetivos.",
+        "Evitar señales duplicadas sin perder la capacidad de revertir falsos positivos.",
+        "Soportar diferencias de redes y formatos sin migraciones repetidas de base de datos."
+      ],
+      "architecture": [
+        "APIs oficiales, feeds, páginas públicas y entrada manual → adaptadores de fuente",
+        "Ingesta → URLs canónicas, fingerprints de contenido y deduplicación",
+        "Prefiltro determinístico → relevancia y frenos de costo por perfil",
+        "Análisis IA agrupado → ideas, calendario y razones explicables",
+        "Acción del usuario → borrador, reporte de rendimiento o publicación externa"
+      ],
+      "decisions": [
+        { "title": "Sin publicación automática", "description": "El sistema asesora y redacta, pero una persona decide qué aparece en la cuenta." },
+        { "title": "Frenos de costo antes de generar", "description": "Filtrado gratuito, umbrales de relevancia y batching limitan el gasto antes de las operaciones costosas." },
+        { "title": "Multiusuario desde el inicio", "description": "Los perfiles se asocian a identificadores de propietario y negocio, sin posponer la autorización a una refactorización futura." },
+        { "title": "Catálogos antes que enums rígidos", "description": "Las redes y formatos evolucionan mediante configuración, sin migraciones de base de datos." }
+      ],
+      "limitations": [
+        "La verificación E2E en el servidor sigue pendiente.",
+        "Las métricas de rendimiento se cargan manualmente o por CSV mientras se incorporan conectores oficiales.",
+        "No existe una demo pública ni una afirmación medida de crecimiento de audiencia."
+      ]
+    }
+  },
+  {
+    "id": "doc-harness",
+    "slug": "doc-harness",
+    "title": "Doc Harness — Edición Documental Estructurada con IA",
+    "description": "Sistema que reescribe, anonimiza, convierte y genera archivos Word, PDF y Excel mediante una representación estructurada editable, evitando llamadas repetidas a la IA.",
+    "shortDescription": "Flujos documentales privados con contenido intermedio editable",
+    "category": "featured",
+    "status": "validated",
+    "availability": "not-public",
+    "sourceDoc": "docs/portfolio/doc-harness.md",
+    "lastVerified": "2026-10-29",
+    "lastUpdated": "2026-10-29",
+    "featuredOnHome": false,
+    "proofPoints": [
+      { "value": "6", "label": "formatos de documento de entrada" },
+      { "value": "3", "label": "formatos reales de salida" },
+      { "value": "17/17", "label": "comprobaciones E2E en modo mock determinístico" }
+    ],
+    "tech": ["NestJS", "TypeScript", "Prisma", "BullMQ", "Redis", "Next.js", "DeepSeek", "Groq", "pdfkit", "docx", "exceljs"],
+    "techTags": {
+      "Backend": ["NestJS", "Prisma", "BullMQ"],
+      "Extracción": ["PDF", "DOCX", "XLSX", "CSV", "TXT", "Markdown"],
+      "Renderizado": ["pdfkit", "docx", "exceljs"],
+      "IA": ["DeepSeek", "Fallback Groq", "Mock determinístico"]
+    },
+    "features": [
+      "Reescritura, mejora y generación desde plantillas",
+      "Anonimización de datos personales con aprobación humana",
+      "Bloques intermedios editables para títulos, párrafos, listas y tablas",
+      "Renderizado DOCX, PDF y XLSX sin otra llamada a la IA",
+      "Catálogos para ICONTEC, APA 7, IEEE y estilos propios",
+      "Abstracción de almacenamiento local preparada para otros drivers"
+    ],
+    "repositoryVisibility": "private",
+    "role": "AI Engineer y desarrollador Full-Stack — desarrollador único",
+    "achievements": [
+      "Diseño de modelo de contenido documental neutral al formato",
+      "Separación entre transformación de IA y renderizado determinístico",
+      "17/17 comprobaciones E2E del stack en modo mock",
+      "Anonimización bajo aprobación humana explícita"
+    ],
+    "caseStudy": {
+      "problem": "Transformar documentos consistentemente entre PDF, Word y Excel es difícil. Muchas herramientas exigen cuentas externas y los flujos ingenuos de IA reenvían el documento completo incluso cuando el usuario solo quiere editarlo o exportarlo.",
+      "solution": "Construí extractores que normalizan documentos en una estructura intermedia editable. La IA transforma esa estructura una vez, el usuario la revisa y edita, y renderizadores dedicados la exportan a DOCX, PDF o XLSX sin otra llamada al modelo. La anonimización es un flujo separado de detección, aprobación y reemplazo literal.",
+      "results": [
+        "Seis formatos de entrada y tres de salida mediante un único modelo intermedio.",
+        "Edición por bloques y nuevo renderizado sin consumo adicional de IA.",
+        "Diecisiete de diecisiete comprobaciones E2E contra el stack real en modo mock determinístico.",
+        "Once tests de backend documentados en el proyecto fuente."
+      ],
+      "keyLearnings": [
+        "Una representación intermedia estructurada separa la flexibilidad de la IA de la salida determinística.",
+        "La aprobación humana es más segura que permitir que el modelo anonimice silenciosamente.",
+        "El renderizado y la transformación de IA deben escalar y fallar de forma independiente."
+      ],
+      "challenges": [
+        "Normalizar formatos materialmente distintos sin suponer que tienen la misma semántica visual.",
+        "Conservar edición útil mientras se soportan múltiples renderizadores.",
+        "Hacer que la ausencia de configuración de IA produzca un modo de prueba explícito, no un éxito ficticio."
+      ],
+      "architecture": [
+        "Carga → adaptador extractor según formato",
+        "Contenido JSONB normalizado → bloques editables o contenido de libro",
+        "IA o mock determinístico → transformación solicitada",
+        "Revisión humana → edición por bloques y aprobación de anonimización",
+        "Adaptador de renderizado → descarga DOCX, PDF o XLSX"
+      ],
+      "decisions": [
+        { "title": "Contenido intermedio estructurado", "description": "Editar y exportar reutiliza el documento normalizado en lugar de repetir la transformación de IA." },
+        { "title": "Anonimización determinística", "description": "La IA propone entidades, el usuario las aprueba y el reemplazo es una operación literal." },
+        { "title": "Renderizadores ligeros", "description": "pdfkit, docx y exceljs evitan Chromium y aíslan cada formato de salida detrás de un puerto." },
+        { "title": "Fallos explícitos", "description": "El modo mock está separado del proveedor real para que una prueba sin llaves no se confunda con validación de producción." }
+      ],
+      "limitations": [
+        "Falta validar la generación con el proveedor real de DeepSeek.",
+        "El resultado 17/17 corresponde al modo mock determinístico, no a todas las salidas posibles del modelo real.",
+        "No se anuncia una demo pública ni fidelidad visual universal."
+      ]
+    }
+  },
+  {
+    "id": "whatsapp-automation-dual-deployment",
+    "slug": "whatsapp-operations-platform",
+    "title": "Plataforma Operativa de WhatsApp",
+    "description": "Plataforma de atención en tiempo real para empresas del Eje Cafetero colombiano, creada para evitar conversaciones perdidas, coordinar agentes y manejar los límites de Meta.",
+    "shortDescription": "Operación de WhatsApp en tiempo real con Redis y WebSockets",
+    "category": "client",
+    "status": "in-use",
+    "availability": "not-public",
+    "lastUpdated": "2026-10-29",
+    "featuredOnHome": false,
+    "proofPoints": [
+      { "value": "1.000+", "label": "mensajes diarios" },
+      { "value": "5", "label": "agentes concurrentes por empresa" },
+      { "value": "5–15 min", "label": "tiempo de respuesta reportado" }
+    ],
+    "gallery": ["/whatsapp flujo.png", "/visual.png"],
+    "youtubeUrl": "https://www.youtube.com/watch?v=-ofLY0GiPCQ",
+    "youtubeEmbedId": "-ofLY0GiPCQ",
+    "tech": ["Node.js", "TypeScript", "React", "MySQL", "WebSockets", "Redis", "WhatsApp Business API", "Docker", "PM2"],
+    "features": [
+      "Puente en tiempo real entre webhooks de Meta y dashboard de agentes",
+      "Asignación atómica de chats con Redis",
+      "Persistencia de conversaciones en MySQL",
+      "Colas de rate limit con reintentos y backoff",
+      "Coordinación multiagente sin doble asignación"
+    ],
+    "repositoryVisibility": "private",
+    "companyName": "Empresas del Eje Cafetero colombiano",
+    "role": "Arquitecto de solución y desarrollador líder — desarrollador único",
+    "achievements": [
+      "Sustitución de conversaciones perdidas por persistencia durable",
+      "Reducción de tiempos reportados de más de 24 horas a minutos",
+      "Soporte de más de 1.000 mensajes diarios con cinco agentes concurrentes"
+    ],
+    "startDate": "2024-01",
+    "endDate": "2024-06",
+    "caseStudy": {
+      "problem": "Dos empresas perdían conversaciones de WhatsApp, respondían después de más de 24 horas y asignaban el mismo chat a varios agentes. Su flujo también manejaba mal los límites de Meta.",
+      "solution": "Construí un puente con Node.js y TypeScript entre los webhooks de Meta y un dashboard React. Redis se convirtió en la capa de coordinación para asignación atómica, MySQL persistió las conversaciones y los reintentos en cola manejaron los límites sin bloquear las respuestas en tiempo real.",
+      "results": [
+        "Más de 1.000 mensajes procesados diariamente.",
+        "Cinco agentes concurrentes por empresa con asignación sin conflictos.",
+        "Tiempos de respuesta reportados reducidos de más de 24 horas a aproximadamente 5–15 minutos."
+      ],
+      "keyLearnings": [
+        "Redis puede coordinar propiedad en tiempo real, no solamente cachear lecturas.",
+        "La asignación atómica es esencial cuando varios agentes actúan sobre el mismo evento.",
+        "El contexto y la experiencia del agente importan tanto como la entrega del mensaje."
+      ],
+      "challenges": [
+        "Evitar asignaciones duplicadas bajo acciones concurrentes de agentes.",
+        "Manejar ráfagas de mensajes y límites del proveedor.",
+        "Equilibrar persistencia durable con actualizaciones rápidas en tiempo real."
+      ],
+      "architecture": [
+        "Webhook de Meta → ingesta Node.js",
+        "MySQL → historial durable de conversaciones",
+        "Redis → asignación atómica y coordinación de estado reciente",
+        "WebSockets → actualizaciones en tiempo real al dashboard",
+        "Colas de prioridad → reintentos y backoff según proveedor"
+      ],
+      "decisions": [
+        { "title": "Redis como estado de coordinación", "description": "Las operaciones atómicas impiden que dos agentes tomen la misma conversación." },
+        { "title": "Dashboard en tiempo real", "description": "WebSockets mantiene visibles la asignación y los mensajes para todos los agentes." },
+        { "title": "Colas según proveedor", "description": "Reintentos y backoff manejan límites sin descartar mensajes salientes." }
+      ],
+      "limitations": [
+        "El dashboard de producción y el código fuente son privados.",
+        "Los resultados son métricas reportadas del proyecto, no un benchmark público auditado independientemente."
+      ]
+    }
+  },
+  {
+    "id": "portfolio-2024",
+    "slug": "artag-portfolio",
+    "title": "Artag Dev — Portfolio Personal",
+    "description": "Mi sitio personal y portfolio de ingeniería bilingüe, construido con Next.js, next-intl, TypeScript, Tailwind y Framer Motion.",
+    "shortDescription": "Portfolio Next.js bilingüe con casos de estudio de IA basados en datos",
+    "category": "personal",
+    "status": "live",
+    "availability": "online",
+    "sourceDoc": "README.md",
+    "lastVerified": "2026-10-29",
+    "lastUpdated": "2026-10-29",
+    "featuredOnHome": false,
+    "proofPoints": [
+      { "value": "2", "label": "idiomas con metadata localizada" },
+      { "value": "4", "label": "casos de estudio de IA aplicada" },
+      { "value": "100 %", "label": "contenido estático en los casos" }
+    ],
+    "thumbnail": "/firstScreen.png",
+    "gallery": ["/firstScreen.png", "/secondScreen.png", "/thirdScreen.png"],
+    "tech": ["Next.js", "React", "TypeScript", "next-intl", "Tailwind CSS", "Framer Motion"],
+    "features": [
+      "Rutas en inglés y español con next-intl",
+      "Casos de estudio estáticos e indexables",
+      "Hero con video y motion responsive",
+      "Catálogo de proyectos basado en datos",
+      "Pipeline de contacto y analítica consciente de privacidad"
+    ],
+    "liveUrl": "https://www.artagdev.com.co",
+    "githubUrl": "https://github.com/Artag-Chris/Artagsite",
+    "githubRepo": "Artag-Chris/Artagsite",
+    "repositoryVisibility": "public",
+    "role": "Diseño y desarrollo Full-Stack",
+    "achievements": [
+      "Arquitectura bilingüe de componentes y contenido",
+      "Rutas indexables de casos de estudio desde datos compartidos",
+      "Identidad visual expresiva junto a contenido estático"
+    ],
+    "startDate": "2024-01",
+    "caseStudy": {
+      "problem": "Un portfolio personal debe comunicar profundidad técnica y personalidad. El contenido valioso atrapado dentro de modales cliente es difícil de compartir, indexar y medir.",
+      "solution": "Convertí el sitio en un portfolio bilingüe basado en datos, con rutas estáticas de proyectos, metadata localizada y una plantilla reutilizable de casos de estudio, conservando el video y la identidad motion originales.",
+      "results": [
+        "Dos variantes localizadas del sitio.",
+        "Cuatro sistemas de IA aplicada con URLs propias de caso de estudio.",
+        "Datos compartidos para tarjetas, metadata y entradas del sitemap."
+      ],
+      "keyLearnings": [
+        "Los casos de estudio funcionan mejor como páginas estables que como contenido oculto en modales.",
+        "El contenido estructurado facilita mantener traducciones y validaciones.",
+        "La identidad visual y el contenido rastreable no tienen que estar en conflicto."
+      ],
+      "challenges": [
+        "Reorganizar contenido heredado sin eliminar las secciones personales.",
+        "Evitar que animaciones y scripts externos oculten el contenido principal.",
+        "Hacer explícita la disponibilidad y validación de cada proyecto."
+      ],
+      "architecture": [
+        "JSON localizado de proyectos → catálogo tipado compartido",
+        "Next.js App Router → páginas estáticas de índice y detalle",
+        "next-intl → contenido en inglés y español",
+        "Metadata y sitemap → señales de búsqueda por proyecto",
+        "GTM → eventos profesionales de conversión enfocados"
+      ],
+      "decisions": [
+        { "title": "URLs estables de proyectos", "description": "Cada proyecto importante tiene un caso de estudio compartible e indexable en lugar de existir solo en un modal." },
+        { "title": "Plantillas basadas en datos", "description": "Tarjetas, detalles, metadata y sitemap consumen los mismos registros localizados." },
+        { "title": "Continuidad de marca", "description": "El video, la tipografía y los colores permanecen mientras la jerarquía se vuelve más profesional." }
+      ],
+      "limitations": [
+        "Los videos y capturas reales adicionales se añadirán cuando estén disponibles.",
+        "La analítica necesita revisión continua de bots y tráfico interno antes de usarse como línea base de negocio limpia."
+      ]
+    }
+  }
+]

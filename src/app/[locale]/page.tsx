@@ -33,7 +33,7 @@ export default function Home() {
            <FAQ />
            <Testimonials /> 
            <Contact />
-           <N8nChat {...N8N_CHAT_CONFIG} />
+           {N8N_CHAT_CONFIG.enabled && <N8nChat {...N8N_CHAT_CONFIG} />}
         </main>
         <FooterMain />
       </div>

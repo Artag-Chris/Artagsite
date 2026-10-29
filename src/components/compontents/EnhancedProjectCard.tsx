@@ -27,16 +27,22 @@ export const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({ projec
     featured: t("featured"),
   }
 
-  const statusColors = {
-    live: "text-green-400 bg-green-500/10",
-    "in-progress": "text-yellow-400 bg-yellow-500/10",
-    archived: "text-gray-400 bg-gray-500/10",
+  const statusColors: Record<ProjectProps["status"], string> = {
+    live: "text-cyan-400 bg-cyan-500/10",
+    "in-progress": "text-amber-400 bg-amber-500/10",
+    archived: "text-zinc-400 bg-white/5",
+    "in-use": "text-cyan-400 bg-cyan-500/10",
+    deployed: "text-cyan-400 bg-cyan-500/10",
+    validated: "text-indigo-400 bg-indigo-500/10",
   }
 
-  const statusLabels = {
+  const statusLabels: Record<ProjectProps["status"], string> = {
     live: t("live"),
     "in-progress": t("inProgress"),
     archived: t("archived"),
+    "in-use": t("live"),
+    deployed: t("live"),
+    validated: t("inProgress"),
   }
 
   return (
