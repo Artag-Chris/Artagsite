@@ -1,12 +1,15 @@
 'use client'
 
 import { useViewMode } from '@/contexts/ViewModeContext'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
+import { Link } from '@/i18n/navigation'
 import { personalData } from '@/data/personal'
 
 export function PersonalExperience() {
   const { viewMode } = useViewMode()
   const t = useTranslations('personal')
+  const locale = useLocale()
+  const isEs = locale === 'es'
 
   if (viewMode !== 'personal') return null
 
@@ -84,6 +87,17 @@ export function PersonalExperience() {
               ))}
             </ul>
           </div>
+        </div>
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <Link href="/about-me" className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-300 hover:text-white hover:border-amber-500/30 transition-colors">
+            {isEs ? 'Mi historia' : 'My story'}
+          </Link>
+          <Link href="/favorites" className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-300 hover:text-white hover:border-amber-500/30 transition-colors">
+            {isEs ? 'Juegos' : 'Games'}
+          </Link>
+          <Link href="/my-faith" className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-300 hover:text-white hover:border-amber-500/30 transition-colors">
+            {isEs ? 'Mi fe' : 'My faith'}
+          </Link>
         </div>
       </div>
     </section>

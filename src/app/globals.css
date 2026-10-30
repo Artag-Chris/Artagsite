@@ -6,6 +6,21 @@ html {
   scroll-behavior: smooth;
 }
 
+:root {
+  --mode-accent: #22d3ee;
+  --mode-accent-soft: rgba(34, 211, 238, 0.12);
+}
+
+html[data-mode='b2b'] {
+  --mode-accent: #10b981;
+  --mode-accent-soft: rgba(16, 185, 129, 0.12);
+}
+
+html[data-mode='personal'] {
+  --mode-accent: #a855f7;
+  --mode-accent-soft: rgba(168, 85, 247, 0.12);
+}
+
 @layer base {
   :root {
     /* Typography */

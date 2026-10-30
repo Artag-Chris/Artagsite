@@ -7,6 +7,8 @@ import { notFound } from 'next/navigation'
 import ThemeProvider from '@/components/theme-provider'
 import { ViewModeProvider } from '@/contexts/ViewModeContext'
 import { ModeMetaUpdater } from '@/components/ModeMetaUpdater'
+import { ModeThemeApplier } from '@/components/ModeThemeApplier'
+import { CosmicBar } from '@/components/CosmicBar'
 import { GoogleTagManager } from '@/components/google/GoogleTagManager'
 import GTMPageView from '@/components/google/GTMPageView'
 import { MetaPixel } from '@/components/meta/MetaPixel'
@@ -224,6 +226,8 @@ export default async function LocaleLayout({
           <ThemeProvider>
             <ViewModeProvider>
               <ModeMetaUpdater />
+              <ModeThemeApplier />
+              <CosmicBar />
               <SpeedInsights />
               <GoogleTagManager />
               <GTMPageView />

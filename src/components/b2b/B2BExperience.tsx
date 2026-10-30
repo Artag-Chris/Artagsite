@@ -10,6 +10,7 @@ export function B2BExperience() {
   const { viewMode } = useViewMode()
   const locale = useLocale()
   const t = useTranslations('b2b')
+  const isEs = locale === 'es'
 
   if (viewMode !== 'b2b') return null
 
@@ -46,7 +47,9 @@ export function B2BExperience() {
               ))}
             </ul>
           </div>
-          <ROICalculator />
+          <div id="roi-calculator">
+            <ROICalculator />
+          </div>
         </div>
 
         <div className="mb-8">
@@ -81,6 +84,14 @@ export function B2BExperience() {
           >
             {t('cta')}
           </Link>
+          <a
+            href="https://wa.me/573205711428"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-3 inline-flex items-center gap-2 rounded-xl bg-cyan-500/10 px-5 py-3 text-sm font-medium text-cyan-200 transition-colors hover:bg-cyan-500/20 border border-cyan-500/30"
+          >
+            {isEs ? 'Contactar por WhatsApp' : 'Contact via WhatsApp'}
+          </a>
         </div>
       </div>
     </section>

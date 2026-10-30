@@ -1,311 +1,93 @@
 "use client"
 
-import Link from "next/link"
-import { Link as LocaleLink } from "@/i18n/navigation"
 import { useState, useEffect, useRef } from "react"
+import Link from "next/link"
 import { useTranslations, useLocale } from "next-intl"
+import { Link as LocaleLink } from "@/i18n/navigation"
 import { Button } from "@/components/ui/button"
-import { Download, Menu, X, User, Code2, Rocket, Mail, BookOpen, FolderGit2, FileText, FlaskConical } from "lucide-react"
+import { Download, Menu, X } from "lucide-react"
 import { handleResumeDownload } from "@/functions/handleResumenDownload"
-// removed unused import above (kept for reference)
+import LanguageSwitcher from "@/components/LanguageSwitcher"
 import { ViewModeSwitcher } from "@/components/ViewModeSwitcher"
 import { trackEvent } from "@/lib/analytics"
-import LanguageSwitcher from "@/components/LanguageSwitcher"
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger)
-}
-
-function HeaderMain() {
+function Headermain() {
   const t = useTranslations("nav")
   const locale = useLocale()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
   const headerRef = useRef<HTMLElement>(null)
-  const bottomNavRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    let scrollTicking = false
-
     const handleScroll = () => {
-      if (scrollTicking) return
-      scrollTicking = true
-      requestAnimationFrame(() => {
-        const shouldBeScrolled = window.scrollY > 100
-        setIsScrolled((prev) => {
-          if (prev === shouldBeScrolled) return prev
-          if (headerRef.current) {
-            gsap.to(headerRef.current, {
-              y: shouldBeScrolled ? -100 : 0,
-              opacity: shouldBeScrolled ? 0 : 1,
-              duration: 0.35,
-              ease: "power3.out",
-              overwrite: "auto",
-            })
-          }
-          if (bottomNavRef.current) {
-            gsap.to(bottomNavRef.current, {
-              y: shouldBeScrolled ? 0 : 100,
-              opacity: shouldBeScrolled ? 1 : 0,
-              duration: 0.35,
-              ease: "power3.out",
-              overwrite: "auto",
-            })
-          }
-          return shouldBeScrolled
-        })
-        scrollTicking = false
-      })
+      setIsScrolled(window.scrollY > 50)
     }
-
     window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-  const navLinks = [
-    { href: "#about", label: t("about"), icon: User },
-    { href: "#skills", label: t("whatIDo"), icon: Code2 },
-    { href: "#projects", label: t("projects"), icon: Rocket },
-    { href: "#contact", label: t("letsTalk"), icon: Mail },
-  ]
-
-  const externalNavLinks = [
-    { href: "/projects", label: t("projects"), icon: FolderGit2 },
-    { href: "/engineering-notes", label: t("notes"), icon: FileText },
-    { href: "/labs", label: t("labs"), icon: FlaskConical },
-    { href: "/currentStudies", label: t("studies"), icon: BookOpen },
-  ]
 
   return (
     <>
       <header
         ref={headerRef}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
-          isScrolled ? "transform -translate-y-full opacity-0" : "transform translate-y-0 opacity-100"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
+          isScrolled ? "bg-black/90 backdrop-blur-xl border-b border-white/5" : "bg-transparent"
         }`}
       >
-        <div className="absolute inset-0 bg-black/80 backdrop-blur-xl"></div>
-        <div className="relative border-b border-white/5">
-          <div className="container mx-auto py-4 px-6 relative">
-            <nav className="flex items-center justify-between">
-              <Link href="/" className="text-xl font-bold tracking-tight group">
-                <span className="text-white font-bold" style={{ fontFamily: 'var(--font-display)' }}>
-                  Artag
-                </span>
-                <span className="text-zinc-500 font-medium ml-1 group-hover:text-zinc-300 transition-colors duration-300">
-                  Dev
-                </span>
-              </Link>
+        <div className="container mx-auto py-3 px-4 sm:px-6 flex items-center justify-between gap-3">
+          {/* Brand */}
+          <Link href="/" className="text-xl font-bold tracking-tight group shrink-0">
+            <span className="text-white font-bold" style={{ fontFamily: 'var(--font-display)' }}>
+              Artag
+            </span>
+            <span className="text-zinc-500 font-medium ml-1 group-hover:text-zinc-300 transition-colors duration-300">
+              Dev
+            </span>
+          </Link>
 
-              <div className="hidden md:flex items-center gap-1">
-                {navLinks.map((link) => {
-                   const IconComponent = link.icon
-                   return (
-                     <Link
-                       key={link.href}
-                       href={link.href}
-                       className="group relative flex items-center gap-2 text-zinc-500 hover:text-white transition-colors duration-200 py-2 px-4 rounded-lg hover:bg-white/5"
-                     >
-                       <IconComponent className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity duration-200" />
-                       <span className="text-sm font-medium">{link.label}</span>
-                     </Link>
-                   )
-                 })}
-                 {externalNavLinks.map((link) => {
-                   const IconComponent = link.icon
-                   return (
-                     <Link
-                       key={link.href}
-                       href={link.href}
-                       className="group relative flex items-center gap-2 text-zinc-500 hover:text-white transition-colors duration-200 py-2 px-4 rounded-lg hover:bg-white/5"
-                     >
-                       <IconComponent className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity duration-200" />
-                       <span className="text-sm font-medium">{link.label}</span>
-                     </Link>
-                   )
-                 })}
-              </div>
+          {/* Switcher + Language (desktop) */}
+          <div className="hidden md:flex items-center gap-3">
+            <ViewModeSwitcher />
+            <LanguageSwitcher className="inline-flex" />
+          </div>
 
-              <LanguageSwitcher className="hidden md:inline-flex mr-2" />
-
-              <ViewModeSwitcher />
-
-              <a
-                href="/resume.pdf"
-                download="Christian_Resume.pdf"
-                onClick={() =>
-                  trackEvent('cv_download', {
-                    location: 'header',
-                    locale,
-                    file_name: 'Christian_Resume.pdf',
-                  })
-                }
-                className="hidden md:flex items-center gap-2 text-zinc-500 hover:text-white transition-colors duration-200 px-4 py-2 rounded-lg text-sm border border-transparent hover:border-white/10 hover:bg-white/5"
-              >
-                <Download className="w-4 h-4" />
-                <span>{t("resume")}</span>
-              </a>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                className="md:hidden text-zinc-500 hover:text-white hover:bg-white/10 transition-colors duration-200 rounded-lg"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </Button>
-            </nav>
+          {/* Mobile: switcher + menu toggle */}
+          <div className="flex md:hidden items-center gap-2">
+            <ViewModeSwitcher />
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen((v) => !v)}
+              className="p-2 text-zinc-400 hover:text-white"
+              aria-label="Menu"
+            >
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile menu: language + resume */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-white/5 bg-black/95 backdrop-blur-xl px-4 py-4 space-y-3">
+            <div className="flex justify-center">
+              <LanguageSwitcher />
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                handleResumeDownload()
+                setIsMobileMenuOpen(false)
+              }}
+              className="w-full flex items-center justify-center gap-2 text-zinc-400 hover:text-white transition-colors duration-200 py-2 rounded-lg text-sm border border-white/10 hover:border-white/20"
+            >
+              <Download className="w-4 h-4" />
+              <span>{t("downloadResume")}</span>
+            </button>
+          </div>
+        )}
       </header>
-
-      {/* Mobile Menu */}
-      <div
-        className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
-          isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
-      >
-        <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setIsMobileMenuOpen(false)} />
-        <div
-          className={`absolute top-0 right-0 h-full w-72 bg-[#0a0a0a]/95 backdrop-blur-xl border-l border-white/5 shadow-2xl transform transition-all duration-300 ${
-            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-        >
-           <div className="p-6 pt-20">
-             <div className="flex flex-col gap-2">
-               {navLinks.map((link) => {
-                 const IconComponent = link.icon
-                 return (
-                   <Link
-                     key={link.href}
-                     href={link.href}
-                     className="flex items-center gap-3 text-zinc-400 hover:text-white transition-colors duration-200 py-3 px-4 rounded-lg hover:bg-white/5"
-                     onClick={() => setIsMobileMenuOpen(false)}
-                   >
-                     <IconComponent className="w-5 h-5" />
-                     <span className="font-medium">{link.label}</span>
-                   </Link>
-                 )
-               })}
-               {externalNavLinks.map((link) => {
-                 const IconComponent = link.icon
-                 return (
-                   <Link
-                     key={link.href}
-                     href={link.href}
-                     className="flex items-center gap-3 text-zinc-400 hover:text-white transition-colors duration-200 py-3 px-4 rounded-lg hover:bg-white/5"
-                     onClick={() => setIsMobileMenuOpen(false)}
-                   >
-                     <IconComponent className="w-5 h-5" />
-                     <span className="font-medium">{link.label}</span>
-                   </Link>
-                 )
-               })}
-               <Button
-                 variant="outline"
-                 className="flex items-center justify-center gap-2 border-white/10 text-zinc-400 hover:text-white hover:border-white/20 transition-colors duration-200 mt-4 py-3"
-                 onClick={() => {
-                   handleResumeDownload()
-                   setIsMobileMenuOpen(false)
-                 }}
-               >
-                 <Download className="w-4 h-4" />
-                 <span className="font-medium">{t("downloadResume")}</span>
-               </Button>
-
-               <div className="mt-3 flex justify-center">
-                 <LanguageSwitcher />
-               </div>
-             </div>
-           </div>
-        </div>
-      </div>
-
-      {/* Bottom Nav (on scroll) */}
-      <div
-        ref={bottomNavRef}
-        className={`fixed bottom-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
-          isScrolled ? "transform translate-y-0 opacity-100" : "transform translate-y-full opacity-0"
-        }`}
-      >
-        <div className="relative border-t border-white/5 bg-[#0a0a0a]/90 backdrop-blur-xl">
-          <div className="container mx-auto px-6 py-3">
-            <nav className="flex items-center justify-between">
-              <div className="text-lg font-bold cursor-pointer">
-                <span className="text-white font-bold" style={{ fontFamily: 'var(--font-display)' }}>A</span>
-                <span className="text-zinc-600 ml-1 font-medium">D</span>
-              </div>
-
-              <div className="hidden md:flex items-center gap-1">
-                {navLinks.map((link, index) => (
-                  <div key={link.href} className="flex items-center">
-                    <Link
-                      href={link.href}
-                      className="text-zinc-500 hover:text-white transition-colors duration-200 text-sm py-2 px-3 rounded-lg hover:bg-white/5 font-medium"
-                    >
-                      {link.label}
-                    </Link>
-                    {index < navLinks.length - 1 && (
-                      <div className="h-4 w-px bg-white/10 mx-1"></div>
-                    )}
-                  </div>
-                ))}
-                {externalNavLinks.map((link) => (
-                  <div key={link.href} className="flex items-center">
-                    <div className="h-4 w-px bg-white/10 mx-1"></div>
-                    <Link
-                      href={link.href}
-                      className="text-zinc-500 hover:text-white transition-colors duration-200 text-sm py-2 px-3 rounded-lg hover:bg-white/5 font-medium"
-                    >
-                      {link.label}
-                    </Link>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex md:hidden items-center gap-2">
-                {navLinks.map((link) => {
-                   const IconComponent = link.icon
-                   return (
-                     <Link
-                       key={link.href}
-                       href={link.href}
-                       className="text-zinc-500 hover:text-white transition-colors duration-200 text-xs flex flex-col items-center gap-1 py-1 px-2"
-                     >
-                       <IconComponent className="w-4 h-4" />
-                       <span className="font-medium">{link.label}</span>
-                     </Link>
-                   )
-                 })}
-              </div>
-
-              <a
-                href="/resume.pdf"
-                download="Christian_Resume.pdf"
-                onClick={() =>
-                  trackEvent('cv_download', {
-                    location: 'header_mobile',
-                    locale,
-                    file_name: 'Christian_Resume.pdf',
-                  })
-                }
-                className="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors duration-200 px-3 py-2 rounded-lg text-sm border border-transparent hover:border-white/10 hover:bg-white/5"
-              >
-                <Download className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">{t("resume")}</span>
-              </a>
-            </nav>
-          </div>
-        </div>
-      </div>
-
-      {/* Spacer for fixed header */}
-      <div className="h-16"></div>
     </>
   )
 }
 
-export default HeaderMain
+export default Headermain

@@ -26,11 +26,14 @@ export function ViewModeSwitcher() {
             role="tab"
             aria-selected={active}
             onClick={() => setViewMode(mode.key)}
-            className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
-              active
-                ? 'bg-cyan-500/15 text-cyan-200 border border-cyan-500/30'
-                : 'text-zinc-500 hover:text-zinc-200 border border-transparent'
+            className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors border ${
+              active ? 'text-white' : 'text-zinc-500 hover:text-zinc-200 border-transparent'
             }`}
+            style={
+              active
+                ? { backgroundColor: 'var(--mode-accent-soft)', borderColor: 'var(--mode-accent)', color: 'var(--mode-accent)' }
+                : undefined
+            }
           >
             {mode.label}
           </button>

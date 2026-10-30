@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
 import { projectsByLocale } from '@/data/proyectData'
 import { ArchitectureDiagram } from '@/components/labs/ArchitectureDiagram'
+import { PrivateServicesMap } from '@/components/labs/PrivateServicesMap'
 import { Link } from '@/i18n/navigation'
 
 const baseUrl = 'https://www.artagdev.com.co'
@@ -132,6 +133,33 @@ export default async function LabsPage({
             nodes={atiendeNodes}
           />
           <p className="mt-3 text-xs text-zinc-500">{t('privateNote')}</p>
+        </section>
+
+        <section className="mb-12 grid gap-4 sm:grid-cols-2">
+          <Link
+            href="/currentStudies"
+            className="group rounded-2xl border border-white/[0.07] bg-zinc-900/50 p-6 transition-colors hover:border-cyan-500/25"
+          >
+            <h3 className="mb-2 text-lg font-semibold text-white group-hover:text-cyan-200" style={{ fontFamily: 'var(--font-display)' }}>
+              {t('studiesTitle')}
+            </h3>
+            <p className="text-sm text-zinc-400">{t('studiesDescription')}</p>
+            <span className="mt-3 inline-block text-xs text-zinc-500">{t('studiesCta')} →</span>
+          </Link>
+          <Link
+            href="/privateservers"
+            className="group rounded-2xl border border-white/[0.07] bg-zinc-900/50 p-6 transition-colors hover:border-cyan-500/25"
+          >
+            <h3 className="mb-2 text-lg font-semibold text-white group-hover:text-cyan-200" style={{ fontFamily: 'var(--font-display)' }}>
+              {t('serversTitle')}
+            </h3>
+            <p className="text-sm text-zinc-400">{t('serversDescription')}</p>
+            <span className="mt-3 inline-block text-xs text-zinc-500">{t('serversCta')} →</span>
+          </Link>
+        </section>
+
+        <section className="mb-12">
+          <PrivateServicesMap title={t('privateMapTitle')} note={t('privateMapNote')} />
         </section>
 
         <section className="space-y-8">
