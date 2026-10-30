@@ -12,7 +12,7 @@ const staticRoutes = [
   { path: 'projects', lastModified: '2026-10-29', changeFrequency: 'weekly' as const, priority: 0.9 },
   { path: 'engineering-notes', lastModified: '2026-10-29', changeFrequency: 'weekly' as const, priority: 0.85 },
   { path: 'about-me', lastModified: '2026-09-29', changeFrequency: 'monthly' as const, priority: 0.8 },
-  { path: 'currentStudies', lastModified: '2026-09-21', changeFrequency: 'monthly' as const, priority: 0.7 },
+  { path: 'labs', lastModified: '2026-10-30', changeFrequency: 'monthly' as const, priority: 0.7 },
   { path: 'my-faith', lastModified: '2026-09-29', changeFrequency: 'monthly' as const, priority: 0.3 },
   { path: 'favorites', lastModified: '2026-09-29', changeFrequency: 'monthly' as const, priority: 0.3 },
   // /private-servers is intentionally excluded: it is public but noindex.

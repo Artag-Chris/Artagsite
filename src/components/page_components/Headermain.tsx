@@ -5,11 +5,12 @@ import { Link as LocaleLink } from "@/i18n/navigation"
 import { useState, useEffect, useRef } from "react"
 import { useTranslations, useLocale } from "next-intl"
 import { Button } from "@/components/ui/button"
-import { Download, Menu, X, User, Code2, Rocket, Mail, BookOpen, FolderGit2, FileText } from "lucide-react"
+import { Download, Menu, X, User, Code2, Rocket, Mail, BookOpen, FolderGit2, FileText, FlaskConical } from "lucide-react"
 import { handleResumeDownload } from "@/functions/handleResumenDownload"
 // removed unused import above (kept for reference)
-import LanguageSwitcher from "@/components/LanguageSwitcher"
+import { ViewModeSwitcher } from "@/components/ViewModeSwitcher"
 import { trackEvent } from "@/lib/analytics"
+import LanguageSwitcher from "@/components/LanguageSwitcher"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
@@ -74,6 +75,7 @@ function HeaderMain() {
   const externalNavLinks = [
     { href: "/projects", label: t("projects"), icon: FolderGit2 },
     { href: "/engineering-notes", label: t("notes"), icon: FileText },
+    { href: "/labs", label: t("labs"), icon: FlaskConical },
     { href: "/currentStudies", label: t("studies"), icon: BookOpen },
   ]
 
@@ -128,6 +130,8 @@ function HeaderMain() {
               </div>
 
               <LanguageSwitcher className="hidden md:inline-flex mr-2" />
+
+              <ViewModeSwitcher />
 
               <a
                 href="/resume.pdf"

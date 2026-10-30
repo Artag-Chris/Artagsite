@@ -1,6 +1,8 @@
 import dynamic from "next/dynamic"
 import HeaderMain from "@/components/page_components/Headermain";
 import Hero from "@/components/page_components/Hero";
+import { B2BExperience } from "@/components/b2b/B2BExperience";
+import { PersonalExperience } from "@/components/personal/PersonalExperience";
 import Proyects from "@/components/page_components/Proyects";
 import Skills from "@/components/page_components/Skills";
 import PageWrapper from "@/components/page-wrapper";
@@ -21,7 +23,11 @@ export default function Home() {
         <HeaderMain />
         <main className="w-full max-w-[100vw]">
           <Hero />
-          
+
+          <B2BExperience />
+
+          <PersonalExperience />
+
           {/* Smooth transition gradient */}
           <div className="relative h-32 bg-gradient-to-b from-black/50 via-black/30 to-transparent pointer-events-none" />
           

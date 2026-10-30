@@ -5,6 +5,8 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import ThemeProvider from '@/components/theme-provider'
+import { ViewModeProvider } from '@/contexts/ViewModeContext'
+import { ModeMetaUpdater } from '@/components/ModeMetaUpdater'
 import { GoogleTagManager } from '@/components/google/GoogleTagManager'
 import GTMPageView from '@/components/google/GTMPageView'
 import { MetaPixel } from '@/components/meta/MetaPixel'
@@ -220,12 +222,15 @@ export default async function LocaleLayout({
         />
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
-            <SpeedInsights />
-            <GoogleTagManager />
-            <GTMPageView />
-            <MetaPixel />
-            <TikTokPixel />
-            {children}
+            <ViewModeProvider>
+              <ModeMetaUpdater />
+              <SpeedInsights />
+              <GoogleTagManager />
+              <GTMPageView />
+              <MetaPixel />
+              <TikTokPixel />
+              {children}
+            </ViewModeProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

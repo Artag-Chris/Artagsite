@@ -7,6 +7,7 @@ export type AnalyticsEventName =
   | 'project_outbound_click'
   | 'cv_download'
   | 'contact_submitted'
+  | 'view_mode_changed'
 
 export interface SelectProjectParams {
   project_slug: string

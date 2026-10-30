@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { useTranslations, useLocale } from "next-intl"
+import { useViewMode } from "@/contexts/ViewModeContext"
 import { Link } from "@/i18n/navigation"
 import { Badge } from "@/components/ui/badge"
 import TypingAnimation from "../animations/typingAnimation"
@@ -17,6 +18,7 @@ import HeroTerminal from "../sub-sections/HeroTerminal"
 function Hero() {
   const t = useTranslations("hero")
   const locale = useLocale()
+  const { viewMode, setViewMode } = useViewMode()
   const videoContainerRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const isMobileRef = useRef(false)
@@ -212,7 +214,26 @@ function Hero() {
                   loop={true}
                 />
              </Badge>
-               <motion.h1
+               <div className="mb-4 flex flex-wrap gap-2">
+                  {(['b2b', 'dev', 'personal'] as const).map((mode) => {
+                    const active = viewMode === mode
+                    const label = mode === 'b2b' ? 'B2B' : mode === 'dev' ? 'Dev' : 'Personal'
+                    return (
+                      <button
+                        key={mode}
+                        onClick={() => setViewMode(mode)}
+                        className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
+                          active
+                            ? 'border-cyan-500/30 bg-cyan-500/10 text-cyan-200'
+                            : 'border-white/10 bg-white/[0.03] text-zinc-400 hover:text-zinc-200'
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    )
+                  })}
+                </div>
+<motion.h1
                 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 leading-[1.1]"
                 style={{
                   fontFamily: 'var(--font-display)',
