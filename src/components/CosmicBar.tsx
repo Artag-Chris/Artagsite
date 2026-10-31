@@ -48,7 +48,7 @@ export function CosmicBar() {
       : viewMode === 'dev'
       ? [
           { href: '/labs', label: isEs ? 'Laboratorio' : 'Labs', icon: <FlaskConical className="h-4 w-4" /> },
-          { href: '/privateservers', label: isEs ? 'Servidores' : 'Servers', icon: <Server className="h-4 w-4" /> },
+          { href: '/private-servers', label: isEs ? 'Servidores' : 'Servers', icon: <Server className="h-4 w-4" /> },
           { href: '/projects', label: isEs ? 'Ecosistema' : 'Ecosystem', icon: <Code2 className="h-4 w-4" /> },
         ]
       : [

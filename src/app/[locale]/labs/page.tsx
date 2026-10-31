@@ -147,7 +147,7 @@ export default async function LabsPage({
             <span className="mt-3 inline-block text-xs text-zinc-500">{t('studiesCta')} →</span>
           </Link>
           <Link
-            href="/privateservers"
+            href="/private-servers"
             className="group rounded-2xl border border-white/[0.07] bg-zinc-900/50 p-6 transition-colors hover:border-cyan-500/25"
           >
             <h3 className="mb-2 text-lg font-semibold text-white group-hover:text-cyan-200" style={{ fontFamily: 'var(--font-display)' }}>

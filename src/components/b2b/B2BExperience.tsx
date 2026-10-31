@@ -52,6 +52,20 @@ export function B2BExperience() {
           </div>
         </div>
 
+        {/* Quantitative impact metrics */}
+        <div className="mb-12 grid gap-4 sm:grid-cols-3">
+          {[
+            { value: '+40h', label: isEs ? 'horas/semana ahorradas' : 'hours/week saved' },
+            { value: '-80%', label: isEs ? 'tiempo de respuesta' : 'response time' },
+            { value: '3', label: isEs ? 'canales unificados' : 'unified channels' },
+          ].map((m, i) => (
+            <div key={i} className="rounded-xl border border-white/[0.06] bg-black/20 p-5 text-center">
+              <div className="text-3xl font-semibold text-cyan-300">{m.value}</div>
+              <div className="mt-1 text-xs text-zinc-500">{m.label}</div>
+            </div>
+          ))}
+        </div>
+
         <div className="mb-8">
           <h3 className="mb-4 text-center text-2xl font-semibold text-white" style={{ fontFamily: 'var(--font-display)' }}>
             {t('caseStudiesTitle')}
