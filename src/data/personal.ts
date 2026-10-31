@@ -10,7 +10,31 @@ export interface PersonalData {
   log: PersonalLogEntry[]
 }
 
-export const personalData: PersonalData = {
+const en: PersonalData = {
+  hardware: [
+    'Main laptop for development and editing',
+    'External monitor for multitasking',
+    'Mechanical keyboard and ergonomic mouse',
+    'Home server for experiments (when it is on)',
+  ],
+  readings: [
+    'Books and articles on applied AI and distributed systems',
+    'Engineering and product podcasts',
+    'Music to focus while coding',
+  ],
+  hobbies: [
+    'Hardware and private-server experiments',
+    'Video games and emulation',
+    'Learning new things outside of work',
+  ],
+  log: [
+    { date: '2026-10-30', text: 'Started the 3-path redesign (B2B, Dev, Personal) of the portfolio.' },
+    { date: '2026-10-29', text: 'Published the first case studies and engineering notes.' },
+    { date: '2026-10-28', text: 'Reviewed real traffic: most of it was bots. Time to measure for real.' },
+  ],
+}
+
+const es: PersonalData = {
   hardware: [
     'Laptop principal para desarrollo y edición',
     'Monitor externo para multitarea',
@@ -32,4 +56,10 @@ export const personalData: PersonalData = {
     { date: '2026-10-29', text: 'Publiqué los primeros casos de estudio y notas de ingeniería.' },
     { date: '2026-10-28', text: 'Revisé el tráfico real: la mayoría era bots. Hora de medir de verdad.' },
   ],
+}
+
+export const personalDataByLocale: Record<'en' | 'es', PersonalData> = { en, es }
+
+export function getPersonalData(locale: 'en' | 'es'): PersonalData {
+  return personalDataByLocale[locale] ?? personalDataByLocale.en
 }

@@ -61,6 +61,12 @@ const nextConfig: NextConfig = {
         // Run lint separately if needed: npm run lint
         ignoreDuringBuilds: true,
     },
+    async redirects() {
+        return [
+            { source: '/notes', destination: '/engineering-notes', permanent: true },
+            { source: '/es/notes', destination: '/es/engineering-notes', permanent: true },
+        ]
+    },
 };
 
 export default withNextIntl(nextConfig);

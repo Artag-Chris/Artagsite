@@ -3,13 +3,14 @@
 import { useViewMode } from '@/contexts/ViewModeContext'
 import { useTranslations, useLocale } from 'next-intl'
 import { Link } from '@/i18n/navigation'
-import { personalData } from '@/data/personal'
+import { getPersonalData } from '@/data/personal'
 
 export function PersonalExperience() {
   const { viewMode } = useViewMode()
   const t = useTranslations('personal')
   const locale = useLocale()
   const isEs = locale === 'es'
+  const personalData = getPersonalData(locale as 'en' | 'es')
 
   if (viewMode !== 'personal') return null
 
