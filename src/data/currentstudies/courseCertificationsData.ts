@@ -97,6 +97,16 @@ export const courseCertifications: CourseCertification[] = [
       "https://www.udemy.com/certificate/UC-60a14d18-a871-40d8-8975-a0f95e74a533/",
     reinforces: "Backend en Node y microservicios — base de artag-services",
   },
+  {
+    id: 8,
+    title: "Google AI Essentials",
+    topic: "AI & Machine Learning",
+    instructor: "Google",
+    platform: "Coursera",
+    year: "2026",
+    certUrl: "https://coursera.org/share/7546c4ce3301df4eed95edbe126bc1f6",
+    reinforces: "Fundamentos de IA de Google: prompting, casos de uso y responsabilidad en IA",
+  },
 ]
 
 export const pendingCourses: PendingCourse[] = [
