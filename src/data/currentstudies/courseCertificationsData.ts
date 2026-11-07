@@ -31,6 +31,16 @@ export const courseCertifications: CourseCertification[] = [
     reinforces: "Certificado profesional de Google en IA: fundamentos, prompting y uso responsable",
   },
   {
+    id: 9,
+    title: "Fundamentos de ciberseguridad de Google",
+    topic: "Cybersecurity",
+    instructor: "Google",
+    platform: "Coursera",
+    year: "2026",
+    certUrl: "https://www.coursera.org/account/accomplishments/verify/U8ENYTVROZXU",
+    reinforces: "Fundamentos de ciberseguridad: redes, sistemas operativos, incidentes y seguridad",
+  },
+  {
     id: 1,
     title: "NestJS: Microservicios",
     topic: "Microservices",
