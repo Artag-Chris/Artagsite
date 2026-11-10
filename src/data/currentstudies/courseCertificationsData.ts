@@ -41,6 +41,17 @@ export const courseCertifications: CourseCertification[] = [
     reinforces: "Fundamentos de ciberseguridad: redes, sistemas operativos, incidentes y seguridad",
   },
   {
+    id: 10,
+    title: "Fundamentos del marketing digital y comercio electrónico",
+    topic: "Marketing & E-commerce",
+    instructor: "Google",
+    platform: "Coursera",
+    year: "2026",
+    hours: 17,
+    certUrl: "https://coursera.org/share/4079e2a8f8b0af073287b70b5e994656",
+    reinforces: "Marketing digital, embudo de marketing y comercio electrónico (nota 96.98%)",
+  },
+  {
     id: 1,
     title: "NestJS: Microservicios",
     topic: "Microservices",
