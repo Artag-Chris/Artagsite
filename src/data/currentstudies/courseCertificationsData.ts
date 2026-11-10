@@ -132,14 +132,6 @@ export const courseCertifications: CourseCertification[] = [
 
 export const pendingCourses: PendingCourse[] = [
   {
-    id: 1,
-    title: "Ethical Hacking — De principiante a profesional",
-    topic: "Cybersecurity",
-    instructor: "Alejandro Escobar",
-    platform: "Udemy",
-    year: "2026",
-  },
-  {
     id: 2,
     title: "Kubernetes Certified Administrator (CKA)",
     topic: "DevOps",
