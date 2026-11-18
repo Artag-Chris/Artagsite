@@ -52,6 +52,17 @@ export const courseCertifications: CourseCertification[] = [
     reinforces: "Marketing digital, embudo de marketing y comercio electrónico (nota 96.98%)",
   },
   {
+    id: 11,
+    title: "Ve a lo seguro: Gestiona los riesgos de seguridad",
+    topic: "Cybersecurity",
+    instructor: "Google",
+    platform: "Coursera",
+    year: "2026",
+    hours: 12,
+    certUrl: "https://coursera.org/share/6e5904cee91eb7b2816cd6219d7404f8",
+    reinforces: "Gestión de riesgos de seguridad, SIEM, respuesta a incidentes y marcos de seguridad",
+  },
+  {
     id: 1,
     title: "NestJS: Microservicios",
     topic: "Microservices",
