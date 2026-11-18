@@ -43,18 +43,21 @@ export function CosmicBar() {
       ? [
           { href: '/#roi-calculator', label: isEs ? 'Calculadora ROI' : 'ROI calculator', icon: <Calculator className="h-4 w-4" /> },
           { href: '/projects', label: isEs ? 'Soluciones' : 'Solutions', icon: <Rocket className="h-4 w-4" /> },
+          { href: '/currentStudies', label: isEs ? 'Estudios' : 'Studies', icon: <BookOpen className="h-4 w-4" /> },
           { href: 'https://wa.me/573205711428', label: isEs ? 'Contacto WhatsApp' : 'WhatsApp contact', icon: <MessageCircle className="h-4 w-4" />, external: true },
         ]
       : viewMode === 'dev'
       ? [
           { href: '/labs', label: isEs ? 'Laboratorio' : 'Labs', icon: <FlaskConical className="h-4 w-4" /> },
-          { href: '/private-servers', label: isEs ? 'Servidores' : 'Servers', icon: <Server className="h-4 w-4" /> },
+          { href: '/currentStudies', label: isEs ? 'Estudios' : 'Studies', icon: <BookOpen className="h-4 w-4" /> },
+          { href: '/privateservers', label: isEs ? 'Servidores' : 'Servers', icon: <Server className="h-4 w-4" /> },
           { href: '/projects', label: isEs ? 'Ecosistema' : 'Ecosystem', icon: <Code2 className="h-4 w-4" /> },
         ]
       : [
           { href: '/about-me', label: isEs ? 'Mi historia' : 'My story', icon: <User className="h-4 w-4" /> },
           { href: '/favorites', label: isEs ? 'Juegos' : 'Games', icon: <Gamepad2 className="h-4 w-4" /> },
           { href: '/my-faith', label: isEs ? 'Mi fe' : 'My faith', icon: <Heart className="h-4 w-4" /> },
+          { href: '/currentStudies', label: isEs ? 'Estudios' : 'Studies', icon: <BookOpen className="h-4 w-4" /> },
           { href: '/personal', label: isEs ? 'Setup' : 'Setup', icon: <Settings className="h-4 w-4" /> },
           { href: '/engineering-notes', label: isEs ? 'Bitácora' : 'Log', icon: <BookOpen className="h-4 w-4" /> },
         ]
