@@ -1,42 +1,43 @@
-# Artag Dev — AI-Friendly Site Summary
+# Christian Henao (Artag) — Full-Stack Developer & AI Engineer
 
-> Full-stack software architect specializing in scalable systems, zero-downtime migrations, and process automation. Based in Colombia, available globally.
+> Bilingual (EN / ES) engineering portfolio and architecture lab for Christian Henao (Artag), based in Pereira, Colombia. Focuses on applied AI systems: multi-channel agents, pgvector RAG pipelines, semantic LLM caching, and event-driven backends with human oversight.
 
-## What I Do
+## Primary Pages
 
-- **Full-Stack Development**: React, Next.js, TypeScript, Node.js, Python
-- **System Architecture**: Microservices, event-driven systems, database optimization
-- **Process Automation**: Workflow automation, API integrations, data pipelines
-- **Cloud Infrastructure**: Docker, Kubernetes, AWS, Vercel
-- **Payment Integration**: Stripe, payment gateways, subscription systems
+- [Home (English)](https://www.artagdev.com.co/): Value proposition, interactive pipeline simulator (Atiende RAG & CV Harness), skills, featured systems, testimonials, and contact form.
+- [Inicio (Español)](https://www.artagdev.com.co/es): Versión en español del portafolio principal y simulador interactivo de pipelines.
+- [Engineering Lab](https://www.artagdev.com.co/labs): Interactive architecture board, I/O contracts, circuit breaker patterns, audited test metrics, 13-microservice private org map (`artag-services`), infrastructure, and certifications.
+- [Laboratorio de Arquitectura (Español)](https://www.artagdev.com.co/es/labs): Tablero interactivo de arquitectura, harnesses, infraestructura y estudios en español.
+- [About Me — The Architect's Ledger](https://www.artagdev.com.co/about-me): Chronological developer journey (2006–2024) and personal background.
+- [Sobre Mí (Español)](https://www.artagdev.com.co/es/about-me): Cronología completa de trayectoria y perfil personal en español.
 
-## Key Facts
+## AI Systems & Case Studies
 
-- 32K+ users served across projects
-- 99.99% uptime maintained
-- Self-taught developer since 2019
-- Based in Pereira, Colombia
-- Available for remote work worldwide
+- [All Projects](https://www.artagdev.com.co/projects): Complete index of shipped systems and engineering case studies.
+- [Atiende — Multi-Channel AI Agent](https://www.artagdev.com.co/projects/atiende): WhatsApp, Instagram DM, and Messenger AI agent with pgvector RAG, semantic caching (~30% LLM cost reduction), BullMQ queues, and human escalation (295 tests across 40 files).
+- [CV Harness — Event-Driven Job Search](https://www.artagdev.com.co/projects/cv-harness): 7-stage idempotent pipeline with structured parsing, semantic matching, deterministic scoring, and strict Zod output validation (188 API tests, 17/17 E2E tests).
+- [Social Harness — Human-Guided AI Coach](https://www.artagdev.com.co/projects/social-harness): Human-in-the-loop content coaching workflow with explicit approval gates and rubric scoring.
+- [Doc Harness — Structured AI Document Editing](https://www.artagdev.com.co/projects/doc-harness): Scoped AST diff patching engine for deterministic document edits.
+- [WhatsApp Operations Platform](https://www.artagdev.com.co/projects/whatsapp-operations-platform): Operational messaging and workflow automation platform.
+- [Artag Dev Portfolio](https://www.artagdev.com.co/projects/artag-portfolio): Bilingual Next.js 15 portfolio with interactive architecture lab and live gaming API integrations.
 
-## Site Pages
+## Engineering Notes
 
-- `/` — Home: skills, projects, contact
-- `/about-me` — Personal developer journey timeline (2006-2024)
-- `/currentStudies` — Current learning: microservices, React Native, Docker, GraphQL
-- `/favorites` — Favorite games and personal interests
-- `/my-faith` — Faith and values that shape my work
-- `/private-servers` — Game server administration guides
+- [Engineering Notes Index](https://www.artagdev.com.co/engineering-notes): Technical write-ups on applied AI systems, caching, and architecture trade-offs.
+- [Exact and semantic caching for LLMs (~30% cost reduction)](https://www.artagdev.com.co/engineering-notes/llm-semantic-cache-cost-reduction): Layered prompt, exact, and semantic caching architecture to cut LLM conversation costs.
+- [Architecture of a WhatsApp AI agent with RAG and human escalation](https://www.artagdev.com.co/engineering-notes/whatsapp-ai-agent-architecture): Webhook verification, Redis deduplication, BullMQ queues, pgvector retrieval, and dashboard handoff.
 
-## Contact
+## Optional
 
-- Website: https://www.artagdev.com.co
-- LinkedIn: https://linkedin.com/in/artag
-- GitHub: https://github.com/artag
+- [Current Studies & Certifications](https://www.artagdev.com.co/currentStudies): Verified courses, certifications, and continuous learning roadmap.
+- [Gaming Library](https://www.artagdev.com.co/favorites): Live unified game library synced with Steam, Epic Games, and GOG.
+- [My Faith](https://www.artagdev.com.co/my-faith): Personal values and convictions.
+- [XML Sitemap](https://www.artagdev.com.co/sitemap.xml): Complete list of indexable English and Spanish URLs.
 
-## Technical Stack
+## Contact & Profiles
 
-Frontend: React, Next.js, TypeScript, Tailwind CSS, Framer Motion
-Backend: Node.js, Python, REST APIs, GraphQL, WebSockets
-Database: PostgreSQL, MongoDB, Redis
-DevOps: Docker, Kubernetes, CI/CD, Vercel
-Other: Payment systems, real-time applications, process automation
+- [Email](mailto:info@artagdev.com.co): Direct contact (`info@artagdev.com.co`).
+- [GitHub](https://github.com/Artag-Chris): Open-source repositories and engineering work.
+- [LinkedIn](https://www.linkedin.com/in/artag/): Professional profile and experience.
+- [YouTube](https://www.youtube.com/@Artag888): Technical videos and demos.
+- [Instagram](https://www.instagram.com/artagdev/): Developer updates.
