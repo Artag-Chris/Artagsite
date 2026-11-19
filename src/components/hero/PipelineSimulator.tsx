@@ -239,9 +239,9 @@ export default function PipelineSimulator({
       <div className="p-4 sm:p-5">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h3 className="font-mono text-sm font-semibold text-[var(--text-primary)]">
+            <h2 className="font-mono text-sm font-semibold text-[var(--text-primary)]">
               {current.title}
-            </h3>
+            </h2>
             <p className="text-xs text-[var(--text-secondary)]">{current.subtitle}</p>
           </div>
 

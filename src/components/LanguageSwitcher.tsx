@@ -18,15 +18,16 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
 
   return (
     <button
+      type="button"
       onClick={switchLocale}
-      aria-label={`Switch language to ${otherLocale === "es" ? "Español" : "English"}`}
+      aria-label={otherLocale === "es" ? "ES — Cambiar idioma a Español" : "EN — Switch language to English"}
       className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider border transition-all duration-200 ${
         locale === "en"
           ? "text-zinc-400 border-white/10 hover:text-white hover:border-white/20 hover:bg-white/5"
           : "text-zinc-400 border-white/10 hover:text-white hover:border-white/20 hover:bg-white/5"
       } ${className}`}
     >
-      <Languages className="w-3.5 h-3.5" />
+      <Languages className="w-3.5 h-3.5" aria-hidden="true" />
       {otherLocale}
     </button>
   )

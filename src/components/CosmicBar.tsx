@@ -68,7 +68,10 @@ export function CosmicBar() {
         visible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0 pointer-events-none'
       }`}
     >
-      <nav className="flex items-center gap-1 rounded-full border border-white/10 bg-black/80 px-2 py-1.5 backdrop-blur-xl shadow-2xl">
+      <nav
+        aria-label={isEs ? 'Accesos rápidos' : 'Quick actions'}
+        className="flex items-center gap-1 rounded-full border border-white/10 bg-black/80 px-2 py-1.5 backdrop-blur-xl shadow-2xl"
+      >
         {links.map((link) =>
           link.external ? (
             <a
@@ -76,18 +79,20 @@ export function CosmicBar() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={link.label}
               className="flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium text-zinc-300 transition-colors hover:bg-white/10 hover:text-white"
             >
-              {link.icon}
+              <span aria-hidden="true">{link.icon}</span>
               <span className="hidden sm:inline">{link.label}</span>
             </a>
           ) : (
             <Link
               key={link.href}
               href={link.href}
+              aria-label={link.label}
               className="flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium text-zinc-300 transition-colors hover:bg-white/10 hover:text-white"
             >
-              {link.icon}
+              <span aria-hidden="true">{link.icon}</span>
               <span className="hidden sm:inline">{link.label}</span>
             </Link>
           )
