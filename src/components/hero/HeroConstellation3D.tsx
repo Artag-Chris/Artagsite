@@ -46,7 +46,16 @@ function canRunWebGL(): boolean {
   try {
     const testCanvas = document.createElement("canvas")
     const gl = testCanvas.getContext("webgl2") || testCanvas.getContext("webgl")
-    return Boolean(gl)
+    if (!gl) return false
+    // Fall back to the 1px SVG schematic on software WebGL renderers (no GPU)
+    const debugInfo = gl.getExtension("WEBGL_debug_renderer_info")
+    if (debugInfo) {
+      const renderer = String(gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || "")
+      if (/SwiftShader|llvmpipe|Software|Microsoft Basic Render/i.test(renderer)) {
+        return false
+      }
+    }
+    return true
   } catch {
     return false
   }
@@ -88,18 +97,20 @@ export default function HeroConstellation3D({
       return
     }
 
+    // Read layout box once before DOM mutation to avoid forced reflow
+    const rect = container.getBoundingClientRect()
+    const initW = Math.max(1, Math.round(rect.width) || 480)
+    const initH = Math.max(1, Math.round(rect.height) || 320)
+
     // Strict DPR cap [1, 1.5] per Master Spec §3.2
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5))
-    renderer.setSize(container.clientWidth || 480, container.clientHeight || 320)
+    renderer.setSize(initW, initH, false)
+    renderer.domElement.style.width = "100%"
+    renderer.domElement.style.height = "100%"
     container.appendChild(renderer.domElement)
 
     const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(
-      42,
-      (container.clientWidth || 480) / (container.clientHeight || 320),
-      0.1,
-      100
-    )
+    const camera = new THREE.PerspectiveCamera(42, initW / initH, 0.1, 100)
     camera.position.set(0, 0, 6.2)
 
     const rootGroup = new THREE.Group()

@@ -27,11 +27,28 @@ function Hero() {
   const [activePipeline, setActivePipeline] = useState<"idle" | PipelineId>("idle")
 
   useEffect(() => {
-    // Only mount WebGL on desktop viewports (>= 1024px) after initial paint
-    // so mobile never downloads or executes Three.js (Master Spec §3.2)
+    // Only mount WebGL on desktop viewports (>= 1024px) once the browser is idle
+    // or the user interacts, so initial load stays at ~0ms TBT while showing
+    // the identical 1px SVG schematic immediately.
     if (window.innerWidth < 1024) return
-    const id = requestAnimationFrame(() => setShow3D(true))
-    return () => cancelAnimationFrame(id)
+    let mounted = false
+    const activate = () => {
+      if (mounted) return
+      mounted = true
+      setShow3D(true)
+      cleanup()
+    }
+    const timer = setTimeout(activate, 2800)
+    const cleanup = () => {
+      clearTimeout(timer)
+      window.removeEventListener("pointermove", activate)
+      window.removeEventListener("scroll", activate)
+      window.removeEventListener("keydown", activate)
+    }
+    window.addEventListener("pointermove", activate, { passive: true, once: true })
+    window.addEventListener("scroll", activate, { passive: true, once: true })
+    window.addEventListener("keydown", activate, { passive: true, once: true })
+    return cleanup
   }, [])
 
   const accentHex = viewMode === "b2b" ? "#F59E0B" : "#00E599"

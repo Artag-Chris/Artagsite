@@ -16,8 +16,11 @@ export function TikTokPixel() {
     const pixelId = analyticsConfig.tiktok.pixelId
     if (!pixelId) return
 
-    const idle = window.requestIdleCallback || ((fn: Function) => setTimeout(fn, 2000))
-    idle(() => {
+    let loaded = false
+    const loadPixel = () => {
+      if (loaded) return
+      loaded = true
+      cleanup()
       // TikTok Pixel official base code
       ;(function (w: any, d: any, t: string) {
         w.TiktokAnalyticsObject = t
@@ -73,7 +76,19 @@ export function TikTokPixel() {
         ttq.load(pixelId)
         ttq.page()
       })(window, document, "ttq")
-    })
+    }
+
+    const timer = setTimeout(loadPixel, 3500)
+    const cleanup = () => {
+      clearTimeout(timer)
+      window.removeEventListener("pointerdown", loadPixel)
+      window.removeEventListener("scroll", loadPixel)
+      window.removeEventListener("keydown", loadPixel)
+    }
+    window.addEventListener("pointerdown", loadPixel, { passive: true, once: true })
+    window.addEventListener("scroll", loadPixel, { passive: true, once: true })
+    window.addEventListener("keydown", loadPixel, { passive: true, once: true })
+    return cleanup
   }, [])
 
   return null

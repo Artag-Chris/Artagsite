@@ -16,8 +16,11 @@ export function MetaPixel() {
     const pixelId = analyticsConfig.meta.pixelId
     if (!pixelId) return
 
-    const idle = window.requestIdleCallback || ((fn: Function) => setTimeout(fn, 2000))
-    idle(() => {
+    let loaded = false
+    const loadPixel = () => {
+      if (loaded) return
+      loaded = true
+      cleanup()
       // Initialize Meta Pixel function
       if (!window.fbq) {
         window.fbq = function () {
@@ -50,7 +53,19 @@ export function MetaPixel() {
         console.warn('⚠️ Meta Pixel SDK blocked (ad blocker or CSP issue). Pixel initialization queued but requests may be blocked.')
       }
       document.head.appendChild(script)
-    })
+    }
+
+    const timer = setTimeout(loadPixel, 3500)
+    const cleanup = () => {
+      clearTimeout(timer)
+      window.removeEventListener("pointerdown", loadPixel)
+      window.removeEventListener("scroll", loadPixel)
+      window.removeEventListener("keydown", loadPixel)
+    }
+    window.addEventListener("pointerdown", loadPixel, { passive: true, once: true })
+    window.addEventListener("scroll", loadPixel, { passive: true, once: true })
+    window.addEventListener("keydown", loadPixel, { passive: true, once: true })
+    return cleanup
   }, [])
 
   return null
