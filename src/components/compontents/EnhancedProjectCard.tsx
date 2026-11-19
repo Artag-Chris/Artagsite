@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import { motion } from "framer-motion"
 import { useTranslations } from "next-intl"
-import { ExternalLink, Github, Play, Lock, Calendar, Award } from "lucide-react"
+import { ExternalLink, Github, Play, Calendar, Award } from "lucide-react"
 import type { ProjectProps } from "@/data/proyectData"
 
 interface EnhancedProjectCardProps {
@@ -13,13 +13,7 @@ interface EnhancedProjectCardProps {
 
 export const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({ project, index }) => {
   const t = useTranslations("projects.card")
-  const [isHovered, setIsHovered] = useState(false)
-
-  const categoryColors = {
-    personal: "from-cyan-500/20 to-cyan-500/5 border-cyan-500/30",
-    client: "from-indigo-500/20 to-indigo-500/5 border-indigo-500/30",
-    featured: "from-purple-500/20 to-purple-500/5 border-purple-500/30",
-  }
+  const [_isHovered, setIsHovered] = useState(false)
 
   const categoryLabels = {
     personal: t("personal"),

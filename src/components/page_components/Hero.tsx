@@ -1,346 +1,158 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import Image from "next/image"
+import { useEffect, useState } from "react"
+import dynamic from "next/dynamic"
 import { useTranslations, useLocale } from "next-intl"
 import { useViewMode } from "@/contexts/ViewModeContext"
 import { Link } from "@/i18n/navigation"
-import { Badge } from "@/components/ui/badge"
-import TypingAnimation from "../animations/typingAnimation"
-import RandomLoader from "../loading/random-loader"
-import CTAButton from "../compontents/CTABottom"
-import { motion, AnimatePresence } from "framer-motion"
-import { Sparkles } from "lucide-react"
-import { Download } from "lucide-react"
+import { ArrowUpRight, Download, Terminal } from "lucide-react"
 import { trackEvent } from "@/lib/analytics"
-import HeroTerminal from "../sub-sections/HeroTerminal"
+import PipelineSimulator, { type PipelineId } from "@/components/hero/PipelineSimulator"
+import { NeuralRouterSvgFallback } from "@/components/hero/NeuralRouterSvgFallback"
+
+// WebGL scene loaded strictly client-side after H1 hydration (Master Spec §3.2)
+const HeroConstellation3D = dynamic(
+  () => import("@/components/hero/HeroConstellation3D"),
+  {
+    ssr: false,
+    loading: () => <NeuralRouterSvgFallback accentHex="#00E599" />,
+  }
+)
 
 function Hero() {
   const t = useTranslations("hero")
   const locale = useLocale()
   const { viewMode, setViewMode } = useViewMode()
-  const videoContainerRef = useRef<HTMLDivElement>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const isMobileRef = useRef(false)
-  const [videoLoaded, setVideoLoaded] = useState(false)
-  const [showCityLoader, setShowCityLoader] = useState(true)
-  const [isMobile, setIsMobile] = useState(false)
-  const [isMounted, setIsMounted] = useState(false)
-  const [h1Done, setH1Done] = useState(false)
-  const [bioDone, setBioDone] = useState(false)
+  const [show3D, setShow3D] = useState(false)
+  const [activePipeline, setActivePipeline] = useState<"idle" | PipelineId>("idle")
 
-  // Handle mobile detection after component mounts to avoid hydration issues
   useEffect(() => {
-    setIsMounted(true)
-
-    const checkMobile = () => {
-      const mobile = window.innerWidth <= 768
-      isMobileRef.current = mobile
-      setIsMobile(mobile)
-    }
-
-    checkMobile()
-    window.addEventListener("resize", checkMobile, { passive: true })
-    return () => window.removeEventListener("resize", checkMobile)
+    // Only mount WebGL on desktop viewports (>= 1024px) after initial paint
+    // so mobile never downloads or executes Three.js (Master Spec §3.2)
+    if (window.innerWidth < 1024) return
+    const id = requestAnimationFrame(() => setShow3D(true))
+    return () => cancelAnimationFrame(id)
   }, [])
 
-  // Parallax via direct ref mutation + rAF — no React state, no re-render per scroll.
-  useEffect(() => {
-    let ticking = false
-    const update = () => {
-      if (videoContainerRef.current) {
-        const offset = window.scrollY * (isMobileRef.current ? 0.2 : 0.4)
-        videoContainerRef.current.style.transform = `translate3d(0, ${offset}px, 0)`
-      }
-      ticking = false
-    }
-    const handleScroll = () => {
-      if (ticking) return
-      ticking = true
-      requestAnimationFrame(update)
-    }
-    update()
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  // Sequence: loader → H1 (1.8s) → bio chunks (~3s) → CTA + flash.
-  // Each stage gates the next so neither bio nor CTA reserves space before its turn.
-  useEffect(() => {
-    if (showCityLoader) {
-      setH1Done(false)
-      setBioDone(false)
-      return
-    }
-    const tH1 = setTimeout(() => setH1Done(true), 1800)
-    return () => clearTimeout(tH1)
-  }, [showCityLoader])
-
-  useEffect(() => {
-    if (!h1Done) {
-      setBioDone(false)
-      return
-    }
-    // Bio finishes ~3s after mount: delayChildren 0.5 + 5*staggerChildren 0.35 + duration 0.7
-    const tBio = setTimeout(() => setBioDone(true), 3000)
-    return () => clearTimeout(tBio)
-  }, [h1Done])
-
-  const bioChunks: { text: string; bold: boolean }[] = [
-    { text: t("bioIntro"), bold: false },
-    { text: t("bioBold1"), bold: true },
-    { text: t("bioMid"), bold: false },
-    { text: t("bioBold2"), bold: true },
-    { text: t("bioOutro"), bold: false },
-    { text: t("bioLocation"), bold: false },
-  ]
-
-  // Handle video load and play
-  useEffect(() => {
-    if (isMounted && videoRef.current) {
-      const video = videoRef.current
-
-      const handleCanPlay = () => {
-        setVideoLoaded(true)
-        video.play().catch(console.error)
-      }
-
-      const handleLoadedData = () => setVideoLoaded(true)
-      const handleError = () => {
-        console.warn("Video failed to load, using fallback image")
-        setVideoLoaded(false)
-      }
-
-      video.addEventListener("canplay", handleCanPlay)
-      video.addEventListener("loadeddata", handleLoadedData)
-      video.addEventListener("error", handleError)
-
-      if (video.readyState >= 3) handleCanPlay()
-
-      return () => {
-        video.removeEventListener("canplay", handleCanPlay)
-        video.removeEventListener("loadeddata", handleLoadedData)
-        video.removeEventListener("error", handleError)
-      }
-    }
-  }, [isMounted])
+  const accentHex = viewMode === "b2b" ? "#F59E0B" : "#00E599"
 
   return (
-    <div className="relative overflow-hidden h-screen w-full bg-black">
-      {/* City Loader Overlay */}
-      {showCityLoader && (
-        <RandomLoader
-          onLoadingComplete={() => setShowCityLoader(false)}
-          minDisplayTime={1500}
-        />
-      )}
-
-      {/* Background Container with Parallax Effect (transform mutated via ref in scroll handler) */}
+    <section className="relative w-full border-b border-[var(--border-hairline)] bg-[var(--bg-primary)] pt-24 pb-16 sm:pt-28 sm:pb-20 overflow-x-clip">
+      {/* Subtle 1px architectural blueprint grid background */}
       <div
-        ref={videoContainerRef}
-        className="absolute inset-0 w-full h-full overflow-hidden"
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.18]"
         style={{
-          transform: "translate3d(0, 0, 0)",
-          height: "calc(100% + 200px)",
-          willChange: "transform",
+          backgroundImage:
+            "linear-gradient(90deg, var(--border-hairline) 1px, transparent 1px), linear-gradient(0deg, var(--border-hairline) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
         }}
+      />
+
+      {/* Focused 3D WebGL Neural Router backdrop (right half on desktop) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 right-0 hidden lg:block lg:w-[58%] opacity-70"
       >
-        {/* Video Background */}
-        <video
-          ref={videoRef}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${videoLoaded ? "opacity-100" : "opacity-0"
-            }`}
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          poster="/technology.webp"
-        >
-          <source src="/tech-mobile.mp4" type="video/mp4" media="(max-width: 768px)" />
-          <source src="/tech-desktop.mp4" type="video/mp4" media="(min-width: 769px)" />
-        </video>
-
-        {/* Fallback image for desktop if video fails to load */}
-        <div
-          className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${!videoLoaded ? "opacity-100" : "opacity-0"
-            }`}
-        >
-          <Image
-            src="/technology.webp"
-            alt={t("alt")}
-            fill
-            priority
-            className="object-cover"
-            onLoad={() => {
-              // Image loaded, but don't hide loader yet - let the effect handle it
-            }}
-          />
-        </div>
-
-        {/* Dark overlay */}
-        <div
-          className={`absolute inset-0 z-10 transition-all duration-500 ${isMobile ? "bg-black/70" : "bg-black/50"}`}
-        />
-
-        {/* Subtle grid accent */}
-        <div className="absolute inset-0 z-12 grid-reveal"
-          style={{
-            backgroundImage: `
-              linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px),
-              linear-gradient(0deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px)
-            `,
-            backgroundSize: '60px 60px',
-            opacity: videoLoaded ? 0.15 : 0,
-            transition: 'opacity 0.6s ease-out',
-            pointerEvents: 'none',
-          }}
-        />
-
-        {/* Bottom fade gradient */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-[#0a0a0a] z-15 pointer-events-none" />
+        {show3D ? (
+          <HeroConstellation3D mode={viewMode} activePipeline={activePipeline} />
+        ) : (
+          <NeuralRouterSvgFallback accentHex={accentHex} />
+        )}
       </div>
 
-      {/* Hero Section Content */}
-      <section className="container mx-auto px-4 h-full flex items-center relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full items-center">
-           {/* Left Content - with stagger animation */}
-           <div className="max-w-2xl" style={{ animation: 'fadeInUp 0.8s ease-out 0.2s backwards' }}>
-               <Badge className="mb-4 bg-amber-500/10 text-amber-400 hover:bg-amber-500/15 transition-all border border-amber-500/20 backdrop-blur-sm">
-                <TypingAnimation
-                    phrases={[t("badge.0"), t("badge.1"), t("badge.2")]}
-                  typeSpeed={80}
-                  eraseSpeed={40}
-                  delayBetweenPhrases={1500}
-                  loop={true}
-                />
-             </Badge>
-               <div className="mb-4 flex flex-wrap gap-2">
-                  {(['b2b', 'dev', 'personal'] as const).map((mode) => {
-                    const active = viewMode === mode
-                    const label = mode === 'b2b' ? 'B2B' : mode === 'dev' ? 'Dev' : 'Personal'
-                    return (
-                      <button
-                        key={mode}
-                        onClick={() => setViewMode(mode)}
-                        className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
-                          active
-                            ? 'border-cyan-500/30 bg-cyan-500/10 text-cyan-200'
-                            : 'border-white/10 bg-white/[0.03] text-zinc-400 hover:text-zinc-200'
-                        }`}
-                      >
-                        {label}
-                      </button>
-                    )
-                  })}
-                </div>
-<motion.h1
-                className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 leading-[1.1]"
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  color: '#ffffff',
-                }}
-                initial={{ opacity: 0.2 }}
-                animate={showCityLoader ? { opacity: 0.2 } : { opacity: 1 }}
-                transition={{ duration: 1.8, delay: 0, ease: "linear" }}
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center">
+          {/* Left column — Immediate LCP Editorial Headline */}
+          <div className="lg:col-span-6">
+            <div className="mb-5 flex flex-wrap items-center gap-3">
+              <span className="inline-flex items-center gap-2 border border-[var(--border-hairline)] bg-[var(--bg-secondary)] px-3 py-1 font-mono text-xs text-[var(--accent-signal)]">
+                <span className="h-2 w-2 rounded-full bg-[var(--accent-signal)]" aria-hidden="true" />
+                <span>{t("terminal.badge")}</span>
+              </span>
+
+              <div
+                className="inline-flex items-center border border-[var(--border-hairline)] bg-[var(--bg-secondary)]"
+                role="group"
+                aria-label={t("audienceLabel")}
               >
-                <span className="block">{t("h1line1")}</span>
-                <span className="block">
-                  <span
-                    className="text-blue-400"
-                  >
-                    {t("h1line2")}
-                  </span>
-                </span>
-                <span className="block text-zinc-400">{t("h1line3")}</span>
-              </motion.h1>
-             <AnimatePresence>
-               {h1Done && (
-                 <motion.div
-                   key="bio-wrap"
-                   initial={{ opacity: 0, height: 0 }}
-                   animate={{ opacity: 1, height: "auto" }}
-                   transition={{
-                     height: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
-                     opacity: { duration: 0.6, ease: "easeOut" },
-                   }}
-                   style={{ overflow: "hidden" }}
-                 >
-                    <motion.p
-                      className="text-zinc-400 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl leading-relaxed"
-                     initial="hidden"
-                     animate="visible"
-                     variants={{
-                       hidden: {},
-                       visible: {
-                         transition: {
-                           delayChildren: 0.5,
-                           staggerChildren: 0.35,
-                         },
-                       },
-                     }}
-                   >
-                     {bioChunks.map((chunk, i) => (
-                       <motion.span
-                         key={i}
-                         variants={{
-                           hidden: { opacity: 0 },
-                           visible: { opacity: 1, transition: { duration: 0.7, ease: "linear" } },
-                         }}
-                       >
-                         {chunk.bold ? <strong>{chunk.text}</strong> : chunk.text}
-                       </motion.span>
-                     ))}
-                   </motion.p>
-                 </motion.div>
-               )}
-             </AnimatePresence>
-
-             <AnimatePresence>
-               {bioDone && (
-                  <motion.div
-                    key="cta-wrap"
-                    className="flex flex-col sm:flex-row gap-4"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      opacity: { duration: 0.5, ease: "easeOut" },
-                      y: { duration: 0.5, ease: "easeOut" },
-                    }}
-                  >
-                   <Link
-                      href="/projects"
-                      className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/10 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-white/15 border border-white/10 hover:border-white/20"
+                {(["b2b", "dev"] as const).map((mode) => {
+                  const active = viewMode === mode
+                  const label = mode === "b2b" ? "B2B" : "Dev"
+                  return (
+                    <button
+                      key={mode}
+                      type="button"
+                      aria-pressed={active}
+                      onClick={() => setViewMode(mode)}
+                      className={`border-r last:border-r-0 border-[var(--border-hairline)] px-3 py-1 font-mono text-xs uppercase tracking-wider transition-colors ${
+                        active
+                          ? mode === "b2b"
+                            ? "bg-[var(--accent-amber)]/15 text-[var(--accent-amber)]"
+                            : "bg-[var(--accent-signal)]/15 text-[var(--accent-signal)]"
+                          : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                      }`}
                     >
-                      <Sparkles className="h-4 w-4" />
-                      {t("ctaProjects")}
-                    </Link>
-                    <a
-                      href="/resume.pdf"
-                      download="Christian_Resume.pdf"
-                      onClick={() =>
-                        trackEvent('cv_download', {
-                          location: 'hero',
-                          locale,
-                          file_name: 'Christian_Resume.pdf',
-                        })
-                      }
-                      className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-500/10 px-5 py-3 text-sm font-medium text-cyan-200 transition-colors hover:bg-cyan-500/20 border border-cyan-500/30"
-                    >
-                      <Download className="h-4 w-4" />
-                      {t("ctaResume")}
-                    </a>
-                 </motion.div>
-               )}
-             </AnimatePresence>
-           </div>
+                      {label}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
 
-          {/* Right column — animated terminal */}
-          <div className="hidden lg:flex items-center justify-center w-full">
-            <HeroTerminal />
+            <h1
+              className="mb-6 text-[clamp(2.5rem,6vw,4.75rem)] leading-[1.04] tracking-[-0.02em] text-[var(--text-primary)]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              {/* Explicit spaces prevent crawler/screen-reader concatenation */}
+              <span className="block">{t("h1line1")}</span>{" "}
+              <span className="block italic text-[var(--accent-signal)]">{t("h1line2")}</span>{" "}
+              <span className="block text-[var(--text-secondary)]">{t("h1line3")}</span>
+            </h1>
+
+            <p className="mb-8 max-w-xl text-base sm:text-lg leading-relaxed text-[var(--text-secondary)]">
+              {t("bioIntro")}
+              <strong className="font-medium text-[var(--text-primary)]">{t("bioBold1")}</strong>
+              {t("bioMid")}
+              <strong className="font-medium text-[var(--text-primary)]">{t("bioBold2")}</strong>
+              {t("bioOutro")}
+              {t("bioLocation")}
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link
+                href="/labs"
+                className="inline-flex items-center justify-center gap-2 border border-[var(--accent-signal)] bg-[var(--accent-signal)] px-5 py-3 font-mono text-xs font-semibold uppercase tracking-wider text-[#0B0C0E] transition-colors hover:bg-[#34F5B2]"
+              >
+                <Terminal className="h-4 w-4" aria-hidden="true" />
+                <span>{t("ctaProjects")}</span>
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <a
+                href="/resume.pdf"
+                download="Christian_Resume.pdf"
+                onClick={() =>
+                  trackEvent("cv_download", {
+                    location: "hero",
+                    locale,
+                    file_name: "Christian_Resume.pdf",
+                  })
+                }
+                className="inline-flex items-center justify-center gap-2 border border-[var(--border-strong)] bg-[var(--bg-secondary)] px-5 py-3 font-mono text-xs font-medium uppercase tracking-wider text-[var(--text-primary)] transition-colors hover:border-[var(--accent-signal)] hover:text-[var(--accent-signal)]"
+              >
+                <Download className="h-4 w-4" aria-hidden="true" />
+                <span>{t("ctaResume")}</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Right column — Interactive Pipeline Simulator synced with 3D graph */}
+          <div className="lg:col-span-6">
+            <PipelineSimulator onPipelineStateChange={setActivePipeline} />
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   )
 }
 

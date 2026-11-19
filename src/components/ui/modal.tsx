@@ -34,6 +34,7 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
       document.removeEventListener("keydown", handleEscape)
       document.body.style.overflow = "auto"
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen])
 
   const handleClose = () => {

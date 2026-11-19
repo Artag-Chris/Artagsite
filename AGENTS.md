@@ -71,31 +71,24 @@ Unified, paginated game library — Steam + Epic **live** + curated GOG enriched
 
 `@/*` → `src/*` (see `tsconfig.json`). Always import via `@/` from `src/`.
 
-## Styling
+## Styling (Master Spec v2.0 — Architectural Kinetic Lab)
 
 - Tailwind CSS 3 + `tailwindcss-animate` + `tw-animate-css`. Config in `tailwind.config.js`, base CSS in `src/app/globals.css`
-- `styled-components` also active (SSR enabled via `compiler.styledComponents` in `next.config.ts`) — used by some animation components
-- **Color system**: Cyan `#06b6d4` (primary), Indigo `#6366f1` (secondary) — NO emerald, violet, or zinc-900
-- Theme: dark by default (`bg-zinc-950 text-zinc-100`), accent `indigo-600/4f46e5`
-- **Typography**: Space Grotesk (headers), Inter (body), IBM Plex Mono (mono) — all via `next/font/google`
-- **Motion**: 8/10 intensity, purposeful
+- `styled-components` also active (SSR enabled via `compiler.styledComponents` in `next.config.ts`)
+- **Surfaces (Dark Mode Editorial, no pure `#000000`)**: `--bg-primary: #0B0C0E`, `--bg-secondary: #121418`, `--bg-tertiary: #1A1D24`
+- **Grid & Borders**: `--border-hairline: #262A34` (1px visible structural grid), `--border-strong: #4A5162`, orthogonal `--radius-base: 0px` (except status pills/dots `9999px`)
+- **Accent system**: `--accent-signal: #00E599` (electric emerald — active nodes, LIVE status, primary 3D accent), `--accent-amber: #F59E0B` (queue/warnings), `--accent-error: #EF4444` (circuit breaker/errors). Minimum WCAG AA contrast >= 4.5:1
+- **Typography**: Instrument Serif (display headings via `clamp()`), Inter (body >= 16px, line-height 1.6), JetBrains Mono (metrics, telemetry, system labels) — all via `next/font/google`
 - **Copy tone**: First-person, human, honest — NOT salesy, NOT freelance
-- **Language**: English site → `lang="en"`, site URL `https://www.artagdev.com.co`
+- **Language**: Bilingual (`en` at `/`, `es` at `/es`) via `next-intl` (`localePrefix: "as-needed"`), site URL `https://www.artagdev.com.co`
 
-## Performance Constraints
+## Performance Constraints (Master Spec v2.0)
 
-### Hero Video
+### Hero 3D Scene & Core Web Vitals
 
-- **Video is the brand differentiator** — must remain visible, never hide or remove it
-- `public/tech-mobile.mp4` (~1MB, ≤768px) + `public/tech-desktop.mp4` (~5.5MB, >768px) via responsive `<source media>`
-- `poster="/technology.webp"` (128KB) provides immediate visual
-- `preload="metadata"` loads only headers (~KB), full video plays via JS `useEffect` after page load
-- Source file `source-video/tech4k.mp4` (32.5MB) is gitignored
-
-### LCP Design Constraint
-
-- Hero H1 text only renders after the 3-second `RandomLoader` disappears, guaranteeing LCP ≥ 3s by design
-- Don't try to "fix" this — it's intentional for brand immersion
+- Hero focal visual is the lightweight WebGL/Three.js constellation (`HeroConstellation3D`, loaded via `next/dynamic(..., { ssr: false })` after H1 hydration, `dpr={[1, 1.5]}`, SVG 1px fallback for low-end devices / `prefers-reduced-motion`)
+- H1 renders immediately as the LCP element (target mobile Lighthouse Performance >= 90, LCP < 2.5s, CLS < 0.05, TBT < 150ms)
+- `/technology.webp` is intentionally removed from DOM and bundle
 
 ### Dynamic Imports
 

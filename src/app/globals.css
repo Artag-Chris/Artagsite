@@ -7,43 +7,58 @@ html {
 }
 
 :root {
-  --mode-accent: #22d3ee;
-  --mode-accent-soft: rgba(34, 211, 238, 0.12);
+  /* Master Spec v2.0 — Architectural Kinetic Lab */
+  --bg-primary: #0B0C0E;
+  --bg-secondary: #121418;
+  --bg-tertiary: #1A1D24;
+  --border-hairline: #262A34;
+  --border-strong: #4A5162;
+  --radius-base: 0px;
+
+  --text-primary: #F3F4F6;
+  --text-secondary: #9CA3AF;
+  --accent-signal: #00E599;
+  --accent-amber: #F59E0B;
+  --accent-error: #EF4444;
+
+  --mode-accent: #00E599;
+  --mode-accent-soft: rgba(0, 229, 153, 0.12);
 }
 
 html[data-mode='b2b'] {
-  --mode-accent: #10b981;
-  --mode-accent-soft: rgba(16, 185, 129, 0.12);
+  --mode-accent: #F59E0B;
+  --mode-accent-soft: rgba(245, 158, 11, 0.12);
 }
 
 html[data-mode='personal'] {
-  --mode-accent: #a855f7;
-  --mode-accent-soft: rgba(168, 85, 247, 0.12);
+  --mode-accent: #00E599;
+  --mode-accent-soft: rgba(0, 229, 153, 0.12);
 }
 
 @layer base {
   :root {
-    /* Typography */
-    --font-display: var(--font-space-grotesk), 'Space Grotesk', system-ui, sans-serif;
+    /* Typography (Master Spec §1.2) */
+    --font-display: var(--font-instrument-serif), 'Instrument Serif', Georgia, serif;
+    --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
     --font-body: var(--font-inter), 'Inter', system-ui, sans-serif;
-    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --font-mono: var(--font-jetbrains-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-    /* Premium Palette */
-    --indigo-primary: #6366f1;
-    --indigo-bright: #818cf8;
-    --indigo-dark: #4f46e5;
-    --cyan-accent: #22d3ee;
-    --cyan-light: #67e8f9;
-    
-    /* Neutral System - Deep Blacks */
-    --black-pure: #0a0a0a;
-    --black-90: #111111;
-    --gray-80: #1e1e1e;
-    --gray-60: #3a3a3a;
-    --gray-40: #6b6b6b;
-    --gray-20: #a0a0a0;
-    --white-pure: #ffffff;
-    --white-95: #f0f0f0;
+    /* Palette tokens */
+    --indigo-primary: #00E599;
+    --indigo-bright: #34F5B2;
+    --indigo-dark: #00B87A;
+    --cyan-accent: #00E599;
+    --cyan-light: #6EE7B7;
+
+    /* Neutral System */
+    --black-pure: #0B0C0E;
+    --black-90: #121418;
+    --gray-80: #1A1D24;
+    --gray-60: #262A34;
+    --gray-40: #4A5162;
+    --gray-20: #9CA3AF;
+    --white-pure: #F3F4F6;
+    --white-95: #E5E7EB;
 
     /* Animation Variables */
     --start: 0;
@@ -55,69 +70,72 @@ html[data-mode='personal'] {
     --direction: normal;
     --fill-mode: forwards;
     --play-state: running;
-    --color-mode: light;
+    --color-mode: dark;
 
-    /* Shadows with intention */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.6);
-    --shadow-glow: 0 0 15px rgba(99, 102, 241, 0.15);
+    /* Zero fuzzy shadows — tactile hairline discipline */
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+    --shadow-glow: none;
 
-    /* Legacy ShadCN vars for compatibility */
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 160 84% 39%;
-    --primary-foreground: 355.7 100% 97.3%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 160 84% 39%;
-    --radius: 0.5rem;
+    /* ShadCN vars aligned with charcoal slate & 0px orthogonal radius */
+    --background: 220 12% 5%;
+    --foreground: 220 14% 96%;
+    --card: 220 14% 8%;
+    --card-foreground: 220 14% 96%;
+    --popover: 220 14% 8%;
+    --popover-foreground: 220 14% 96%;
+    --primary: 160 100% 45%;
+    --primary-foreground: 220 12% 5%;
+    --secondary: 222 16% 12%;
+    --secondary-foreground: 220 14% 96%;
+    --muted: 222 16% 12%;
+    --muted-foreground: 218 11% 65%;
+    --accent: 222 16% 12%;
+    --accent-foreground: 220 14% 96%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 220 14% 96%;
+    --border: 223 16% 18%;
+    --input: 223 16% 18%;
+    --ring: 160 100% 45%;
+    --radius: 0px;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 160 84% 39%;
-    --primary-foreground: 355.7 100% 97.3%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 160 84% 39%;
+    --background: 220 12% 5%;
+    --foreground: 220 14% 96%;
+    --card: 220 14% 8%;
+    --card-foreground: 220 14% 96%;
+    --popover: 220 14% 8%;
+    --popover-foreground: 220 14% 96%;
+    --primary: 160 100% 45%;
+    --primary-foreground: 220 12% 5%;
+    --secondary: 222 16% 12%;
+    --secondary-foreground: 220 14% 96%;
+    --muted: 222 16% 12%;
+    --muted-foreground: 218 11% 65%;
+    --accent: 222 16% 12%;
+    --accent-foreground: 220 14% 96%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 220 14% 96%;
+    --border: 223 16% 18%;
+    --input: 223 16% 18%;
+    --ring: 160 100% 45%;
   }
 
   /* Base body styling */
   body {
-    @apply bg-[#0a0a0a] text-[#ededed];
-    font-family: var(--font-body);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: -0.03em;
+    font-weight: 400;
+    letter-spacing: -0.02em;
   }
 
   code, pre, .mono {
@@ -471,3 +489,58 @@ html[data-mode='personal'] {
 }
 
 
+
+
+/* ==========================================================================
+   Master Spec v2.0 — Tactile Grain Overlay & Native View Transitions
+   ========================================================================== */
+
+.tactile-grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Native View Transitions API (280ms editorial cadence) */
+@keyframes vt-fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-6px); }
+}
+
+@keyframes vt-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+::view-transition-old(root) {
+  animation: vt-fade-out 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: vt-fade-in 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Strict WCAG reduced-motion override (< 50ms crossfade, zero translation) */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 40ms !important;
+    animation-name: none !important;
+  }
+}

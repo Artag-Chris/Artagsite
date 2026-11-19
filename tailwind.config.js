@@ -18,6 +18,17 @@ const config = {
     },
     extend: {
       colors: {
+        /* Master Spec v2.0 — Architectural Kinetic Lab tokens */
+        surface: {
+          primary: "var(--bg-primary)",
+          secondary: "var(--bg-secondary)",
+          tertiary: "var(--bg-tertiary)",
+        },
+        hairline: "var(--border-hairline)",
+        "border-strong": "var(--border-strong)",
+        signal: "var(--accent-signal)",
+        "signal-amber": "var(--accent-amber)",
+        "signal-error": "var(--accent-error)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -52,10 +63,16 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      fontFamily: {
+        display: ["var(--font-display)", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+      },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        none: "0px",
+        lg: "var(--radius-base)",
+        md: "var(--radius-base)",
+        sm: "var(--radius-base)",
       },
       keyframes: {
         "accordion-down": {

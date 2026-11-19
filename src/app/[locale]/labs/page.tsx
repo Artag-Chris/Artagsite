@@ -1,10 +1,9 @@
 import type { Metadata } from 'next'
-import { setRequestLocale } from 'next-intl/server'
-import { getTranslations } from 'next-intl/server'
+import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
-import { projectsByLocale } from '@/data/proyectData'
+import { projectsByLocale } from '@/data/projects'
 import { ArchitectureDiagram } from '@/components/labs/ArchitectureDiagram'
-import { PrivateServicesMap } from '@/components/labs/PrivateServicesMap'
+import { InteractiveLabBoard } from '@/components/labs/InteractiveLabBoard'
 import { Link } from '@/i18n/navigation'
 
 const baseUrl = 'https://www.artagdev.com.co'
@@ -114,119 +113,52 @@ export default async function LabsPage({
   )
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-zinc-100 py-16 sm:py-20">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <header className="mb-10 text-center">
-          <span className="mb-4 inline-block rounded-full border border-indigo-500/20 bg-indigo-500/10 px-4 py-2 font-mono text-xs uppercase tracking-widest text-indigo-400/70">
+    <main className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] pt-24 pb-20">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <header className="mb-12 border-b border-[var(--border-hairline)] pb-10">
+          <span className="mb-4 inline-block border border-[var(--border-hairline)] bg-[var(--bg-secondary)] px-3 py-1 font-mono text-xs uppercase tracking-widest text-[var(--accent-signal)]">
             {t('badge')}
           </span>
-          <h1 className="mb-4 text-4xl font-bold leading-tight sm:text-5xl" style={{ fontFamily: 'var(--font-display)' }}>
+          <h1
+            className="mb-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.06] text-[var(--text-primary)]"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
             {t('title')}
-            <span className="text-cyan-400">{t('titleAccent')}</span>
+            <span className="italic text-[var(--accent-signal)]">{t('titleAccent')}</span>
           </h1>
-          <p className="mx-auto max-w-2xl text-base text-zinc-400 sm:text-lg">{t('description')}</p>
+          <p className="max-w-2xl text-base text-[var(--text-secondary)] sm:text-lg">
+            {t('description')}
+          </p>
         </header>
 
-        <section className="mb-12">
-          <ArchitectureDiagram
-            title={t('diagramTitle')}
-            nodes={atiendeNodes}
+        {/* Interactive Lab Board: Systems & Harnesses | Infrastructure (13) | Studies */}
+        <section className="mb-14">
+          <InteractiveLabBoard
+            projects={projects}
+            privateMapTitle={t('privateMapTitle')}
+            privateMapNote={t('privateMapNote')}
           />
-          <p className="mt-3 text-xs text-zinc-500">{t('privateNote')}</p>
         </section>
 
-        <section className="mb-12 grid gap-4 sm:grid-cols-2">
+        {/* Flagship interactive architecture tree */}
+        <section className="mb-14">
+          <ArchitectureDiagram title={t('diagramTitle')} nodes={atiendeNodes} />
+          <p className="mt-3 font-mono text-xs text-[var(--text-secondary)]">{t('privateNote')}</p>
+        </section>
+
+        {/* Secondary links kept reachable without polluting global navigation */}
+        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[var(--border-hairline)] pt-6 font-mono text-xs">
           <Link
-            href="/currentStudies"
-            className="group rounded-2xl border border-white/[0.07] bg-zinc-900/50 p-6 transition-colors hover:border-cyan-500/25"
+            href="/projects"
+            className="text-[var(--text-secondary)] hover:text-[var(--accent-signal)] transition-colors"
           >
-            <h3 className="mb-2 text-lg font-semibold text-white group-hover:text-cyan-200" style={{ fontFamily: 'var(--font-display)' }}>
-              {t('studiesTitle')}
-            </h3>
-            <p className="text-sm text-zinc-400">{t('studiesDescription')}</p>
-            <span className="mt-3 inline-block text-xs text-zinc-500">{t('studiesCta')} →</span>
+            {t('backToProjects')} →
           </Link>
           <Link
-            href="/private-servers"
-            className="group rounded-2xl border border-white/[0.07] bg-zinc-900/50 p-6 transition-colors hover:border-cyan-500/25"
+            href="/engineering-notes"
+            className="text-[var(--text-secondary)] hover:text-[var(--accent-signal)] transition-colors"
           >
-            <h3 className="mb-2 text-lg font-semibold text-white group-hover:text-cyan-200" style={{ fontFamily: 'var(--font-display)' }}>
-              {t('serversTitle')}
-            </h3>
-            <p className="text-sm text-zinc-400">{t('serversDescription')}</p>
-            <span className="mt-3 inline-block text-xs text-zinc-500">{t('serversCta')} →</span>
-          </Link>
-        </section>
-
-        <section className="mb-12">
-          <PrivateServicesMap title={t('privateMapTitle')} note={t('privateMapNote')} />
-        </section>
-
-        <section className="space-y-8">
-          {projects.map((project) => (
-            <article key={project.id} className="rounded-2xl border border-white/[0.07] bg-zinc-900/50 p-6 sm:p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-white" style={{ fontFamily: 'var(--font-display)' }}>
-                {project.title}
-              </h2>
-
-              <div className="mb-4">
-                <h3 className="mb-1 text-sm font-semibold uppercase tracking-widest text-amber-400/80">
-                  {t('starSituation')}
-                </h3>
-                <p className="leading-7 text-zinc-400">{project.caseStudy.problem}</p>
-              </div>
-
-              <div className="mb-4">
-                <h3 className="mb-1 text-sm font-semibold uppercase tracking-widest text-cyan-400/80">
-                  {t('starArchitecture')}
-                </h3>
-                <ul className="space-y-1 text-sm text-zinc-400">
-                  {project.caseStudy.architecture.map((step, i) => (
-                    <li key={i} className="flex gap-2">
-                      <span className="font-mono text-xs text-cyan-400">{String(i + 1).padStart(2, '0')}</span>
-                      <span>{step}</span>
-                    </li>
-                  ))}
-                </ul>
-                {project.caseStudy.decisions.length > 0 && (
-                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                    {project.caseStudy.decisions.map((d, i) => (
-                      <div key={i} className="rounded-lg border border-white/[0.06] bg-black/20 p-3">
-                        <div className="text-xs font-semibold text-cyan-300">{d.title}</div>
-                        <div className="text-xs text-zinc-500">{d.description}</div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div className="mb-4">
-                <h3 className="mb-1 text-sm font-semibold uppercase tracking-widest text-cyan-400/80">
-                  {t('starResults')}
-                </h3>
-                <ul className="space-y-1 text-sm text-zinc-400">
-                  {project.caseStudy.results.map((r, i) => (
-                    <li key={i} className="flex gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-cyan-400" />
-                      <span>{r}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <Link
-                href={`/projects/${project.slug}`}
-                className="text-sm text-zinc-500 hover:text-zinc-300"
-              >
-                {t('readCaseStudy')} →
-              </Link>
-            </article>
-          ))}
-        </section>
-
-        <div className="mt-8 text-center">
-          <Link href="/projects" className="text-sm text-zinc-500 hover:text-zinc-300">
-            ← {t('backToProjects')}
+            {isEs ? 'Leer notas de ingeniería' : 'Read engineering notes'} →
           </Link>
         </div>
       </div>

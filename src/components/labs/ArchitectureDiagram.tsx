@@ -39,15 +39,16 @@ export function ArchitectureDiagram({ nodes, title }: { nodes: LabNode[]; title?
               onClick={() => toggle(node.id)}
               className="mt-0.5 text-zinc-400 hover:text-cyan-300"
               aria-expanded={isOpen}
+              aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${node.label}`}
             >
-              <ChevronRight className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-90' : ''}`} />
+              <ChevronRight className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-90' : ''}`} aria-hidden="true" />
             </button>
           ) : (
-            <span className="mt-0.5 h-4 w-4" />
+            <span className="mt-0.5 h-4 w-4" aria-hidden="true" />
           )}
           <div className="flex-1">
             <div className="text-sm font-medium text-zinc-200">{node.label}</div>
-            {node.detail && <div className="text-xs text-zinc-500">{node.detail}</div>}
+            {node.detail && <div className="text-xs text-zinc-400">{node.detail}</div>}
           </div>
         </div>
         {hasChildren && isOpen && (

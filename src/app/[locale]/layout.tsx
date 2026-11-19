@@ -1,5 +1,5 @@
 import '../globals.css'
-import { Inter, Space_Grotesk, IBM_Plex_Mono } from 'next/font/google'
+import { Inter, Instrument_Serif, JetBrains_Mono } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
@@ -9,6 +9,9 @@ import { ViewModeProvider } from '@/contexts/ViewModeContext'
 import { ModeMetaUpdater } from '@/components/ModeMetaUpdater'
 import { ModeThemeApplier } from '@/components/ModeThemeApplier'
 import { CosmicBar } from '@/components/CosmicBar'
+import HeaderMain from '@/components/page_components/Headermain'
+import FooterMain from '@/components/footers/FooterMain'
+import { CommandPalette } from '@/components/CommandPalette'
 import { GoogleTagManager } from '@/components/google/GoogleTagManager'
 import GTMPageView from '@/components/google/GTMPageView'
 import { MetaPixel } from '@/components/meta/MetaPixel'
@@ -22,16 +25,17 @@ const inter = Inter({
   display: 'swap',
 })
 
-const spaceGrotesk = Space_Grotesk({
+const instrumentSerif = Instrument_Serif({
   subsets: ['latin'],
-  variable: '--font-space-grotesk',
+  variable: '--font-instrument-serif',
   display: 'swap',
-  weight: ['400', '500', '600', '700'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
 })
 
-const ibmPlexMono = IBM_Plex_Mono({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--font-mono',
+  variable: '--font-jetbrains-mono',
   display: 'swap',
   weight: ['400', '500', '600'],
 })
@@ -211,8 +215,10 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale} className={`${inter.variable} ${spaceGrotesk.variable} ${ibmPlexMono.variable}`} suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang={locale} className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+      <body className={`${inter.className} bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased`}>
+        {/* Zero-image tactile grain overlay (Master Spec §1.2) */}
+        <div className="tactile-grain-overlay" aria-hidden="true" />
         {/* Structured data rendered as early as possible in DOM (before child content) */}
         <script
           type="application/ld+json"
@@ -227,6 +233,8 @@ export default async function LocaleLayout({
             <ViewModeProvider>
               <ModeMetaUpdater />
               <ModeThemeApplier />
+              <HeaderMain />
+              <CommandPalette />
               <CosmicBar />
               <SpeedInsights />
               <GoogleTagManager />
@@ -234,6 +242,7 @@ export default async function LocaleLayout({
               <MetaPixel />
               <TikTokPixel />
               {children}
+              <FooterMain />
             </ViewModeProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
@@ -244,7 +253,7 @@ export default async function LocaleLayout({
 
 // Theme color for mobile browsers + consistent status bar
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
+  themeColor: "#0B0C0E",
   width: "device-width",
   initialScale: 1,
 }

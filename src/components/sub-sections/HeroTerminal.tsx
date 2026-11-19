@@ -65,10 +65,13 @@ export default function HeroTerminal() {
             <div className="w-3 h-3 rounded-full bg-red-500/80" />
             <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
             <div className="w-3 h-3 rounded-full bg-green-500/80" />
-            <span className="ml-3 text-xs text-zinc-500 font-mono">{t("windowTitle")}</span>
-            <div className="ml-auto flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-xs text-zinc-500 font-mono">{t("live")}</span>
+            <span className="ml-3 text-xs text-zinc-500 font-mono">{t("windowTitle")}</span>{" "}
+            <div className="ml-auto flex items-center gap-1.5 border-l border-white/10 pl-3">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" aria-hidden="true" />
+              <span className="text-xs text-zinc-500 font-mono">
+                <span aria-hidden="true">· </span>
+                {t("live")}
+              </span>
             </div>
           </div>
 
@@ -136,15 +139,15 @@ export default function HeroTerminal() {
               </motion.div>
             )}
           </div>
-        </div>
+        </div>{" "}
 
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 5, duration: 0.4 }}
-          className="absolute -bottom-4 -right-4 bg-[#111111] border border-white/5 rounded-xl px-4 py-2 flex items-center gap-2"
+          className="absolute -bottom-4 -right-4 bg-[#111111] border border-white/10 rounded-xl px-4 py-2 flex items-center gap-2"
         >
-          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" aria-hidden="true" />
           <span className="text-xs text-zinc-400 font-mono font-medium">{t("badge")}</span>
         </motion.div>
       </div>

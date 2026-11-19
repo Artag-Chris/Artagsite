@@ -15,7 +15,7 @@ interface N8nChatProps {
   chatInputKey?: string
   chatSessionKey?: string
   loadPreviousSession?: boolean
-  metadata?: Record<string, any>
+  metadata?: Record<string, unknown>
   i18nConfig?: {
     title?: string
     subtitle?: string
@@ -124,6 +124,7 @@ export default function N8nChat({
     }
 
     initializeChat()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     webhookUrl,
     mode,

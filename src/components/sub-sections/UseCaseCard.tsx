@@ -50,8 +50,8 @@ export function UseCaseCard({ useCase, index, isCarousel = false, onSelect }: Us
           <div className="flex items-start gap-4 mb-5">
             <div className="relative">
               <div className="absolute inset-0 bg-blue-500/10 rounded-xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative p-3 rounded-xl bg-white/[0.04] border border-white/[0.06] flex-shrink-0 group-hover:border-white/[0.1] transition-all duration-300">
-                <Icon className={`h-5 w-5 sm:h-6 sm:w-6 ${useCase.iconColor}`} />
+              <div className="relative p-3 rounded-xl bg-white/[0.04] border border-white/[0.06] flex-shrink-0 group-hover:border-white/[0.1] transition-all duration-300" aria-hidden="true">
+                <Icon aria-hidden="true" className={`h-5 w-5 sm:h-6 sm:w-6 ${useCase.iconColor}`} />
               </div>
             </div>
 

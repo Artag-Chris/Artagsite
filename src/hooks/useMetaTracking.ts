@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 // Extend Window interface for Meta Pixel
 declare global {
   interface Window {
-    fbq?: any
+    fbq?: (...args: unknown[]) => void
   }
 }
 
@@ -24,7 +24,7 @@ export const MetaEvents = {
 export type MetaEventName = typeof MetaEvents[keyof typeof MetaEvents]
 
 export interface MetaEventData {
-  [key: string]: any
+  [key: string]: unknown
   value?: number
   currency?: string
   content_ids?: string[]

@@ -67,7 +67,7 @@ export default function TimelineHero({ eventCount, yearStart, yearEnd }: Timelin
             <p className="text-xl md:text-2xl font-mono text-white">
               {yearStart} — {yearEnd}
             </p>
-            <p className="text-xs md:text-sm text-zinc-500 mt-1">
+            <p className="text-xs md:text-sm text-zinc-400 mt-1">
               {t("yearsOfGrowth", { count: totalYears })}
             </p>
           </div>
@@ -79,7 +79,7 @@ export default function TimelineHero({ eventCount, yearStart, yearEnd }: Timelin
             <p className="text-xl md:text-2xl font-mono text-white">
               {t("chapters", { count: eventCount })}
             </p>
-            <p className="text-xs md:text-sm text-zinc-500 mt-1">
+            <p className="text-xs md:text-sm text-zinc-400 mt-1">
               {t("majorLifeEvents")}
             </p>
           </div>
@@ -91,7 +91,7 @@ export default function TimelineHero({ eventCount, yearStart, yearEnd }: Timelin
             <p className="text-xl md:text-2xl font-mono text-white">
               {t("themes")}
             </p>
-            <p className="text-xs md:text-sm text-zinc-500 mt-1">
+            <p className="text-xs md:text-sm text-zinc-400 mt-1">
               {t("arcNames")}
             </p>
           </div>

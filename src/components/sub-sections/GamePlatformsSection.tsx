@@ -169,7 +169,7 @@ export default function GamePlatformsSection() {
 
       {/* Platform Cards - Grid */}
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-4 md:grid-cols-3">
-        {platforms.map((platform, index) => (
+        {platforms.map((platform) => (
           <div
             key={platform.name}
             className={`platform-card ${platform.bgColor} ${platform.hoverBgColor} border ${platform.borderColor} ${platform.hoverBorderColor} ${platform.hoverShadow} rounded-2xl p-8 transition-all duration-300 hover:shadow-lg`}

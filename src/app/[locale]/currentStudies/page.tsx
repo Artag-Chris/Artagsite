@@ -1,8 +1,5 @@
 import type { Metadata } from "next"
-import { getLocale } from "next-intl/server"
-import CosmicNavbar from "@/components/compontents/cosmic-navbar"
 import CurrentStudiesPage from "@/components/sub-sections/current-studies-page"
-import { navLinks } from "@/data/navlinks"
 
 export async function generateMetadata({
   params,
@@ -68,12 +65,9 @@ export async function generateMetadata({
 }
 
 export default async function Page() {
-  const locale = await getLocale()
-  const links = navLinks[locale as "en" | "es"] ?? navLinks.en
 
   return (
     <>
-      <CosmicNavbar links={links} currentPath="/currentStudies" />
       <CurrentStudiesPage />
     </>
   )

@@ -8,11 +8,18 @@ const es = {
     },
   },
   nav: {
+    home: "Inicio",
+    labs: "Laboratorio",
+    aboutMe: "Sobre mí",
+    primary: "Navegación principal",
+    audience: "Modo de audiencia",
+    openMenu: "Abrir menú",
+    closeMenu: "Cerrar menú",
+    commandPalette: "Abrir paleta de comandos",
     about: "Acerca de",
     whatIDo: "Lo que hago",
     projects: "Proyectos",
     notes: "Notas",
-    labs: "Laboratorio",
     letsTalk: "Hablemos",
     studies: "Estudios",
     resume: "Currículum",
@@ -33,6 +40,7 @@ const es = {
 ctaProjects: "Ver proyectos",
 ctaResume: "Descargar CV",
     alt: "Fondo tecnológico",
+    audienceLabel: "Elige tu vista",
     terminal: {
       windowTitle: "christian@artagdev — zsh",
       live: "en vivo",
@@ -91,6 +99,7 @@ ctaResume: "Descargar CV",
       },
     },
     carousel: {
+      title: "Casos de uso",
       scrollLeft: "Desplazar a la izquierda",
       scrollRight: "Desplazar a la derecha",
     },
@@ -290,6 +299,50 @@ ctaResume: "Descargar CV",
       education: "Educación",
       achievements: "Logros",
     },
+    timeline: {
+      experience: [
+        {
+          role: "Desarrollador Full Stack y Arquitecto de Software",
+          org: "Finova",
+          period: "Dic 2024 – Actualidad",
+          description:
+            "Diseño soluciones full-stack escalables entre frontend y backend. Participo en decisiones de diseño de sistemas, optimización de infraestructura y automatización de los flujos de despliegue. Construyo con React, Node.js y tecnologías cloud.",
+        },
+        {
+          role: "Arquitectura Frontend con React",
+          org: "Finova",
+          period: "Ago 2024 – Dic 2024",
+          description:
+            "Construí arquitecturas de componentes y sistemas frontend con React.js y herramientas modernas. Me enfoqué en escalabilidad, optimización de rendimiento y estructuras de código mantenibles que soporten la complejidad creciente del producto.",
+        },
+        {
+          role: "Arquitectura y Desarrollo Independiente",
+          org: "Proyectos varios",
+          period: "2021 – 2024",
+          description:
+            "Diseñé y construí soluciones técnicas en stacks muy diversos. Trabajé en proyectos desde MVPs de startups hasta sistemas empresariales, definiendo la arquitectura y entregando aplicaciones en producción.",
+        },
+      ],
+      education: [
+        {
+          role: "Programa de Desarrollo de Aplicaciones Web",
+          org: "Universidad de Bucaramanga",
+          period: "2023",
+          description:
+            "Formación integral en arquitectura de aplicaciones web modernas, patrones de diseño y frameworks de desarrollo full-stack.",
+        },
+      ],
+      achievements: [
+        {
+          title: "Diseño de Arquitectura de Sistemas",
+          description: "Diseñé arquitecturas escalables que soportaron el crecimiento de 0 a más de 500 usuarios concurrentes",
+        },
+        {
+          title: "Soluciones de Automatización",
+          description: "Construí flujos de automatización que ahorran a los equipos más de 50 horas al mes con n8n y soluciones a medida",
+        },
+      ],
+    },
   },
   testimonials: {
     badge: "Colaboraciones Reales",
@@ -303,6 +356,8 @@ ctaResume: "Descargar CV",
     goto: "Ir al testimonio {index}",
     autoRotating: "Testimonios en rotación automática • Haz clic para controlar",
     autoPaused: "Autoplay pausado • Usa las flechas o puntos para navegar",
+    pause: "Pausar rotación",
+    resume: "Reanudar rotación",
     relationship: {
       colleague: "Colega",
       manager: "Manager",
@@ -708,6 +763,60 @@ ctaResume: "Descargar CV",
       whatsNext: "¿Qué Sigue?",
       exploreWork: "Explora Mi Trabajo",
       getInTouch: "Ponte en Contacto",
+    },
+  },
+  aboutMePage: {
+    beyondTitle: "Más allá del código",
+    beyondDescription: "Intereses personales, biblioteca de juegos, fe y setup — fuera de la barra principal para mantener el foco en la ingeniería.",
+    gamesTitle: "Biblioteca de juegos",
+    gamesDescription: "Librería sincronizada en vivo con Steam, Epic Games y GOG.",
+    faithTitle: "Mi fe",
+    faithDescription: "Valores y convicciones que guían cómo vivo y trabajo.",
+    setupTitle: "Setup y lecturas",
+    setupDescription: "Hardware, libros, podcasts y bitácora personal.",
+  },
+  legal: {
+    updated: "Última actualización: noviembre de 2026",
+    close: "Cerrar diálogo",
+    privacy: {
+      title: "Política de Privacidad",
+      intro: "Este portafolio personal (artagdev.com.co) recopila solo los datos mínimos necesarios para responder tus mensajes y medir el rendimiento general del sitio.",
+      sections: [
+        {
+          heading: "Datos del formulario de contacto",
+          body: "Cuando envías un mensaje, tu nombre, correo electrónico, tema y mensaje se envían directamente a info@artagdev.com.co para poder responderte. No se venden ni se comparten con terceros.",
+        },
+        {
+          heading: "Analítica y telemetría",
+          body: "Se pueden usar herramientas de analítica agregada (Google Analytics / Tag Manager, Meta Pixel, TikTok Pixel y Vercel Speed Insights) para medir visitas y rendimiento. Puedes bloquearlas desde la configuración de tu navegador.",
+        },
+        {
+          heading: "Asistente de chat IA",
+          body: "Los mensajes enviados en el chat opcional se procesan en n8n.artagdev.com.co únicamente para generar respuestas. Evita compartir datos personales o financieros sensibles en el chat.",
+        },
+        {
+          heading: "Solicitudes sobre tus datos",
+          body: "Puedes solicitar la eliminación de cualquier mensaje enviado escribiendo a info@artagdev.com.co.",
+        },
+      ],
+    },
+    terms: {
+      title: "Términos de Servicio",
+      intro: "Al navegar por artagdev.com.co aceptas estos términos básicos.",
+      sections: [
+        {
+          heading: "Contenido informativo",
+          body: "Las notas de arquitectura, casos de estudio, estimaciones de ROI y simulaciones interactivas son solo informativos y no constituyen una cotización comercial vinculante.",
+        },
+        {
+          heading: "Propiedad intelectual",
+          body: "Salvo indicación contraria, los textos, diagramas, fragmentos de código y recursos visuales de este sitio pertenecen a Christian Henao (Artag Dev).",
+        },
+        {
+          heading: "Uso aceptable",
+          body: "Queda prohibido el envío automatizado de spam a /api/contact o el abuso de endpoints públicos, los cuales cuentan con limitación de tasa.",
+        },
+      ],
     },
   },
   common: {

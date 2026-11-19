@@ -21,11 +21,19 @@ const branchPaths = [
   "M0,0 C-5,15 -15,20 -10,30",
 ]
 
+interface LightningBranch {
+  pathIndex: number
+  position: { x: number; y: number }
+  scale: number
+  rotation: number
+  delay: number
+}
+
 // Lightning bolt component with branches
 const LightningBolt = ({ delay = 0, position = { x: 50, y: 0 }, scale = 1, opacity = 1 }) => {
-  const [isVisible, setIsVisible] = useState<any>(false)
-  const [mainPathIndex, setMainPathIndex] = useState<any>(0)
-  const [branches, setBranches] = useState<any>([])
+  const [isVisible, setIsVisible] = useState(false)
+  const [mainPathIndex, setMainPathIndex] = useState(0)
+  const [branches, setBranches] = useState<LightningBranch[]>([])
 
   // Generate random branches
   const generateBranches = () => {
@@ -136,7 +144,7 @@ const LightningBolt = ({ delay = 0, position = { x: 50, y: 0 }, scale = 1, opaci
         />
 
         {/* Branch lightning bolts */}
-        {branches.map((branch:any, index:any) => {
+        {branches.map((branch: LightningBranch, index: number) => {
           // Calculate position along the main path
           const x = branch.position.x
           const y = branch.position.y
@@ -184,7 +192,15 @@ const LightningBolt = ({ delay = 0, position = { x: 50, y: 0 }, scale = 1, opaci
 }
 
 // Cloud component for lightning to come from
-const Cloud = ({ position, scale = 1, opacity = 0.15 }:any) => {
+const Cloud = ({
+  position,
+  scale = 1,
+  opacity = 0.15,
+}: {
+  position: { x: number; y: number }
+  scale?: number
+  opacity?: number
+}) => {
   return (
     <div
       className="absolute pointer-events-none"

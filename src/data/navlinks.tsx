@@ -1,60 +1,31 @@
-import { Home, BookOpen, Gamepad2, Server, Heart, User, FlaskConical } from "lucide-react"
+// Single source of truth for global navigation.
+// Master Spec §2: exactly 3 primary routes, identical in header and footer,
+// in every locale. Labels are resolved via the `nav` i18n namespace.
 
-export interface NavLink {
-  href: string
-  label: string
-  shortLabel?: string
-  icon: React.ReactNode
+export type PrimaryNavId = "home" | "labs" | "aboutMe"
+
+export interface PrimaryNavItem {
+  id: PrimaryNavId
+  href: "/" | "/labs" | "/about-me"
 }
 
-const baseLinks = [
-  {
-    href: "/",
-    icon: <Home className="w-4 h-4" />,
-  },
-  {
-    href: "/labs",
-    icon: <FlaskConical className="w-4 h-4" />,
-  },
-  {
-    href: "/currentStudies",
-    icon: <BookOpen className="w-4 h-4" />,
-  },
-  {
-    href: "/favorites",
-    icon: <Gamepad2 className="w-4 h-4" />,
-  },
-  {
-    href: "/private-servers",
-    icon: <Server className="w-4 h-4" />,
-  },
-  {
-    href: "/my-faith",
-    icon: <Heart className="w-4 h-4" />,
-  },
-  {
-    href: "/about-me",
-    icon: <User className="w-4 h-4" />,
-  },
-]
+export const PRIMARY_NAV: readonly PrimaryNavItem[] = [
+  { id: "home", href: "/" },
+  { id: "labs", href: "/labs" },
+  { id: "aboutMe", href: "/about-me" },
+] as const
 
-export const navLinks: Record<"en" | "es", NavLink[]> = {
-  en: [
-    { ...baseLinks[0], label: "Home", shortLabel: "Home" },
-    { ...baseLinks[1], label: "Architecture lab", shortLabel: "Lab" },
-    { ...baseLinks[2], label: "My current topics of study", shortLabel: "Studies" },
-    { ...baseLinks[3], label: "My favorite games", shortLabel: "Games" },
-    { ...baseLinks[4], label: "My private servers", shortLabel: "Servers" },
-    { ...baseLinks[5], label: "My faith", shortLabel: "Faith" },
-    { ...baseLinks[6], label: "My History", shortLabel: "History" },
-  ],
-  es: [
-    { ...baseLinks[0], label: "Inicio", shortLabel: "Inicio" },
-    { ...baseLinks[1], label: "Laboratorio de arquitectura", shortLabel: "Lab" },
-    { ...baseLinks[2], label: "Mis temas de estudio actuales", shortLabel: "Estudios" },
-    { ...baseLinks[3], label: "Mis juegos favoritos", shortLabel: "Juegos" },
-    { ...baseLinks[4], label: "Mis servidores privados", shortLabel: "Servidores" },
-    { ...baseLinks[5], label: "Mi fe", shortLabel: "Fe" },
-    { ...baseLinks[6], label: "Mi Historia", shortLabel: "Historia" },
-  ],
+/**
+ * Secondary routes that stay reachable (and indexed) but are not in the global
+ * menu. Each one is linked from its "parent" primary route.
+ */
+export const SECONDARY_ROUTES = {
+  labs: ["/projects", "/engineering-notes", "/currentStudies", "/private-servers"],
+  aboutMe: ["/favorites", "/my-faith", "/personal"],
+} as const
+
+/** `pathname` comes from next-intl's usePathname (locale prefix already stripped). */
+export function isNavActive(pathname: string, href: PrimaryNavItem["href"]): boolean {
+  if (href === "/") return pathname === "/"
+  return pathname === href || pathname.startsWith(`${href}/`)
 }

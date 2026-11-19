@@ -5,6 +5,9 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
     reactStrictMode: true,
+    experimental: {
+        viewTransition: true,
+    },
     compiler: {
         styledComponents: true,
     },
@@ -65,6 +68,10 @@ const nextConfig: NextConfig = {
         return [
             { source: '/notes', destination: '/engineering-notes', permanent: true },
             { source: '/es/notes', destination: '/es/engineering-notes', permanent: true },
+            { source: '/privateservers', destination: '/private-servers', permanent: true },
+            { source: '/es/privateservers', destination: '/es/private-servers', permanent: true },
+            { source: '/current-studies', destination: '/currentStudies', permanent: true },
+            { source: '/es/current-studies', destination: '/es/currentStudies', permanent: true },
         ]
     },
 };

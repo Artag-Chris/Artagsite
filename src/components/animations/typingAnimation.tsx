@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { motion, useAnimation } from "framer-motion"
 
 interface TypingAnimationProps {
@@ -27,7 +27,10 @@ export default function TypingAnimation({
   onComplete,
 }: TypingAnimationProps) {
   // Convert single string to array for consistent handling
-  const phrasesArray = typeof phrases === "string" ? [phrases] : phrases
+  const phrasesArray = useMemo(
+    () => (typeof phrases === "string" ? [phrases] : phrases),
+    [phrases]
+  )
 
   const [displayedText, setDisplayedText] = useState("")
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)

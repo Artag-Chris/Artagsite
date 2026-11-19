@@ -1,11 +1,5 @@
 import {
-  Calendar,
-  Code,
-  Award,
-  Briefcase,
   Lightbulb,
-  Rocket,
-  GraduationCap,
   Heart,
   BookOpen,
   MapPin,

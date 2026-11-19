@@ -14,11 +14,6 @@ interface ColorScheme {
   particleGlow: string
 }
 
-interface Shape {
-  name: string
-  component: React.ReactNode
-}
-
 const colorSchemes: ColorScheme[] = [
   {
     name: "amber",
@@ -140,12 +135,12 @@ export default function Morphing3D({
             </div>
             <div className="cube-face top" style={{ "--color-text": currentColor.text, "--color-glow": currentColor.glow } as React.CSSProperties}>
               <div className="face-content">
-                <div className="code-line">// Tech Stack</div>
+                <div className="code-line">{"// Tech Stack"}</div>
               </div>
             </div>
             <div className="cube-face bottom" style={{ "--color-text": currentColor.text, "--color-glow": currentColor.glow } as React.CSSProperties}>
               <div className="face-content">
-                <div className="code-line">// Full Stack</div>
+                <div className="code-line">{"// Full Stack"}</div>
               </div>
             </div>
           </div>

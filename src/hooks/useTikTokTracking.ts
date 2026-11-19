@@ -3,7 +3,13 @@ import { useCallback } from 'react'
 // Extend Window interface for TikTok Pixel
 declare global {
   interface Window {
-    ttq?: any
+    ttq?: {
+      track: (eventName: string, data?: Record<string, unknown>) => void
+      identify: (userData: Record<string, unknown>) => void
+      page?: () => void
+      load?: (pixelId: string) => void
+      [key: string]: unknown
+    }
   }
 }
 
@@ -32,7 +38,7 @@ export const TikTokEvents = {
 export type TikTokEventName = typeof TikTokEvents[keyof typeof TikTokEvents]
 
 export interface TikTokEventData {
-  [key: string]: any
+  [key: string]: unknown
   value?: number
   currency?: string
   content_id?: string
@@ -54,7 +60,7 @@ export interface TikTokUserData {
   state?: string
   zip?: string
   country?: string
-  [key: string]: any
+  [key: string]: unknown
 }
 
 /**

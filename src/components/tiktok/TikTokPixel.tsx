@@ -6,13 +6,13 @@ import { analyticsConfig } from "@/config/analytics.config"
 // Extend Window interface for TikTok Pixel
 declare global {
   interface Window {
-    ttq?: any
     TiktokAnalyticsObject?: string
   }
 }
 
 export function TikTokPixel() {
   useEffect(() => {
+    if (window.location.hostname !== "www.artagdev.com.co") return
     const pixelId = analyticsConfig.tiktok.pixelId
     if (!pixelId) return
 

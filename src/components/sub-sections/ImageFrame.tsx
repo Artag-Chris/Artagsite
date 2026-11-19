@@ -2,7 +2,13 @@ import { motion } from "framer-motion";
 import React from "react";
 import Image from "next/image";
 
-function ImageFrame({ setIsHovered, isHovered }: { setIsHovered: any; isHovered: any }) {
+function ImageFrame({
+  setIsHovered,
+  isHovered,
+}: {
+  setIsHovered: (hovered: boolean) => void;
+  isHovered: boolean;
+}) {
   return (
     <motion.div
       className="relative w-full max-w-xs sm:max-w-sm aspect-square"

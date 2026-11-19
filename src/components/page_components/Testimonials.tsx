@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useLocale, useTranslations } from "next-intl"
-import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react"
+import { Star, ChevronLeft, ChevronRight, Quote, Pause, Play } from "lucide-react"
 import { testimonialsByLocale } from "@/data/contactData"
 import FeaturedTestimonials from "@/components/sub-sections/FeaturedTestimonials"
 
@@ -13,18 +13,21 @@ function Testimonials() {
   const testimonials = testimonialsByLocale[locale as "en" | "es"] ?? testimonialsByLocale.en
   const [currentIndex, setCurrentIndex] = useState(0)
   const [autoPlay, setAutoPlay] = useState(true)
+  const [isInteractionPaused, setIsInteractionPaused] = useState(false)
   const [direction, setDirection] = useState(0)
 
+  const isRunning = autoPlay && !isInteractionPaused
+
   useEffect(() => {
-    if (!autoPlay) return
-    
+    if (!isRunning) return
+
     const interval = setInterval(() => {
       setDirection(1)
       setCurrentIndex((prev) => (prev + 1) % testimonials.length)
     }, 6000)
-    
+
     return () => clearInterval(interval)
-  }, [autoPlay])
+  }, [isRunning, testimonials.length])
 
   const handlePrev = () => {
     setDirection(-1)
@@ -58,6 +61,15 @@ function Testimonials() {
   return (
     <section
       id="testimonials"
+      aria-roledescription="carousel"
+      onMouseEnter={() => setIsInteractionPaused(true)}
+      onMouseLeave={() => setIsInteractionPaused(false)}
+      onFocusCapture={() => setIsInteractionPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+          setIsInteractionPaused(false)
+        }
+      }}
       className="bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#0a0a0a] py-20 sm:py-32 relative overflow-hidden w-screen -mx-[calc((100vw-100%)/2)]"
     >
       <div className="absolute top-0 left-1/4 w-1/2 h-1/2 bg-indigo-500/3 rounded-full blur-3xl pointer-events-none"></div>
@@ -227,6 +239,7 @@ function Testimonials() {
             </div>
 
             <motion.button
+              type="button"
               onClick={handleNext}
               whileHover={{ x: 3 }}
               whileTap={{ scale: 0.97 }}
@@ -235,16 +248,36 @@ function Testimonials() {
             >
               <ChevronRight className="w-6 h-6 text-zinc-400" />
             </motion.button>
+
+            <button
+              type="button"
+              onClick={() => setAutoPlay((prev) => !prev)}
+              aria-pressed={!autoPlay}
+              aria-label={autoPlay ? t("pause") : t("resume")}
+              className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-full border border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10 text-xs font-medium text-zinc-300 transition-colors"
+            >
+              {autoPlay ? (
+                <>
+                  <Pause className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>{t("pause")}</span>
+                </>
+              ) : (
+                <>
+                  <Play className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>{t("resume")}</span>
+                </>
+              )}
+            </button>
           </motion.div>
 
           <motion.div
-            className="text-center mt-8 text-zinc-600 text-sm"
+            className="text-center mt-8 text-zinc-400 text-sm"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
             viewport={{ once: true }}
           >
-            {autoPlay ? (
+            {isRunning ? (
               <p>{t("autoRotating")}</p>
             ) : (
               <p>{t("autoPaused")}</p>

@@ -130,8 +130,8 @@ const timelineEvents: TimelineEvent[] = [
 // Horizontal timeline event component
 const HorizontalTimelineEvent = ({
   event,
-  index,
-  isLast,
+  index: _index,
+  isLast: _isLast,
 }: { event: TimelineEvent; index: number; isLast: boolean }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px 0px" })
@@ -205,7 +205,7 @@ const HorizontalTimelineEvent = ({
 }
 
 // Vertical timeline event component
-const VerticalTimelineEvent = ({ event, index, isLast }: { event: TimelineEvent; index: number; isLast: boolean }) => {
+const VerticalTimelineEvent = ({ event, index: _index, isLast: _isLast }: { event: TimelineEvent; index: number; isLast: boolean }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px 0px" })
   const isLeft = event.position === "left"
@@ -311,7 +311,7 @@ const ProgressIndicator = () => {
 }
 
 // Section connector component
-const SectionConnector = ({ from, to }: { from: string; to: string }) => {
+const SectionConnector = ({ from: _from, to: _to }: { from: string; to: string }) => {
   // This would be implemented with SVG paths to create custom connectors between sections
   return (
     <div className="relative h-24">

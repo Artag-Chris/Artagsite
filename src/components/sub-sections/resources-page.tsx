@@ -8,8 +8,8 @@ import { useTranslations } from "next-intl"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { ExternalLink, Server, Globe, Code, Palette, FileText, Monitor, Cpu, HardDrive, Network } from "lucide-react"
-import { getStatusColor, serverCards, websiteCards } from "@/data/serverAndResources/serverAndResourcesData"
+import { ExternalLink, Server, Globe, Network } from "lucide-react"
+import { serverCards, websiteCards } from "@/data/serverAndResources/serverAndResourcesData"
 
 gsap.registerPlugin(ScrollTrigger)
 

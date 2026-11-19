@@ -20,7 +20,7 @@ export default function MagicalParticles({
     if (!containerRef.current) return
 
     // Generate particles
-    const particles = Array.from({ length: count }, (_, i) => {
+    const particles = Array.from({ length: count }, () => {
       const particle = document.createElement("div")
       const size = Math.random() * 3 + 1
       const color = colors[Math.floor(Math.random() * colors.length)]

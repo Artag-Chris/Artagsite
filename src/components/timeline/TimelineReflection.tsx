@@ -108,7 +108,7 @@ export default function TimelineReflection() {
 
         {/* Closing accent */}
         <div className="mt-12 md:mt-16 pt-12 md:pt-16 border-t border-white/5">
-          <p className="text-xs md:text-sm text-zinc-600 font-mono">
+          <p className="text-xs md:text-sm text-zinc-400 font-mono">
             "{t("finalQuote")}"
           </p>
         </div>

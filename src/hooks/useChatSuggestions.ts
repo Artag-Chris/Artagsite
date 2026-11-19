@@ -20,7 +20,6 @@ export function useChatSuggestions({
       return
     }
 
-    let timeoutId: NodeJS.Timeout
     let observer: MutationObserver | null = null
 
     const addSuggestionButtons = () => {
@@ -213,7 +212,7 @@ export function useChatSuggestions({
     }
 
     // Wait for chat to initialize, then add buttons
-    timeoutId = setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       addSuggestionButtons()
 
       // Also observe for DOM changes in case chat loads slowly

@@ -13,13 +13,6 @@ interface TimelineEventCardProps {
   isVisible?: boolean
 }
 
-const emotionalArcColors = {
-  challenge: "border-red-500/60 bg-red-500/5",
-  triumph: "border-amber-500/60 bg-amber-500/5",
-  transformation: "border-purple-500/60 bg-purple-500/5",
-  discovery: "border-blue-500/60 bg-blue-500/5",
-}
-
 const emotionalArcBorderOnly = {
   challenge: "border-l-4 border-red-500",
   triumph: "border-l-4 border-amber-500",

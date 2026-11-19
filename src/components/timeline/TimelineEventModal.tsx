@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { useTranslations } from "next-intl"
 import gsap from "gsap"
 import { TimelineEvent, timelineEvents } from "@/components/timeline/timelineData/timelineEvents"

@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react'
 import { contactFormSchema } from '@/lib/validations/contactSchema'
 import { submitContact } from '@/lib/api/contactService'
-import { ContactFormData, ContactFormResponse } from '@/types/contact'
+import { ContactFormData } from '@/types/contact'
 import { trackEvent } from '@/lib/analytics'
 
 interface UseContactFormState {
@@ -48,7 +48,7 @@ export function useContactForm() {
       ...prev,
       formData: {
         ...prev.formData,
-        projectType: value as any,
+        projectType: value as ContactFormData['projectType'],
       },
       error: null,
     }))

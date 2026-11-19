@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 
 declare global {
   interface Window {
-    dataLayer: any[];
+    dataLayer: Record<string, unknown>[];
   }
 }
 

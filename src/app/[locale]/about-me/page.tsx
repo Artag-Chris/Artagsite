@@ -1,10 +1,9 @@
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
+import { Gamepad2, Heart, Settings } from "lucide-react"
 import type { Metadata } from "next"
-import { getLocale } from "next-intl/server"
-import CosmicNavbar from "@/components/compontents/cosmic-navbar"
-import { navLinks } from "@/data/navlinks"
+import { getTranslations } from "next-intl/server"
+import { Link } from "@/i18n/navigation"
 import DeveloperJourneyTimeline from "@/components/timeline/developer-journey-timeline"
+import { ArchitecturalCell, ArchitecturalGrid } from "@/components/ArchitecturalGrid"
 
 export async function generateMetadata({
   params,
@@ -65,16 +64,39 @@ export async function generateMetadata({
 }
 
 export default async function AboutMePage() {
-  const locale = await getLocale()
-  const links = navLinks[locale as "en" | "es"] ?? navLinks.en
+  const t = await getTranslations("aboutMePage")
+
+  const beyond = [
+    { href: "/favorites", icon: Gamepad2, title: t("gamesTitle"), description: t("gamesDescription") },
+    { href: "/my-faith", icon: Heart, title: t("faithTitle"), description: t("faithDescription") },
+    { href: "/personal", icon: Settings, title: t("setupTitle"), description: t("setupDescription") },
+  ] as const
 
   return (
-    <main className="bg-zinc-950 min-h-screen">
-      {/* Cosmic Navbar */}
-      <CosmicNavbar links={links} currentPath="/about-me" />
-
+    <main className="bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen pt-14">
       {/* Interactive Timeline - Full Width */}
       <DeveloperJourneyTimeline/>
+
+      {/* Secondary, contained section for personal interests (kept out of the global menu) */}
+      <section aria-labelledby="beyond-code" className="border-t border-[var(--border-hairline)] bg-[var(--bg-primary)] py-16">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <h2 id="beyond-code" className="mb-2 text-[clamp(1.75rem,3.5vw,2.75rem)] leading-tight text-[var(--text-primary)]" style={{ fontFamily: "var(--font-display)" }}>
+            {t("beyondTitle")}
+          </h2>
+          <p className="mb-8 max-w-2xl text-[var(--text-secondary)]">{t("beyondDescription")}</p>
+          <ArchitecturalGrid columns={3}>
+            {beyond.map(({ href, icon: Icon, title, description }) => (
+              <ArchitecturalCell key={href} interactive>
+                <Link href={href} className="group flex h-full flex-col">
+                  <Icon className="mb-3 h-5 w-5 text-[var(--accent-signal)]" aria-hidden="true" />
+                  <span className="mb-1 font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-signal)] transition-colors">{title}</span>
+                  <span className="text-sm text-[var(--text-secondary)]">{description}</span>
+                </Link>
+              </ArchitecturalCell>
+            ))}
+          </ArchitecturalGrid>
+        </div>
+      </section>
     </main>
   )
 }

@@ -14,7 +14,7 @@ import type { Game } from "./gamesDataCore";
 
 export { favoriteGames } from "./gamesDataCore";
 
-export const GameCard = ({ game, index }: { game: Game; index: number }) => {
+export const GameCard = ({ game, index: _index }: { game: Game; index: number }) => {
   const t = useTranslations("games.card");
   const cardRef = useRef<HTMLDivElement>(null);
 

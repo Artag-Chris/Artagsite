@@ -1,5 +1,5 @@
 
-import { Code, Palette, FileText, Globe, Monitor, Cpu, HardDrive, Server, FileUp, Music, Zap } from "lucide-react"
+import { Code, Palette, FileText, Globe, FileUp, Music, Zap } from "lucide-react"
 
 export interface WebsiteCard {
   id: number

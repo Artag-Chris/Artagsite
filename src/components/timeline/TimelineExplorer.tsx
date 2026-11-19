@@ -69,10 +69,10 @@ export default function TimelineExplorer({ onSelectEvent }: TimelineExplorerProp
         {/* Bottom accent */}
         <div className="mt-16 md:mt-20 pt-12 border-t border-zinc-800/50">
           <div className="text-center">
-            <p className="text-sm md:text-base text-zinc-500 font-mono">
+            <p className="text-sm md:text-base text-zinc-400 font-mono">
               {t("endOfChapter")}
             </p>
-            <p className="text-xs text-zinc-600 mt-2">
+            <p className="text-xs text-zinc-400 mt-2">
               {timelineEvents.length} {t("milestonesDocumented")}
             </p>
           </div>

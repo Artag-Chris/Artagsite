@@ -26,7 +26,7 @@ const GROUPS = [
     id: 'jobs',
     label: 'Jobs & queues',
     detail: 'Background workers, schedulers, retries',
-    services: ['job-scheduler', 'worker-pool', 'retry-handler'],
+    services: ['job-scheduler', 'worker-pool'],
   },
   {
     id: 'data',

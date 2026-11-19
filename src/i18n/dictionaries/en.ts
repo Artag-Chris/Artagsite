@@ -8,11 +8,18 @@ const en = {
     },
   },
   nav: {
+    home: "Home",
+    labs: "Labs",
+    aboutMe: "About",
+    primary: "Primary navigation",
+    audience: "Audience mode",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
+    commandPalette: "Open command palette",
     about: "About",
     whatIDo: "What I Do",
     projects: "Projects",
     notes: "Notes",
-    labs: "Labs",
     letsTalk: "Let's Talk",
     studies: "Studies",
     resume: "Resume",
@@ -33,6 +40,7 @@ const en = {
 ctaProjects: "View projects",
 ctaResume: "Download CV",
     alt: "Technology background",
+    audienceLabel: "Choose your view",
     terminal: {
       windowTitle: "christian@artagdev — zsh",
       live: "live",
@@ -91,6 +99,7 @@ ctaResume: "Download CV",
       },
     },
     carousel: {
+      title: "Use cases",
       scrollLeft: "Scroll left",
       scrollRight: "Scroll right",
     },
@@ -290,6 +299,50 @@ ctaResume: "Download CV",
       education: "Education",
       achievements: "Achievements",
     },
+    timeline: {
+      experience: [
+        {
+          role: "Full Stack Developer & Software Architect",
+          org: "Finova",
+          period: "Dec 2024 – Present",
+          description:
+            "Architecting scalable full-stack solutions across frontend and backend systems. Contributing to system design decisions, infrastructure optimization, and automation of deployment workflows. Building with React, Node.js, and cloud technologies.",
+        },
+        {
+          role: "React & Frontend Architecture",
+          org: "Finova",
+          period: "Aug 2024 – Dec 2024",
+          description:
+            "Built component architectures and frontend systems using React.js and modern tools. Focused on scalability, performance optimization, and maintainable code structures that support growing product complexity.",
+        },
+        {
+          role: "Independent Architecture & Development",
+          org: "Various projects",
+          period: "2021 – 2024",
+          description:
+            "Designed and built technical solutions across diverse tech stacks. Worked on projects ranging from startup MVPs to enterprise systems, architecting solutions and delivering production applications.",
+        },
+      ],
+      education: [
+        {
+          role: "Web Application Development Program",
+          org: "Universidad de Bucaramanga",
+          period: "2023",
+          description:
+            "Comprehensive training in modern web application architecture, design patterns, and full-stack development frameworks.",
+        },
+      ],
+      achievements: [
+        {
+          title: "System Architecture Design",
+          description: "Designed scalable architectures supporting growth from 0 to 500+ concurrent users",
+        },
+        {
+          title: "Automation Solutions",
+          description: "Engineered automation workflows saving teams 50+ hours monthly through n8n and custom solutions",
+        },
+      ],
+    },
   },
   testimonials: {
     badge: "Real Collaborations",
@@ -303,6 +356,8 @@ ctaResume: "Download CV",
     goto: "Go to testimonial {index}",
     autoRotating: "Auto-rotating testimonials • Click to control",
     autoPaused: "Auto-play paused • Click arrows or dots to navigate",
+    pause: "Pause rotation",
+    resume: "Resume rotation",
     relationship: {
       colleague: "Colleague",
       manager: "Manager",
@@ -708,6 +763,60 @@ ctaResume: "Download CV",
       whatsNext: "What's Next?",
       exploreWork: "Explore My Work",
       getInTouch: "Get in Touch",
+    },
+  },
+  aboutMePage: {
+    beyondTitle: "Beyond the code",
+    beyondDescription: "Personal interests, gaming library, faith and hardware setup — kept out of the main navigation so the work stays front and center.",
+    gamesTitle: "Gaming library",
+    gamesDescription: "Live library synced from Steam, Epic Games and GOG.",
+    faithTitle: "My faith",
+    faithDescription: "Values and convictions that guide how I live and work.",
+    setupTitle: "Setup & readings",
+    setupDescription: "Hardware, books, podcasts and personal log.",
+  },
+  legal: {
+    updated: "Last updated: November 2026",
+    close: "Close dialog",
+    privacy: {
+      title: "Privacy Policy",
+      intro: "This personal portfolio (artagdev.com.co) collects only the minimum data needed to respond to your messages and understand aggregate site usage.",
+      sections: [
+        {
+          heading: "Contact form data",
+          body: "When you send a message via the contact form, your name, email address, topic and message are sent directly to info@artagdev.com.co so I can reply. They are not sold or shared with third-party brokers.",
+        },
+        {
+          heading: "Analytics and telemetry",
+          body: "Standard aggregate analytics (Google Analytics / Tag Manager, Meta Pixel, TikTok Pixel and Vercel Speed Insights) may be used to measure performance and visits. You can block these at any time via browser privacy controls.",
+        },
+        {
+          heading: "AI chat widget",
+          body: "Messages sent in the optional chat assistant are processed through n8n.artagdev.com.co strictly to generate responses. Avoid sharing sensitive personal or financial information in the chat.",
+        },
+        {
+          heading: "Data requests",
+          body: "You can request deletion of any correspondence you sent by emailing info@artagdev.com.co.",
+        },
+      ],
+    },
+    terms: {
+      title: "Terms of Service",
+      intro: "By browsing artagdev.com.co you agree to these straightforward terms.",
+      sections: [
+        {
+          heading: "Informational content",
+          body: "Architecture notes, case studies, ROI estimates and interactive simulations are provided for informational purposes only and do not constitute a binding commercial quote.",
+        },
+        {
+          heading: "Intellectual property",
+          body: "Unless otherwise noted, all copy, diagrams, code snippets and visuals on this site belong to Christian Henao (Artag Dev).",
+        },
+        {
+          heading: "Acceptable use",
+          body: "Automated scraping, spam submissions to /api/contact or attempts to abuse public endpoints are prohibited and rate-limited.",
+        },
+      ],
     },
   },
   common: {

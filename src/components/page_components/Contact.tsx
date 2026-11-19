@@ -16,7 +16,6 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent } from "@/components/ui/card"
 import { socialLinksContact } from "@/data/contactData"
 import { useContactForm } from "@/hooks/useContactForm"
 import { useMetaPixel } from "@/hooks/useMetaPixel"
@@ -64,7 +63,7 @@ function Contact() {
     trackEvent("ViewContent", {
       content_name: "Contact Section",
     })
-  }, [])
+  }, [trackEvent])
 
   return (
     <section id="contact" className="py-12 sm:py-20 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#080808] relative overflow-hidden w-screen -mx-[calc((100vw-100%)/2)]">
@@ -156,7 +155,11 @@ function Contact() {
                               {t("topic")}
                             </Label>
                             <Select value={formData.projectType} onValueChange={handleSelectChange}>
-                              <SelectTrigger className="mt-1 bg-[#0a0a0a]/50 border-white/10 text-white focus:border-white/20 focus:ring-white/20 rounded-lg transition-all duration-200">
+                              <SelectTrigger
+                                id="projectType"
+                                aria-label={t("topic")}
+                                className="mt-1 bg-[#0a0a0a]/50 border-white/10 text-white focus:border-white/20 focus:ring-white/20 rounded-lg transition-all duration-200"
+                              >
                                 <SelectValue placeholder={t("selectPlaceholder")} />
                               </SelectTrigger>
                               <SelectContent className="bg-[#111111] border-white/10 text-white">

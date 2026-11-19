@@ -44,7 +44,7 @@ function Projects() {
     }
 
     return results
-  }, [selectedCategory, searchQuery])
+  }, [selectedCategory, searchQuery, projectsData])
 
   const handleProjectClick = (project: typeof projectsData[0]) => {
     setSelectedProject(project)

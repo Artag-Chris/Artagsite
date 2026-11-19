@@ -1,7 +1,4 @@
 import type { Metadata } from "next"
-import { getLocale } from "next-intl/server"
-import CosmicNavbar from "@/components/compontents/cosmic-navbar";
-import { navLinks } from "@/data/navlinks";
 import FavoriteGamesPage from "@/components/sub-sections/FavoritesGames";
 
 export async function generateMetadata({
@@ -63,13 +60,9 @@ export async function generateMetadata({
 }
 
 export default async function Page() {
-    const locale = await getLocale()
-    const links = navLinks[locale as "en" | "es"] ?? navLinks.en
 
     return (
         <main className="bg-zinc-950 min-h-screen">
-            {/* Cosmic Navbar */}
-            <CosmicNavbar links={links} currentPath="/favorites" />
 
             <div className="container mx-auto px-4 py-10">
                 <FavoriteGamesPage />

@@ -36,12 +36,12 @@ export default function TechCube3D() {
         </div>
         <div className="cube-face top">
           <div className="face-content">
-            <div className="code-line">// Tech Stack</div>
+            <div className="code-line">{"// Tech Stack"}</div>
           </div>
         </div>
         <div className="cube-face bottom">
           <div className="face-content">
-            <div className="code-line">// Full Stack</div>
+            <div className="code-line">{"// Full Stack"}</div>
           </div>
         </div>
       </div>

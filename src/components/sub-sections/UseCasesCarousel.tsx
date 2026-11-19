@@ -117,6 +117,9 @@ export function UseCasesCarousel({ useCases, onSelectUseCase }: UseCasesCarousel
           {/* Scroll Container */}
           <div
             ref={scrollContainerRef}
+            tabIndex={0}
+            role="region"
+            aria-label={t("title")}
             className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 px-6 sm:px-10 lg:px-16"
             style={{
               scrollSnapType: "x mandatory",

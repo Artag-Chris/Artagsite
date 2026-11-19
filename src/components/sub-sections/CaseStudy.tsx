@@ -99,7 +99,7 @@ export const CaseStudyComponent: React.FC<CaseStudyProps> = ({ caseStudy }) => {
         viewport={{ once: true }}
         className="space-y-3"
       >
-        {sections.map((section, idx) => {
+        {sections.map((section) => {
           const Icon = section.icon
           return (
             <motion.button
@@ -158,7 +158,7 @@ export const CaseStudyComponent: React.FC<CaseStudyProps> = ({ caseStudy }) => {
       >
         {listSections
           .filter((section) => section.items.length > 0)
-          .map((section, idx) => {
+          .map((section) => {
             const Icon = section.icon
             return (
               <motion.button

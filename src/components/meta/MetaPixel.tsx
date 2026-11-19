@@ -6,13 +6,13 @@ import { analyticsConfig } from "@/config/analytics.config"
 // Extend Window interface for Meta Pixel
 declare global {
   interface Window {
-    fbq?: any
-    _fbq?: any
+    _fbq?: unknown
   }
 }
 
 export function MetaPixel() {
   useEffect(() => {
+    if (window.location.hostname !== "www.artagdev.com.co") return
     const pixelId = analyticsConfig.meta.pixelId
     if (!pixelId) return
 

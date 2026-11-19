@@ -16,7 +16,6 @@ const titleItem = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 import MoreAboutmeButton from "../compontents/MoreAboutmeButton";
-import { handleResumeDownload } from "@/functions/handleResumenDownload";
 import ImageFrame from "../sub-sections/ImageFrame";
 import ShowmoreInfo from "../sub-sections/ShowmoreInfo";
 import ExperEduAchiComponent from "../sub-sections/ExperEduAchiComponent";

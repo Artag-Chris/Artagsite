@@ -1,4 +1,4 @@
-import { Github, Linkedin, Twitter, Instagram, Youtube,} from '@styled-icons/simple-icons'
+import { Github, Linkedin, Instagram, Youtube } from '@styled-icons/simple-icons'
 import { testimonialsEs } from './contactData.es'
 
 export const socialLinksContact = [
@@ -19,12 +19,6 @@ export const socialLinksContact = [
       icon: Youtube,
       url: "https://www.youtube.com/@Artag888",
       color: "hover:text-[#ff0000]",
-    },
-    {
-      name: "Twitter",
-      icon: Twitter,
-      url: "https://twitter.com/yourusername",
-      color: "hover:text-[#1DA1F2]",
     },
     {
       name: "Instagram",
