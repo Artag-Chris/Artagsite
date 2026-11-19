@@ -1,6 +1,12 @@
+import type { Metadata } from 'next'
 import { setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
 import { ViewModeSetter } from '@/components/ViewModeSetter'
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+  alternates: { canonical: 'https://www.artagdev.com.co' },
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))

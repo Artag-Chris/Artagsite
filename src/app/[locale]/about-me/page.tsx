@@ -32,7 +32,11 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: es ? `${baseUrl}/es/about-me` : `${baseUrl}/about-me`,
-      languages: { en: `${baseUrl}/about-me`, es: `${baseUrl}/es/about-me` },
+      languages: {
+        en: `${baseUrl}/about-me`,
+        es: `${baseUrl}/es/about-me`,
+        "x-default": `${baseUrl}/about-me`,
+      },
     },
     openGraph: {
       title: es

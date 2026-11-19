@@ -25,7 +25,11 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: es ? `${baseUrl}/es/my-faith` : `${baseUrl}/my-faith`,
-      languages: { en: `${baseUrl}/my-faith`, es: `${baseUrl}/es/my-faith` },
+      languages: {
+        en: `${baseUrl}/my-faith`,
+        es: `${baseUrl}/es/my-faith`,
+        "x-default": `${baseUrl}/my-faith`,
+      },
     },
     openGraph: {
       title: es ? "Mi Fe | Artag" : "My Faith | Artag",

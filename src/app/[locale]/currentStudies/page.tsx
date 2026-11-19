@@ -34,7 +34,14 @@ export async function generateMetadata({
       "remote full-stack developer",
       "hire developer colombia",
     ],
-    alternates: { canonical: es ? "/es/currentStudies" : "/currentStudies" },
+    alternates: {
+      canonical: es ? `${baseUrl}/es/currentStudies` : `${baseUrl}/currentStudies`,
+      languages: {
+        en: `${baseUrl}/currentStudies`,
+        es: `${baseUrl}/es/currentStudies`,
+        "x-default": `${baseUrl}/currentStudies`,
+      },
+    },
     openGraph: {
       title: es
         ? "Trayectoria de Aprendizaje — Estudios Actuales de Desarrollador Full-Stack | Artag"
@@ -42,7 +49,7 @@ export async function generateMetadata({
       description: es
         ? "Lo que un desarrollador full-stack senior estudia actualmente: arquitectura, microservicios, React Native, Docker, GraphQL, TypeScript, serverless y más."
         : "What a senior full-stack developer is currently studying: architecture, microservices, React Native, Docker, GraphQL, TypeScript, serverless and more.",
-      url: es ? "/es/currentStudies" : "/currentStudies",
+      url: es ? `${baseUrl}/es/currentStudies` : `${baseUrl}/currentStudies`,
       type: "website",
       siteName: "Artag",
       locale: es ? "es_CO" : "en_US",

@@ -61,6 +61,7 @@ export async function generateMetadata({
     : "I build applied AI systems: multi-channel agents, RAG pipelines and event-driven backends. Four case studies with architecture, trade-offs and honest limits."
 
   return {
+    metadataBase: new URL(baseUrl),
     title,
     alternates: {
       canonical: isEs ? `${baseUrl}/es` : baseUrl,

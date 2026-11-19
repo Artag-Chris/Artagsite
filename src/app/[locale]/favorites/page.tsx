@@ -30,7 +30,11 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: es ? `${baseUrl}/es/favorites` : `${baseUrl}/favorites`,
-      languages: { en: `${baseUrl}/favorites`, es: `${baseUrl}/es/favorites` },
+      languages: {
+        en: `${baseUrl}/favorites`,
+        es: `${baseUrl}/es/favorites`,
+        "x-default": `${baseUrl}/favorites`,
+      },
     },
     openGraph: {
       title: es
