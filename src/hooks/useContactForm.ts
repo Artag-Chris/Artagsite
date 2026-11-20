@@ -4,7 +4,7 @@ import { useState, useCallback } from 'react'
 import { contactFormSchema } from '@/lib/validations/contactSchema'
 import { submitContact } from '@/lib/api/contactService'
 import { ContactFormData } from '@/types/contact'
-import { trackEvent } from '@/lib/analytics'
+import { trackContactSubmitted } from '@/lib/analytics'
 
 interface UseContactFormState {
   formData: ContactFormData
@@ -73,8 +73,9 @@ export function useContactForm() {
 
         if (response.success) {
           const locale = typeof document !== 'undefined' ? document.documentElement.lang || 'en' : 'en'
-          trackEvent('contact_submitted', {
-            project_type: validatedData.projectType,
+          void trackContactSubmitted({
+            email: validatedData.email,
+            projectType: validatedData.projectType,
             location: 'contact_section',
             locale,
           })
