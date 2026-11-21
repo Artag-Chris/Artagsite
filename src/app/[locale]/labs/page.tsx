@@ -155,7 +155,7 @@ export default async function LabsPage({
             {t('backToProjects')} →
           </Link>
           <Link
-            href="/engineering-notes"
+            href={isEs ? "/notas-ingenieria" : "/engineering-notes"}
             className="text-[var(--text-secondary)] hover:text-[var(--accent-signal)] transition-colors"
           >
             {isEs ? 'Leer notas de ingeniería' : 'Read engineering notes'} →

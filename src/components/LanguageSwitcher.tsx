@@ -4,16 +4,18 @@ import { useLocale } from "next-intl"
 import { Languages } from "lucide-react"
 import { usePathname, useRouter } from "@/i18n/navigation"
 import { routing } from "@/i18n/routing"
+import { resolveLocalizedPathname } from "@/lib/seo/routes"
 
 export function LanguageSwitcher({ className = "" }: { className?: string }) {
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
 
-  const otherLocale = routing.locales.find((l) => l !== locale) ?? "en"
+  const otherLocale = (routing.locales.find((l) => l !== locale) ?? "en") as "en" | "es"
 
   const switchLocale = () => {
-    router.replace(pathname, { locale: otherLocale })
+    const targetPath = resolveLocalizedPathname(pathname, otherLocale)
+    router.replace(targetPath, { locale: otherLocale })
   }
 
   return (

@@ -137,98 +137,105 @@ export default async function LocaleLayout({
   const messages = await getMessages()
   const isEs = locale === "es"
 
-  // Organization Schema Markup for Google Knowledge Panel (locale-aware)
-  const organizationSchema = {
+  // Unified Global JSON-LD Graph: ProfessionalService + LocalBusiness (Pereira) + Person (AI Engineer)
+  const globalJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Artag",
-    url: "https://www.artagdev.com.co",
-    logo: "https://www.artagdev.com.co/logosinfondo.png",
-    description: isEs
-      ? "Desarrollo full-stack y sistemas de IA aplicados"
-      : "Full-stack development and applied AI systems",
-    sameAs: [
-      "https://github.com/Artag-Chris",
-      "https://www.linkedin.com/in/artag/",
-      "https://www.youtube.com/@Artag888",
-      "https://www.instagram.com/artagdev/",
-    ],
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "Developer",
-      url: "https://www.artagdev.com.co",
-    },
-  }
-
-  // Person Schema Markup for Professional Profile (locale-aware)
-  const personSchema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: "Christian Henao",
-    alternateName: "Artag",
-    url: "https://www.artagdev.com.co",
-    image: "https://www.artagdev.com.co/logosinfondo.png",
-    jobTitle: isEs
-      ? "Desarrollador Full-Stack e Ingeniero de IA"
-      : "Full-Stack Developer & AI Engineer",
-    description: isEs
-      ? "Desarrollador full-stack e ingeniero de IA. Construye agentes multicanal, pipelines RAG y backends event-driven con control de costos y supervisión humana."
-      : "Full-stack developer and AI engineer building multi-channel agents, RAG pipelines and event-driven backends with cost control and human oversight.",
-    sameAs: [
-      "https://github.com/Artag-Chris",
-      "https://www.linkedin.com/in/artag/",
-      "https://www.youtube.com/@Artag888",
-      "https://www.instagram.com/artagdev/",
-    ],
-    knowsAbout: isEs
-      ? [
-          "Desarrollo Full-Stack",
-          "Ingeniería de IA aplicada",
-          "RAG y recuperación semántica",
-          "Agentes multicanal",
-          "Arquitectura event-driven",
-          "NestJS",
-          "TypeScript",
-          "Rust",
-          "Redis y BullMQ",
-          "PostgreSQL y pgvector",
-          "Control de costos de LLM",
-          "Seguridad y fiabilidad",
-        ]
-      : [
-          "Full-Stack Development",
-          "Applied AI Engineering",
-          "RAG and semantic retrieval",
-          "Multi-channel agents",
-          "Event-driven architecture",
-          "NestJS",
-          "TypeScript",
-          "Rust",
-          "Redis and BullMQ",
-          "PostgreSQL and pgvector",
-          "LLM cost control",
-          "Security and reliability",
+    "@graph": [
+      {
+        "@type": ["ProfessionalService", "LocalBusiness"],
+        "@id": "https://www.artagdev.com.co/#organization",
+        name: "Artag Dev",
+        alternateName: isEs
+          ? "Artag Dev Ingeniería de Software & IA"
+          : "Artag Dev Software & AI Engineering",
+        url: isEs
+          ? "https://www.artagdev.com.co/es"
+          : "https://www.artagdev.com.co",
+        logo: "https://www.artagdev.com.co/logosinfondo.png",
+        image: "https://www.artagdev.com.co/og-home.png",
+        description: isEs
+          ? "Desarrollo de software a la medida, ingeniería de IA (RAG y agentes), arquitectura de microservicios y ciberseguridad de aplicaciones en Pereira, Risaralda y Colombia."
+          : "Custom software development, production AI engineering (RAG & autonomous agents), microservices architecture, and application cybersecurity from Pereira, Risaralda, Colombia.",
+        telephone: "+573205711428",
+        email: "info@artagdev.com.co",
+        priceRange: "$$$",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Pereira",
+          addressRegion: "Risaralda",
+          postalCode: "660001",
+          addressCountry: "CO",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 4.8133,
+          longitude: -75.6961,
+        },
+        areaServed: [
+          { "@type": "City", name: "Pereira" },
+          { "@type": "City", name: "Dosquebradas" },
+          { "@type": "AdministrativeArea", name: "Risaralda" },
+          { "@type": "Country", name: "Colombia" },
         ],
-    worksFor: {
-      "@type": "Organization",
-      name: "Artag",
-    },
+        openingHoursSpecification: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          opens: "08:00",
+          closes: "18:00",
+        },
+        sameAs: [
+          "https://github.com/Artag-Chris",
+          "https://www.linkedin.com/in/artag/",
+          "https://www.youtube.com/@Artag888",
+          "https://www.instagram.com/artagdev/",
+        ],
+        knowsAbout: [
+          "AI Engineering",
+          "Retrieval-Augmented Generation (RAG)",
+          "Microservices Architecture",
+          "Application Cybersecurity",
+          "Custom Software Development",
+          "DevSecOps",
+        ],
+      },
+      {
+        "@type": "Person",
+        "@id": "https://www.artagdev.com.co/#founder",
+        name: "Christian - Artag Dev",
+        jobTitle: "AI Engineer & Distributed Systems Architect",
+        worksFor: { "@id": "https://www.artagdev.com.co/#organization" },
+        url: "https://www.artagdev.com.co/",
+        image: "https://www.artagdev.com.co/logosinfondo.png",
+        sameAs: [
+          "https://github.com/Artag-Chris",
+          "https://www.linkedin.com/in/artag/",
+          "https://www.youtube.com/@Artag888",
+          "https://www.instagram.com/artagdev/",
+        ],
+        knowsAbout: [
+          "LLM Systems",
+          "pgvector",
+          "Node.js",
+          "Python",
+          "Redis",
+          "HMAC-SHA256",
+          "Kubernetes",
+        ],
+      },
+    ],
   }
 
   return (
     <html lang={locale} className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(globalJsonLd) }}
+        />
+      </head>
       <body className={`${inter.className} bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased`}>
         {/* Zero-image tactile grain overlay (Master Spec §1.2) */}
         <div className="tactile-grain-overlay" aria-hidden="true" />
-        {/* Structured data rendered as early as possible in DOM (before child content) */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-        />
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <ViewModeProvider>

@@ -1,8 +1,7 @@
 import { Mail } from "lucide-react"
 import { Github, Linkedin, Instagram, Youtube } from "@styled-icons/simple-icons"
 
-// Only real, verified profiles. Placeholder entries (twitter/dribbble/codepen/
-// figma pointing at "yourusername") were removed: they were dead links.
+// Only real, verified profiles.
 export const socialLinksFooter = [
   { name: "GitHub", icon: Github, url: "https://github.com/Artag-Chris" },
   { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/artag/" },
@@ -11,12 +10,42 @@ export const socialLinksFooter = [
   { name: "Email", icon: Mail, url: "mailto:info@artagdev.com.co" },
 ]
 
-// Specialties (keys resolved via footer.services translations)
-export const services = [
-  "fullstack",
-  "architecture",
-  "automation",
-  "api",
-  "performance",
-  "cloud",
-]
+export interface FooterServiceLink {
+  key: string
+  enHref: string
+  esHref: string
+}
+
+// Direct links to dedicated bilingual pillar pages & Engineering Notes (zero #contact anchors)
+export const footerServices: readonly FooterServiceLink[] = [
+  {
+    key: "aiEngineering",
+    enHref: "/services/ai-engineering",
+    esHref: "/es/servicios/ingenieria-ia-agentes",
+  },
+  {
+    key: "localPereira",
+    enHref: "/software-development-colombia",
+    esHref: "/es/desarrollo-de-software-pereira",
+  },
+  {
+    key: "microservices",
+    enHref: "/services/microservices-architecture",
+    esHref: "/es/servicios/arquitectura-microservicios",
+  },
+  {
+    key: "cybersecurity",
+    enHref: "/services/application-cybersecurity",
+    esHref: "/es/servicios/ciberseguridad-aplicaciones",
+  },
+  {
+    key: "softwareDevelopment",
+    enHref: "/services/software-development",
+    esHref: "/es/servicios/desarrollo-de-software",
+  },
+  {
+    key: "engineeringNotes",
+    enHref: "/engineering-notes",
+    esHref: "/es/notas-ingenieria",
+  },
+] as const

@@ -59,7 +59,7 @@ export function CosmicBar() {
           { href: '/my-faith', label: isEs ? 'Mi fe' : 'My faith', icon: <Heart className="h-4 w-4" /> },
           { href: '/currentStudies', label: isEs ? 'Estudios' : 'Studies', icon: <BookOpen className="h-4 w-4" /> },
           { href: '/personal', label: isEs ? 'Setup' : 'Setup', icon: <Settings className="h-4 w-4" /> },
-          { href: '/engineering-notes', label: isEs ? 'Bitácora' : 'Log', icon: <BookOpen className="h-4 w-4" /> },
+          { href: isEs ? '/notas-ingenieria' : '/engineering-notes', label: isEs ? 'Bitácora' : 'Log', icon: <BookOpen className="h-4 w-4" /> },
         ]
 
   return (

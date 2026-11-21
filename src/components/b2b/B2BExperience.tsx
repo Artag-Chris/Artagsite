@@ -92,12 +92,12 @@ export function B2BExperience() {
         </div>
 
         <div className="text-center">
-          <Link
-            href="/#contact"
+          <a
+            href={isEs ? "/es/servicios/ingenieria-ia-agentes" : "/services/ai-engineering"}
             className="inline-flex items-center gap-2 rounded-xl bg-cyan-500/10 px-5 py-3 text-sm font-medium text-cyan-200 transition-colors hover:bg-cyan-500/20 border border-cyan-500/30"
           >
             {t('cta')}
-          </Link>
+          </a>
           <a
             href="https://wa.me/573205711428"
             target="_blank"

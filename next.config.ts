@@ -67,7 +67,28 @@ const nextConfig: NextConfig = {
     async redirects() {
         return [
             { source: '/notes', destination: '/engineering-notes', permanent: true },
-            { source: '/es/notes', destination: '/es/engineering-notes', permanent: true },
+            { source: '/es/notes', destination: '/es/notas-ingenieria', permanent: true },
+            { source: '/es/engineering-notes', destination: '/es/notas-ingenieria', permanent: true },
+            {
+                source: '/engineering-notes/llm-semantic-cache-cost-reduction',
+                destination: '/engineering-notes/semantic-caching-pgvector-llm-cost-reduction',
+                permanent: true,
+            },
+            {
+                source: '/es/engineering-notes/llm-semantic-cache-cost-reduction',
+                destination: '/es/notas-ingenieria/cache-semantico-pgvector-reduccion-costos-llm',
+                permanent: true,
+            },
+            {
+                source: '/engineering-notes/whatsapp-ai-agent-architecture',
+                destination: '/engineering-notes/secure-multi-tenant-rag-architecture',
+                permanent: true,
+            },
+            {
+                source: '/es/engineering-notes/whatsapp-ai-agent-architecture',
+                destination: '/es/notas-ingenieria/automatizacion-ia-whatsapp-empresas-pereira',
+                permanent: true,
+            },
             { source: '/privateservers', destination: '/private-servers', permanent: true },
             { source: '/es/privateservers', destination: '/es/private-servers', permanent: true },
             { source: '/current-studies', destination: '/currentStudies', permanent: true },

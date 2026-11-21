@@ -14,17 +14,17 @@ export default function HeroTerminal() {
   const [typedCommand, setTypedCommand] = useState<Record<number, string>>({})
 
   const lines: Line[] = [
-    { prompt: "christian@artagdev", command: t("line1"), delay: 0 },
+    { prompt: "artag@artagdev", command: t("line1"), delay: 0 },
     {
       output: [t("out1"), t("out2"), t("out3")],
       delay: 600,
     },
-    { prompt: "christian@artagdev", command: t("line2"), delay: 1800 },
+    { prompt: "artag@artagdev", command: t("line2"), delay: 1800 },
     {
       output: [t("out4")],
       delay: 2400,
     },
-    { prompt: "christian@artagdev", command: t("line3"), delay: 3800 },
+    { prompt: "artag@artagdev", command: t("line3"), delay: 3800 },
     {
       output: [t("out5"), t("out6"), t("out7")],
       delay: 4400,
@@ -132,7 +132,7 @@ export default function HeroTerminal() {
                 animate={{ opacity: 1 }}
                 className="flex items-center gap-1.5 mt-1"
               >
-                 <span className="text-blue-400">christian@artagdev</span>
+                 <span className="text-blue-400">artag@artagdev</span>
                  <span className="text-zinc-600">~</span>
                  <span className="text-amber-400">$</span>
                  <span className="inline-block w-2 h-4 bg-blue-400 ml-1 animate-pulse align-middle" />

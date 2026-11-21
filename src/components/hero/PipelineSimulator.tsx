@@ -174,7 +174,7 @@ export default function PipelineSimulator({
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border-hairline)] bg-[var(--bg-primary)] px-4 py-2.5 font-mono text-xs">
         <div className="flex items-center gap-2 text-[var(--text-secondary)]">
           <Activity className="h-3.5 w-3.5 text-[var(--accent-signal)]" aria-hidden="true" />
-          <span>christian@artagdev — pipeline</span>
+          <span>artag@artagdev — pipeline</span>
         </div>
         <div className="flex items-center gap-2 border-l border-[var(--border-hairline)] pl-3">
           <span

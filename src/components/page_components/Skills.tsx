@@ -7,7 +7,9 @@ import { UseCasesCarousel } from "../sub-sections/UseCasesCarousel"
 import { UseCaseModal } from "../sub-sections/UseCaseModal"
 import { ToolsShowcase } from "../sub-sections/ToolsShowcase"
 import { UseCase, useCasesByLocale } from "@/data/skillsData"
-import { Users, Code2 } from "lucide-react"
+import { getAllPillarsForLocale } from "@/data/pillars"
+import NextLink from "next/link"
+import { Users, Code2, ArrowUpRight } from "lucide-react"
 
 const headerContainer = {
   hidden: {},
@@ -159,6 +161,55 @@ function Skills() {
               )}
             </motion.div>
           </AnimatePresence>
+
+          {/* Dedicated Pillar Service Routes (Zero #contact links) */}
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-14 mb-12">
+            <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <p className="font-mono text-xs uppercase tracking-widest text-[var(--accent-signal)]">
+                  {locale === "es" ? "Verticales Especializadas" : "Dedicated Service Pillars"}
+                </p>
+                <h3
+                  className="text-2xl sm:text-3xl text-[var(--text-primary)] mt-1"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  {locale === "es"
+                    ? "Arquitectura, IA y Software a la Medida"
+                    : "AI Engineering, Distributed Systems & Security"}
+                </h3>
+              </div>
+              <NextLink
+                href={locale === "es" ? "/es/notas-ingenieria" : "/engineering-notes"}
+                className="font-mono text-xs uppercase tracking-wider text-[var(--accent-signal)] hover:underline inline-flex items-center gap-1"
+              >
+                <span>{locale === "es" ? "Notas de Ingeniería" : "Engineering Notes"}</span>
+                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </NextLink>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 border-t border-l border-[var(--border-hairline)]">
+              {getAllPillarsForLocale(locale === "es" ? "es" : "en").map((pillar) => (
+                <NextLink
+                  key={pillar.id}
+                  href={pillar.path}
+                  className="group border-r border-b border-[var(--border-hairline)] bg-[var(--bg-secondary)] p-5 hover:bg-[var(--bg-tertiary)] transition-colors flex flex-col justify-between gap-4"
+                >
+                  <div className="space-y-2">
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--accent-signal)] block">
+                      {pillar.badge}
+                    </span>
+                    <h4 className="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-signal)] transition-colors leading-snug">
+                      {pillar.h1}
+                    </h4>
+                  </div>
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] inline-flex items-center gap-1">
+                    <span>{locale === "es" ? "Explorar" : "Explore"}</span>
+                    <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+                  </span>
+                </NextLink>
+              ))}
+            </div>
+          </div>
 
           {/* Bottom accent element */}
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">

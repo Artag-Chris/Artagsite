@@ -1,17 +1,21 @@
 "use client"
 
 import { useState } from "react"
-import { useTranslations } from "next-intl"
-import { Mail } from "lucide-react"
+import { useLocale, useTranslations } from "next-intl"
+import NextLink from "next/link"
+import { Mail, MapPin, Phone } from "lucide-react"
 import { Link } from "@/i18n/navigation"
-import { services, socialLinksFooter } from "@/data/footerData"
+import { footerServices, socialLinksFooter } from "@/data/footerData"
 import { PRIMARY_NAV } from "@/data/navlinks"
+import { OFFICIAL_NAP } from "@/lib/seo/routes"
 import LanguageSwitcher from "@/components/LanguageSwitcher"
 import { LegalDialog, type LegalDoc } from "./LegalDialog"
 
 function Footer() {
   const t = useTranslations("footer")
   const tNav = useTranslations("nav")
+  const locale = useLocale()
+  const isEs = locale === "es"
   const currentYear = new Date().getFullYear()
   const [legalDoc, setLegalDoc] = useState<LegalDoc | null>(null)
 
@@ -26,9 +30,7 @@ function Footer() {
                   className="w-10 h-10 border border-[var(--accent-signal)] bg-[var(--accent-signal)]/10 flex items-center justify-center"
                   aria-hidden="true"
                 >
-                  <span
-                    className="text-[var(--accent-signal)] font-mono font-semibold text-sm"
-                  >
+                  <span className="text-[var(--accent-signal)] font-mono font-semibold text-sm">
                     AD
                   </span>
                 </div>
@@ -36,11 +38,37 @@ function Footer() {
                   className="text-xl text-[var(--text-primary)]"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
-                  Artag Dev
+                  {OFFICIAL_NAP.name}
                 </p>
               </div>
               <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{t("tagline")}</p>
             </div>
+
+            {/* Unified Official NAP */}
+            <address className="not-italic space-y-1.5 font-mono text-xs text-[var(--text-secondary)] border-t border-[var(--border-hairline)] pt-4">
+              <p className="flex items-center gap-2">
+                <MapPin className="h-3.5 w-3.5 text-[var(--accent-signal)] shrink-0" aria-hidden="true" />
+                <span>{OFFICIAL_NAP.location}</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <Phone className="h-3.5 w-3.5 text-[var(--accent-signal)] shrink-0" aria-hidden="true" />
+                <a
+                  href={`tel:${OFFICIAL_NAP.phoneE164}`}
+                  className="hover:text-[var(--accent-signal)] transition-colors"
+                >
+                  {OFFICIAL_NAP.phoneDisplay}
+                </a>
+              </p>
+              <p className="flex items-center gap-2">
+                <Mail className="h-3.5 w-3.5 text-[var(--accent-signal)] shrink-0" aria-hidden="true" />
+                <a
+                  href={`mailto:${OFFICIAL_NAP.email}`}
+                  className="hover:text-[var(--accent-signal)] transition-colors"
+                >
+                  {OFFICIAL_NAP.email}
+                </a>
+              </p>
+            </address>
 
             <div className="space-y-3">
               <p className="font-mono text-xs uppercase tracking-widest text-[var(--text-secondary)]">
@@ -87,37 +115,37 @@ function Footer() {
             </ul>
           </nav>
 
-          <div className="space-y-4">
+          <nav aria-label={t("whatIDo")} className="space-y-4">
             <h2 className="font-mono text-xs uppercase tracking-widest text-[var(--text-primary)]">
               {t("whatIDo")}
             </h2>
             <ul className="space-y-2.5">
-              {services.slice(0, 6).map((service) => (
-                <li key={service}>
-                  <Link
-                    href="/#contact"
-                    className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors duration-200 flex items-center gap-2 text-sm"
+              {footerServices.map((service) => (
+                <li key={service.key}>
+                  <NextLink
+                    href={isEs ? service.esHref : service.enHref}
+                    className="text-[var(--text-secondary)] hover:text-[var(--accent-signal)] transition-colors duration-200 flex items-center gap-2 text-sm"
                   >
                     <span className="w-1.5 h-px bg-[var(--border-strong)]" aria-hidden="true" />
-                    {t(`services.${service}`)}
-                  </Link>
+                    {t(`services.${service.key}`)}
+                  </NextLink>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           <div className="space-y-4">
             <h2 className="font-mono text-xs uppercase tracking-widest text-[var(--text-primary)]">
               {t("letsTalk")}
             </h2>
             <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{t("paragraph")}</p>
-            <Link
-              href="/#contact"
+            <a
+              href={`mailto:${OFFICIAL_NAP.email}`}
               className="inline-flex items-center gap-2 px-4 py-2.5 bg-[var(--bg-secondary)] hover:bg-[var(--bg-tertiary)] text-[var(--text-primary)] font-mono text-xs uppercase tracking-wider transition-colors duration-200 border border-[var(--border-strong)] hover:border-[var(--accent-signal)]"
             >
               <Mail className="h-4 w-4" aria-hidden="true" />
               {t("getInTouch")}
-            </Link>
+            </a>
           </div>
         </div>
       </div>
@@ -126,7 +154,7 @@ function Footer() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="font-mono text-[var(--text-secondary)] text-xs text-center sm:text-left">
-              &copy; {currentYear} Artag Dev. {t("rights")}
+              &copy; {currentYear} {OFFICIAL_NAP.name}. {t("rights")}
             </p>
 
             <LanguageSwitcher />

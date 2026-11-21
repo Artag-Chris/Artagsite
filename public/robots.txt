@@ -8,6 +8,7 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /admin/
 Disallow: /.next/
 Disallow: /node_modules/
 
