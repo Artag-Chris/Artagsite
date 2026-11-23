@@ -12,7 +12,7 @@ export function generateStaticParams() {
 export async function generateMetadata(): Promise<Metadata> {
   const title = "Production Engineering Notes — AI, RAG, Microservices & AppSec | Artag Dev"
   const description =
-    "Production engineering notes by Artag Dev: pgvector semantic caching, multi-tenant RAG with PostgreSQL RLS, Redis/BullMQ microservices, HMAC-SHA256 webhooks, and OWASP LLM security."
+    "Production engineering notes by Artag Dev: pgvector semantic caching, multi-tenant RAG with RLS, Redis/BullMQ microservices, HMAC webhooks, and OWASP LLM."
 
   return {
     title,

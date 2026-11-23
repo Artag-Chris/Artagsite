@@ -6,6 +6,7 @@ import { routing } from '@/i18n/routing'
 import { getProjectBySlug, projectsByLocale } from '@/data/proyectData'
 import { Link } from '@/i18n/navigation'
 import { OutboundLink } from '@/components/projects/OutboundLink'
+import { clampMetaDescription } from '@/lib/seo/routes'
 
 const baseUrl = 'https://www.artagdev.com.co'
 
@@ -29,7 +30,7 @@ export async function generateMetadata({
   if (!project) return {}
   const isEs = locale === 'es'
   const title = `${project.title} | Artag`
-  const description = project.description
+  const description = clampMetaDescription(project.description)
   const url = isEs
     ? `${baseUrl}/es/projects/${project.slug}`
     : `${baseUrl}/projects/${project.slug}`

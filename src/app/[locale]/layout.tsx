@@ -57,7 +57,7 @@ export async function generateMetadata({
     ? "Christian Henao (Artag) — Desarrollador Full-Stack e IA"
     : "Christian Henao (Artag) — Full-Stack Developer & AI Engineer"
   const description = isEs
-    ? "Construyo sistemas de IA aplicados: agentes multicanal, pipelines RAG y backends event-driven. Cuatro casos de estudio con arquitectura, trade-offs y límites reales."
+    ? "Construyo sistemas de IA aplicados: agentes multicanal, pipelines RAG y backends event-driven. Casos de estudio con arquitectura, trade-offs y límites."
     : "I build applied AI systems: multi-channel agents, RAG pipelines and event-driven backends. Four case studies with architecture, trade-offs and honest limits."
 
   return {

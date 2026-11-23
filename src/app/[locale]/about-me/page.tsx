@@ -1,6 +1,6 @@
 import { Gamepad2, Heart, Settings } from "lucide-react"
 import type { Metadata } from "next"
-import { getTranslations } from "next-intl/server"
+import { getTranslations, setRequestLocale } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 import DeveloperJourneyTimeline from "@/components/timeline/developer-journey-timeline"
 import { ArchitecturalCell, ArchitecturalGrid } from "@/components/ArchitecturalGrid"
@@ -19,8 +19,8 @@ export async function generateMetadata({
       ? "Sobre Mí | Artag — Trayectoria de Desarrollador Full-Stack"
       : "About Me | Artag — Full-Stack Developer Journey",
     description: es
-      ? "La historia detrás de Artag Dev: desarrollador autodidacta, emprendedor y solucionador de problemas. Desde la primera línea de código hasta construir para miles de usuarios."
-      : "The story behind Artag Dev: self-taught developer, entrepreneur, and problem-solver. From first line of code to building for thousands of users.",
+      ? "La historia detrás de Artag Dev: desarrollador autodidacta y emprendedor en Colombia, desde mi primera línea de código hasta sistemas en producción."
+      : "The story behind Artag Dev: self-taught developer, entrepreneur, and problem-solver. From my first line of code to building production systems.",
     keywords: [
       "about artag",
       "full-stack developer colombia",
@@ -67,8 +67,14 @@ export async function generateMetadata({
   }
 }
 
-export default async function AboutMePage() {
-  const t = await getTranslations("aboutMePage")
+export default async function AboutMePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  setRequestLocale(locale)
+  const t = await getTranslations({ locale, namespace: "aboutMePage" })
 
   const beyond = [
     { href: "/favorites", icon: Gamepad2, title: t("gamesTitle"), description: t("gamesDescription") },

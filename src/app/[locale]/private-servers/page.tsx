@@ -12,19 +12,19 @@ export async function generateMetadata({
 
   return {
     title: es
-      ? "Servidores Privados — Recursos y Guías | Artag"
-      : "Private Servers — Resources & Guides | Artag",
+      ? "Infraestructura Personal y Herramientas | Artag"
+      : "Personal Infrastructure & Developer Tools | Artag",
     description: es
-      ? "Guías, tutoriales y recursos para configurar y administrar servidores privados de videojuegos. Experiencia real en infraestructura de gaming."
-      : "Guides, tutorials and resources for setting up and managing private game servers. Real experience in gaming infrastructure.",
+      ? "Mis proyectos de infraestructura personal, servicios auto-alojados y las herramientas y sitios web que uso a diario para desarrollar y desplegar software."
+      : "My personal server infrastructure projects, self-hosted services, and the daily tools and websites I use to build, deploy, and maintain modern software.",
     keywords: [
-      "private servers",
-      "game server hosting",
-      "server administration",
-      "gaming infrastructure",
-      "servidores privados",
-      "administración de servidores",
-      "hosting gaming",
+      "self-hosted infrastructure",
+      "developer tools",
+      "personal servers",
+      "web development resources",
+      "infraestructura personal",
+      "servicios auto-alojados",
+      "herramientas desarrollo",
     ],
     alternates: {
       canonical: es ? `${baseUrl}/es/private-servers` : `${baseUrl}/private-servers`,
@@ -32,23 +32,25 @@ export async function generateMetadata({
     },
     openGraph: {
       title: es
-        ? "Servidores Privados | Artag"
-        : "Private Servers | Artag",
+        ? "Infraestructura Personal y Herramientas | Artag"
+        : "Personal Infrastructure & Developer Tools | Artag",
       description: es
-        ? "Guías y recursos para servidores privados de videojuegos."
-        : "Guides and resources for private game servers.",
+        ? "Proyectos de infraestructura personal, servicios auto-alojados y herramientas de desarrollo diario."
+        : "Personal server infrastructure projects, self-hosted services, and daily developer tools.",
       url: es ? `${baseUrl}/es/private-servers` : `${baseUrl}/private-servers`,
       type: "website",
       siteName: "Artag",
       locale: es ? "es_CO" : "en_US",
-      images: [{ url: `${baseUrl}/og-servers.png`, width: 1200, height: 630, alt: "Artag — Private Servers" }],
+      images: [{ url: `${baseUrl}/og-servers.png`, width: 1200, height: 630, alt: "Artag — Personal Infrastructure & Tools" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: es ? "Servidores Privados | Artag" : "Private Servers | Artag",
+      title: es
+        ? "Infraestructura Personal y Herramientas | Artag"
+        : "Personal Infrastructure & Developer Tools | Artag",
       description: es
-        ? "Guías y recursos para servidores privados de videojuegos."
-        : "Guides and resources for private game servers.",
+        ? "Proyectos de infraestructura personal, servicios auto-alojados y herramientas de desarrollo diario."
+        : "Personal server infrastructure projects, self-hosted services, and daily developer tools.",
       images: [`${baseUrl}/og-servers.png`],
       site: "@artagdev",
       creator: "@artagdev",

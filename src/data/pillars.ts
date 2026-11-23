@@ -69,7 +69,7 @@ export const PILLARS_DATA: Record<PillarId, Record<"en" | "es", PillarContent>> 
       alternatePath: "/services/ai-engineering",
       metaTitle: "Ingeniería de IA, Sistemas RAG y Agentes Autónomos | Artag Dev",
       metaDescription:
-        "Diseño e implementación de sistemas de IA en producción: pipelines RAG multi-tenant con pgvector, agentes autónomos con herramientas, caché semántico (-30% en costos de LLM) y guardrails.",
+        "Sistemas de IA en producción: RAG multi-tenant con pgvector, agentes autónomos con herramientas, caché semántico (-30% en costos LLM) y guardrails.",
       badge: "VERTICAL 01 // INGENIERÍA DE IA",
       h1: "Ingeniería de IA, Sistemas RAG y Agentes Autónomos en Producción",
       subtitle:
@@ -200,7 +200,7 @@ export const PILLARS_DATA: Record<PillarId, Record<"en" | "es", PillarContent>> 
       alternatePath: "/es/servicios/ingenieria-ia-agentes",
       metaTitle: "Production AI Engineering, RAG Pipelines & Autonomous Agents | Artag Dev",
       metaDescription:
-        "Production AI engineering services: multi-tenant RAG with pgvector, autonomous tool-using agents, ~30% LLM cost reduction via semantic caching, guardrails, and LLM evaluation.",
+        "Production AI engineering: multi-tenant RAG with pgvector, tool-using agents, ~30% LLM cost reduction via semantic caching, guardrails, and evals.",
       badge: "VERTICAL 01 // AI ENGINEERING",
       h1: "Production AI Engineering, RAG Pipelines & Autonomous Agents",
       subtitle:
@@ -334,7 +334,7 @@ export const PILLARS_DATA: Record<PillarId, Record<"en" | "es", PillarContent>> 
       alternatePath: "/software-development-colombia",
       metaTitle: "Desarrollo de Software a la Medida en Pereira y Eje Cafetero | Artag Dev",
       metaDescription:
-        "Empresa de desarrollo de software a la medida en Pereira, Risaralda y el Eje Cafetero. Aplicaciones web, integraciones ERP/WhatsApp, agentes de IA y arquitectura escalable con soporte local.",
+        "Desarrollo de software a la medida en Pereira, Risaralda y el Eje Cafetero: apps web, integraciones ERP/WhatsApp, agentes de IA y soporte local.",
       badge: "VERTICAL 02 // PEREIRA & EJE CAFETERO",
       h1: "Desarrollo de Software a la Medida en Pereira y el Eje Cafetero",
       subtitle:
@@ -492,7 +492,7 @@ export const PILLARS_DATA: Record<PillarId, Record<"en" | "es", PillarContent>> 
       alternatePath: "/es/desarrollo-de-software-pereira",
       metaTitle: "Custom Software Development & Nearshore Engineering in Colombia | Artag Dev",
       metaDescription:
-        "Senior custom software development and nearshore engineering from Pereira, Colombia (UTC-5). US-timezone collaboration, AI systems, distributed backends, and 100% IP ownership.",
+        "Senior custom software and nearshore engineering from Pereira, Colombia (UTC-5). US-timezone collaboration, AI systems, distributed APIs, and 100% IP.",
       badge: "VERTICAL 02 // NEARSHORE COLOMBIA (UTC-5)",
       h1: "Custom Software Development & Nearshore Engineering in Colombia",
       subtitle:
@@ -647,7 +647,7 @@ export const PILLARS_DATA: Record<PillarId, Record<"en" | "es", PillarContent>> 
       alternatePath: "/services/microservices-architecture",
       metaTitle: "Arquitectura de Microservicios, APIs y Sistemas Distribuidos | Artag Dev",
       metaDescription:
-        "Diseño e ingeniería de microservicios y APIs de alto rendimiento: topología de 13 servicios, colas asíncronas BullMQ, idempotencia con Redis, Docker/Kubernetes y más de 295 pruebas automatizadas.",
+        "Arquitectura de microservicios y APIs de alto rendimiento: 13 servicios, colas BullMQ, idempotencia con Redis, Docker/Kubernetes y 295+ pruebas.",
       badge: "VERTICAL 03 // SISTEMAS DISTRIBUIDOS",
       h1: "Arquitectura de Microservicios, APIs y Sistemas Distribuidos",
       subtitle:
@@ -900,7 +900,7 @@ export const PILLARS_DATA: Record<PillarId, Record<"en" | "es", PillarContent>> 
       alternatePath: "/services/application-cybersecurity",
       metaTitle: "Ciberseguridad para Aplicaciones, APIs y DevSecOps | Artag Dev",
       metaDescription:
-        "Ingeniería de ciberseguridad para aplicaciones y APIs: verificación criptográfica HMAC-SHA256 en webhooks, aislamiento multi-tenant con PostgreSQL RLS, OAuth2/JWT, defensa OWASP LLM y hardening Linux.",
+        "Ciberseguridad para apps y APIs: webhooks HMAC-SHA256, aislamiento multi-tenant con PostgreSQL RLS, OAuth2/JWT, defensa OWASP LLM y hardening Linux.",
       badge: "VERTICAL 04 // APPSEC & DEVSECOPS",
       h1: "Ciberseguridad para Aplicaciones, APIs y DevSecOps",
       subtitle:
@@ -1028,7 +1028,7 @@ export const PILLARS_DATA: Record<PillarId, Record<"en" | "es", PillarContent>> 
       alternatePath: "/es/servicios/ciberseguridad-aplicaciones",
       metaTitle: "Application Security, API Hardening & DevSecOps Engineering | Artag Dev",
       metaDescription:
-        "Application cybersecurity and DevSecOps: HMAC-SHA256 cryptographic webhook verification, PostgreSQL multi-tenant RLS isolation, OAuth2/JWT hardening, OWASP LLM defense, and Linux hardening.",
+        "Application cybersecurity & DevSecOps: HMAC-SHA256 webhooks, PostgreSQL multi-tenant RLS, OAuth2/JWT hardening, OWASP LLM defense, and Linux security.",
       badge: "VERTICAL 04 // APPSEC & DEVSECOPS",
       h1: "Application Security, API Hardening & DevSecOps Engineering",
       subtitle:
@@ -1159,7 +1159,7 @@ export const PILLARS_DATA: Record<PillarId, Record<"en" | "es", PillarContent>> 
       alternatePath: "/services/software-development",
       metaTitle: "Desarrollo de Software Empresarial y Automatización B2B | Artag Dev",
       metaDescription:
-        "Desarrollo de software empresarial y automatización B2B end-to-end: arquitectura limpia, aplicaciones web de alto rendimiento, observabilidad, CI/CD y 100% propiedad intelectual del cliente.",
+        "Desarrollo de software empresarial y automatización B2B: arquitectura limpia, apps web rápidas, observabilidad, CI/CD y 100% propiedad intelectual.",
       badge: "VERTICAL 05 // SOFTWARE CORE & B2B",
       h1: "Desarrollo de Software Empresarial y Automatización B2B",
       subtitle:
@@ -1284,7 +1284,7 @@ export const PILLARS_DATA: Record<PillarId, Record<"en" | "es", PillarContent>> 
       alternatePath: "/es/servicios/desarrollo-de-software",
       metaTitle: "Custom B2B Software Development & Workflow Automation | Artag Dev",
       metaDescription:
-        "End-to-end custom B2B software development and workflow automation: clean architecture, observability, CI/CD, high-performance web apps, and 100% client IP ownership.",
+        "Custom B2B software development and workflow automation: clean architecture, observability, CI/CD, fast web apps, and 100% client IP ownership.",
       badge: "VERTICAL 05 // CORE SOFTWARE & B2B",
       h1: "Custom B2B Software Development & Workflow Automation",
       subtitle:

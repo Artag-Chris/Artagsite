@@ -15,8 +15,8 @@ export async function generateMetadata({
       ? "Trayectoria de Aprendizaje — Habilidades y Estudios Actuales de Desarrollador Full-Stack | Artag"
       : "Learning Journey — Full-Stack Developer Skills & Current Studies | Artag",
     description: es
-      ? "Trayectoria de aprendizaje continuo de un desarrollador full-stack colombiano: arquitectura de software, microservicios, React Native, Docker, Kubernetes, GraphQL, TypeScript avanzado, serverless, escalabilidad de sistemas y ciberseguridad."
-      : "Continuous learning journey of a Colombian full-stack developer: software architecture, microservices, React Native, Docker, Kubernetes, GraphQL, advanced TypeScript, serverless, system scalability and cybersecurity.",
+      ? "Estudios actuales de un desarrollador full-stack colombiano: arquitectura de software, microservicios, Docker, Kubernetes, TypeScript y ciberseguridad."
+      : "Current studies of a Colombian full-stack developer: software architecture, microservices, React Native, Docker, Kubernetes, TypeScript, and AppSec.",
     keywords: [
       "full-stack developer",
       "colombian full-stack developer",

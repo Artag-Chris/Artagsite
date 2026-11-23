@@ -184,3 +184,22 @@ export function resolveLocalizedPathname(
   // Default: same path in target locale
   return normalized
 }
+
+/**
+ * Ensures a meta description stays within Google's ~158-character snippet budget.
+ * Prefers cutting at a full sentence boundary when >= 95 chars; otherwise trims cleanly on a word boundary.
+ */
+export function clampMetaDescription(text: string, maxLength = 158): string {
+  const clean = text.replace(/\s+/g, " ").trim()
+  if (clean.length <= maxLength) return clean
+
+  const slice = clean.slice(0, maxLength - 1)
+  const lastSentenceEnd = Math.max(slice.lastIndexOf(". "), slice.lastIndexOf("? "), slice.lastIndexOf("! "))
+  if (lastSentenceEnd >= 95) {
+    return slice.slice(0, lastSentenceEnd + 1).trim()
+  }
+
+  const lastSpace = slice.lastIndexOf(" ")
+  const trimmed = (lastSpace > 80 ? slice.slice(0, lastSpace) : slice).replace(/[,:;—–\-(\s]+$/, "")
+  return `${trimmed}…`
+}

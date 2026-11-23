@@ -12,11 +12,11 @@ export async function generateMetadata({
 
   return {
     title: es
-      ? "Mis Juegos — Librería Steam & Picks Personales | Artag"
-      : "My Games — Steam Library & Personal Picks | Artag",
+      ? "Mis Juegos — Biblioteca Steam, Epic & GOG | Artag"
+      : "My Games — Steam, Epic & GOG Library | Artag",
     description: es
-      ? "Mi librería de juegos sincronizada con Steam, más mis picks curados en Epic Games y GOG. Explorá los juegos que me marcaron como desarrollador y persona."
-      : "My game library, live-synced from Steam, plus curated picks from Epic Games and GOG. Explore the games that shaped me as a developer and person.",
+      ? "Mi biblioteca de videojuegos sincronizada con Steam, Epic Games y GOG. Explora los juegos que me marcaron como desarrollador y persona."
+      : "My video game library live-synced across Steam, Epic Games, and GOG. Explore the games that shaped me as a developer and person.",
     keywords: [
       "steam library",
       "gaming developer",
@@ -41,8 +41,8 @@ export async function generateMetadata({
         ? "Mis Juegos | Artag"
         : "My Games | Artag",
       description: es
-        ? "Mi librería de juegos sincronizada con Steam y mis picks curados."
-        : "My Steam library and curated game picks.",
+        ? "Mi biblioteca de juegos sincronizada con Steam, Epic Games y GOG."
+        : "My game library live-synced across Steam, Epic Games, and GOG.",
       url: es ? `${baseUrl}/es/favorites` : `${baseUrl}/favorites`,
       type: "website",
       siteName: "Artag",
@@ -53,8 +53,8 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: es ? "Mis Juegos | Artag" : "My Games | Artag",
       description: es
-        ? "Mi librería de juegos sincronizada con Steam y mis picks curados."
-        : "My Steam library and curated game picks.",
+        ? "Mi biblioteca de juegos sincronizada con Steam, Epic Games y GOG."
+        : "My game library live-synced across Steam, Epic Games, and GOG.",
       images: [`${baseUrl}/og-favorites.png`],
       site: "@artagdev",
       creator: "@artagdev",

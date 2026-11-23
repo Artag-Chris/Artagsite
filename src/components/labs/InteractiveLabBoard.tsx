@@ -392,10 +392,10 @@ export function InteractiveLabBoard({
                   <span className="text-[var(--text-secondary)]">{cert.year}</span>
                 </div>
                 <div className="mt-1 text-sm font-medium text-[var(--text-primary)]">
-                  {cert.title}
+                  {lang === "en" && cert.titleEn ? cert.titleEn : cert.title}
                 </div>
                 <p className="mt-1 text-xs text-[var(--text-secondary)]">
-                  {cert.reinforces}
+                  {lang === "en" && cert.reinforcesEn ? cert.reinforcesEn : cert.reinforces}
                 </p>
               </div>
             ))}

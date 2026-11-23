@@ -1,6 +1,7 @@
 export interface CourseCertification {
   id: number
   title: string
+  titleEn?: string
   topic: string
   instructor: string
   platform: "Udemy" | "Platzi" | "Coursera" | "Other"
@@ -8,6 +9,7 @@ export interface CourseCertification {
   hours?: number
   certUrl: string
   reinforces?: string
+  reinforcesEn?: string
 }
 
 export interface PendingCourse {
@@ -61,6 +63,19 @@ export const courseCertifications: CourseCertification[] = [
     hours: 12,
     certUrl: "https://coursera.org/share/6e5904cee91eb7b2816cd6219d7404f8",
     reinforces: "Gestión de riesgos de seguridad, SIEM, respuesta a incidentes y marcos de seguridad",
+  },
+  {
+    id: 12,
+    title: "Atraer clientes e interactuar con ellos/as mediante el marketing digital",
+    titleEn: "Attract and Engage Customers with Digital Marketing",
+    topic: "Marketing & E-commerce",
+    instructor: "Google",
+    platform: "Coursera",
+    year: "2026",
+    hours: 21,
+    certUrl: "https://coursera.org/share/09bdfd3cf05f9fede7e227d585d0da5f",
+    reinforces: "SEO, investigación de palabras clave, SEM, Google Ads y optimización de contenido",
+    reinforcesEn: "SEO, keyword research, SEM, Google Ads, and content optimization",
   },
   {
     id: 1,

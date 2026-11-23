@@ -6,7 +6,12 @@ import {
   getEngineeringArticlesByLocale,
 } from "@/data/articles"
 import { EngineeringNoteDetailView } from "@/components/notes/EngineeringNoteDetailView"
-import { buildBilingualAlternates, buildSingleLocaleAlternates, SITE_URL } from "@/lib/seo/routes"
+import {
+  buildBilingualAlternates,
+  buildSingleLocaleAlternates,
+  clampMetaDescription,
+  SITE_URL,
+} from "@/lib/seo/routes"
 
 export function generateStaticParams() {
   return getEngineeringArticlesByLocale("en").map((article) => ({
@@ -25,6 +30,7 @@ export async function generateMetadata({
   if (!article) return {}
 
   const title = `${article.title} | Artag Dev`
+  const description = clampMetaDescription(article.description)
   const enPath = `/engineering-notes/${article.slug}`
   const alternates = article.alternateSlug
     ? buildBilingualAlternates(enPath, `/es/notas-ingenieria/${article.alternateSlug}`, "en")
@@ -32,11 +38,11 @@ export async function generateMetadata({
 
   return {
     title,
-    description: article.description,
+    description,
     alternates,
     openGraph: {
       title,
-      description: article.description,
+      description,
       type: "article",
       url: `${SITE_URL}${enPath}`,
       siteName: "Artag Dev",
@@ -46,7 +52,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title,
-      description: article.description,
+      description,
       images: [`${SITE_URL}/og-home.png`],
     },
     robots: { index: true, follow: true },

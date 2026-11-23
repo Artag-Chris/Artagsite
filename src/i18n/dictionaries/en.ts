@@ -145,7 +145,7 @@ ctaResume: "Download CV",
     indexTitle: "Projects",
     indexTitleAccent: " & case studies",
     indexDescription:
-      "Six systems I designed and shipped: four applied-AI systems and two supporting projects. Each case study explains the problem, the architecture, the decisions and the honest limits.",
+      "Six systems I designed and shipped: four applied-AI systems and two supporting projects, each with architecture, decisions, and honest limits.",
     backToProjects: "Back to projects",
     viewCaseStudy: "View case study",
     status: {

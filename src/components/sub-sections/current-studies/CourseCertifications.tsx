@@ -1,5 +1,5 @@
 import { Award, BookOpen, Clock, ExternalLink, Star } from "lucide-react"
-import { getTranslations } from "next-intl/server"
+import { getLocale, getTranslations } from "next-intl/server"
 import {
   courseCertifications,
   getCourseStats,
@@ -7,7 +7,11 @@ import {
 } from "@/data/currentstudies/courseCertificationsData"
 
 export async function CourseCertifications() {
-  const t = await getTranslations("studies")
+  const [t, locale] = await Promise.all([
+    getTranslations("studies"),
+    getLocale(),
+  ])
+  const isEn = locale === "en"
   const stats = getCourseStats()
   const hasHours = stats.totalHours > 0
 
@@ -69,7 +73,11 @@ export async function CourseCertifications() {
       </div>
 
       <ul className="space-y-3">
-        {courseCertifications.map((course) => (
+        {courseCertifications.map((course) => {
+          const displayTitle = isEn && course.titleEn ? course.titleEn : course.title
+          const displayReinforces = isEn && course.reinforcesEn ? course.reinforcesEn : course.reinforces
+
+          return (
           <li
             key={course.id}
             className="group flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 p-4 rounded-xl bg-zinc-800/40 border border-zinc-700/40 hover:border-cyan-500/40 hover:bg-zinc-800/60 transition-colors"
@@ -81,17 +89,17 @@ export async function CourseCertifications() {
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
                 <h3 className="text-base font-semibold text-white">
-                  {course.title}
+                  {displayTitle}
                 </h3>
                 <span className="text-xs text-zinc-400">
                   · {course.instructor} · {course.platform} · {course.year}
                   {course.hours ? ` · ${course.hours}h` : ""}
                 </span>
               </div>
-              {course.reinforces && (
+              {displayReinforces && (
                 <p className="text-xs text-zinc-400 mt-1">
                   <span className="text-cyan-400/80">→</span>{" "}
-                  {course.reinforces}
+                  {displayReinforces}
                 </p>
               )}
             </div>
@@ -101,13 +109,14 @@ export async function CourseCertifications() {
               target="_blank"
               rel="noopener noreferrer"
               className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-200 text-xs font-medium transition-colors"
-              aria-label={`Verify certificate for ${course.title}`}
+              aria-label={`Verify certificate for ${displayTitle}`}
             >
               <ExternalLink className="h-3 w-3" />
               {t("verifyCert")}
             </a>
           </li>
-        ))}
+          )
+        })}
       </ul>
 
       <p className="text-xs text-zinc-400 mt-6 italic">
