@@ -102,11 +102,11 @@ Below-fold components use `next/dynamic` for code splitting: Contact, Testimonia
 ## Contact Form Pipeline
 
 `POST /api/contact` (`src/app/api/contact/route.ts`):
-1. `getClientIp` + `checkRateLimit` (in-memory `Map` in `src/lib/rateLimit.ts`, default 1 req / 5 min per IP). **In-memory rate limit does not survive serverless cold starts** — fine for low traffic, replace with Upstash/Redis if traffic grows
+1. Origin/Referer validation (CSRF protection), body size limit (15KB)
 2. Zod validation against `contactFormSchema` (`src/lib/validations/contactSchema.ts`)
-3. `isSpam` check (`src/lib/anti-spam.ts`) — silently 200s spam to avoid leaking detection
-4. `sendContactEmail` via nodemailer + Gmail (`src/lib/email/emailConfig.ts`). Requires `GMAIL_USER` + `GMAIL_PASSWORD` (Gmail App Password) in `.env.local`
-5. Origin/Referer validation (CSRF protection), body size limit (15KB), timing check (<3s = bot), honeypot CSS position off-screen
+3. Silent bot/spam protection: honeypot (`website`), timing check (<1.5s = bot), and `isSpam` (`src/lib/anti-spam.ts`) — silently 200s spam to avoid leaking detection
+4. `getClientIp` + `checkRateLimit` (in-memory `Map` in `src/lib/rateLimit.ts`, default 3 req / 5 min per IP). **In-memory rate limit does not survive serverless cold starts** — fine for low traffic, replace with Upstash/Redis if traffic grows
+5. `sendContactEmail` via Resend HTTP API (`src/lib/email/emailConfig.ts`) using `Artag <info@artagdev.com.co>`, `reply_to` visitor email, non-blocking visitor auto-reply (`CONTACT_SEND_AUTOREPLY`), and optional non-blocking `N8N_CONTACT_WEBHOOK_URL`. Requires `RESEND_API_KEY` in Vercel / `.env.local`
 
 User-facing error messages from this route are **in Spanish** — keep that locale when editing.
 
@@ -128,7 +128,8 @@ User-facing error messages from this route are **in Spanish** — keep that loca
 | Var | Purpose |
 |---|---|
 | `NEXT_PUBLIC_N8N_WEBHOOK_URL` | n8n chat backend |
-| `GMAIL_USER`, `GMAIL_PASSWORD`, `GMAIL_FROM`, `CONTACT_ADMIN_EMAIL` | Contact form SMTP (Gmail App Password) |
+| `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL`, `CONTACT_SEND_AUTOREPLY` | Contact form via Resend (`Artag <info@artagdev.com.co>`) |
+| `N8N_CONTACT_WEBHOOK_URL` | Optional secondary lead webhook (non-blocking) |
 | `NEXT_PUBLIC_DOMAIN` | CORS origin for `/api/contact` |
 | `NEXT_PUBLIC_GTM_ID`, `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_TIKTOK_PIXEL_ID` | Tracking pixels |
 | `NEXT_PUBLIC_GITHUB_TOKEN` | Optional, raises GitHub API rate limit for `GitHubStats` |

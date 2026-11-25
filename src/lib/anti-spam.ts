@@ -10,11 +10,9 @@ export function isSpamByHoneypot(websiteField: string | undefined): boolean {
  */
 export function isSpamByContent(message: string): boolean {
   const spamKeywords = [
-    'viagra', 'casino', 'lottery', 'bitcoin', 'crypto', 'forex',
-    'weight loss', 'click here', 'buy now', 'limited offer',
-    'act now', 'free money', 'congratulations', 'you won',
-    'seo services', 'backlinks', 'guest post', 'write for us',
-    'digital marketing', 'bulk email', 'mailing list',
+    'viagra', 'casino', 'lottery',
+    'weight loss', 'free money', 'you won',
+    'buy backlinks', 'guest post service', 'bulk email list',
   ]
 
   const lowerMessage = message.toLowerCase()
@@ -27,25 +25,26 @@ export function isSpamByContent(message: string): boolean {
 export function isSpamByLinks(message: string): boolean {
   const urlPattern = /(https?:\/\/[^\s]+)/g
   const urls = message.match(urlPattern) || []
-  return urls.length > 2
+  return urls.length > 4
 }
 
 /**
- * Check for repeated gibberish (e.g. "asdfghjk", repeated characters)
+ * Check for repeated gibberish (e.g. "aaaaaaaaaa", repeated characters)
  */
 export function isSpamByGibberish(message: string): boolean {
-  const repeatedChar = /(.)\1{8,}/ // 9+ same chars in a row
-  const keyboardSmash = /^[asdfghjkl;'qwertyuiopzxcvbnm,.\/]{20,}$/i
-  return repeatedChar.test(message) || keyboardSmash.test(message)
+  const repeatedChar = /(.)\1{9,}/ // 10+ same chars in a row
+  return repeatedChar.test(message)
 }
 
 /**
- * Check for base64-encoded or obfuscated content (common in bot spam)
+ * Check for obfuscated symbol-heavy content while allowing Spanish/Unicode letters & normal punctuation
  */
 export function isSpamByEncoding(message: string): boolean {
-  // Detect high ratio of non-alphanumeric characters
-  const nonAlphaRatio = (message.match(/[^a-zA-Z0-9\s]/g) || []).length / message.length
-  return nonAlphaRatio > 0.4
+  if (message.length === 0) return false
+  const nonTextRatio =
+    (message.match(/[^\p{L}\p{N}\s.,;:!?¿¡'"()\-_@#/$%&+]/gu) || []).length /
+    message.length
+  return nonTextRatio > 0.5
 }
 
 /**

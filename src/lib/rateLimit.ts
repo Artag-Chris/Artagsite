@@ -3,14 +3,17 @@ import { RateLimitState } from '@/types/contact'
 // Store rate limit data in memory
 const rateLimitMap = new Map<string, RateLimitState>()
 
+const DEFAULT_MAX_REQUESTS = Number(process.env.RATE_LIMIT_MAX_REQUESTS) || 3
+const DEFAULT_WINDOW_MS = (Number(process.env.RATE_LIMIT_MINUTES) || 5) * 60_000
+
 /**
  * Check if IP has exceeded rate limit
- * Default: 1 request per 5 minutes (300000 ms)
+ * Default: 3 requests per 5 minutes (configurable via RATE_LIMIT_MAX_REQUESTS / RATE_LIMIT_MINUTES)
  */
 export function checkRateLimit(
   ip: string,
-  maxRequests: number = 1,
-  windowMs: number = 300000 // 5 minutes
+  maxRequests: number = DEFAULT_MAX_REQUESTS,
+  windowMs: number = DEFAULT_WINDOW_MS
 ): { allowed: boolean; remaining: number; resetTime: number } {
   const now = Date.now()
   const state = rateLimitMap.get(ip)

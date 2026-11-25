@@ -188,16 +188,16 @@ export default function PipelineSimulator({
             aria-hidden="true"
           />
           <span className="text-[var(--text-secondary)]">
-            n8n:{" "}
+            api:{" "}
             {health.status === "online"
-              ? `${lang === "es" ? "en vivo" : "live"} (${health.latencyMs ?? 0}ms)`
+              ? `${lang === "es" ? "en vivo" : "live"} (${health.latencyMs ?? 1}ms)`
               : health.status === "checking"
               ? lang === "es"
                 ? "verificando…"
                 : "checking…"
               : lang === "es"
-              ? "modo respaldo"
-              : "fallback"}
+              ? "modo local"
+              : "standby"}
           </span>
         </div>
       </div>

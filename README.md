@@ -22,7 +22,7 @@ Whether you're here to see my work, discuss an idea, or just geek out about arch
 - **Google Tag Manager / GA4** — analytics
 - **Meta Pixel & TikTok Pixel** — conversion tracking
 - **n8n** — chat widget with AI assistant
-- **nodemailer + Gmail SMTP** — contact form backend
+- **Resend** — transactional contact emails (`info@artagdev.com.co`) with visitor auto-reply
 - **Zod** — form validation with strict schema enforcement
 
 ## Architecture Highlights
@@ -42,6 +42,6 @@ All copy, projects, skills, and social data live in `src/data/`. There's no CMS 
 ## Contact
 
 - Website: [artagdev.com.co](https://www.artagdev.com.co)
-- Email: artagdev@gmail.com
+- Email: [info@artagdev.com.co](mailto:info@artagdev.com.co)
 - LinkedIn: [linkedin.com/in/artag](https://www.linkedin.com/in/artag/)
 - GitHub: [github.com/Artag-Chris](https://github.com/Artag-Chris)

@@ -90,7 +90,7 @@ export function useContactForm() {
               projectType: 'other',
               message: '',
               website: '',
-              timestamp: '',
+              timestamp: Date.now().toString(),
             },
           }))
 
