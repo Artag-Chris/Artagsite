@@ -106,7 +106,7 @@ Below-fold components use `next/dynamic` for code splitting: Contact, Testimonia
 2. Zod validation against `contactFormSchema` (`src/lib/validations/contactSchema.ts`)
 3. Silent bot/spam protection: honeypot (`website`), timing check (<1.5s = bot), and `isSpam` (`src/lib/anti-spam.ts`) — silently 200s spam to avoid leaking detection
 4. `getClientIp` + `checkRateLimit` (in-memory `Map` in `src/lib/rateLimit.ts`, default 3 req / 5 min per IP). **In-memory rate limit does not survive serverless cold starts** — fine for low traffic, replace with Upstash/Redis if traffic grows
-5. `sendContactEmail` via Resend HTTP API (`src/lib/email/emailConfig.ts`) using `Artag <info@artagdev.com.co>`, `reply_to` visitor email, non-blocking visitor auto-reply (`CONTACT_SEND_AUTOREPLY`), and optional non-blocking `N8N_CONTACT_WEBHOOK_URL`. Requires `RESEND_API_KEY` in Vercel / `.env.local`
+5. `sendContactEmail` (`src/lib/email/emailConfig.ts`) sends via Cloudflare Worker `send_email` relay (`CF_EMAIL_RELAY_URL` + `CF_EMAIL_RELAY_SECRET` -> `artagdev-contact-mailer` -> `scristxyz@gmail.com` signed by `info@artagdev.com.co`), or via Resend HTTP API (`RESEND_API_KEY`, if set) with visitor auto-reply, plus optional non-blocking `N8N_CONTACT_WEBHOOK_URL`
 
 User-facing error messages from this route are **in Spanish** — keep that locale when editing.
 
@@ -128,7 +128,8 @@ User-facing error messages from this route are **in Spanish** — keep that loca
 | Var | Purpose |
 |---|---|
 | `NEXT_PUBLIC_N8N_WEBHOOK_URL` | n8n chat backend |
-| `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL`, `CONTACT_SEND_AUTOREPLY` | Contact form via Resend (`Artag <info@artagdev.com.co>`) |
+| `CF_EMAIL_RELAY_URL`, `CF_EMAIL_RELAY_SECRET` | Primary contact form delivery via Cloudflare `send_email` Worker (`info@artagdev.com.co` -> `scristxyz@gmail.com`) |
+| `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL`, `CONTACT_SEND_AUTOREPLY` | Optional Resend override + sender/recipient config |
 | `N8N_CONTACT_WEBHOOK_URL` | Optional secondary lead webhook (non-blocking) |
 | `NEXT_PUBLIC_DOMAIN` | CORS origin for `/api/contact` |
 | `NEXT_PUBLIC_GTM_ID`, `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_TIKTOK_PIXEL_ID` | Tracking pixels |

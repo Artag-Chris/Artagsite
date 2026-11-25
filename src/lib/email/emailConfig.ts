@@ -27,6 +27,12 @@ function getResendApiKey(): string {
   return (process.env.RESEND_API_KEY || '').trim()
 }
 
+function getCfRelayConfig(): { url: string; secret: string } | null {
+  const url = (process.env.CF_EMAIL_RELAY_URL || '').trim()
+  const secret = (process.env.CF_EMAIL_RELAY_SECRET || '').trim()
+  return url && secret ? { url, secret } : null
+}
+
 function hasSmtpFallback(): boolean {
   return Boolean(
     (process.env.GMAIL_USER || '').trim() &&
@@ -35,7 +41,7 @@ function hasSmtpFallback(): boolean {
 }
 
 export function isEmailServiceConfigured(): boolean {
-  return Boolean(getResendApiKey() || hasSmtpFallback())
+  return Boolean(getResendApiKey() || getCfRelayConfig() || hasSmtpFallback())
 }
 
 export async function sendResendEmail(
@@ -58,9 +64,37 @@ export async function sendResendEmail(
   }
 }
 
+async function sendCloudflareWorkerEmail(
+  relay: { url: string; secret: string },
+  payload: {
+    fromName: string
+    replyTo: string
+    subject: string
+    text: string
+    html: string
+  }
+): Promise<void> {
+  const res = await fetch(relay.url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${relay.secret}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(12_000),
+  })
+
+  if (!res.ok) {
+    const errText = await res.text()
+    throw new Error(`Cloudflare Email Relay HTTP ${res.status}: ${errText.slice(0, 300)}`)
+  }
+}
+
 /**
- * Send primary contact notification via Resend (when RESEND_API_KEY is configured)
- * or fallback to Gmail SMTP (GMAIL_USER + GMAIL_PASSWORD) when RESEND_API_KEY is empty,
+ * Send primary contact notification via:
+ * 1) Resend HTTP API (if RESEND_API_KEY is set), or
+ * 2) Cloudflare Email Routing Worker `send_email` relay (CF_EMAIL_RELAY_URL + CF_EMAIL_RELAY_SECRET), or
+ * 3) SMTP fallback (GMAIL_USER + GMAIL_PASSWORD),
  * plus optional non-blocking n8n webhook notification.
  */
 export async function sendContactEmail(
@@ -68,6 +102,7 @@ export async function sendContactEmail(
   clientIp?: string
 ): Promise<void> {
   const resendKey = getResendApiKey()
+  const cfRelay = getCfRelayConfig()
   const from = (process.env.CONTACT_FROM_EMAIL || '').trim() || DEFAULT_FROM_EMAIL
   const toOwner =
     (process.env.CONTACT_TO_EMAIL || '').trim() ||
@@ -123,7 +158,7 @@ export async function sendContactEmail(
       html: ownerHtml,
     })
 
-    // 2A. Auto-reply to visitor from corporate info@artagdev.com.co (only via Resend so @gmail.com is never exposed)
+    // 2A. Auto-reply to visitor from corporate info@artagdev.com.co
     const sendAutoReply = (process.env.CONTACT_SEND_AUTOREPLY ?? 'true') !== 'false'
     if (sendAutoReply) {
       const replyText = [
@@ -159,8 +194,20 @@ export async function sendContactEmail(
         })
       )
     }
+  } else if (cfRelay) {
+    // 1B. Primary notification via Cloudflare Worker `send_email` binding (zero external API keys)
+    const fromNameMatch = from.match(/^([^<]+)</)
+    const fromName = fromNameMatch ? fromNameMatch[1].trim() : 'Artag Web'
+
+    await sendCloudflareWorkerEmail(cfRelay, {
+      fromName,
+      replyTo: data.email,
+      subject,
+      text: ownerText,
+      html: ownerHtml,
+    })
   } else if (hasSmtpFallback()) {
-    // 1B. Fallback to configured SMTP when RESEND_API_KEY is intentionally empty
+    // 1C. Legacy SMTP fallback
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -178,7 +225,7 @@ export async function sendContactEmail(
       html: ownerHtml,
     })
   } else {
-    throw new Error('No email transport configured (missing RESEND_API_KEY and SMTP fallback)')
+    throw new Error('No email transport configured')
   }
 
   const webhookUrl = (process.env.N8N_CONTACT_WEBHOOK_URL || '').trim()
